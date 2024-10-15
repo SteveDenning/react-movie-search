@@ -1,0 +1,17 @@
+// Name: breakpoint
+// Purpose: To associate style with a particular media query. (breakpoints are defined within the _variables.scss file)
+// How to call:
+//		include breakpoint($[breakpoint variable name]) {
+//			margin-left: 20px;
+//		}
+$old-ie: false !default;
+
+@mixin breakpoint($width) {
+  @if $old-ie {
+    @content;
+  } @else {
+    @media only screen and ($width) {
+      @content;
+    }
+  }
+}

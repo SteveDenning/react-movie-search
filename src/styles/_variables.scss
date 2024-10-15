@@ -1,0 +1,55 @@
+//***********************************
+// Base presets
+//***********************************
+$max-width: 1128px;
+
+//***********************************
+// Breakpoints
+//***********************************
+$xsmall: "min-width: 23.750em"; // 380px
+$small: "min-width: 30em"; // 480px
+$medium: "min-width: 48em"; // 768px
+$large: "min-width: 60em"; // 960px
+$xlarge: "min-width: 64em"; // 1024px
+$xxlarge: "min-width: 81.25em"; // 1300px
+$xxxlarge: "min-width: 90em"; // 1440px
+
+//***********************************
+// Gutter padding
+//***********************************
+$mobile-gutter: 24px;
+$tablet-gutter: 32px;
+$desktop-gutter: 40px;
+
+//***********************************
+// Colour variables
+//***********************************
+
+// Base
+$lilac: #7989fc;
+$teal: #17deee;
+$orange: #ff7f50;
+$pink: #ff89be;
+$yellow: #ecf284;
+$purple: #2a0147;
+
+// Dark
+
+// Light
+
+// Grayscale
+$white: #ffffff;
+$black: #000000;
+
+// Validation
+$red: #ff0000;
+$green: #2c9b4c;
+$light-green: #dff7e6;
+
+// Social media colors
+$twitter: #454545;
+$linkedin: #3275b0;
+$whatsapp: #65d072;
+
+// Theme
+$primary-color: $purple;

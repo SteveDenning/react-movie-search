@@ -1,0 +1,17 @@
+@import "variables";
+@import "mixins";
+
+// Utility classes
+
+// Accessible Text
+.sr-only {
+  left: -9999px;
+  position: absolute;
+}
+
+// Generic error messaging
+.error {
+  color: $red;
+  font-size: 16px;
+  font-weight: 600;
+}
