@@ -4,7 +4,7 @@ version: 2.1
 orbs:
   node: circleci/node@5
 jobs:
-  test-node:
+  test:
     # Install node dependencies and run tests
     executor: node/default
     steps:
@@ -33,13 +33,27 @@ jobs:
             GOOGLE_APPLICATION_CREDENTIALS=credentials.json npm exec -- firebase deploy
 
 workflows:
-  build-and-test:
+  test-branch:
     jobs:
-      - test-node
-      - build-and-deploy:
-          requires:
-            - test-node
+      - test:
           filters:
             branches:
-              only:
+              ignore:
                 - main
+  deploy-production:
+    jobs:
+      - build-and-deploy:
+          filters:
+            branches:
+              only: main
+# workflows:
+#   build-and-test:
+#     jobs:
+#       - test-node
+#       - build-and-deploy:
+#           requires:
+#             - test-node
+#           filters:
+#             branches:
+#               only:
+#                 - main
