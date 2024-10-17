@@ -6,18 +6,22 @@ import MUILayout from "../mui";
 // Styles
 import "./default.scss";
 
+// Components
+import MovieSearch from "../../views/movie-search";
+
 interface Props {
   variant?: string;
 }
 
-const DefaultLayout: React.FC<Props> = ({ variant }) => {
-  const baseClass = "main-wrapper";
-  const variantClass = variant ? `main-wrapper--${variant}` : "";
-  const classes = [baseClass, variantClass].filter(Boolean).join(" ");
-
+const DefaultLayout: React.FC<Props> = () => {
   return (
     <MUILayout>
-      <main className={classes}>Some Text</main>
+      {/* SEO goes here */}
+      <header>Header goes here</header>
+      <main className="main-wrapper">
+        <MovieSearch></MovieSearch>
+      </main>
+      <footer>Footer goes here</footer>
     </MUILayout>
   );
 };
