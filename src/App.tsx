@@ -12,7 +12,7 @@ const App: React.FC<Props> = () => {
       data-testid="app"
     >
       <header>
-        <h1>Hello World test</h1>
+        <h1>Hello World test - auto deploy worked !!</h1>
         <Button>A Button</Button>
       </header>
     </div>
