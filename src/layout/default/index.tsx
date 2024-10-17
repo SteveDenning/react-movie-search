@@ -7,18 +7,17 @@ import MUILayout from "../mui";
 import "./default.scss";
 
 interface Props {
-  children: any;
   variant?: string;
 }
 
-const DefaultLayout: React.FC<Props> = ({ children, variant }) => {
+const DefaultLayout: React.FC<Props> = ({ variant }) => {
   const baseClass = "main-wrapper";
   const variantClass = variant ? `main-wrapper--${variant}` : "";
   const classes = [baseClass, variantClass].filter(Boolean).join(" ");
 
   return (
     <MUILayout>
-      <main className={classes}>{children}</main>
+      <main className={classes}>Some Text</main>
     </MUILayout>
   );
 };

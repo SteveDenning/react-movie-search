@@ -1,11 +1,7 @@
-import React from "react";
-
 import DefaultLayout from "./layout/default";
 
-interface Props {}
-
-const App: React.FC<Props> = () => {
-  return <DefaultLayout>Hello</DefaultLayout>;
+const App = () => {
+  return <DefaultLayout />;
 };
 
 export default App;
