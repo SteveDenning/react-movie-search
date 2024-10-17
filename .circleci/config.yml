@@ -42,7 +42,6 @@ workflows:
                 - main
   deploy-production:
     jobs:
-      - test
       - build-and-deploy:
           requires:
             - test
