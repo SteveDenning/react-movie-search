@@ -8,9 +8,12 @@ interface Props {}
 
 const App: React.FC<Props> = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Hello World</h1>
+    <div
+      className="App"
+      data-testid="app"
+    >
+      <header>
+        <h1>Hello World test</h1>
         <Button>
           <AccessAlarm sx={{ color: "red" }} />
           Hello World
