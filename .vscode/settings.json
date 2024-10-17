@@ -1,4 +1,4 @@
 {
   "editor.formatOnSave": true, // Set to false to disable formatting on save
-  "cSpell.words": ["Colour", "xlarge", "xsmall", "xxlarge", "xxxlarge"]
+  "cSpell.words": ["Colour", "testid", "xlarge", "xsmall", "xxlarge", "xxxlarge"]
 }
