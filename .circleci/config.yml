@@ -42,7 +42,10 @@ workflows:
                 - main
   deploy-production:
     jobs:
+      - test-node
       - build-and-deploy:
+          requires:
+            - test-node
           filters:
             branches:
               only: main
