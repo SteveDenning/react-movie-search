@@ -43,19 +43,6 @@ workflows:
   deploy-production:
     jobs:
       - build-and-deploy:
-          requires:
-            - test
           filters:
             branches:
               only: main
-# workflows:
-#   build-and-test:
-#     jobs:
-#       - test-node
-#       - build-and-deploy:
-#           requires:
-#             - test-node
-#           filters:
-#             branches:
-#               only:
-#                 - main
