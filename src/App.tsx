@@ -1,22 +1,11 @@
 import React from "react";
-import "./App.scss";
 
-import Button from "./components/button";
+import DefaultLayout from "./layout/default";
 
 interface Props {}
 
 const App: React.FC<Props> = () => {
-  return (
-    <div
-      className="App"
-      data-testid="app"
-    >
-      <header>
-        <h1>Hello World test - auto deploy on merge to main only</h1>
-        <Button>A Button</Button>
-      </header>
-    </div>
-  );
+  return <DefaultLayout>Hello</DefaultLayout>;
 };
 
 export default App;
