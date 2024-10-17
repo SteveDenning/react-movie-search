@@ -12,7 +12,7 @@ jobs:
       - node/install-packages:
           pkg-manager: npm
       - run:
-          name: Run tests
+          name: test-node
           command: npm test --passWithNoTests
   build-and-deploy:
     # Build node project
