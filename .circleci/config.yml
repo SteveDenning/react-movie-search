@@ -37,11 +37,9 @@ workflows:
     jobs:
       - test-node
       - build-and-deploy:
-        requires:
-          - test-node
-        jobs:
-          - build:
-              filters:
-                branches:
-                  only:
-                    - main
+          requires:
+            - test-node
+          filters:
+            branches:
+              only:
+                - main
