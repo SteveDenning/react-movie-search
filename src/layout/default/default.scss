@@ -1,0 +1,20 @@
+@import "../../styles/mixins";
+@import "../../styles/variables";
+@import "../../styles/typography";
+
+@-ms-viewport {
+  width: device-width;
+}
+
+// Print
+@media print {
+  @import "../../styles/print";
+}
+
+// Layout styles
+.main-wrapper {
+  background: $primary-color;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+}
