@@ -1,4 +1,5 @@
 // Base text element styling
+@import "../styles/mixins/breakpoint";
 
 h1,
 h2,
@@ -10,29 +11,41 @@ h6 {
   font-weight: 600;
   letter-spacing: -1px;
   margin: 0;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 h1 {
-  font-size: 44px;
+  font-size: 24px;
   line-height: 48px;
+  @include breakpoint($small) {
+    font-size: 34px;
+  }
 }
 
 h2 {
-  font-size: 35px;
+  font-size: 22px;
   line-height: 40px;
+  @include breakpoint($small) {
+    font-size: 30px;
+  }
 }
 
 h3 {
-  font-size: 28px;
+  font-size: 20px;
   line-height: 32px;
+  @include breakpoint($small) {
+    font-size: 26px;
+  }
 }
 
 h4,
 h5,
 h6 {
-  font-size: 22px;
+  font-size: 18px;
   line-height: 28px;
+  @include breakpoint($small) {
+    font-size: 20px;
+  }
 }
 
 p,
