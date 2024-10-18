@@ -7,6 +7,9 @@ import MUILayout from "../mui";
 import "./default.scss";
 
 // Components
+import Footer from "../../components/footer";
+
+// Views
 import MovieSearch from "../../views/movie-search";
 
 interface Props {
@@ -19,9 +22,9 @@ const DefaultLayout: React.FC<Props> = () => {
       {/* SEO goes here */}
       <header>Header goes here</header>
       <main className="main-wrapper">
-        <MovieSearch></MovieSearch>
+        <MovieSearch />
       </main>
-      <footer>Footer goes here</footer>
+      <Footer />
     </MUILayout>
   );
 };

@@ -13,8 +13,9 @@
 
 // Layout styles
 .main-wrapper {
-  background: $primary-color;
+  background: $background-color;
   overflow: hidden;
+  min-height: 100vh;
+  padding: 20px 0;
   position: relative;
-  z-index: 2;
 }
