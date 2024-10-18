@@ -11,6 +11,7 @@ import Footer from "../../components/footer";
 
 // Views
 import MovieSearch from "../../views/movie-search";
+import Header from "../../components/header";
 
 interface Props {
   variant?: string;
@@ -20,7 +21,7 @@ const DefaultLayout: React.FC<Props> = () => {
   return (
     <MUILayout>
       {/* SEO goes here */}
-      <header>Header goes here</header>
+      <Header />
       <main className="main-wrapper">
         <MovieSearch />
       </main>

@@ -12,8 +12,14 @@ jobs:
       - node/install-packages:
           pkg-manager: npm
       - run:
-          name: test-node
+          name: Run tests
           command: npm test --passWithNoTests
+      - run:
+          name: Build the App
+          command: |
+            npm install
+            npm run build
+
   build-and-deploy:
     # Build node project
     executor: node/default
@@ -21,6 +27,10 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: npm
+
+      - run:
+          name: Run tests
+          command: npm test --passWithNoTests
       - run:
           name: Build the App
           command: |
