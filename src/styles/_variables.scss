@@ -40,6 +40,7 @@ $purple: #2a0147;
 // Grayscale
 $white: #ffffff;
 $black: #000000;
+$grey: #aaaaaa;
 
 // Validation
 $red: #ff0000;
@@ -52,4 +53,6 @@ $linkedin: #3275b0;
 $whatsapp: #65d072;
 
 // Theme
-$primary-color: $purple;
+$primary-text-color: $purple;
+$primary-color: $grey;
+$background-color: radial-gradient(ellipse at top, $lilac, transparent), radial-gradient(ellipse at bottom, $purple, transparent);

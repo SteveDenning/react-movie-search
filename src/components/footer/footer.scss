@@ -1,0 +1,17 @@
+// Footer Styles
+@import "../../styles/variables";
+
+.footer {
+  align-items: center;
+  background: $black;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  min-height: 76px;
+  position: absolute;
+  width: 100%;
+
+  p {
+    color: $white;
+  }
+}

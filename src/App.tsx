@@ -1,22 +1,7 @@
-import React from "react";
-import "./App.scss";
+import DefaultLayout from "./layout/default";
 
-import Button from "./components/button";
-
-interface Props {}
-
-const App: React.FC<Props> = () => {
-  return (
-    <div
-      className="App"
-      data-testid="app"
-    >
-      <header>
-        <h1>Hello World test - auto deploy worked !!</h1>
-        <Button>A Button</Button>
-      </header>
-    </div>
-  );
+const App = () => {
+  return <DefaultLayout />;
 };
 
 export default App;
