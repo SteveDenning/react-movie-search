@@ -15,7 +15,8 @@
 .main-wrapper {
   background: $background-color;
   overflow: hidden;
-  min-height: 100vh;
+  min-height: calc(100vh - 144px);
   padding: 20px 0;
   position: relative;
+  height: 100%;
 }

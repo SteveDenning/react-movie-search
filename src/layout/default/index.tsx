@@ -8,10 +8,10 @@ import "./default.scss";
 
 // Components
 import Footer from "../../components/footer";
-
-// Views
-import MovieSearch from "../../views/movie-search";
 import Header from "../../components/header";
+
+// Pages
+import MovieSearch from "../../pages/movie-search";
 
 interface Props {
   variant?: string;
