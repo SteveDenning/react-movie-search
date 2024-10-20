@@ -1,7 +1,12 @@
-import DefaultLayout from "./layout/default";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+// Routes
+import publicRoutes from "./routes/public";
 
 const App = () => {
-  return <DefaultLayout />;
+  const router = createBrowserRouter(publicRoutes.createRoutes());
+
+  return <RouterProvider router={router} />;
 };
 
 export default App;

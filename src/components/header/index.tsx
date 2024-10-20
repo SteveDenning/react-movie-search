@@ -8,9 +8,10 @@ import "./header.scss";
 interface Props {
   divider?: boolean;
   straight?: boolean;
+  heading: string;
 }
 
-const Header: React.FC<Props> = ({ divider, straight }) => {
+const Header: React.FC<Props> = ({ divider, straight, heading }) => {
   const baseClass = "header";
   const dividerClass = divider ? "header--divider" : "";
   const straightClass = straight ? "header--straight" : "";
@@ -21,7 +22,7 @@ const Header: React.FC<Props> = ({ divider, straight }) => {
       className={classes}
       data-testid="header"
     >
-      <h1>React Movie Search</h1>
+      <h1>React Movie {heading}</h1>
     </header>
   );
 };

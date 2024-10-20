@@ -1,17 +1,18 @@
 import React from "react";
 
 interface Props {
-  results: any;
+  results?: any;
 }
 
-const Results: React.FC<Props> = ({ results }) => {
+const HomePage: React.FC<Props> = ({ results }) => {
   // const imagePath = "https://image.tmdb.org/t/p/original/";
 
   return (
-    <div data-testid="results">
+    <div data-testid="home-page">
+      <h3>Home Page</h3>
+      <button onClick={() => (window.location.href = "/details")}>Details Page</button>
       {results ? (
         <>
-          <p>results</p>
           <ul>
             {results.map((item: any, i: number) => {
               return (
@@ -32,4 +33,4 @@ const Results: React.FC<Props> = ({ results }) => {
   );
 };
 
-export default Results;
+export default HomePage;
