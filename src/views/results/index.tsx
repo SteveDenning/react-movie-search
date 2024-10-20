@@ -5,28 +5,22 @@ interface Props {
 }
 
 const Results: React.FC<Props> = ({ results }) => {
-  const imagePath = "https://image.tmdb.org/t/p/original/";
+  // const imagePath = "https://image.tmdb.org/t/p/original/";
 
   return (
-    <div>
+    <div data-testid="results">
       {results ? (
         <>
           <p>results</p>
           <ul>
-            {results.map((image: any, i: number) => {
+            {results.map((item: any, i: number) => {
               return (
-                image.poster_path && (
-                  <li
-                    style={{ width: "100px", marginRight: "10px" }}
-                    key={i}
-                  >
-                    <img
-                      style={{ width: "100%" }}
-                      src={`${imagePath}${image.poster_path}`}
-                      alt={image.Title}
-                    />
-                  </li>
-                )
+                <li
+                  style={{ marginBottom: "20px" }}
+                  key={i}
+                >
+                  {item && JSON.stringify(item)}
+                </li>
               );
             })}
           </ul>

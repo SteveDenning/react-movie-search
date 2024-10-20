@@ -5,16 +5,10 @@ import React from "react";
 // Styles
 import "./footer.scss";
 
-interface Props {
-  divider?: boolean;
-  straight?: boolean;
-}
-
-const Footer: React.FC<Props> = ({ divider, straight }) => {
+const Footer = () => {
   const baseClass = "footer";
-  const dividerClass = divider ? "footer--divider" : "";
-  const straightClass = straight ? "footer--straight" : "";
-  const classes = [baseClass, dividerClass, straightClass].filter(Boolean).join(" ");
+
+  const classes = [baseClass].filter(Boolean).join(" ");
 
   return (
     <footer

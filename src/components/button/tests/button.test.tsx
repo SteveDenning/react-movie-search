@@ -5,8 +5,6 @@ import { screen, render } from "@testing-library/react";
 // Components
 import Button from "../index";
 
-// Icons
-
 describe("Button component", () => {
   describe("Component rendering", () => {
     const handleClick = jest.fn();

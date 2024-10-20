@@ -11,6 +11,10 @@
   @import "../../styles/print";
 }
 
+#root {
+  background: $black;
+}
+
 // Layout styles
 .main-wrapper {
   background: $background-color;

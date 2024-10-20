@@ -6,7 +6,7 @@ h3,
 h4,
 h5,
 h6 {
-  color: purple;
+  color: $white;
   font-weight: 600;
   letter-spacing: -1px;
   margin: 0;
@@ -38,7 +38,7 @@ h6 {
 p,
 a,
 li {
-  color: purple;
+  color: $white;
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
