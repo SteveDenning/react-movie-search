@@ -14,7 +14,7 @@ export default meta;
 
 type Story = StoryObj<typeof Template>;
 
-const Header = () => <Template />;
+const Header = (args: any) => <Template {...args} />;
 
 export const Filled: Story = {
   render: () => <Header />,

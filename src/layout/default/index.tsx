@@ -10,21 +10,17 @@ import "./default.scss";
 import Footer from "../../components/footer";
 import Header from "../../components/header";
 
-// Pages
-import MovieSearch from "../../pages/movie-search";
-
 interface Props {
-  variant?: string;
+  children?: any;
+  heading: string;
 }
 
-const DefaultLayout: React.FC<Props> = () => {
+const DefaultLayout: React.FC<Props> = ({ children, heading }) => {
   return (
     <MUILayout>
       {/* SEO goes here */}
-      <Header />
-      <main className="main-wrapper">
-        <MovieSearch />
-      </main>
+      <Header heading={heading} />
+      <main className="main-wrapper">{children}</main>
       <Footer />
     </MUILayout>
   );

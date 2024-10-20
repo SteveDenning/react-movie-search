@@ -8,18 +8,13 @@ import Header from "../index";
 
 describe("Header component", () => {
   describe("Component rendering", () => {
-    const setup = () => render(<Header />);
+    const setup = () => render(<Header heading="Search" />);
 
     beforeEach(() => {});
 
     it("Should render the header", () => {
       setup();
       expect(screen.getByTestId("header")).toBeInTheDocument();
-    });
-
-    it("Should render the header text of 'React Movie Search'", () => {
-      setup();
-      expect(screen.getByText("React Movie Search")).toBeInTheDocument();
     });
   });
 });
