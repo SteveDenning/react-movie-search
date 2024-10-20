@@ -6,7 +6,7 @@ import { screen, render } from "@testing-library/react";
 import Header from "../index";
 // Icons
 
-describe("Button component", () => {
+describe("Header component", () => {
   describe("Component rendering", () => {
     const setup = () => render(<Header />);
 
