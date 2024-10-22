@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import axios from "axios";
+
+// Components
 import { Fade } from "@mui/material";
 import Button from "../../components/button";
 
 const HomePage = () => {
-  // const imagePath = "https://image.tmdb.org/t/p/original/";
-
   const [results, setResults] = useState<any>(undefined);
+  // const imagePath = "https://image.tmdb.org/t/p/original/";
 
   useEffect(() => {
     if (process.env) {
