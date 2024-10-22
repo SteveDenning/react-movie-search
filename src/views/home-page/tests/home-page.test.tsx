@@ -5,13 +5,9 @@ import { screen, render } from "@testing-library/react";
 // Components
 import HomePage from "../index";
 
-// Icons
-
 describe("Home Page component", () => {
   describe("Component rendering", () => {
-    const results: any = [];
-
-    const setup = () => render(<HomePage results={results} />);
+    const setup = () => render(<HomePage />);
 
     beforeEach(() => {});
 
