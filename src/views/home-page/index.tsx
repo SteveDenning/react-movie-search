@@ -17,9 +17,9 @@ const HomePage = () => {
   }, [service]);
 
   return (
-    <Fade>
-      <>
-        <h3>Home Page</h3>
+    <Fade in={true}>
+      <div>
+        <h3 data-testid="home-page-title">Home Page</h3>
         {results ? (
           <>
             <ul>
@@ -38,7 +38,7 @@ const HomePage = () => {
         ) : (
           <p>Error</p>
         )}
-      </>
+      </div>
     </Fade>
   );
 };
