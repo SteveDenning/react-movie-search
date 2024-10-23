@@ -1,7 +1,5 @@
 import React from "react";
 
-// Components
-
 // Styles
 import "./header.scss";
 

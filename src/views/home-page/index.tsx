@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
-import GetMedia from "./../../utils/get-media";
+
+// Utils
+import { getMedia } from "./../../utils/get-media";
 
 // Components
 import { Fade } from "@mui/material";
@@ -7,7 +9,7 @@ import Button from "../../components/button";
 
 const HomePage = () => {
   const [results, setResults] = useState<any>(undefined);
-  const service = GetMedia();
+  const service = getMedia();
   // const imagePath = "https://image.tmdb.org/t/p/original/";
 
   useEffect(() => {
