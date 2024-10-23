@@ -1,35 +1,47 @@
-import React from "react";
+import { useState, useEffect } from "react";
 
-interface Props {
-  results?: any;
-}
+// Utils
+import { getMedia } from "./../../utils/get-media";
 
-const HomePage: React.FC<Props> = ({ results }) => {
+// Components
+import { Fade } from "@mui/material";
+import Button from "../../components/button";
+
+const HomePage = () => {
+  const [results, setResults] = useState<any>(undefined);
+  const service = getMedia();
   // const imagePath = "https://image.tmdb.org/t/p/original/";
 
+  useEffect(() => {
+    service.then((response: any) => {
+      setResults(response.data.results);
+    });
+  }, [service]);
+
   return (
-    <div data-testid="home-page">
-      <h3>Home Page</h3>
-      <button onClick={() => (window.location.href = "/details")}>Details Page</button>
-      {results ? (
-        <>
-          <ul>
-            {results.map((item: any, i: number) => {
-              return (
-                <li
-                  style={{ marginBottom: "20px" }}
-                  key={i}
-                >
-                  {item && JSON.stringify(item)}
-                </li>
-              );
-            })}
-          </ul>
-        </>
-      ) : (
-        <p>Error</p>
-      )}
-    </div>
+    <Fade in={true}>
+      <div>
+        <h3 data-testid="home-page-title">Home Page</h3>
+        {results ? (
+          <>
+            <ul>
+              {results.map((item: any, i: number) => {
+                return (
+                  <li
+                    style={{ marginBottom: "20px" }}
+                    key={i}
+                  >
+                    <Button onClick={() => (window.location.href = `/details/${item.id}`)}>{item.title}</Button>
+                  </li>
+                );
+              })}
+            </ul>
+          </>
+        ) : (
+          <p>Error</p>
+        )}
+      </div>
+    </Fade>
   );
 };
 
