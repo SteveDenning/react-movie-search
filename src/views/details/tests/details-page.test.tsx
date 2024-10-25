@@ -3,7 +3,7 @@ import "@testing-library/jest-dom";
 import { screen, render } from "@testing-library/react";
 
 // Components
-import DetailsPage from "../index";
+import DetailsView from "../index";
 
 // Icons
 
@@ -11,7 +11,7 @@ describe("Details Page component", () => {
   describe("Component rendering", () => {
     // const results: any = [];
 
-    const setup = () => render(<DetailsPage />);
+    const setup = () => render(<DetailsView />);
 
     beforeEach(() => {});
 

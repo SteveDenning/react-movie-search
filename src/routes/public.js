@@ -1,6 +1,5 @@
-import React from "react";
-import Home from "../pages/home";
-import Details from "../pages/details";
+import HomePage from "../views/home-page";
+import DetailsView from "../views/details";
 
 const publicRoutes = {
   createRoutes: () => {
@@ -9,11 +8,11 @@ const publicRoutes = {
     routes.push(
       {
         path: "/",
-        element: <Home />,
+        element: <HomePage />,
       },
       {
         path: "/details/:id",
-        element: <Details />,
+        element: <DetailsView />,
       },
     );
 
