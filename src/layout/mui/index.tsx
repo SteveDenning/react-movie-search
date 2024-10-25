@@ -10,17 +10,7 @@ interface Props {
   children: any;
 }
 
-const setSpacing = (factor: any) => {
-  const width = window.innerWidth;
-  if (width < 600) {
-    return 12 * factor;
-  } else {
-    return 8 * factor;
-  }
-};
-
 const theme = createTheme({
-  spacing: setSpacing,
   typography: {
     fontFamily: "Inter,Arial,sans-serif",
   },

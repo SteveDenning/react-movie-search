@@ -20,7 +20,7 @@ const Header: React.FC<Props> = ({ divider, straight, heading }) => {
       className={classes}
       data-testid="header"
     >
-      <h1>React Movie {heading}</h1>
+      <h1>{heading}</h1>
     </header>
   );
 };

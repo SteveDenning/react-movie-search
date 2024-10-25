@@ -6,16 +6,16 @@ import MUILayout from "../mui";
 // Styles
 import "./default.scss";
 
-// Components
-import Footer from "../../components/footer";
-import Header from "../../components/header";
+// Views
+import Footer from "../../views/footer";
+import Header from "../../views/header";
 
 interface Props {
   children?: any;
   heading: string;
 }
 
-const DefaultLayout: React.FC<Props> = ({ children, heading }) => {
+const DefaultLayout: React.FC<Props> = ({ children, heading = "Movie Search" }) => {
   return (
     <MUILayout>
       {/* SEO goes here */}

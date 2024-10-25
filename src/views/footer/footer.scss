@@ -4,11 +4,9 @@
 .footer {
   align-items: center;
   background: $black;
-  bottom: 0;
   display: flex;
   justify-content: center;
-  min-height: 76px;
-  position: fixed;
+  height: 76px;
   width: 100%;
 
   p {
