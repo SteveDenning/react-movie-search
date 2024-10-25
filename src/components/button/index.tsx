@@ -26,7 +26,7 @@ const Button: React.FC<Props> = ({
   children,
   className,
   variant = "filled",
-  color = "orange",
+  color = "default",
   disabled,
   href,
   type,

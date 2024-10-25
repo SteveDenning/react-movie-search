@@ -2,21 +2,23 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 // Components
+import Button from "../../components/button";
 import { Container, Fade } from "@mui/material";
 import DefaultLayout from "../../layout/default";
 
 const DetailsView = () => {
   const [details, setDetails] = useState<any>();
   const [loaded, setLoaded] = useState<boolean>(false);
+  const [trailer, setTrailer] = useState<string>("");
 
   const programmeId = window.location.pathname.split("/")[2];
 
-  const trailer = "https://api-gate2.movieglu.com/trailers/?film_id=227902";
+  const trailerUrl = "https://api-gate2.movieglu.com/trailers/?film_id=227902";
 
   useEffect(() => {
     if (process.env) {
       axios
-        .get(trailer, {
+        .get(trailerUrl, {
           headers: {
             "api-version": "v200",
             Authorization: "Basic U0Q6YlBzaEdXYUtYRFNF",
@@ -29,6 +31,7 @@ const DetailsView = () => {
         .then((response) => {
           setLoaded(true);
           setDetails(response.data);
+          setTrailer(response.data.trailers.high?.[0]["film_trailer"]);
         })
         .catch((error) => {
           console.error(error);
@@ -41,8 +44,31 @@ const DetailsView = () => {
       <Container>
         <Fade in={loaded}>
           <div data-testid="details-page">
-            <button onClick={() => (window.location.href = "/")}>Back</button>
-            {details ? <p>{details.overview}</p> : <p>Loading.....</p>}
+            <Button onClick={() => (window.location.href = "/")}>Back</Button>
+            {trailer ? (
+              <video
+                controls
+                width="100%"
+                height="100%"
+                autoPlay
+              >
+                <source
+                  src={trailer}
+                  type="video/webm"
+                />
+                <source
+                  src={trailer}
+                  type="video/mp4"
+                />
+                Download the
+                <a href={trailer}>WEBM</a>
+                or
+                <a href={trailer}>MP4</a>
+                video.
+              </video>
+            ) : (
+              <p>Loading.....</p>
+            )}
           </div>
         </Fade>
       </Container>

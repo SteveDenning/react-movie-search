@@ -75,6 +75,7 @@
 
       @include hover {
         background: $hover radial-gradient(circle, transparent 1%, $hover 1%) center/15000%;
+        color: $white;
       }
 
       &:active {
@@ -84,8 +85,8 @@
       }
     }
 
-    &.button--orange {
-      @include filledColorVariant($orange, $pink, 5%);
+    &.button--default {
+      @include filledColorVariant($blue, $light-blue, 5%);
     }
 
     &.button--purple {

@@ -4,25 +4,33 @@ import { useState, useEffect } from "react";
 import { getMedia } from "./../../utils/get-media";
 
 // Components
-import { Container, Fade } from "@mui/material";
 import Button from "../../components/button";
+import { Container, Fade } from "@mui/material";
+
+// Layouts
 import DefaultLayout from "../../layout/default";
+
+// Styles
+import "./home-page.scss";
 
 const HomePage = () => {
   const [results, setResults] = useState<any>(undefined);
+  const [loaded, setLoaded] = useState<boolean>(false);
+
   const service = getMedia();
   // const imagePath = "https://image.tmdb.org/t/p/original/";
 
   useEffect(() => {
     service.then((response: any) => {
       setResults(response.data.results);
+      setLoaded(true);
     });
-  }, []);
+  }, [service]);
 
   return (
     <DefaultLayout heading="Search for a movie">
       <Container>
-        <Fade in={true}>
+        <Fade in={loaded}>
           <div className="home-page">
             {results ? (
               <>
