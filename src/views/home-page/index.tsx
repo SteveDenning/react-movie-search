@@ -10,18 +10,24 @@ import SearchForm from "../search-form";
 // Layouts
 import DefaultLayout from "../../layout/default";
 
+import defaultPlaceholder from "../../assets/images/placeholder.png";
+
 // Styles
 import "./home-page.scss";
 
 const HomePage = () => {
-  const [results, setResults] = useState<any>(undefined);
+  const [results, setResults] = useState<any>([]);
   const [loaded, setLoaded] = useState<boolean>(false);
+  const [filterState, setFilterState] = useState({ keyboard: "" });
 
-  // const imagePath = "https://image.tmdb.org/t/p/original/";
+  const handleSearchInput = (keywords: string) => {
+    setFilterState({
+      ...filterState,
+      keyboard: keywords,
+    });
 
-  const handleSearchInput = (searchTerm: any) => {
-    console.log(searchTerm.searchTerm);
-    getMedia(searchTerm.searchTerm)
+    // Build query for request
+    getMedia(keywords)
       .then((response: any) => {
         setResults(response.data.results);
         setLoaded(true);
@@ -36,20 +42,22 @@ const HomePage = () => {
       <Container>
         <div className="home-page">
           <SearchForm onSubmit={handleSearchInput} />
-          {results ? (
-            <Fade in={loaded}>
-              <ul>
-                {results.map((item: any, i: number) => {
+          <Fade in={!!results.length}>
+            <ul>
+              {loaded &&
+                results.map((item: any, i: number) => {
                   return (
                     <li
                       style={{ marginBottom: "20px" }}
                       key={i}
                       onClick={() => (window.location.href = `/details/${item.id}`)}
                     >
-                      <img
-                        src={`https://image.tmdb.org/t/p/original/${item["poster_path"]}`}
-                        alt=""
-                      />
+                      <div className="image-wrapper">
+                        <img
+                          src={item["poster_path"] ? `https://image.tmdb.org/t/p/original/${item["poster_path"]}` : defaultPlaceholder}
+                          alt={item.title}
+                        />
+                      </div>
                       <div style={{ marginLeft: "40px" }}>
                         <h3>{item.title}</h3>
                         <p>{item.overview}</p>
@@ -57,13 +65,9 @@ const HomePage = () => {
                     </li>
                   );
                 })}
-              </ul>
-            </Fade>
-          ) : (
-            <p>There are no results</p>
-          )}
+            </ul>
+          </Fade>
         </div>
-        {/* <p>{JSON.stringify(results, undefined, 4)}</p> */}
       </Container>
     </DefaultLayout>
   );

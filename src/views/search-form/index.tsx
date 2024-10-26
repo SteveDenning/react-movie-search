@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import React, { useCallback } from "react";
+import { debounce } from "lodash";
 
 // Styles
 import "./search-form.scss";
@@ -9,25 +9,31 @@ interface Props {
 }
 
 const SearchForm: React.FC<Props> = ({ onSubmit }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const handleSearchInput = (value: any) => {
+    debouncedSearch(value.target.value);
+  };
 
-  useEffect(() => {
-    console.log("Error::", errors);
-  }, [errors]);
+  // eslint-disable-next-line
+  const debouncedSearch = useCallback(
+    debounce((value: string) => {
+      if (value.length > 2 || !value) {
+        console.log(value);
+        onSubmit(value);
+      }
+    }, 750),
+    [],
+  );
 
   return (
     <form
-      onSubmit={handleSubmit(onSubmit)}
+      onChange={(e) => {
+        handleSearchInput(e);
+      }}
       className="search-form"
     >
       <input
         type="text"
         placeholder="Search"
-        {...register("searchTerm", { required: true, maxLength: 100 })}
       />
     </form>
   );

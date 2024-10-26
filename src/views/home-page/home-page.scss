@@ -11,10 +11,13 @@
     display: flex;
     margin: 10px;
     width: 100%;
-
+  }
+  .image-wrapper {
+    min-width: 100px;
+    max-width: 100px;
     img {
+      width: 100%;
       cursor: pointer;
-      width: 100px;
     }
   }
 }
