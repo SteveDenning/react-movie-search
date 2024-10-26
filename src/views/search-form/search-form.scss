@@ -1,0 +1,12 @@
+// Search form styles
+
+.search-form {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px;
+  input {
+    border-radius: 20px;
+    font-size: 1.5rem;
+    padding: 10px;
+  }
+}
