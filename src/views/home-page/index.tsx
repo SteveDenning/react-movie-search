@@ -10,6 +10,7 @@ import SearchForm from "../search-form";
 // Layouts
 import DefaultLayout from "../../layout/default";
 
+// Assets
 import defaultPlaceholder from "../../assets/images/placeholder.png";
 
 // Styles
@@ -22,7 +23,6 @@ const HomePage = () => {
   const [value, setValue] = useState(false);
 
   const handleSearchInput = (keywords: string) => {
-    console.log("keywords", keywords);
     setFilterState({
       ...filterState,
       keyboard: keywords,
@@ -38,8 +38,6 @@ const HomePage = () => {
         console.error(error);
       });
   };
-
-  console.log(value);
 
   return (
     <DefaultLayout heading="Search for a movie">

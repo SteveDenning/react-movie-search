@@ -1,10 +1,14 @@
 import React, { useCallback, useState, useRef } from "react";
 import { debounce } from "lodash";
 
+// Utils
+import { getAllMedia } from "../../utils/services";
+
+// Components
+import { Fade } from "@mui/material";
+
 // Styles
 import "./search-form.scss";
-import { getAllMedia } from "../../utils/services";
-import { Fade } from "@mui/material";
 
 interface Props {
   onSubmit: (data: any) => void;
@@ -17,10 +21,6 @@ const SearchForm: React.FC<Props> = ({ onSubmit, setValue }) => {
 
   const searchInput = useRef(null);
 
-  if (!document.activeElement === searchInput.current) {
-    // console.log("Element has focus");
-  }
-
   const handleSearchInput = (value: string) => {
     debouncedSearch(value);
   };
@@ -29,7 +29,6 @@ const SearchForm: React.FC<Props> = ({ onSubmit, setValue }) => {
   const debouncedSearch = useCallback(
     debounce((value: string) => {
       if (value.length > 2 || !value) {
-        console.log(value);
         onSubmit(value);
       }
     }, 750),
@@ -41,18 +40,22 @@ const SearchForm: React.FC<Props> = ({ onSubmit, setValue }) => {
   };
 
   const handleSuggestions = (value: any) => {
-    console.log(value.target.value);
-    setValue(!!value.target.value.length);
-    getAllMedia(value.target.value)
-      .then((response: any) => {
-        const suggestions = response.data.results.map((title: any) => title["original_title"]);
+    if (value.target.value.length > 2) {
+      setValue(!!value.target.value.length);
+      getAllMedia(value.target.value)
+        .then((response: any) => {
+          const suggestions = response.data.results.map((title: any) => title["original_title"]);
 
-        setSuggestions(suggestions);
-        setShowOptions(true);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+          setSuggestions(suggestions);
+          setShowOptions(true);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      setValue(false);
+      setSuggestions([]);
+    }
   };
 
   return (

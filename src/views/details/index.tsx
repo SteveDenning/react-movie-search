@@ -4,6 +4,8 @@ import axios from "axios";
 // Components
 import Button from "../../components/button";
 import { Container, Fade } from "@mui/material";
+
+// Layout
 import DefaultLayout from "../../layout/default";
 
 const DetailsView = () => {
