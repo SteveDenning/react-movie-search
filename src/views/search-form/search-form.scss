@@ -6,6 +6,8 @@
   display: flex;
   justify-content: center;
   margin-bottom: 40px;
+  position: relative;
+
   input {
     background-color: #000;
     border: 0;
@@ -17,6 +19,18 @@
 
     @include hover {
       outline: none;
+    }
+  }
+
+  &__options {
+    background: #000;
+    margin-top: -15px;
+    position: absolute;
+    top: 80px;
+
+    li {
+      cursor: pointer;
+      color: #ccc;
     }
   }
 }

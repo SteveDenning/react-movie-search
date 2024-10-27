@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // Utils
-import { getMedia } from "../../utils/services";
+import { getAllMedia } from "../../utils/services";
 
 // Components
 import { Container, Fade } from "@mui/material";
@@ -19,15 +19,17 @@ const HomePage = () => {
   const [results, setResults] = useState<any>([]);
   const [loaded, setLoaded] = useState<boolean>(false);
   const [filterState, setFilterState] = useState({ keyboard: "" });
+  const [value, setValue] = useState(false);
 
   const handleSearchInput = (keywords: string) => {
+    console.log("keywords", keywords);
     setFilterState({
       ...filterState,
       keyboard: keywords,
     });
 
     // Build query for request
-    getMedia(keywords)
+    getAllMedia(keywords)
       .then((response: any) => {
         setResults(response.data.results);
         setLoaded(true);
@@ -37,12 +39,17 @@ const HomePage = () => {
       });
   };
 
+  console.log(value);
+
   return (
     <DefaultLayout heading="Search for a movie">
       <Container>
         <div className="home-page">
-          <SearchForm onSubmit={handleSearchInput} />
-          <Fade in={!!results.length}>
+          <SearchForm
+            onSubmit={handleSearchInput}
+            setValue={setValue}
+          />
+          <Fade in={!!results.length && value}>
             <ul>
               {loaded &&
                 results.map((item: any, i: number) => {
