@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { debounce } from "lodash";
 
 // Utils
-import { getAllMedia } from "../../utils/services";
+import { fetchData } from "../../utils/services";
 
 // Components
 import { Fade } from "@mui/material";
@@ -40,7 +40,7 @@ const Search: React.FC<Props> = ({ onSubmit, setValue }) => {
   const handleSuggestions = (value: any) => {
     if (value.target.value.length > 2) {
       setValue(!!value.target.value.length);
-      getAllMedia(value.target.value)
+      fetchData(value.target.value)
         .then((response: any) => {
           const suggestions = response.data.results.map((title: any) => title["original_title"]);
 
@@ -75,24 +75,28 @@ const Search: React.FC<Props> = ({ onSubmit, setValue }) => {
         />
       </form>
       <Fade in={showOptions}>
-        <ul className="search__options-list">
-          {suggestions.map((suggestion: any, index: number) => {
-            return (
-              <li
-                tabIndex={1}
-                className="search__options-list-item"
-                key={index}
-                onClick={() => {
-                  setShowOptions(false);
-                  handleSearchInput(suggestion);
-                  onSubmit(suggestion);
-                }}
-              >
-                {suggestion}
-              </li>
-            );
-          })}
-        </ul>
+        <div>
+          {showOptions && (
+            <ul className="search__options-list">
+              {suggestions.map((suggestion: any, index: number) => {
+                return (
+                  <li
+                    tabIndex={1}
+                    className="search__options-list-item"
+                    key={index}
+                    onClick={() => {
+                      setShowOptions(false);
+                      handleSearchInput(suggestion);
+                      onSubmit(suggestion);
+                    }}
+                  >
+                    {suggestion}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
       </Fade>
     </div>
   );
