@@ -57,7 +57,10 @@ const Search: React.FC<Props> = ({ onSubmit, setValue }) => {
   };
 
   return (
-    <div className="search">
+    <div
+      className="search"
+      data-testid="search"
+    >
       <form
         className="search__form"
         onChange={(e) => {

@@ -42,7 +42,10 @@ const HomePage = () => {
   return (
     <DefaultLayout heading="Search for a movie">
       <Container>
-        <div className="home-page">
+        <div
+          className="home-page"
+          data-testid="home-page"
+        >
           <Search
             onSubmit={handleSearchInput}
             setValue={setValue}
