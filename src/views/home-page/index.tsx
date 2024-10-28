@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import queryString from "query-string";
+import { useState } from "react";
 
 // Utils
 import { fetchData } from "../../utils/services";
@@ -45,17 +44,6 @@ const HomePage = () => {
         console.error(error);
       });
   };
-
-  const makeQueryString = (queryObj: Object) => {
-    return `?${queryString.stringify(queryObj, { encode: false })}`;
-  };
-
-  useEffect(() => {}, []);
-
-  useEffect(() => {
-    console.log(filterState);
-    console.log(makeQueryString(filterState));
-  }, [filterState]);
 
   return (
     <DefaultLayout heading="Search for a movie">
