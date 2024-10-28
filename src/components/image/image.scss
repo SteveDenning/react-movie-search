@@ -1,0 +1,32 @@
+@import "../../styles/dependencies";
+
+// Image styles
+
+.image {
+  width: 100%;
+
+  img {
+    // border: 1px solid #000;
+    cursor: pointer;
+    width: 100%;
+    transition: scale 0.2s ease, border 0.2s ease;
+
+    @include hover {
+      // border: 3px solid #000;
+      scale: 3;
+    }
+  }
+
+  // Variants
+  &--small {
+    width: 100px;
+  }
+
+  &--medium {
+    width: 140px;
+  }
+
+  &--large {
+    width: 400px;
+  }
+}
