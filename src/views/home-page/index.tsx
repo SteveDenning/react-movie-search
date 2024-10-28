@@ -5,7 +5,7 @@ import { getAllMedia } from "../../utils/services";
 
 // Components
 import { Container, Fade } from "@mui/material";
-import SearchForm from "../search-form";
+import Search from "../search";
 
 // Layouts
 import DefaultLayout from "../../layout/default";
@@ -43,16 +43,17 @@ const HomePage = () => {
     <DefaultLayout heading="Search for a movie">
       <Container>
         <div className="home-page">
-          <SearchForm
+          <Search
             onSubmit={handleSearchInput}
             setValue={setValue}
           />
           <Fade in={!!results.length && value}>
-            <ul>
+            <ul className="home-page__list">
               {loaded &&
                 results.map((item: any, i: number) => {
                   return (
                     <li
+                      className="home-page__list-item"
                       style={{ marginBottom: "20px" }}
                       key={i}
                       onClick={() => (window.location.href = `/details/${item.id}`)}

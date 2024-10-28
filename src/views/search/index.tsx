@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useRef } from "react";
+import React, { useCallback, useState } from "react";
 import { debounce } from "lodash";
 
 // Utils
@@ -8,18 +8,16 @@ import { getAllMedia } from "../../utils/services";
 import { Fade } from "@mui/material";
 
 // Styles
-import "./search-form.scss";
+import "./search.scss";
 
 interface Props {
   onSubmit: (data: any) => void;
   setValue: (boolean: any) => void;
 }
 
-const SearchForm: React.FC<Props> = ({ onSubmit, setValue }) => {
+const Search: React.FC<Props> = ({ onSubmit, setValue }) => {
   const [suggestions, setSuggestions] = useState([]);
   const [showOptions, setShowOptions] = useState(false);
-
-  const searchInput = useRef(null);
 
   const handleSearchInput = (value: string) => {
     debouncedSearch(value);
@@ -35,8 +33,8 @@ const SearchForm: React.FC<Props> = ({ onSubmit, setValue }) => {
     [],
   );
 
-  const handleSearchByKeyword = (event: any) => {
-    onSubmit(event.target.value);
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
   };
 
   const handleSuggestions = (value: any) => {
@@ -59,42 +57,42 @@ const SearchForm: React.FC<Props> = ({ onSubmit, setValue }) => {
   };
 
   return (
-    <>
+    <div className="search">
       <form
+        className="search__form"
         onChange={(e) => {
           handleSuggestions(e);
         }}
-        className="search-form"
-        onSubmit={handleSearchByKeyword}
+        onSubmit={handleSubmit}
       >
         <input
+          className="search__form-input"
           type="text"
           placeholder="Search"
-          ref={searchInput}
         />
       </form>
-      <Fade in={!!suggestions.length && showOptions}>
-        <div className="search-form__options">
-          <ul>
-            {suggestions.map((suggestion: any, index: number) => {
-              return (
-                <li
-                  key={index}
-                  onClick={() => {
-                    setShowOptions(false);
-                    handleSearchInput(suggestion);
-                    onSubmit(suggestion);
-                  }}
-                >
-                  {suggestion}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+      <Fade in={showOptions}>
+        <ul className="search__options-list">
+          {suggestions.map((suggestion: any, index: number) => {
+            return (
+              <li
+                tabIndex={1}
+                className="search__options-list-item"
+                key={index}
+                onClick={() => {
+                  setShowOptions(false);
+                  handleSearchInput(suggestion);
+                  onSubmit(suggestion);
+                }}
+              >
+                {suggestion}
+              </li>
+            );
+          })}
+        </ul>
       </Fade>
-    </>
+    </div>
   );
 };
 
-export default SearchForm;
+export default Search;

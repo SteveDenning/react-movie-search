@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+// import { useState } from "react";
 
 // Components
 import Button from "../../components/button";
@@ -9,45 +8,21 @@ import { Container, Fade } from "@mui/material";
 import DefaultLayout from "../../layout/default";
 
 const DetailsView = () => {
-  const [details, setDetails] = useState<any>();
-  const [loaded, setLoaded] = useState<boolean>(false);
-  const [trailer, setTrailer] = useState<string>("");
+  // const [details, setDetails] = useState<any>();
+  // const [loaded, setLoaded] = useState<boolean>(false);
+  // const [trailer, setTrailer] = useState<string>("");
 
-  const programmeId = window.location.pathname.split("/")[2];
+  // const programmeId = window.location.pathname.split("/")[2];
 
-  const trailerUrl = "https://api-gate2.movieglu.com/trailers/?film_id=227902";
-
-  useEffect(() => {
-    if (process.env) {
-      axios
-        .get(trailerUrl, {
-          headers: {
-            "api-version": "v200",
-            Authorization: "Basic U0Q6YlBzaEdXYUtYRFNF",
-            client: "ABCD",
-            "x-api-key": "Npa0skZGpC4jGoV11eig2jZC0p8Dn027yhPWoXfg",
-            "device-datetime": "2020-06-18T12:07:57.296Z",
-            territory: "UK",
-          },
-        })
-        .then((response) => {
-          setLoaded(true);
-          setDetails(response.data);
-          setTrailer(response.data.trailers.high?.[0]["film_trailer"]);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    }
-  }, [programmeId]);
+  // const trailerUrl = "https://api-gate2.movieglu.com/trailers/?film_id=227902";
 
   return (
-    <DefaultLayout heading={details?.title}>
+    <DefaultLayout heading={"TODO - set title"}>
       <Container>
-        <Fade in={loaded}>
+        <Fade in={true}>
           <div data-testid="details-page">
             <Button onClick={() => (window.location.href = "/")}>Back</Button>
-            {trailer ? (
+            {/* {trailer ? (
               <video
                 controls
                 width="100%"
@@ -70,7 +45,7 @@ const DetailsView = () => {
               </video>
             ) : (
               <p>Loading.....</p>
-            )}
+            )} */}
           </div>
         </Fade>
       </Container>
