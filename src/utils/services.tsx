@@ -9,7 +9,7 @@ const headers = {
   },
 };
 
-export const getVideosForMedia = (id: string) =>
+export const getLatestReleases = (id: string) =>
   new Promise((resolve, reject) => {
     const url = `https://api.themoviedb.org/3/search/movie?query=${id}&include_adult=false&language=en-US&page=1`;
     axios
