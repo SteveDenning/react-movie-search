@@ -1,23 +1,20 @@
 import { useEffect, useState } from "react";
+
+// Utils
 import { getLatestReleases } from "../../utils/services";
+
+// Components
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import Button from "@mui/material/Button";
+import { Fade } from "@mui/material";
+import Image from "../../components/image";
 
 // Styles
 import "./latest-releases.scss";
-import { Fade } from "@mui/material";
-import Image from "../../components/image";
 
 const LatestReleases = () => {
   const [results, setResults] = useState<any>([]);
   const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   const fetLatestRelease = () => {
     setOpen(true);
@@ -25,7 +22,6 @@ const LatestReleases = () => {
     getLatestReleases()
       .then((response: any) => {
         setResults(response.data.results);
-        console.log(response.data.results);
         setOpen(false);
       })
       .catch((error) => {
@@ -51,6 +47,7 @@ const LatestReleases = () => {
                 <li
                   key={i}
                   className="latest-releases__list-item"
+                  onClick={() => (window.location.href = `/details/${item.id}`)}
                 >
                   <Image
                     resource={item}
@@ -66,7 +63,6 @@ const LatestReleases = () => {
         <Backdrop
           sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
           open={open}
-          onClick={handleClose}
         >
           <CircularProgress color="inherit" />
         </Backdrop>

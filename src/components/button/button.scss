@@ -49,13 +49,13 @@
     margin-left: 8px;
   }
 
-  svg,
-  svg.MuiSvgIcon-root {
-    fill: $primary-color;
-    height: 20px;
-    width: 20px;
-    transition: fill ease 0.3s;
-  }
+  // svg,
+  // svg.MuiSvgIcon-root {
+  //   fill: $primary-color;
+  //   height: 20px;
+  //   width: 20px;
+  //   transition: fill ease 0.3s;
+  // }
 
   .loader {
     margin-right: 8px;
@@ -188,6 +188,10 @@
   }
 
   // Variants
+  &--icon {
+    background: none;
+    padding: 0;
+  }
   &--link {
     background: none;
     padding: 0;

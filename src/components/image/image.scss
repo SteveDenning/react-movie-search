@@ -6,14 +6,12 @@
   width: 100%;
 
   img {
-    // border: 1px solid #000;
     cursor: pointer;
     width: 100%;
     transition: scale 0.2s ease, border 0.2s ease;
 
     @include hover {
-      // border: 3px solid #000;
-      scale: 3;
+      scale: 2;
     }
   }
 
