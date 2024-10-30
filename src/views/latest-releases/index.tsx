@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Carousel from "react-multi-carousel";
 
 // Utils
 import { getLatestReleases } from "../../utils/services";
@@ -6,19 +7,75 @@ import { getLatestReleases } from "../../utils/services";
 // Components
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Fade } from "@mui/material";
+import { Container, Fade } from "@mui/material";
 import Image from "../../components/image";
 
 // Styles
+import "react-multi-carousel/lib/styles.css";
 import "./latest-releases.scss";
 
 const LatestReleases = () => {
   const [results, setResults] = useState<any>([]);
   const [open, setOpen] = useState(false);
 
+  const responsive = {
+    desktop: {
+      breakpoint: {
+        max: 3000,
+        min: 1024,
+      },
+      items: 5,
+      partialVisibilityGutter: -1,
+    },
+    tablet: {
+      breakpoint: {
+        max: 1024,
+        min: 464,
+      },
+      items: 3,
+      partialVisibilityGutter: 30,
+    },
+    mobile: {
+      breakpoint: {
+        max: 464,
+        min: 0,
+      },
+      items: 1,
+      partialVisibilityGutter: 30,
+    },
+  };
+
+  const options = {
+    renderDotsOutside: true,
+    responsive: responsive,
+    pauseOnHover: true,
+    slidesToSlide: 5,
+    infinite: true,
+    additionalTransfrom: 0,
+    arrows: true,
+    centerMode: false,
+    className: "",
+    containerClass: "container",
+    dotListClass: "",
+    draggable: true,
+    focusOnSelect: false,
+    itemClass: "",
+    keyBoardControl: true,
+    minimumTouchDrag: 80,
+    partialVisible: true,
+    renderArrowsWhenDisabled: false,
+    renderButtonGroupOutside: false,
+    rewind: false,
+    rewindWithAnimation: false,
+    rtl: false,
+    shouldResetAutoplay: true,
+    sliderClass: "",
+    showDots: true,
+    swipeable: true,
+  };
+
   const fetLatestRelease = () => {
     setOpen(true);
-    // Build query for request
     getLatestReleases()
       .then((response: any) => {
         setResults(response.data.results);
@@ -40,33 +97,31 @@ const LatestReleases = () => {
           data-testid="latest-releases"
           className="latest-releases"
         >
-          <h2>Latest Releases</h2>
-          <ul className="latest-releases__list">
-            {results.map((item: any, i: number) => {
-              return (
-                <li
-                  key={i}
-                  className="latest-releases__list-item"
-                  onClick={() => (window.location.href = `/details/${item.id}`)}
-                >
-                  <Image
-                    resource={item}
-                    size="medium"
-                  />
-                </li>
-              );
-            })}
-          </ul>
+          <Container>
+            <h2>Latest Releases</h2>
+
+            <Carousel {...options}>
+              {results.map((item: any, i: number) => {
+                return (
+                  <div
+                    key={i}
+                    className="latest-releases__list-item"
+                    onClick={() => (window.location.href = `/details/${item.id}`)}
+                  >
+                    <Image resource={item} />
+                  </div>
+                );
+              })}
+            </Carousel>
+          </Container>
         </div>
       </Fade>
-      <div>
-        <Backdrop
-          sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
-          open={open}
-        >
-          <CircularProgress color="inherit" />
-        </Backdrop>
-      </div>
+      <Backdrop
+        sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
+        open={open}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </>
   );
 };

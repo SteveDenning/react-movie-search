@@ -8,18 +8,23 @@ import "./image.scss";
 
 interface Props {
   resource: any;
-  size?: "small" | "medium" | "large";
+  size?: "small" | "medium" | "large ";
+  scale?: boolean;
 }
 
-const Image: React.FC<Props> = ({ resource, size = "small" }) => {
+const Image: React.FC<Props> = ({ resource, size, scale }) => {
   const baseClass = "image";
   const sizeClass = `image--${size}`;
-  const classes = [baseClass, sizeClass].join(" ");
+  const scaleClass = scale ? "image--scale" : "";
+  const classes = [baseClass, sizeClass, scaleClass].filter(Boolean).join(" ");
 
   return (
-    <div className={classes}>
+    <div
+      className={classes}
+      data-testid="image"
+    >
       <img
-        src={resource["poster_path"] ? `https://image.tmdb.org/t/p/original/${resource["poster_path"]}` : defaultPlaceholder}
+        src={resource["poster_path"] ? `${process.env.REACT_APP_TMDB_PATH}/t/p/original/${resource["poster_path"]}` : defaultPlaceholder}
         alt={resource.title}
       />
     </div>

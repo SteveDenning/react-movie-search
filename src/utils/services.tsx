@@ -11,7 +11,7 @@ const headers = {
 
 export const getLatestReleases = () =>
   new Promise((resolve, reject) => {
-    const url = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
+    const url = `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1`;
     axios
       .get(url, headers)
       .then((response) => {

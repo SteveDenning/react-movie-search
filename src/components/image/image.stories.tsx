@@ -3,6 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 
 // Components
 import Template from "./index";
+import { Container } from "@mui/material";
 
 const meta: Meta<typeof Template> = {
   title: "Components/Image",
@@ -10,9 +11,19 @@ const meta: Meta<typeof Template> = {
   tags: ["autodocs"],
   argTypes: {
     resource: {
-      control: "text",
-      type: { name: "string", required: true },
-      description: "Any elements you want to render inside the Button element",
+      control: "object",
+      type: { name: "string", required: false },
+      description: "Resource data to display image and attributes",
+    },
+    scale: {
+      control: "boolean",
+      type: { name: "boolean", required: false },
+      description: "Scale image on hover",
+    },
+    size: {
+      control: "radio",
+      options: ["small", "medium", "large", "fill"],
+      description: "Size of the image",
     },
   },
 };
@@ -22,9 +33,14 @@ type Story = StoryObj<typeof Template>;
 
 const Image = (args: any) => <Template {...args} />;
 
-export const Filled: Story = {
-  render: (args) => <Image {...args} />,
+export const Default: Story = {
+  render: (args) => (
+    <Container>
+      <Image {...args} />
+    </Container>
+  ),
 };
-Filled.args = {
+Default.args = {
   resource: "Lorem ipsum",
+  size: "small",
 };

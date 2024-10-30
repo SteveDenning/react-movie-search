@@ -1,11 +1,10 @@
-import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 // Components
 import Template from "./index";
 
 const meta: Meta<typeof Template> = {
-  title: "Components/Footer",
+  title: "Views/Footer",
   component: Template,
   tags: ["autodocs"],
   argTypes: {},
@@ -16,6 +15,6 @@ type Story = StoryObj<typeof Template>;
 
 const Footer = () => <Template />;
 
-export const Filled: Story = {
+export const Default: Story = {
   render: () => <Footer />,
 };

@@ -27,7 +27,6 @@ const HomePage = () => {
       query,
     });
 
-    // Build query for request
     getAllMedia(query)
       .then((response: any) => {
         setResults(response.data.results);
@@ -40,16 +39,18 @@ const HomePage = () => {
 
   return (
     <DefaultLayout heading="Search for a movie">
-      <Container>
-        <div
-          className="home-page"
-          data-testid="home-page"
-        >
+      <div
+        className="home-page"
+        data-testid="home-page"
+      >
+        <Container>
           <Search
             onSubmit={handleSearchInput}
             setValue={setValue}
           />
-          {!!results.length ? (
+        </Container>
+        {!!results.length ? (
+          <Container>
             <Fade in={!!results.length && value}>
               <ul className="home-page__list">
                 {loaded &&
@@ -73,11 +74,11 @@ const HomePage = () => {
                   })}
               </ul>
             </Fade>
-          ) : (
-            <LatestReleases />
-          )}
-        </div>
-      </Container>
+          </Container>
+        ) : (
+          <LatestReleases />
+        )}
+      </div>
     </DefaultLayout>
   );
 };

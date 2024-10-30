@@ -9,10 +9,6 @@
     cursor: pointer;
     width: 100%;
     transition: scale 0.2s ease, border 0.2s ease;
-
-    @include hover {
-      scale: 2;
-    }
   }
 
   // Variants
@@ -26,5 +22,13 @@
 
   &--large {
     width: 400px;
+  }
+
+  &--scale {
+    img {
+      @include hover {
+        scale: 2;
+      }
+    }
   }
 }

@@ -34,7 +34,7 @@
 
   &__options-list {
     padding: 0;
-    background: #000;
+    background: $grey;
     margin-top: -15px;
     position: absolute;
     top: 55px;
@@ -43,6 +43,7 @@
     width: 100%;
     border-radius: 0 0 10px 10px;
     padding: 10px;
+    z-index: 2000;
   }
 
   &__options-list-item {

@@ -32,7 +32,7 @@ const meta: Meta<typeof Template> = {
     },
     color: {
       control: "radio",
-      options: ["orange", "pink", "teal", "yellow", "lilac", "purple", "red", "green", "transparent", "white"],
+      options: ["blue"],
       type: { name: "string", required: false },
       description: "Applies variant classes to the button to control element colours",
     },
@@ -44,9 +44,9 @@ type Story = StoryObj<typeof Template>;
 
 const Button = (args: any) => <Template {...args} />;
 
-export const Filled: Story = {
+export const Default: Story = {
   render: (args) => <Button {...args} />,
 };
-Filled.args = {
+Default.args = {
   children: "Lorem ipsum",
 };
