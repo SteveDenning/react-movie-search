@@ -32,7 +32,7 @@ const meta: Meta<typeof Template> = {
     },
     color: {
       control: "radio",
-      options: ["blue"],
+      options: ["blue", "purple"],
       type: { name: "string", required: false },
       description: "Applies variant classes to the button to control element colours",
     },
@@ -49,4 +49,5 @@ export const Default: Story = {
 };
 Default.args = {
   children: "Lorem ipsum",
+  color: "blue",
 };
