@@ -13,7 +13,7 @@ describe("Home page component", () => {
 
     beforeEach(() => {});
 
-    it("Should render latest releases block", () => {
+    it("Should render the home page", () => {
       setup();
       expect(screen.getByTestId("home-page")).toBeInTheDocument();
     });

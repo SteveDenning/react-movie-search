@@ -20,7 +20,7 @@ describe("Latest Releases component", () => {
 
     beforeEach(() => {});
 
-    it("Should render latest releases block", () => {
+    it("Should render the search field", () => {
       setup();
       expect(screen.getByTestId("search")).toBeInTheDocument();
     });

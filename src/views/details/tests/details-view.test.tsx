@@ -9,8 +9,6 @@ import DetailsView from "../index";
 
 describe("Details Page component", () => {
   describe("Component rendering", () => {
-    // const results: any = [];
-
     const setup = () => render(<DetailsView />);
 
     beforeEach(() => {});
