@@ -5,6 +5,8 @@ import { debounce } from "lodash";
 import { getAllMedia } from "../../utils/services";
 
 // Components
+import Button from "../../components/button";
+import ClearIcon from "@mui/icons-material/Clear";
 import { Fade } from "@mui/material";
 
 // Styles
@@ -44,7 +46,11 @@ const Search: React.FC<Props> = ({ onSubmit, setValue }) => {
         .then((response: any) => {
           const suggestions = response.data.results.map((title: any) => title["original_title"]);
 
-          setSuggestions(suggestions);
+          const filteredArray = suggestions.filter((item: string, index: number) => {
+            return suggestions.indexOf(item) === index;
+          });
+
+          setSuggestions(filteredArray);
           setShowOptions(true);
         })
         .catch((error) => {
@@ -57,7 +63,10 @@ const Search: React.FC<Props> = ({ onSubmit, setValue }) => {
   };
 
   return (
-    <div className="search">
+    <div
+      className="search"
+      data-testid="search"
+    >
       <form
         className="search__form"
         onChange={(e) => {
@@ -70,26 +79,33 @@ const Search: React.FC<Props> = ({ onSubmit, setValue }) => {
           type="text"
           placeholder="Search"
         />
+        <Button variant="icon">
+          <ClearIcon sx={{ color: "#ccc", fontSize: 30 }} />
+        </Button>
       </form>
       <Fade in={showOptions}>
-        <ul className="search__options-list">
-          {suggestions.map((suggestion: any, index: number) => {
-            return (
-              <li
-                tabIndex={1}
-                className="search__options-list-item"
-                key={index}
-                onClick={() => {
-                  setShowOptions(false);
-                  handleSearchInput(suggestion);
-                  onSubmit(suggestion);
-                }}
-              >
-                {suggestion}
-              </li>
-            );
-          })}
-        </ul>
+        <div>
+          {!!suggestions.length && (
+            <ul className="search__options-list">
+              {suggestions.map((suggestion: any, index: number) => {
+                return (
+                  <li
+                    tabIndex={1}
+                    className="search__options-list-item"
+                    key={index}
+                    onClick={() => {
+                      setShowOptions(false);
+                      handleSearchInput(suggestion);
+                      onSubmit(suggestion);
+                    }}
+                  >
+                    {suggestion}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+        </div>
       </Fade>
     </div>
   );

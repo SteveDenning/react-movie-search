@@ -4,20 +4,13 @@ import React from "react";
 import "./header.scss";
 
 interface Props {
-  divider?: boolean;
-  straight?: boolean;
   heading: string;
 }
 
-const Header: React.FC<Props> = ({ divider, straight, heading }) => {
-  const baseClass = "header";
-  const dividerClass = divider ? "header--divider" : "";
-  const straightClass = straight ? "header--straight" : "";
-  const classes = [baseClass, dividerClass, straightClass].filter(Boolean).join(" ");
-
+const Header: React.FC<Props> = ({ heading }) => {
   return (
     <header
-      className={classes}
+      className="header"
       data-testid="header"
     >
       <h1>{heading}</h1>

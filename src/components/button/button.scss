@@ -49,14 +49,6 @@
     margin-left: 8px;
   }
 
-  svg,
-  svg.MuiSvgIcon-root {
-    fill: $primary-color;
-    height: 20px;
-    width: 20px;
-    transition: fill ease 0.3s;
-  }
-
   .loader {
     margin-right: 8px;
   }
@@ -70,12 +62,12 @@
       padding: 10px 16px;
     }
 
-    @mixin filledColorVariant($color, $hover, $transparency) {
-      background: $color;
+    @mixin filledColorVariant($color, $background, $hover, $transparency) {
+      background: $background;
 
       @include hover {
         background: $hover radial-gradient(circle, transparent 1%, $hover 1%) center/15000%;
-        color: $white;
+        color: $color;
       }
 
       &:active {
@@ -85,12 +77,13 @@
       }
     }
 
-    &.button--default {
-      @include filledColorVariant($blue, $light-blue, 5%);
+    &.button--blue {
+      @include filledColorVariant($white, $blue, $purple, 5%);
+      color: $white;
     }
 
     &.button--purple {
-      @include filledColorVariant($purple, $pink, 5%);
+      @include filledColorVariant($white, $purple, $orange, 5%);
       color: $white;
 
       svg,
@@ -100,7 +93,7 @@
     }
 
     &.button--transparent {
-      @include filledColorVariant(transparent, $pink, 5%);
+      @include filledColorVariant($white, transparent, $pink, 5%);
     }
 
     &:disabled:not(.button--loading) {
@@ -124,20 +117,21 @@
       padding: 10px 16px;
     }
 
-    @mixin outlinedColorVariant($color, $fill, $transparency) {
-      border-color: $color;
+    @mixin outlinedColorVariant($color, $background, $fill, $transparency) {
+      border-color: $background;
 
       .button__start-icon,
       .button__end-icon {
         svg,
         svg.MuiSvgIcon-root {
-          fill: $color;
+          fill: $background;
         }
       }
 
       @include hover {
-        background: $color radial-gradient(circle, transparent 1%, $color 1%) center/15000%;
-        border-color: $color;
+        background: $background radial-gradient(circle, transparent 1%, $background 1%) center/15000%;
+        border-color: $background;
+        color: $color;
 
         .button__start-icon,
         .button__end-icon {
@@ -149,30 +143,18 @@
       }
 
       &:active {
-        background-color: lighten($color, $transparency);
+        background-color: lighten($background, $transparency);
         background-size: 100%;
         transition: background 0s;
       }
     }
 
-    &.button--orange {
-      @include outlinedColorVariant($orange, $purple, 5%);
+    &.button--blue {
+      @include outlinedColorVariant($white, $blue, $purple, 5%);
     }
 
-    &.button--light {
-      color: $white;
-
-      @include hover {
-        color: $purple;
-
-        .button__start-icon,
-        .button__end-icon {
-          svg,
-          svg.MuiSvgIcon-root {
-            fill: $purple;
-          }
-        }
-      }
+    &.button--purple {
+      @include outlinedColorVariant($white, $purple, $lilac, 5%);
     }
 
     &:disabled {
@@ -188,6 +170,10 @@
   }
 
   // Variants
+  &--icon {
+    background: none;
+    padding: 0;
+  }
   &--link {
     background: none;
     padding: 0;

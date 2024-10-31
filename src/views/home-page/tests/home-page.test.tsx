@@ -3,19 +3,19 @@ import "@testing-library/jest-dom";
 import { screen, render } from "@testing-library/react";
 
 // Components
-import DetailsView from "../index";
+import HomePage from "../index";
 
 // Icons
 
-describe("Details Page component", () => {
+describe("Home page component", () => {
   describe("Component rendering", () => {
-    const setup = () => render(<DetailsView />);
+    const setup = () => render(<HomePage />);
 
     beforeEach(() => {});
 
-    it("Should render details page", () => {
+    it("Should render the home page", () => {
       setup();
-      expect(screen.getByTestId("details-page")).toBeInTheDocument();
+      expect(screen.getByTestId("home-page")).toBeInTheDocument();
     });
   });
 });

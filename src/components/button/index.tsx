@@ -8,11 +8,10 @@ interface Props {
   children: any;
   className?: string;
   variant?: "filled" | "outlined" | "link" | string | undefined;
-  color?: "orange" | "pink" | "teal" | undefined;
+  color?: "blue" | "orange" | "pink" | "teal" | undefined;
   disabled?: boolean;
   href?: string;
   type?: "button" | "submit" | "reset" | undefined;
-  loading?: boolean;
   testId?: string;
   rel?: string;
   target?: string;
@@ -30,7 +29,6 @@ const Button: React.FC<Props> = ({
   disabled,
   href,
   type,
-  loading,
   testId,
   rel,
   target,
@@ -41,8 +39,7 @@ const Button: React.FC<Props> = ({
   const baseClass = "button";
   const colorClass = `button--${color}`;
   const variantClass = `button--${variant}`;
-  const loadingClass = loading ? "button--loading" : "";
-  const classes = [baseClass, colorClass, loadingClass, variantClass, className].filter(Boolean).join(" ");
+  const classes = [baseClass, colorClass, variantClass, className].filter(Boolean).join(" ");
 
   const Element = href ? "a" : "button";
 
@@ -60,7 +57,7 @@ const Button: React.FC<Props> = ({
     <Element
       id={id}
       className={classes}
-      disabled={disabled || loading}
+      disabled={disabled}
       href={href}
       onClick={handleClick}
       type={type}

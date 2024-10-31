@@ -5,10 +5,16 @@ import { Meta, StoryObj } from "@storybook/react";
 import Template from "./index";
 
 const meta: Meta<typeof Template> = {
-  title: "Components/Header",
+  title: "Views/Header",
   component: Template,
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    heading: {
+      control: "text",
+      type: { name: "string", required: false },
+      description: "Heading text",
+    },
+  },
 };
 export default meta;
 
@@ -16,6 +22,10 @@ type Story = StoryObj<typeof Template>;
 
 const Header = (args: any) => <Template {...args} />;
 
-export const Filled: Story = {
-  render: () => <Header />,
+export const Default: Story = {
+  render: (args) => <Header {...args} />,
+};
+
+Default.args = {
+  heading: "Lorem ipsum",
 };
