@@ -1,0 +1,16 @@
+@import "../../styles/dependencies";
+
+// Carousel Styles
+
+.carousel {
+  .react-multi-carousel-list {
+    overflow: visible;
+  }
+
+  .react-multi-carousel-item {
+    transition: opacity 0.4s ease;
+    &:not(.react-multi-carousel-item--active) {
+      opacity: 0.1;
+    }
+  }
+}
