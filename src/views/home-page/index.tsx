@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // Utils
-import { getAllMedia } from "../../utils/services";
+import { getAllMedia } from "../../utils/get-resources";
 
 // Components
 import { Container, Fade } from "@mui/material";
@@ -16,7 +16,7 @@ import DefaultLayout from "../../layout/default";
 import "./home-page.scss";
 
 const HomePage = () => {
-  const [results, setResults] = useState<any>([]);
+  const [results, setResources] = useState<any>([]);
   const [loaded, setLoaded] = useState<boolean>(false);
   const [filterState, setFilterState] = useState({ query: "" });
   const [value, setValue] = useState(false);
@@ -29,7 +29,7 @@ const HomePage = () => {
 
     getAllMedia(query)
       .then((response: any) => {
-        setResults(response.data.results);
+        setResources(response.data.results);
         setLoaded(true);
       })
       .catch((error) => {

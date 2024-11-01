@@ -2,7 +2,7 @@ import React, { useCallback, useState } from "react";
 import { debounce } from "lodash";
 
 // Utils
-import { getAllMedia } from "../../utils/services";
+import { getAllMedia } from "../../utils/get-resources";
 
 // Components
 import Button from "../../components/button";

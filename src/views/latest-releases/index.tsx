@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 // Utils
-import { getLatestReleases } from "../../utils/services";
+import { getLatestReleases } from "../../utils/get-resources";
 
 // Components
 import Backdrop from "@mui/material/Backdrop";

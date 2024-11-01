@@ -34,3 +34,15 @@ export const getAllMedia = (keyword: string) =>
         reject(error);
       });
   });
+export const getMediaByID = (id: string) =>
+  new Promise((resolve, reject) => {
+    const url = `https://api.themoviedb.org/3/movie/${id}?language=en-US`;
+    axios
+      .get(url, headers)
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
