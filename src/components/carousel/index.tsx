@@ -64,7 +64,10 @@ const Carousel: React.FC<Props> = ({ resources }) => {
   };
 
   return (
-    <div className="carousel">
+    <div
+      className="carousel"
+      data-testid="carousel"
+    >
       <ReactCarousel {...options}>
         {resources.map((item: any, i: number) => {
           return (

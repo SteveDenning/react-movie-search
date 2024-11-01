@@ -13,9 +13,9 @@ describe("Details Page component", () => {
 
     beforeEach(() => {});
 
-    it("Should render details page", () => {
+    it("Should render details page", async () => {
       setup();
-      expect(screen.getByTestId("details-page")).toBeInTheDocument();
+      expect(screen.getByTestId("video-player")).toBeInTheDocument();
     });
   });
 });
