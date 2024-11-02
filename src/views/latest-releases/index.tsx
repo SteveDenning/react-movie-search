@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // Utils
 import { getLatestReleases } from "../../utils/get-resources";
@@ -13,13 +13,18 @@ import { Container, Fade } from "@mui/material";
 import "react-multi-carousel/lib/styles.css";
 import "./latest-releases.scss";
 
-const LatestReleases = () => {
+interface Props {
+  url: string;
+  label: string;
+}
+
+const LatestReleases: React.FC<Props> = ({ url, label }) => {
   const [resources, setResources] = useState<any>([]);
   const [open, setOpen] = useState(false);
 
   const fetLatestRelease = () => {
     setOpen(true);
-    getLatestReleases()
+    getLatestReleases(url)
       .then((response: any) => {
         setResources(response.data.results);
         setOpen(false);
@@ -41,7 +46,7 @@ const LatestReleases = () => {
           className="latest-releases"
         >
           <Container>
-            <h2>Latest Releases</h2>
+            <h2>Latest {label} Releases</h2>
             <Carousel resources={resources} />
           </Container>
         </div>

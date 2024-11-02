@@ -3,14 +3,28 @@
 // Carousel Styles
 
 .carousel {
+  .react-multiple-carousel {
+    &__arrow--right {
+      right: calc(-5% + 1px);
+    }
+    &__arrow--left {
+      left: calc(-5% + 1px);
+    }
+  }
   .react-multi-carousel-list {
     overflow: visible;
   }
 
   .react-multi-carousel-item {
     transition: opacity 0.4s ease;
+
     &:not(.react-multi-carousel-item--active) {
       opacity: 0.1;
+      pointer-events: none;
+
+      img {
+        cursor: auto;
+      }
     }
   }
 }

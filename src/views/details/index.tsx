@@ -41,7 +41,7 @@ const DetailsView = () => {
 
   return (
     <DefaultLayout heading={heading}>
-      <Fade in={loaded}>
+      <Fade in={loaded && resource}>
         <div
           data-testid="details-view"
           className="details-view"
@@ -50,8 +50,17 @@ const DetailsView = () => {
           <div data-testid="details-view__inner">
             <Container>
               <div className="details-view__content">
-                <h1>{resource.title}</h1>
                 <p>{resource.overview}</p>
+                {resource.genres?.length && (
+                  <>
+                    <ul>
+                      {resource.genres.map((genre: any) => (
+                        <li className="genre-tag">{genre["name"]}</li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+                <br />
                 <Button onClick={() => (window.location.href = "/")}>Back</Button>
               </div>
             </Container>

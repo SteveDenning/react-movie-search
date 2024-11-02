@@ -21,6 +21,9 @@ const HomePage = () => {
   const [filterState, setFilterState] = useState({ query: "" });
   const [value, setValue] = useState(false);
 
+  const tv = `https://api.themoviedb.org/3/discover/tv?language=en-US&page=1&sort_by=popularity.desc&include_adult=false&include_null_first_air_dates=false&`;
+  const movie = `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1`;
+
   const handleSearchInput = (query: string) => {
     setFilterState({
       ...filterState,
@@ -76,7 +79,16 @@ const HomePage = () => {
             </Fade>
           </Container>
         ) : (
-          <LatestReleases />
+          <>
+            <LatestReleases
+              url={movie}
+              label="Movie"
+            />
+            <LatestReleases
+              url={tv}
+              label="TV"
+            />
+          </>
         )}
       </div>
     </DefaultLayout>

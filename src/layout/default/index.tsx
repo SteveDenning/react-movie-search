@@ -15,7 +15,7 @@ interface Props {
   heading: string;
 }
 
-const DefaultLayout: React.FC<Props> = ({ children, heading = "Movie Search" }) => {
+const DefaultLayout: React.FC<Props> = ({ children, heading }) => {
   return (
     <MUILayout>
       {/* SEO goes here */}
