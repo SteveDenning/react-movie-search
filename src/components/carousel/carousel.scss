@@ -4,11 +4,25 @@
 
 .carousel {
   .react-multiple-carousel {
-    &__arrow--right {
-      right: calc(-5% + 1px);
-    }
+    &__arrow--right,
     &__arrow--left {
-      left: calc(-5% + 1px);
+      display: none;
+    }
+
+    @include breakpoint($xlarge) {
+    }
+    @include breakpoint($xxlarge) {
+      &__arrow--right,
+      &__arrow--left {
+        display: block;
+      }
+      &__arrow--right {
+        right: calc(-5% + 1px);
+      }
+
+      &__arrow--left {
+        left: calc(-5% + 1px);
+      }
     }
   }
   .react-multi-carousel-list {

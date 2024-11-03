@@ -83,10 +83,12 @@ const HomePage = () => {
             <LatestReleases
               url={movie}
               label="Movie"
+              type="movie"
             />
             <LatestReleases
               url={tv}
               label="TV"
+              type="tv"
             />
           </>
         )}

@@ -7,7 +7,14 @@ import Carousel from "../index";
 describe("Carousel component", () => {
   describe("Component rendering", () => {
     const resources = [{ image: "", alt: "Lorem ipsum" }];
-    const setup = () => render(<Carousel resources={resources} />);
+    const setup = () =>
+      render(
+        <Carousel
+          resources={resources}
+          label="Lorem Ipsom"
+          type="movie"
+        />,
+      );
 
     beforeEach(() => {});
 

@@ -14,6 +14,7 @@ describe("Latest Releases component", () => {
         <LatestReleases
           url="/test"
           label="test"
+          type="movie"
         />,
       );
 

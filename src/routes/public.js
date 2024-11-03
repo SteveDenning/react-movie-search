@@ -11,7 +11,7 @@ const publicRoutes = {
         element: <HomePage />,
       },
       {
-        path: "/details/:id",
+        path: "/details/:type/:id",
         element: <DetailsView />,
       },
     );

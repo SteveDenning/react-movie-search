@@ -9,9 +9,11 @@ import "./carousel.scss";
 
 interface Props {
   resources: any;
+  label: string;
+  type: string;
 }
 
-const Carousel: React.FC<Props> = ({ resources }) => {
+const Carousel: React.FC<Props> = ({ resources, label, type }) => {
   const responsive = {
     desktop: {
       breakpoint: {
@@ -19,7 +21,6 @@ const Carousel: React.FC<Props> = ({ resources }) => {
         min: 1024,
       },
       items: 5,
-      partialVisibilityGutter: -1,
     },
     tablet: {
       breakpoint: {
@@ -28,7 +29,6 @@ const Carousel: React.FC<Props> = ({ resources }) => {
       },
       items: 3,
       slidesToSlide: 1,
-      partialVisibilityGutter: 30,
     },
     mobile: {
       breakpoint: {
@@ -37,7 +37,6 @@ const Carousel: React.FC<Props> = ({ resources }) => {
       },
       items: 1,
       slidesToSlide: 1,
-      partialVisibilityGutter: 30,
     },
   };
 
@@ -68,13 +67,15 @@ const Carousel: React.FC<Props> = ({ resources }) => {
       className="carousel"
       data-testid="carousel"
     >
+      <h2>Latest {label} Releases</h2>
+
       <ReactCarousel {...options}>
         {resources.map((item: any, i: number) => {
           return (
             <div
               key={i}
               className="latest-releases__list-item"
-              onClick={() => (window.location.href = `/details/${item.id}`)}
+              onClick={() => (window.location.href = `/details/${type}/${item.id}`)}
             >
               <Image resource={item} />
             </div>

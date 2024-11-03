@@ -33,9 +33,9 @@ export const getAllMedia = (keyword: string) =>
         reject(error);
       });
   });
-export const getMediaByID = (id: string) =>
+export const getMediaByID = (id: string, type: string) =>
   new Promise((resolve, reject) => {
-    const url = `https://api.themoviedb.org/3/movie/${id}?language=en-US`;
+    const url = `https://api.themoviedb.org/3/${type}/${id}?language=en-US`;
     axios
       .get(url, headers)
       .then((response) => {

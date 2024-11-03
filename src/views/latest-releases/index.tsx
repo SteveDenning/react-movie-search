@@ -16,9 +16,10 @@ import "./latest-releases.scss";
 interface Props {
   url: string;
   label: string;
+  type: string;
 }
 
-const LatestReleases: React.FC<Props> = ({ url, label }) => {
+const LatestReleases: React.FC<Props> = ({ url, label, type }) => {
   const [resources, setResources] = useState<any>([]);
   const [open, setOpen] = useState(false);
 
@@ -46,8 +47,11 @@ const LatestReleases: React.FC<Props> = ({ url, label }) => {
           className="latest-releases"
         >
           <Container>
-            <h2>Latest {label} Releases</h2>
-            <Carousel resources={resources} />
+            <Carousel
+              resources={resources}
+              label={label}
+              type={type}
+            />
           </Container>
         </div>
       </Fade>
