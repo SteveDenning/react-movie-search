@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import queryString from "query-string";
 
 // Utils
 import { getMediaByID } from "../../utils/get-resources";
@@ -24,6 +25,9 @@ const DetailsView = () => {
   const type = window.location.pathname.split("/")[2];
 
   const backgroundImage = backDrop ? `url(${process.env.REACT_APP_TMDB_PATH}/t/p/original/${backDrop})` : "";
+  const sessionFilterState = queryString.parse("string");
+
+  console.log(sessionFilterState);
 
   useEffect(() => {
     getMediaByID(programmeId, type)
