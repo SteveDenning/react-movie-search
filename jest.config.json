@@ -1,8 +1,10 @@
 {
   "moduleNameMapper": {
     "^.+\\.(css|less|scss)$": "babel-jest",
-    "\\.svg": "<rootDir>/mocks/svgMock.ts"
+    "\\.svg": "<rootDir>/mocks/imgMock.ts",
+    "\\.png": "<rootDir>/mocks/imgMock.ts"
   },
   "testEnvironment": "jest-environment-jsdom",
-  "coveragePathIgnorePatterns": ["node_modules", "<rootDir>/src/utils"]
+  "coveragePathIgnorePatterns": ["node_modules", "<rootDir>/src/utils"],
+  "transformIgnorePatterns": ["node_modules/(?!(decode-uri-component|filter-obj|split-on-first|query-string)/)"]
 }
