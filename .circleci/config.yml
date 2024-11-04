@@ -13,7 +13,7 @@ jobs:
           pkg-manager: npm
       - run:
           name: Run tests
-          command: npm test --passWithNoTests
+          command: npm run test:circle
       - run:
           name: Build the App
           command: |
@@ -30,7 +30,7 @@ jobs:
 
       - run:
           name: Run tests
-          command: npm test --passWithNoTests
+          command: npm run test:circle
       - run:
           name: Build the App
           command: |
