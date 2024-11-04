@@ -1,23 +1,31 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   entry: "./src/index.tsx",
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "index.bundle.js",
-    libraryTarget: "commonjs2",
+    path: path.resolve(__dirname, "public"),
+    filename: "main.js",
     publicPath: "/",
   },
-  plugins: [new NodePolyfillPlugin()],
+  plugins: [
+    new Dotenv(),
+    new NodePolyfillPlugin(),
+    new HtmlWebpackPlugin({
+      template: path.join(__dirname, "public", "index.html"),
+      favicon: path.join(__dirname, "public", "favicon.ico"),
+    }),
+  ],
   resolve: {
     extensions: ["*", ".ts", ".tsx", ".html", ".js", ".jsx", ".sass", ".jpg", ".png", ".gif", ".svg", ".css", ".json"],
   },
   devServer: {
     static: {
-      directory: path.join(__dirname, "build"),
+      directory: path.join(__dirname, "public"),
     },
-    port: 3001,
+    port: 3000,
     historyApiFallback: true,
   },
   module: {
