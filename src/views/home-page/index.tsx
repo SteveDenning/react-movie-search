@@ -41,6 +41,8 @@ const HomePage = () => {
       });
   };
 
+  console.log(typeof value);
+
   return (
     <DefaultLayout heading="Search for a movie">
       <div
@@ -55,7 +57,7 @@ const HomePage = () => {
         </Container>
         {results.length ? (
           <Container>
-            <Fade in={value}>
+            <Fade in={!!results.length}>
               <ul className="home-page__list">
                 {loaded &&
                   results.map((item: any, i: number) => {
@@ -71,7 +73,7 @@ const HomePage = () => {
                         </div>
                         <div style={{ marginLeft: "40px" }}>
                           <h3>{item.title}</h3>
-                          <p>{item.overview}</p>
+                          <p>{item.overview.length > 300 ? `${item.overview.substring(0, 300)}........` : item.overview}</p>
                         </div>
                       </li>
                     );

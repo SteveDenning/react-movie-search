@@ -32,6 +32,7 @@ const DetailsView = () => {
         setHeading(response.data.title || response.data["original_name"]);
         setBackDrop(response.data.backdrop_path);
         setLoaded(true);
+        console.log("Details", response.data);
       })
       .catch((error) => {
         console.error(error);

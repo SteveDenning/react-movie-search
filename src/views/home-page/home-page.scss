@@ -9,12 +9,17 @@
   }
 
   &__list-item {
+    margin-bottom: 20px;
+    background: rgba($color: #000000, $alpha: 0.5);
+    padding: 15px;
     display: flex;
     margin: 10px;
     width: 100%;
   }
 
   .image-wrapper {
+    display: flex;
+    align-items: center;
     min-width: 100px;
     max-width: 100px;
 

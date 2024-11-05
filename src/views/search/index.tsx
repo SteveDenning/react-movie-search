@@ -16,7 +16,7 @@ import "./search.scss";
 
 interface Props {
   onSubmit: (data: any) => void;
-  setValue: (boolean: any) => void;
+  setValue?: (boolean: any) => void;
 }
 
 const Search: React.FC<Props> = ({ onSubmit, setValue }) => {

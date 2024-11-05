@@ -3,6 +3,8 @@
 // Image styles
 
 .image {
+  display: flex;
+  align-items: center;
   width: 100%;
 
   img {
