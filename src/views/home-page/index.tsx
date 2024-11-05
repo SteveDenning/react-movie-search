@@ -63,7 +63,7 @@ const HomePage = () => {
                         className="home-page__list-item"
                         style={{ marginBottom: "20px" }}
                         key={i}
-                        onClick={() => (window.location.href = `/details/${item.id}`)}
+                        onClick={() => (window.location.href = `/details/movie/${item.id}`)}
                       >
                         <div className="image-wrapper">
                           <Image resource={item} />

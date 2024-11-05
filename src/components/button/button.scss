@@ -78,8 +78,8 @@
     }
 
     &.button--default {
-      @include filledColorVariant($white, $light-blue, $purple, 5%);
-      color: $white;
+      @include filledColorVariant($white, $teal, $purple, 5%);
+      color: $black;
     }
 
     &.button--blue {

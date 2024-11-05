@@ -8,7 +8,7 @@ import "./image.scss";
 
 interface Props {
   resource: any;
-  size?: "small" | "medium" | "large ";
+  size?: "xsmall" | "small" | "medium" | "large ";
   scale?: boolean;
 }
 

@@ -28,15 +28,15 @@ const Carousel: React.FC<Props> = ({ resources, label, type }) => {
         min: 464,
       },
       items: 3,
-      slidesToSlide: 1,
+      slidesToSlide: 3,
     },
     mobile: {
       breakpoint: {
         max: 464,
         min: 0,
       },
-      items: 1,
-      slidesToSlide: 1,
+      items: 2,
+      slidesToSlide: 2,
     },
   };
 
