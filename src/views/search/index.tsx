@@ -83,7 +83,7 @@ const Search: React.FC<Props> = ({ onSubmit, setValue }) => {
           }}
           className="search__form-input"
           type="text"
-          placeholder="Search"
+          placeholder="Search..."
         />
         <Button
           variant="icon"

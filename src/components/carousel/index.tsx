@@ -1,8 +1,9 @@
 import React from "react";
 
-import ReactCarousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
+// Components
+import { Fade } from "@mui/material";
 import Image from "../../components/image";
+import ReactCarousel from "react-multi-carousel";
 
 // Styles
 import "./carousel.scss";
@@ -63,26 +64,28 @@ const Carousel: React.FC<Props> = ({ resources, label, type }) => {
   };
 
   return (
-    <div
-      className="carousel"
-      data-testid="carousel"
-    >
-      <h2>Latest {label} Releases</h2>
+    <Fade in={!!resources.length}>
+      <div
+        className="carousel"
+        data-testid="carousel"
+      >
+        <h2>Latest {label} Releases</h2>
 
-      <ReactCarousel {...options}>
-        {resources.map((item: any, i: number) => {
-          return (
-            <div
-              key={i}
-              className="latest-releases__list-item"
-              onClick={() => (window.location.href = `/details/${type}/${item.id}`)}
-            >
-              <Image resource={item} />
-            </div>
-          );
-        })}
-      </ReactCarousel>
-    </div>
+        <ReactCarousel {...options}>
+          {resources.map((item: any, i: number) => {
+            return (
+              <div
+                key={i}
+                className="latest-releases__list-item"
+                onClick={() => (window.location.href = `/details/${type}/${item.id}`)}
+              >
+                <Image resource={item} />
+              </div>
+            );
+          })}
+        </ReactCarousel>
+      </div>
+    </Fade>
   );
 };
 

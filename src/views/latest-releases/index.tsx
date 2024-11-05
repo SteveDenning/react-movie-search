@@ -10,7 +10,6 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { Container, Fade } from "@mui/material";
 
 // Styles
-import "react-multi-carousel/lib/styles.css";
 import "./latest-releases.scss";
 
 interface Props {

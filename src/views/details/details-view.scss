@@ -21,10 +21,13 @@
   }
 
   .genre-tag {
-    background: $purple;
-    color: $white;
-    margin-right: 5px;
-    padding: 3px 15px;
-    border-radius: 15px;
+    span {
+      margin: 0 10px;
+    }
+    &:last-child {
+      span {
+        display: none;
+      }
+    }
   }
 }

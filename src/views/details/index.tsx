@@ -50,7 +50,6 @@ const DetailsView = () => {
             <Container>
               <div className="details-view__content">
                 <p>{resource.overview || "Description not available"}</p>
-                <p>Genres</p>
                 {!!resource.genres?.length && (
                   <>
                     <ul>
@@ -60,6 +59,7 @@ const DetailsView = () => {
                           key={genre.id + i}
                         >
                           {genre["name"]}
+                          <span>|</span>
                         </li>
                       ))}
                     </ul>
