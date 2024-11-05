@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 // Utils
 import { getAllMedia } from "../../utils/get-resources";
@@ -21,8 +21,9 @@ const HomePage = () => {
   const [filterState, setFilterState] = useState({ query: "" });
   const [value, setValue] = useState(false);
 
-  const tv = `https://api.themoviedb.org/3/discover/tv?language=en-US&page=1&sort_by=popularity.desc&include_adult=false&include_null_first_air_dates=false&`;
-  const movie = `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1`;
+  const tv =
+    "https://api.themoviedb.org/3/discover/tv?language=en-US&page=1&sort_by=popularity.desc&include_adult=false&include_null_first_air_dates=false&";
+  const movie = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
 
   const handleSearchInput = (query: string) => {
     setFilterState({
@@ -52,9 +53,9 @@ const HomePage = () => {
             setValue={setValue}
           />
         </Container>
-        {!!results.length ? (
+        {results.length ? (
           <Container>
-            <Fade in={!!results.length && value}>
+            <Fade in={value}>
               <ul className="home-page__list">
                 {loaded &&
                   results.map((item: any, i: number) => {

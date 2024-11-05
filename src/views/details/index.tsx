@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // Utils
 import { getMediaByID } from "../../utils/get-resources";
@@ -31,9 +31,7 @@ const DetailsView = () => {
         setResource(response.data);
         setHeading(response.data.title || response.data["original_name"]);
         setBackDrop(response.data.backdrop_path);
-        console.log(response.data);
         setLoaded(true);
-        setTimeout(() => {}, 100);
       })
       .catch((error) => {
         console.error(error);

@@ -1,3 +1,6 @@
+import React from "react";
+
+// Views
 import HomePage from "../views/home-page";
 import DetailsView from "../views/details";
 
