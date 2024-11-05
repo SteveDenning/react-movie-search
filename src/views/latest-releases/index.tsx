@@ -23,7 +23,7 @@ const LatestReleases: React.FC<Props> = ({ url, label, type }) => {
   const [resources, setResources] = useState<any>([]);
   const [open, setOpen] = useState(false);
 
-  const fetLatestRelease = () => {
+  const fetchLatestRelease = () => {
     setOpen(true);
     getLatestReleases(url)
       .then((response: any) => {
@@ -36,7 +36,7 @@ const LatestReleases: React.FC<Props> = ({ url, label, type }) => {
   };
 
   useEffect(() => {
-    fetLatestRelease();
+    fetchLatestRelease();
   }, []);
 
   return (
