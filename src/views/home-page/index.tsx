@@ -23,6 +23,8 @@ const HomePage = () => {
   const [value, setValue] = useState(false);
   const screenSize = useScreenSize();
 
+  console.log(value, screenSize);
+
   const tv =
     "https://api.themoviedb.org/3/discover/tv?language=en-US&page=1&sort_by=popularity.desc&include_adult=false&include_null_first_air_dates=false&";
   const movie = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
