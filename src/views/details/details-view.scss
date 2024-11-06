@@ -5,19 +5,24 @@
 .details-view {
   background-position: center !important;
   background-size: cover !important;
-  height: 100vh;
-  padding: 10px;
   display: flex;
+  height: 100vh;
   justify-content: center;
+  padding: 10px;
 
   &__content {
     background: rgba($color: #000000, $alpha: 0.5);
     padding: 20px;
   }
 
-  ul {
-    list-style: none;
+  &__back-button {
     display: flex;
+    justify-content: flex-end;
+  }
+
+  ul {
+    display: flex;
+    list-style: none;
   }
 
   .genre-tag {

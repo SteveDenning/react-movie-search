@@ -9,23 +9,22 @@
   }
 
   &__list-item {
-    margin-bottom: 20px;
     background: rgba($color: #000000, $alpha: 0.5);
-    padding: 15px;
     display: flex;
     margin: 10px;
+    margin-bottom: 20px;
+    padding: 15px;
     width: 100%;
   }
 
   .image-wrapper {
-    display: flex;
     align-items: center;
-    min-width: 100px;
-    max-width: 100px;
+    display: flex;
+    width: 100%; // need to split this all out
 
     img {
-      width: 100%;
       cursor: pointer;
+      width: 100%;
     }
   }
 }

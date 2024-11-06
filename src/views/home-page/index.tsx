@@ -17,12 +17,11 @@ import DefaultLayout from "../../layout/default";
 import "./home-page.scss";
 
 const HomePage = () => {
-  const screenSize = useScreenSize();
-
   const [results, setResources] = useState<any>([]);
   const [loaded, setLoaded] = useState<boolean>(false);
   const [filterState, setFilterState] = useState({ query: "" });
   const [value, setValue] = useState(false);
+  // const screenSize = useScreenSize();
 
   const tv =
     "https://api.themoviedb.org/3/discover/tv?language=en-US&page=1&sort_by=popularity.desc&include_adult=false&include_null_first_air_dates=false&";
@@ -43,8 +42,6 @@ const HomePage = () => {
         console.error(error);
       });
   };
-
-  console.log(typeof value);
 
   return (
     <DefaultLayout heading="Search for a movie">
@@ -76,7 +73,7 @@ const HomePage = () => {
                         </div>
                         <div style={{ marginLeft: "40px" }}>
                           <h3>{item.title}</h3>
-                          <p>{item.overview.length > 300 ? `${item.overview.substring(0, 300)}........` : item.overview}</p>
+                          <p>{item.overview.length > 300 ? `${item.overview.substring(0, 300)}. . .` : item.overview}</p>
                         </div>
                       </li>
                     );

@@ -6,7 +6,6 @@ import { getMediaByID } from "../../utils/get-resources";
 // Components
 import Button from "../../components/button";
 import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
-// import Video from "../../components/video";
 
 // Layout
 import DefaultLayout from "../../layout/default";
@@ -15,10 +14,10 @@ import DefaultLayout from "../../layout/default";
 import "./details-view.scss";
 
 const DetailsView = () => {
-  const [resource, setResource] = useState<any>({});
+  const [backDrop, setBackDrop] = useState<string>("");
   const [heading, setHeading] = useState<string>("");
   const [loaded, setLoaded] = useState<boolean>(false);
-  const [backDrop, setBackDrop] = useState<string>("");
+  const [resource, setResource] = useState<any>({});
 
   const programmeId = window.location.pathname.split("/")[3] as string;
   const type = window.location.pathname.split("/")[2];
@@ -32,7 +31,6 @@ const DetailsView = () => {
         setHeading(response.data.title || response.data["original_name"]);
         setBackDrop(response.data.backdrop_path);
         setLoaded(true);
-        console.log("Details", response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -88,7 +86,7 @@ const DetailsView = () => {
                   </>
                 )}
                 <br />
-                <div style={{ display: "flex", justifyContent: "flex-end" }}>
+                <div className="details-view__back-button">
                   <Button onClick={() => (window.location.href = "/")}>Back</Button>
                 </div>
               </div>
