@@ -1,12 +1,13 @@
-// Latest releases styles
 @import "../../styles/dependencies";
+
+// Latest releases styles
 
 .latest-releases {
   position: relative;
-  padding: 100px 0 20px;
+  padding: 0 0 20px;
 
   h2 {
-    border-left: 5px solid $red;
+    border-left: 5px solid $teal;
     padding-left: 10px;
   }
 

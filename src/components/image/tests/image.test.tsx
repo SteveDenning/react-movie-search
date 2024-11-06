@@ -4,12 +4,10 @@ import { screen, render } from "@testing-library/react";
 // Components
 import Image from "../index";
 
-describe("Button component", () => {
+describe("Image component", () => {
   describe("Component rendering", () => {
     const resource = { src: "", alt: "Lorem ipsum" };
     const setup = () => render(<Image resource={resource}></Image>);
-
-    beforeEach(() => {});
 
     it("Should render an image", () => {
       setup();

@@ -8,7 +8,7 @@ import "./image.scss";
 
 interface Props {
   resource: any;
-  size?: "small" | "medium" | "large ";
+  size?: "xsmall" | "small" | "medium" | "large ";
   scale?: boolean;
 }
 
@@ -24,7 +24,7 @@ const Image: React.FC<Props> = ({ resource, size, scale }) => {
       data-testid="image"
     >
       <img
-        src={resource["poster_path"] ? `https://image.tmdb.org/t/p/original/${resource["poster_path"]}` : defaultPlaceholder}
+        src={resource["poster_path"] ? `${process.env.REACT_APP_TMDB_PATH}/t/p/original/${resource["poster_path"]}` : defaultPlaceholder}
         alt={resource.title}
       />
     </div>

@@ -1,7 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 // Utils
-import { getAllMedia } from "../../utils/services";
+import { getAllMedia } from "../../utils/get-resources";
+import useScreenSize from "../../utils/use-screen-size";
 
 // Components
 import { Container, Fade } from "@mui/material";
@@ -16,10 +17,17 @@ import DefaultLayout from "../../layout/default";
 import "./home-page.scss";
 
 const HomePage = () => {
-  const [results, setResults] = useState<any>([]);
+  const [results, setResources] = useState<any>([]);
   const [loaded, setLoaded] = useState<boolean>(false);
   const [filterState, setFilterState] = useState({ query: "" });
   const [value, setValue] = useState(false);
+  const screenSize = useScreenSize();
+
+  console.log(value, screenSize);
+
+  const tv =
+    "https://api.themoviedb.org/3/discover/tv?language=en-US&page=1&sort_by=popularity.desc&include_adult=false&include_null_first_air_dates=false&";
+  const movie = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
 
   const handleSearchInput = (query: string) => {
     setFilterState({
@@ -29,7 +37,7 @@ const HomePage = () => {
 
     getAllMedia(query)
       .then((response: any) => {
-        setResults(response.data.results);
+        setResources(response.data.results);
         setLoaded(true);
       })
       .catch((error) => {
@@ -49,9 +57,9 @@ const HomePage = () => {
             setValue={setValue}
           />
         </Container>
-        {!!results.length ? (
+        {results.length ? (
           <Container>
-            <Fade in={!!results.length && value}>
+            <Fade in={!!results.length}>
               <ul className="home-page__list">
                 {loaded &&
                   results.map((item: any, i: number) => {
@@ -60,14 +68,14 @@ const HomePage = () => {
                         className="home-page__list-item"
                         style={{ marginBottom: "20px" }}
                         key={i}
-                        onClick={() => (window.location.href = `/details/${item.id}`)}
+                        onClick={() => (window.location.href = `/details/movie/${item.id}`)}
                       >
                         <div className="image-wrapper">
                           <Image resource={item} />
                         </div>
                         <div style={{ marginLeft: "40px" }}>
                           <h3>{item.title}</h3>
-                          <p>{item.overview}</p>
+                          <p>{item.overview.length > 300 ? `${item.overview.substring(0, 300)}. . .` : item.overview}</p>
                         </div>
                       </li>
                     );
@@ -76,7 +84,18 @@ const HomePage = () => {
             </Fade>
           </Container>
         ) : (
-          <LatestReleases />
+          <>
+            <LatestReleases
+              url={movie}
+              label="Movie"
+              type="movie"
+            />
+            <LatestReleases
+              url={tv}
+              label="TV"
+              type="tv"
+            />
+          </>
         )}
       </div>
     </DefaultLayout>

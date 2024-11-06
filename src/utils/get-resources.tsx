@@ -9,9 +9,8 @@ const headers = {
   },
 };
 
-export const getLatestReleases = () =>
+export const getLatestReleases = (url: string) =>
   new Promise((resolve, reject) => {
-    const url = `https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1`;
     axios
       .get(url, headers)
       .then((response) => {
@@ -25,6 +24,18 @@ export const getLatestReleases = () =>
 export const getAllMedia = (keyword: string) =>
   new Promise((resolve, reject) => {
     const url = `https://api.themoviedb.org/3/search/movie?query=${keyword}&include_adult=false&language=en-US&page=1`;
+    axios
+      .get(url, headers)
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+export const getMediaByID = (id: string, type: string) =>
+  new Promise((resolve, reject) => {
+    const url = `https://api.themoviedb.org/3/${type}/${id}?language=en-US`;
     axios
       .get(url, headers)
       .then((response) => {

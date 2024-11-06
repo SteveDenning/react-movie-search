@@ -9,7 +9,14 @@ import LatestReleases from "../index";
 
 describe("Latest Releases component", () => {
   describe("Component rendering", () => {
-    const setup = () => render(<LatestReleases />);
+    const setup = () =>
+      render(
+        <LatestReleases
+          url="/test"
+          label="test"
+          type="movie"
+        />,
+      );
 
     beforeEach(() => {});
 

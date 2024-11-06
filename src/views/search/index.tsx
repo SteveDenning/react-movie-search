@@ -1,20 +1,22 @@
 import React, { useCallback, useState } from "react";
 import { debounce } from "lodash";
+import moment from "moment";
 
 // Utils
-import { getAllMedia } from "../../utils/services";
+import { getAllMedia } from "../../utils/get-resources";
 
 // Components
 import Button from "../../components/button";
 import ClearIcon from "@mui/icons-material/Clear";
 import { Fade } from "@mui/material";
+import Image from "../../components/image";
 
 // Styles
 import "./search.scss";
 
 interface Props {
   onSubmit: (data: any) => void;
-  setValue: (boolean: any) => void;
+  setValue?: (boolean: any) => void;
 }
 
 const Search: React.FC<Props> = ({ onSubmit, setValue }) => {
@@ -41,24 +43,25 @@ const Search: React.FC<Props> = ({ onSubmit, setValue }) => {
 
   const handleSuggestions = (value: any) => {
     if (value.target.value.length > 2) {
-      setValue(!!value.target.value.length);
       getAllMedia(value.target.value)
         .then((response: any) => {
-          const suggestions = response.data.results.map((title: any) => title["original_title"]);
+          const uniqueResults = response.data.results.reduce((accumulator, current) => {
+            if (!accumulator.find((item) => item["original_title"] === current["original_title"])) {
+              accumulator.push(current);
+            }
+            return accumulator;
+          }, []);
 
-          const filteredArray = suggestions.filter((item: string, index: number) => {
-            return suggestions.indexOf(item) === index;
-          });
-
-          setSuggestions(filteredArray);
+          setSuggestions(uniqueResults.slice(0, 10));
           setShowOptions(true);
         })
         .catch((error) => {
           console.error(error);
         });
     } else {
-      setValue(false);
-      setSuggestions([]);
+      setShowOptions(false);
+      handleSearchInput("");
+      onSubmit("");
     }
   };
 
@@ -75,15 +78,21 @@ const Search: React.FC<Props> = ({ onSubmit, setValue }) => {
         onSubmit={handleSubmit}
       >
         <input
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
           className="search__form-input"
           type="text"
-          placeholder="Search"
+          placeholder="Search..."
         />
-        <Button variant="icon">
+        <Button
+          variant="icon"
+          type="reset"
+        >
           <ClearIcon sx={{ color: "#ccc", fontSize: 30 }} />
         </Button>
       </form>
-      <Fade in={showOptions}>
+      <Fade in={!!suggestions.length && showOptions}>
         <div>
           {!!suggestions.length && (
             <ul className="search__options-list">
@@ -95,11 +104,18 @@ const Search: React.FC<Props> = ({ onSubmit, setValue }) => {
                     key={index}
                     onClick={() => {
                       setShowOptions(false);
-                      handleSearchInput(suggestion);
-                      onSubmit(suggestion);
+                      handleSearchInput(suggestion["original_title"]);
+                      onSubmit(suggestion["original_title"]);
                     }}
                   >
-                    {suggestion}
+                    <Image
+                      resource={suggestion}
+                      size="xsmall"
+                    />
+                    <div>
+                      <p>{suggestion["original_title"]}</p>
+                      <p className="search__options-list-item-year">{moment(suggestion["release_date"]).format("YYYY")}</p>
+                    </div>
                   </li>
                 );
               })}

@@ -5,17 +5,17 @@
   align-items: center;
   background-position: center;
   border: 0;
-  border-radius: 10px;
+  border-radius: 0 10px 0 10px;
   box-shadow: none;
   color: $primary-color;
   cursor: pointer;
   display: inline-flex;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 100;
   justify-content: center;
   line-height: 24px;
   outline: 0;
-  padding: 8px 14px;
+  padding: 4px 14px;
   position: relative;
   text-decoration: none;
   transition: background-color ease 0.3s;
@@ -75,6 +75,11 @@
         background-size: 100%;
         transition: background 0s;
       }
+    }
+
+    &.button--default {
+      @include filledColorVariant($white, $teal, $purple, 5%);
+      color: $black;
     }
 
     &.button--blue {
