@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 // Utils
 import { getAllMedia } from "../../utils/get-resources";
+import useScreenSize from "../../utils/use-screen-size";
 
 // Components
 import { Container, Fade } from "@mui/material";
@@ -16,6 +17,8 @@ import DefaultLayout from "../../layout/default";
 import "./home-page.scss";
 
 const HomePage = () => {
+  const screenSize = useScreenSize();
+
   const [results, setResources] = useState<any>([]);
   const [loaded, setLoaded] = useState<boolean>(false);
   const [filterState, setFilterState] = useState({ query: "" });
