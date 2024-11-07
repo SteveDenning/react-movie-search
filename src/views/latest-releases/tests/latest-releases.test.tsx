@@ -9,16 +9,7 @@ import LatestReleases from "../index";
 
 describe("Latest Releases component", () => {
   describe("Component rendering", () => {
-    const setup = () =>
-      render(
-        <LatestReleases
-          url="/test"
-          label="test"
-          type="movie"
-        />,
-      );
-
-    beforeEach(() => {});
+    const setup = () => render(<LatestReleases label="test" />);
 
     it("Should render latest releases block", () => {
       setup();

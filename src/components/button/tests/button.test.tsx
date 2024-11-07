@@ -10,8 +10,6 @@ describe("Button component", () => {
     const handleClick = jest.fn();
     const setup = () => render(<Button onClick={handleClick}>Lorem ipsum</Button>);
 
-    beforeEach(() => {});
-
     it("Should render a button", () => {
       setup();
       expect(screen.getByTestId("button")).toBeInTheDocument();

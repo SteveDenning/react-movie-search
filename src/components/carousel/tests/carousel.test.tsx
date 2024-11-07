@@ -16,8 +16,6 @@ describe("Carousel component", () => {
         />,
       );
 
-    beforeEach(() => {});
-
     it("Should render an carousel", () => {
       setup();
       expect(screen.getByTestId("carousel")).toBeInTheDocument();
