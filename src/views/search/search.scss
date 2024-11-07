@@ -5,19 +5,18 @@
 .search {
   display: flex;
   justify-content: center;
-  margin: 40px 0;
+  margin: 20px 0;
   position: relative;
 
   &__form {
     position: relative;
     width: 700px;
+  }
 
-    .button--icon {
-      display: none;
-      position: absolute;
-      right: 7px;
-      top: 7px;
-    }
+  .button--icon {
+    position: absolute;
+    right: 10px;
+    top: 10px;
   }
 
   &__form-input {

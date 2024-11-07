@@ -6,6 +6,7 @@ import { getMediaByID } from "../../utils/get-resources";
 // Components
 import Button from "../../components/button";
 import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
+import Image from "../../components/image";
 
 // Layout
 import DefaultLayout from "../../layout/default";
@@ -28,9 +29,10 @@ const DetailsView = () => {
     getMediaByID(programmeId, type)
       .then((response: any) => {
         setResource(response.data);
-        setHeading(response.data.title || response.data["original_name"]);
+        setHeading(`${response.data.title || response.data["original_name"] || response.data.name} : ${type}`); // Add type to details
         setBackDrop(response.data.backdrop_path);
         setLoaded(true);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error(error);
@@ -48,7 +50,14 @@ const DetailsView = () => {
           <div data-testid="details-view__inner">
             <Container>
               <div className="details-view__content">
-                <p>{resource.overview || "Description not available"}</p>
+                <p>{resource.overview || resource.biography || "Description not available"}</p>
+                {resource["profile_path"] && (
+                  <Image
+                    resource={resource}
+                    size="medium"
+                    type="profile"
+                  />
+                )}
                 {!!resource.genres?.length && (
                   <>
                     <ul>

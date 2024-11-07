@@ -13,18 +13,16 @@ import { Container, Fade } from "@mui/material";
 import "./latest-releases.scss";
 
 interface Props {
-  url: string;
   label: string;
-  type: string;
 }
 
-const LatestReleases: React.FC<Props> = ({ url, label, type }) => {
+const LatestReleases: React.FC<Props> = ({ label }) => {
   const [resources, setResources] = useState<any>([]);
   const [open, setOpen] = useState(false);
 
   const fetchLatestRelease = () => {
     setOpen(true);
-    getLatestReleases(url)
+    getLatestReleases(label.toLocaleLowerCase())
       .then((response: any) => {
         setResources(response.data.results);
         setOpen(false);
@@ -49,7 +47,7 @@ const LatestReleases: React.FC<Props> = ({ url, label, type }) => {
             <Carousel
               resources={resources}
               label={label}
-              type={type}
+              type={label.toLocaleLowerCase()}
             />
           </Container>
         </div>

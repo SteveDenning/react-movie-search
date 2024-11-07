@@ -1,6 +1,6 @@
-import React, { useCallback, useState } from "react";
-import { debounce } from "lodash";
+import React, { useState } from "react";
 import moment from "moment";
+import { useSearchParams } from "react-router-dom";
 
 // Utils
 import { getAllMedia } from "../../utils/get-resources";
@@ -14,36 +14,26 @@ import Image from "../../components/image";
 // Styles
 import "./search.scss";
 
-interface Props {
-  onSubmit: (data: any) => void;
-  setValue?: (boolean: any) => void;
-}
-
-const Search: React.FC<Props> = ({ onSubmit, setValue }) => {
+const Search = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [showOptions, setShowOptions] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const params = new URLSearchParams(searchParams);
 
-  const handleSearchInput = (value: string) => {
-    debouncedSearch(value);
+  const updateQuery = (key, value) => {
+    params.set(key, value);
+    setSearchParams(params);
   };
-
-  // eslint-disable-next-line
-  const debouncedSearch = useCallback(
-    debounce((value: string) => {
-      if (value.length > 2 || !value) {
-        onSubmit(value);
-      }
-    }, 750),
-    [],
-  );
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    updateQuery("query", event.target[0].value);
+    setShowOptions(false);
   };
 
-  const handleSuggestions = (value: any) => {
-    if (value.target.value.length > 2) {
-      getAllMedia(value.target.value)
+  const handleSuggestions = (event: any) => {
+    if (event.target.value.length > 2) {
+      getAllMedia(event.target.value)
         .then((response: any) => {
           const uniqueResults = response.data.results.reduce((accumulator, current) => {
             if (!accumulator.find((item) => item["original_title"] === current["original_title"])) {
@@ -52,17 +42,19 @@ const Search: React.FC<Props> = ({ onSubmit, setValue }) => {
             return accumulator;
           }, []);
 
-          setSuggestions(uniqueResults.slice(0, 10));
+          setSuggestions(response.data.results.slice(0, 10));
           setShowOptions(true);
         })
         .catch((error) => {
           console.error(error);
         });
-    } else {
-      setShowOptions(false);
-      handleSearchInput("");
-      onSubmit("");
     }
+  };
+
+  const clear = () => {
+    window.location.href = "/"; // Find a better way to reset this without reloading the page
+    setSuggestions([]);
+    setShowOptions(false);
   };
 
   return (
@@ -78,34 +70,33 @@ const Search: React.FC<Props> = ({ onSubmit, setValue }) => {
         onSubmit={handleSubmit}
       >
         <input
-          onChange={(e) => {
-            setValue(e.target.value);
-          }}
           className="search__form-input"
           type="text"
           placeholder="Search..."
         />
-        <Button
-          variant="icon"
-          type="reset"
-        >
-          <ClearIcon sx={{ color: "#ccc", fontSize: 30 }} />
-        </Button>
       </form>
+      <Button
+        variant="icon"
+        type="reset"
+        onClick={clear}
+      >
+        <ClearIcon sx={{ color: "#ccc", fontSize: 20 }} />
+      </Button>
       <Fade in={!!suggestions.length && showOptions}>
         <div>
           {!!suggestions.length && (
             <ul className="search__options-list">
               {suggestions.map((suggestion: any, index: number) => {
+                {
+                  console.log(suggestion);
+                }
                 return (
                   <li
                     tabIndex={1}
                     className="search__options-list-item"
                     key={index}
                     onClick={() => {
-                      setShowOptions(false);
-                      handleSearchInput(suggestion["original_title"]);
-                      onSubmit(suggestion["original_title"]);
+                      window.location.href = `/details/${suggestion["media_type"]}/${suggestion["id"]}`;
                     }}
                   >
                     <Image
@@ -113,7 +104,7 @@ const Search: React.FC<Props> = ({ onSubmit, setValue }) => {
                       size="xsmall"
                     />
                     <div>
-                      <p>{suggestion["original_title"]}</p>
+                      <p>{suggestion["original_title"] || suggestion["name"]}</p>
                       <p className="search__options-list-item-year">{moment(suggestion["release_date"]).format("YYYY")}</p>
                     </div>
                   </li>

@@ -1,6 +1,8 @@
 // Home Page styles
 
 .home-page {
+  margin: 40px 0;
+
   &__list {
     flex-wrap: wrap;
     justify-content: center;
@@ -20,7 +22,6 @@
   .image-wrapper {
     align-items: center;
     display: flex;
-    width: 100%; // need to split this all out
 
     img {
       cursor: pointer;

@@ -1,5 +1,8 @@
 import React from "react";
 
+// Views
+import Search from "./../search";
+
 // Styles
 import "./header.scss";
 
@@ -13,7 +16,7 @@ const Header: React.FC<Props> = ({ heading }) => {
       className="header"
       data-testid="header"
     >
-      <h1>{heading}</h1>
+      {heading ? <h1>{heading}</h1> : <Search />}
     </header>
   );
 };
