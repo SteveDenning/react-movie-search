@@ -77,10 +77,7 @@ const Carousel: React.FC<Props> = ({ resources, label, type }) => {
               className="latest-releases__list-item"
               onClick={() => (window.location.href = `/details/${type}/${item.id}`)}
             >
-              <Image
-                resource={item}
-                type="poster"
-              />
+              <Image resource={item} />
             </div>
           );
         })}
