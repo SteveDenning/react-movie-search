@@ -35,12 +35,12 @@ const Search = () => {
     if (event.target.value.length > 2) {
       getAllMedia(event.target.value)
         .then((response: any) => {
-          const uniqueResults = response.data.results.reduce((accumulator, current) => {
-            if (!accumulator.find((item) => item["original_title"] === current["original_title"])) {
-              accumulator.push(current);
-            }
-            return accumulator;
-          }, []);
+          // const uniqueResults = response.data.results.reduce((accumulator, current) => {
+          //   if (!accumulator.find((item) => item["original_title"] === current["original_title"])) {
+          //     accumulator.push(current);
+          //   }
+          //   return accumulator;
+          // }, []);
 
           setSuggestions(response.data.results.slice(0, 10));
           setShowOptions(true);
