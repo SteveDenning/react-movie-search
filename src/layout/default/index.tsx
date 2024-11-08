@@ -12,7 +12,7 @@ import Header from "../../views/header";
 
 interface Props {
   children?: any;
-  heading?: string;
+  heading: string;
   hasSearch?: boolean;
 }
 

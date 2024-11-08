@@ -24,9 +24,9 @@ const Search = () => {
   const [showOptions, setShowOptions] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [value, setValue] = useState(sessionStorage.getItem("query") || "");
-  const params = new URLSearchParams(searchParams);
   const navigate = useNavigate();
 
+  const params = new URLSearchParams(searchParams);
   const updateQuery = (key, value) => {
     params.set(key, value);
     setSearchParams(params);
@@ -83,7 +83,10 @@ const Search = () => {
         <label
           htmlFor="search"
           aria-labelledby="search"
-        ></label>
+          className="sr-only"
+        >
+          Search for media
+        </label>
         <input
           id="search"
           className="search__form-input"

@@ -78,7 +78,7 @@
     }
 
     &.button--default {
-      @include filledColorVariant($white, $teal, $purple, 5%);
+      @include filledColorVariant($white, $anakiwa, $purple, 5%);
       color: $black;
     }
 

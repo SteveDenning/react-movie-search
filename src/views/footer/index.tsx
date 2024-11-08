@@ -14,7 +14,17 @@ const Footer = () => {
       data-testid="footer"
     >
       <div className="footer__inner">
-        <p data-testid="footer-text">Built by Steve Denning</p>
+        <ul className="footer__list">
+          <li className="footer__list-item">
+            Powered by{" "}
+            <a
+              href="https://developer.themoviedb.org/docs/getting-started"
+              className="footer__list-link"
+            >
+              TMDB
+            </a>
+          </li>
+        </ul>
       </div>
     </footer>
   );

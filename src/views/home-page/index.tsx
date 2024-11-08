@@ -55,7 +55,7 @@ const HomePage = () => {
   return (
     <DefaultLayout
       hasSearch
-      heading="React Movie Search"
+      heading="The Movie Seeker: React App for All Things Cinema"
     >
       <div
         className="home-page"
