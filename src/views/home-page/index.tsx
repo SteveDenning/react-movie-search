@@ -17,7 +17,7 @@ import DefaultLayout from "../../layout/default";
 import "./home-page.scss";
 
 const HomePage = () => {
-  const [results, setResources] = useState<any>([]);
+  const [resources, setResources] = useState<any>([]);
   const [loaded, setLoaded] = useState<boolean>(false);
   // const screenSize = useScreenSize();
   const location = useLocation();
@@ -41,6 +41,8 @@ const HomePage = () => {
       if (query) {
         handleSearchInput(query);
       }
+    } else {
+      setResources([]);
     }
   };
 
@@ -54,15 +56,12 @@ const HomePage = () => {
         className="home-page"
         data-testid="home-page"
       >
-        {results.length ? (
+        {resources.length ? (
           <Container>
-            <Fade in={!!results.length}>
+            <Fade in={!!resources.length}>
               <ul className="home-page__list">
                 {loaded &&
-                  results.map((item: any, i: number) => {
-                    {
-                      console.log(item);
-                    }
+                  resources.map((item: any, i: number) => {
                     return (
                       <li
                         className="home-page__list-item"

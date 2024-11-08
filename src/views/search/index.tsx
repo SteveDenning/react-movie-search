@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import moment from "moment";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 // Utils
 import { getAllMedia } from "../../utils/get-resources";
@@ -18,7 +18,9 @@ const Search = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [showOptions, setShowOptions] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
+  const [value, setValue] = useState("");
   const params = new URLSearchParams(searchParams);
+  const navigate = useNavigate();
 
   const updateQuery = (key, value) => {
     params.set(key, value);
@@ -27,7 +29,10 @@ const Search = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    updateQuery("query", event.target[0].value);
+    const value = event.target[0].value;
+
+    setValue(value);
+    updateQuery("query", value);
     setShowOptions(false);
   };
 
@@ -35,13 +40,6 @@ const Search = () => {
     if (event.target.value.length > 2) {
       getAllMedia(event.target.value)
         .then((response: any) => {
-          // const uniqueResults = response.data.results.reduce((accumulator, current) => {
-          //   if (!accumulator.find((item) => item["original_title"] === current["original_title"])) {
-          //     accumulator.push(current);
-          //   }
-          //   return accumulator;
-          // }, []);
-
           setSuggestions(response.data.results.slice(0, 10));
           setShowOptions(true);
         })
@@ -52,7 +50,8 @@ const Search = () => {
   };
 
   const clear = () => {
-    window.location.href = "/"; // Find a better way to reset this without reloading the page
+    setValue("");
+    navigate("/");
     setSuggestions([]);
     setShowOptions(false);
   };
@@ -73,23 +72,27 @@ const Search = () => {
           className="search__form-input"
           type="text"
           placeholder="Search..."
+          value={value}
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
         />
       </form>
-      <Button
-        variant="icon"
-        type="reset"
-        onClick={clear}
-      >
-        <ClearIcon sx={{ color: "#ccc", fontSize: 20 }} />
-      </Button>
-      <Fade in={!!suggestions.length && showOptions}>
+      {!!value && (
+        <Button
+          variant="icon"
+          type="reset"
+          onClick={clear}
+        >
+          <ClearIcon sx={{ color: "#ccc", fontSize: 20 }} />
+        </Button>
+      )}
+
+      <Fade in={!!suggestions.length && showOptions && !!value}>
         <div>
           {!!suggestions.length && (
             <ul className="search__options-list">
               {suggestions.map((suggestion: any, index: number) => {
-                {
-                  console.log(suggestion);
-                }
                 return (
                   <li
                     tabIndex={1}

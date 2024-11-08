@@ -32,7 +32,6 @@ const DetailsView = () => {
         setHeading(`${response.data.title || response.data["original_name"] || response.data.name} : ${type}`); // Add type to details
         setBackDrop(response.data.backdrop_path);
         setLoaded(true);
-        console.log(response.data);
       })
       .catch((error) => {
         console.error(error);
