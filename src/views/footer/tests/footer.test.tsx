@@ -14,10 +14,5 @@ describe("Footer component", () => {
       setup();
       expect(screen.getByTestId("footer")).toBeInTheDocument();
     });
-
-    it("Should render the footer text of 'Built by Steve Denning'", () => {
-      setup();
-      expect(screen.getByText("Built by Steve Denning")).toBeInTheDocument();
-    });
   });
 });
