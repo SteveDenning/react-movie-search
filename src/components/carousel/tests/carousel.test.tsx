@@ -1,3 +1,4 @@
+import React from "react";
 import "@testing-library/jest-dom";
 import { screen, render } from "@testing-library/react";
 
@@ -12,7 +13,7 @@ describe("Carousel component", () => {
         <Carousel
           resources={resources}
           label="Lorem Ipsom"
-          type="movie"
+          media="movie"
         />,
       );
 

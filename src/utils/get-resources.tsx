@@ -11,9 +11,9 @@ const headers = {
 
 const apiUrl = "https://api.themoviedb.org";
 
-export const getLatestReleases = (type: string) =>
+export const getLatestReleases = (path: string) =>
   new Promise((resolve, reject) => {
-    const url = `https://api.themoviedb.org/3/discover/${type}?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`;
+    const url = `https://api.themoviedb.org/3/${path}?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`;
 
     axios
       .get(url, headers)

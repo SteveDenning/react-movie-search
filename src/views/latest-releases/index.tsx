@@ -14,15 +14,17 @@ import "./latest-releases.scss";
 
 interface Props {
   label: string;
+  media: string;
+  path: string;
 }
 
-const LatestReleases: React.FC<Props> = ({ label }) => {
+const LatestReleases: React.FC<Props> = ({ label, media, path }) => {
   const [resources, setResources] = useState<any>([]);
   const [open, setOpen] = useState(false);
 
   const fetchLatestRelease = () => {
     setOpen(true);
-    getLatestReleases(label.toLocaleLowerCase())
+    getLatestReleases(path)
       .then((response: any) => {
         setResources(response.data.results);
         setOpen(false);
@@ -47,7 +49,7 @@ const LatestReleases: React.FC<Props> = ({ label }) => {
             <Carousel
               resources={resources}
               label={label}
-              type={label.toLocaleLowerCase()}
+              media={media}
             />
           </Container>
         </div>

@@ -5,12 +5,17 @@
 .search {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 20px;
   position: relative;
+  width: 100%;
+
+  @include breakpoint($xlarge) {
+    width: 700px;
+  }
 
   &__form {
     position: relative;
-    width: 700px;
+    width: 100%;
   }
 
   .button--icon {

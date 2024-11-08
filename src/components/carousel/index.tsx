@@ -10,17 +10,17 @@ import "./carousel.scss";
 interface Props {
   resources: any;
   label: string;
-  type: string;
+  media: string;
 }
 
-const Carousel: React.FC<Props> = ({ resources, label, type }) => {
+const Carousel: React.FC<Props> = ({ resources, label, media }) => {
   const responsive = {
     desktop: {
       breakpoint: {
         max: 3000,
         min: 1024,
       },
-      items: 5,
+      items: 7,
     },
     tablet: {
       breakpoint: {
@@ -67,15 +67,14 @@ const Carousel: React.FC<Props> = ({ resources, label, type }) => {
       className="carousel"
       data-testid="carousel"
     >
-      <h2>Latest {label} Releases</h2>
-
+      <h2>{label}</h2>
       <ReactCarousel {...options}>
         {resources.map((item: any, i: number) => {
           return (
             <div
               key={i}
               className="latest-releases__list-item"
-              onClick={() => (window.location.href = `/details/${type}/${item.id}`)}
+              onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
             >
               <Image resource={item} />
             </div>

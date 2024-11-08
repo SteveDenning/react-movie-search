@@ -1,5 +1,8 @@
 import React from "react";
 
+// Utils
+import useScreenSize from "../../utils/use-screen-size";
+
 // Assets
 import defaultPlaceholder from "../../assets/images/placeholder.png";
 
@@ -13,10 +16,14 @@ interface Props {
 }
 
 const Image: React.FC<Props> = ({ resource, size, scale }) => {
+  const screenSize = useScreenSize();
+  const isMobile = screenSize.width <= 480;
+
   const baseClass = "image";
   const sizeClass = `image--${size}`;
   const scaleClass = scale ? "image--scale" : "";
-  const classes = [baseClass, sizeClass, scaleClass].filter(Boolean).join(" ");
+  const mobileClass = isMobile ? "image--mobile" : "";
+  const classes = [baseClass, sizeClass, scaleClass, mobileClass].filter(Boolean).join(" ");
 
   return (
     <div

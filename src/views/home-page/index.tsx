@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 
 // Utils
 import { getAllMedia } from "../../utils/get-resources";
-// import useScreenSize from "../../utils/use-screen-size";
 
 // Components
 import { Container, Fade } from "@mui/material";
@@ -19,7 +18,6 @@ import "./home-page.scss";
 const HomePage = () => {
   const [resources, setResources] = useState<any>([]);
   const [loaded, setLoaded] = useState<boolean>(false);
-  // const screenSize = useScreenSize();
   const location = useLocation();
 
   const handleSearchInput = (query: string) => {
@@ -65,17 +63,16 @@ const HomePage = () => {
                     return (
                       <li
                         className="home-page__list-item"
-                        style={{ marginBottom: "20px" }}
                         key={i}
                         onClick={() => (window.location.href = `/details/${item["media_type"]}/${item.id}`)}
                       >
-                        <div className="image-wrapper">
+                        <div className="home-page__list-item-image-wrapper">
                           <Image
                             resource={item}
                             size="small"
                           />
                         </div>
-                        <div style={{ marginLeft: "40px" }}>
+                        <div className="home-page__list-item-content">
                           <h3>{item.title || item["original_name"]}</h3>
                           <p>{item.overview?.length > 300 ? `${item.overview.substring(0, 300)}. . .` : item.overview}</p>
                         </div>
@@ -87,8 +84,21 @@ const HomePage = () => {
           </Container>
         ) : (
           <>
-            <LatestReleases label="Movie" />
-            <LatestReleases label="TV" />
+            <LatestReleases
+              label="Upcoming Movies"
+              media="movie"
+              path="movie/upcoming"
+            />
+            <LatestReleases
+              label="Movie Releases"
+              media="movie"
+              path="discover/movie"
+            />
+            <LatestReleases
+              label="TV Releases"
+              media="tv"
+              path="discover/tv"
+            />
           </>
         )}
       </div>
