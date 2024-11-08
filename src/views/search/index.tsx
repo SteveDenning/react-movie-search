@@ -7,9 +7,14 @@ import { getAllMedia } from "../../utils/get-resources";
 
 // Components
 import Button from "../../components/button";
-import ClearIcon from "@mui/icons-material/Clear";
-import { Fade } from "@mui/material";
 import Image from "../../components/image";
+
+// MUI
+import ClearIcon from "@mui/icons-material/Clear";
+import PersonIcon from "@mui/icons-material/Person";
+import TvIcon from "@mui/icons-material/Tv";
+import TheatersIcon from "@mui/icons-material/Theaters";
+import { Fade } from "@mui/material";
 
 // Styles
 import "./search.scss";
@@ -109,6 +114,15 @@ const Search = () => {
                     <div>
                       <p>{suggestion["original_title"] || suggestion["name"]}</p>
                       <p className="search__options-list-item-year">{moment(suggestion["release_date"]).format("YYYY")}</p>
+                    </div>
+                    <div className="search__options-media-icon">
+                      {suggestion["media_type"] === "tv" ? (
+                        <TvIcon sx={{ color: "#ccc", fontSize: 20 }} />
+                      ) : suggestion["media_type"] === "movie" ? (
+                        <TheatersIcon sx={{ color: "#ccc", fontSize: 20 }} />
+                      ) : (
+                        <PersonIcon sx={{ color: "#ccc", fontSize: 20 }} />
+                      )}
                     </div>
                   </li>
                 );

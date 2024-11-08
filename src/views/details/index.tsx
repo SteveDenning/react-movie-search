@@ -5,8 +5,10 @@ import { getMediaByID } from "../../utils/get-resources";
 
 // Components
 import Button from "../../components/button";
-import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 import Image from "../../components/image";
+
+// MUI
+import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 
 // Layout
 import DefaultLayout from "../../layout/default";
@@ -22,7 +24,6 @@ const DetailsView = () => {
 
   const programmeId = window.location.pathname.split("/")[3] as string;
   const type = window.location.pathname.split("/")[2];
-
   const backgroundImage = backDrop ? `url(${process.env.REACT_APP_TMDB_PATH}/t/p/original/${backDrop})` : "";
 
   useEffect(() => {
@@ -32,6 +33,7 @@ const DetailsView = () => {
         setHeading(`${response.data.title || response.data["original_name"] || response.data.name} : ${type}`); // Add type to details
         setBackDrop(response.data.backdrop_path);
         setLoaded(true);
+        console.log(response.data);
       })
       .catch((error) => {
         console.error(error);

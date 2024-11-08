@@ -20,7 +20,7 @@
 
   .button--icon {
     position: absolute;
-    right: 10px;
+    right: 20px;
     top: 10px;
   }
 
@@ -76,7 +76,12 @@
       color: $black;
     }
   }
+
   &__options-list-item-year {
     font-size: 12px;
+  }
+
+  &__options-media-icon {
+    margin-left: auto;
   }
 }

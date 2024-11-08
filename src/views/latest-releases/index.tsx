@@ -4,10 +4,12 @@ import React, { useEffect, useState } from "react";
 import { getLatestReleases } from "../../utils/get-resources";
 
 // Components
-import Backdrop from "@mui/material/Backdrop";
 import Carousel from "../../components/carousel";
-import CircularProgress from "@mui/material/CircularProgress";
+
+// MUI
+import Backdrop from "@mui/material/Backdrop";
 import { Container, Fade } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 // Styles
 import "./latest-releases.scss";

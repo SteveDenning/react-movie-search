@@ -5,9 +5,11 @@ import { useLocation } from "react-router-dom";
 import { getAllMedia } from "../../utils/get-resources";
 
 // Components
-import { Container, Fade } from "@mui/material";
 import Image from "../../components/image";
 import LatestReleases from "../latest-releases";
+
+// MUI
+import { Container, Fade } from "@mui/material";
 
 // Layouts
 import DefaultLayout from "../../layout/default";
