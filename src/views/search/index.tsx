@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import moment from "moment";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
@@ -23,7 +23,7 @@ const Search = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [showOptions, setShowOptions] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState(sessionStorage.getItem("query") || "");
   const params = new URLSearchParams(searchParams);
   const navigate = useNavigate();
 
@@ -59,7 +59,14 @@ const Search = () => {
     navigate("/");
     setSuggestions([]);
     setShowOptions(false);
+    sessionStorage.removeItem("query");
   };
+
+  useEffect(() => {
+    if (sessionStorage.getItem("query")) {
+      updateQuery("query", sessionStorage.getItem("query"));
+    }
+  }, []);
 
   return (
     <div
@@ -73,7 +80,12 @@ const Search = () => {
         }}
         onSubmit={handleSubmit}
       >
+        <label
+          htmlFor="search"
+          aria-labelledby="search"
+        ></label>
         <input
+          id="search"
           className="search__form-input"
           type="text"
           placeholder="Search..."

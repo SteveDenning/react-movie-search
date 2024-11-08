@@ -13,17 +13,19 @@ interface Props {
   resource: any;
   size?: "xsmall" | "small" | "medium" | "large ";
   scale?: boolean;
+  content?: boolean;
 }
 
-const Image: React.FC<Props> = ({ resource, size, scale }) => {
+const Image: React.FC<Props> = ({ resource, size, scale, content }) => {
   const screenSize = useScreenSize();
   const isMobile = screenSize.width <= 480;
 
   const baseClass = "image";
   const sizeClass = `image--${size}`;
+  const contentClass = content ? "image--content" : "";
   const scaleClass = scale ? "image--scale" : "";
   const mobileClass = isMobile ? "image--mobile" : "";
-  const classes = [baseClass, sizeClass, scaleClass, mobileClass].filter(Boolean).join(" ");
+  const classes = [baseClass, sizeClass, scaleClass, mobileClass, contentClass].filter(Boolean).join(" ");
 
   return (
     <div
@@ -36,7 +38,7 @@ const Image: React.FC<Props> = ({ resource, size, scale }) => {
             ? `https://image.tmdb.org/t/p/original/${resource["poster_path"] || resource["profile_path"]}`
             : defaultPlaceholder
         }
-        alt={resource.title}
+        alt={resource.title || resource.name}
       />
     </div>
   );

@@ -8,15 +8,17 @@ import "./header.scss";
 
 interface Props {
   heading: string;
+  hasSearch?: boolean;
 }
 
-const Header: React.FC<Props> = ({ heading }) => {
+const Header: React.FC<Props> = ({ heading, hasSearch }) => {
   return (
     <header
       className="header"
       data-testid="header"
     >
-      {heading ? <h1>{heading}</h1> : <Search />}
+      <h1 className={hasSearch ? "sr-only" : ""}>{heading}</h1>
+      {hasSearch && <Search />}
     </header>
   );
 };

@@ -23,6 +23,8 @@ const HomePage = () => {
   const location = useLocation();
 
   const handleSearchInput = (query: string) => {
+    sessionStorage.setItem("query", query);
+
     getAllMedia(query)
       .then((response: any) => {
         setResources(response.data.results);
@@ -51,7 +53,10 @@ const HomePage = () => {
   }, [location]);
 
   return (
-    <DefaultLayout>
+    <DefaultLayout
+      hasSearch
+      heading="React Movie Search"
+    >
       <div
         className="home-page"
         data-testid="home-page"

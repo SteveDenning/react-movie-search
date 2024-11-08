@@ -37,4 +37,11 @@
       }
     }
   }
+
+  &--content {
+    transition: opacity 0.2s ease;
+    @include hover {
+      opacity: 0.5;
+    }
+  }
 }
