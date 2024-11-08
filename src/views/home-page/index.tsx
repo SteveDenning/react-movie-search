@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 // Utils
 import { getAllMedia } from "../../utils/get-resources";
-import useScreenSize from "../../utils/use-screen-size";
 
 // Components
-import { Container, Fade } from "@mui/material";
 import Image from "../../components/image";
 import LatestReleases from "../latest-releases";
-import Search from "../search";
+
+// MUI
+import { Container, Fade } from "@mui/material";
 
 // Layouts
 import DefaultLayout from "../../layout/default";
@@ -17,23 +18,12 @@ import DefaultLayout from "../../layout/default";
 import "./home-page.scss";
 
 const HomePage = () => {
-  const [results, setResources] = useState<any>([]);
+  const [resources, setResources] = useState<any>([]);
   const [loaded, setLoaded] = useState<boolean>(false);
-  const [filterState, setFilterState] = useState({ query: "" });
-  const [value, setValue] = useState(false);
-  const screenSize = useScreenSize();
-
-  console.log(value, screenSize);
-
-  const tv =
-    "https://api.themoviedb.org/3/discover/tv?language=en-US&page=1&sort_by=popularity.desc&include_adult=false&include_null_first_air_dates=false&";
-  const movie = "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1";
+  const location = useLocation();
 
   const handleSearchInput = (query: string) => {
-    setFilterState({
-      ...filterState,
-      query,
-    });
+    sessionStorage.setItem("query", query);
 
     getAllMedia(query)
       .then((response: any) => {
@@ -45,37 +35,53 @@ const HomePage = () => {
       });
   };
 
+  const checkUrlParams = () => {
+    if (window.location.search) {
+      const searchParams = new URLSearchParams(window.location.search);
+      const query = searchParams.get("query");
+
+      if (query) {
+        handleSearchInput(query);
+      }
+    } else {
+      setResources([]);
+    }
+  };
+
+  useEffect(() => {
+    checkUrlParams();
+  }, [location]);
+
   return (
-    <DefaultLayout heading="Search for a movie">
+    <DefaultLayout
+      hasSearch
+      heading="React Movie Search"
+    >
       <div
         className="home-page"
         data-testid="home-page"
       >
-        <Container>
-          <Search
-            onSubmit={handleSearchInput}
-            setValue={setValue}
-          />
-        </Container>
-        {results.length ? (
+        {resources.length ? (
           <Container>
-            <Fade in={!!results.length}>
+            <Fade in={!!resources.length}>
               <ul className="home-page__list">
                 {loaded &&
-                  results.map((item: any, i: number) => {
+                  resources.map((item: any, i: number) => {
                     return (
                       <li
                         className="home-page__list-item"
-                        style={{ marginBottom: "20px" }}
                         key={i}
-                        onClick={() => (window.location.href = `/details/movie/${item.id}`)}
+                        onClick={() => (window.location.href = `/details/${item["media_type"]}/${item.id}`)}
                       >
-                        <div className="image-wrapper">
-                          <Image resource={item} />
+                        <div className="home-page__list-item-image-wrapper">
+                          <Image
+                            resource={item}
+                            size="small"
+                          />
                         </div>
-                        <div style={{ marginLeft: "40px" }}>
-                          <h3>{item.title}</h3>
-                          <p>{item.overview.length > 300 ? `${item.overview.substring(0, 300)}. . .` : item.overview}</p>
+                        <div className="home-page__list-item-content">
+                          <h3>{item.title || item["original_name"]}</h3>
+                          <p>{item.overview?.length > 300 ? `${item.overview.substring(0, 300)}. . .` : item.overview}</p>
                         </div>
                       </li>
                     );
@@ -86,14 +92,19 @@ const HomePage = () => {
         ) : (
           <>
             <LatestReleases
-              url={movie}
-              label="Movie"
-              type="movie"
+              label="Upcoming Movies"
+              media="movie"
+              path="movie/upcoming"
             />
             <LatestReleases
-              url={tv}
-              label="TV"
-              type="tv"
+              label="Movie Releases"
+              media="movie"
+              path="discover/movie"
+            />
+            <LatestReleases
+              label="TV Releases"
+              media="tv"
+              path="discover/tv"
             />
           </>
         )}

@@ -1,6 +1,6 @@
 import React from "react";
 
-// Components
+// MUI
 import CssBaseline from "@mui/material/CssBaseline";
 
 // Styles

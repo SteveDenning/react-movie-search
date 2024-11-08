@@ -10,8 +10,6 @@ describe("Footer component", () => {
   describe("Component rendering", () => {
     const setup = () => render(<Footer />);
 
-    beforeEach(() => {});
-
     it("Should render the footer", () => {
       setup();
       expect(screen.getByTestId("footer")).toBeInTheDocument();

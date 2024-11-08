@@ -10,6 +10,10 @@
     }
 
     @include breakpoint($xlarge) {
+      &__arrow--right,
+      &__arrow--left {
+        display: block;
+      }
     }
     @include breakpoint($xxlarge) {
       &__arrow--right,

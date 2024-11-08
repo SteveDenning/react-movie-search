@@ -12,14 +12,18 @@ import Header from "../../views/header";
 
 interface Props {
   children?: any;
-  heading: string;
+  heading?: string;
+  hasSearch?: boolean;
 }
 
-const DefaultLayout: React.FC<Props> = ({ children, heading }) => {
+const DefaultLayout: React.FC<Props> = ({ children, heading, hasSearch }) => {
   return (
     <MUILayout>
       {/* SEO goes here */}
-      <Header heading={heading} />
+      <Header
+        heading={heading}
+        hasSearch={hasSearch}
+      />
       <main className="main-wrapper">{children}</main>
       <Footer />
     </MUILayout>

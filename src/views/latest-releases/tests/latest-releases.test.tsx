@@ -12,13 +12,11 @@ describe("Latest Releases component", () => {
     const setup = () =>
       render(
         <LatestReleases
-          url="/test"
-          label="test"
-          type="movie"
+          label="string"
+          media="video"
+          path=""
         />,
       );
-
-    beforeEach(() => {});
 
     it("Should render latest releases block", () => {
       setup();

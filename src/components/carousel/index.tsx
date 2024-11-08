@@ -1,7 +1,6 @@
 import React from "react";
 
 // Components
-import { Fade } from "@mui/material";
 import Image from "../../components/image";
 import ReactCarousel from "react-multi-carousel";
 
@@ -11,17 +10,17 @@ import "./carousel.scss";
 interface Props {
   resources: any;
   label: string;
-  type: string;
+  media: string;
 }
 
-const Carousel: React.FC<Props> = ({ resources, label, type }) => {
+const Carousel: React.FC<Props> = ({ resources, label, media }) => {
   const responsive = {
     desktop: {
       breakpoint: {
         max: 3000,
         min: 1024,
       },
-      items: 5,
+      items: 7,
     },
     tablet: {
       breakpoint: {
@@ -64,28 +63,28 @@ const Carousel: React.FC<Props> = ({ resources, label, type }) => {
   };
 
   return (
-    <Fade in={!!resources.length}>
-      <div
-        className="carousel"
-        data-testid="carousel"
-      >
-        <h2>Latest {label} Releases</h2>
-
-        <ReactCarousel {...options}>
-          {resources.map((item: any, i: number) => {
-            return (
-              <div
-                key={i}
-                className="latest-releases__list-item"
-                onClick={() => (window.location.href = `/details/${type}/${item.id}`)}
-              >
-                <Image resource={item} />
-              </div>
-            );
-          })}
-        </ReactCarousel>
-      </div>
-    </Fade>
+    <div
+      className="carousel"
+      data-testid="carousel"
+    >
+      <h2>{label}</h2>
+      <ReactCarousel {...options}>
+        {resources.map((item: any, i: number) => {
+          return (
+            <div
+              key={i}
+              className="latest-releases__list-item"
+              onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
+            >
+              <Image
+                resource={item}
+                content
+              />
+            </div>
+          );
+        })}
+      </ReactCarousel>
+    </div>
   );
 };
 

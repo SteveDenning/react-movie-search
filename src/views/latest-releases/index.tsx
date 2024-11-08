@@ -4,27 +4,29 @@ import React, { useEffect, useState } from "react";
 import { getLatestReleases } from "../../utils/get-resources";
 
 // Components
-import Backdrop from "@mui/material/Backdrop";
 import Carousel from "../../components/carousel";
-import CircularProgress from "@mui/material/CircularProgress";
+
+// MUI
+import Backdrop from "@mui/material/Backdrop";
 import { Container, Fade } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
 
 // Styles
 import "./latest-releases.scss";
 
 interface Props {
-  url: string;
   label: string;
-  type: string;
+  media: string;
+  path: string;
 }
 
-const LatestReleases: React.FC<Props> = ({ url, label, type }) => {
+const LatestReleases: React.FC<Props> = ({ label, media, path }) => {
   const [resources, setResources] = useState<any>([]);
   const [open, setOpen] = useState(false);
 
   const fetchLatestRelease = () => {
     setOpen(true);
-    getLatestReleases(url)
+    getLatestReleases(path)
       .then((response: any) => {
         setResources(response.data.results);
         setOpen(false);
@@ -49,7 +51,7 @@ const LatestReleases: React.FC<Props> = ({ url, label, type }) => {
             <Carousel
               resources={resources}
               label={label}
-              type={type}
+              media={media}
             />
           </Container>
         </div>
