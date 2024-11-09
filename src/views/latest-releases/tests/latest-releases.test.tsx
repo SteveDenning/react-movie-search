@@ -14,7 +14,8 @@ describe("Latest Releases component", () => {
         <LatestReleases
           label="string"
           media="video"
-          path=""
+          path="/"
+          imagePath="/"
         />,
       );
 

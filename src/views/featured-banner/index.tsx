@@ -4,31 +4,52 @@ import React, { useEffect, useState } from "react";
 import { getLatestReleases } from "../../utils/get-resources";
 
 // Components
-import Button from "../../components/button";
 import Carousel from "../../components/carousel";
 
 // MUI
 import Backdrop from "@mui/material/Backdrop";
-import { Container, Fade } from "@mui/material";
+import { Fade } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Typography } from "@mui/material";
-
-// Icons
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 // Styles
-import "./latest-releases.scss";
+import "./featured-banner.scss";
 
 interface Props {
-  label: string;
   media: string;
   path: string;
   imagePath: string;
 }
 
-const LatestReleases: React.FC<Props> = ({ label, media, path, imagePath }) => {
+const FeaturedBanner: React.FC<Props> = ({ media, path, imagePath }) => {
   const [resources, setResources] = useState<any>([]);
   const [open, setOpen] = useState(false);
+
+  const responsiveOptions = {
+    desktop: {
+      breakpoint: {
+        max: 3000,
+        min: 1024,
+      },
+      items: 1,
+      slidesToSlide: 1,
+    },
+    tablet: {
+      breakpoint: {
+        max: 1024,
+        min: 464,
+      },
+      items: 1,
+      slidesToSlide: 1,
+    },
+    mobile: {
+      breakpoint: {
+        max: 464,
+        min: 0,
+      },
+      items: 1,
+      slidesToSlide: 1,
+    },
+  };
 
   const fetchLatestRelease = () => {
     setOpen(true);
@@ -48,36 +69,25 @@ const LatestReleases: React.FC<Props> = ({ label, media, path, imagePath }) => {
 
   return (
     <>
-      <Fade in={!!resources.length}>
-        <div
-          data-testid="latest-releases"
-          className="latest-releases"
-        >
-          <Container>
-            <div className="latest-releases__header">
-              <Typography
-                className="latest-releases__header-title"
-                variant="h2"
-                sx={{ fontSize: 24, fontWeight: "200" }}
-              >
-                <Button
-                  onClick={() => (window.location.href = "/media-listing")}
-                  variant="heading"
-                >
-                  {label}
-                  <ArrowForwardIosIcon />
-                </Button>
-              </Typography>
-            </div>
-
+      <div
+        data-testid="featured-banner"
+        className="featured-banner"
+      >
+        <Fade in={!!resources.length}>
+          <div className="featured-banner__inner">
             <Carousel
               resources={resources}
               media={media}
+              responsiveOptions={responsiveOptions}
               imagePath={imagePath}
+              variant="banner"
+              autoPlay={true}
+              autoPlaySpeed={3000}
+              infinite
             />
-          </Container>
-        </div>
-      </Fade>
+          </div>
+        </Fade>
+      </div>
       <Backdrop
         sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
         open={open}
@@ -88,4 +98,4 @@ const LatestReleases: React.FC<Props> = ({ label, media, path, imagePath }) => {
   );
 };
 
-export default LatestReleases;
+export default FeaturedBanner;

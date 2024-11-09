@@ -7,7 +7,14 @@ import FeaturedBanner from "../index";
 
 describe("Featured Banner component", () => {
   describe("Component rendering", () => {
-    const setup = () => render(<FeaturedBanner></FeaturedBanner>);
+    const setup = () =>
+      render(
+        <FeaturedBanner
+          media="test"
+          path="/test/path"
+          imagePath="/test/image-path"
+        />,
+      );
 
     it("Should render the Featured Banner", () => {
       setup();

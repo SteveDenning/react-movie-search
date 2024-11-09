@@ -8,13 +8,7 @@ const meta: Meta<typeof Template> = {
   title: "Components/FeaturedBanner",
   component: Template,
   tags: ["autodocs"],
-  argTypes: {
-    children: {
-      control: "text",
-      type: { name: "string", required: true },
-      description: "Any elements you want to render inside the Featured banner element",
-    },
-  },
+  argTypes: {},
 };
 export default meta;
 
@@ -25,6 +19,4 @@ const FeaturedBanner = (args: any) => <Template {...args} />;
 export const Default: Story = {
   render: () => <FeaturedBanner />,
 };
-Default.args = {
-  children: "Lorem ipsum",
-};
+Default.args = {};

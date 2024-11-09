@@ -11,12 +11,13 @@ import "./image.scss";
 
 interface Props {
   resource: any;
-  size?: "xsmall" | "small" | "medium" | "large ";
+  size?: "xsmall" | "small" | "medium" | "large";
   scale?: boolean;
   content?: boolean;
+  imagePath?: string;
 }
 
-const Image: React.FC<Props> = ({ resource, size, scale, content }) => {
+const Image: React.FC<Props> = ({ resource, size, scale, content, imagePath }) => {
   const screenSize = useScreenSize();
   const isMobile = screenSize.width <= 480;
 
@@ -33,11 +34,7 @@ const Image: React.FC<Props> = ({ resource, size, scale, content }) => {
       data-testid="image"
     >
       <img
-        src={
-          resource["poster_path"] || resource["profile_path"]
-            ? `https://image.tmdb.org/t/p/original/${resource["poster_path"] || resource["profile_path"]}`
-            : defaultPlaceholder
-        }
+        src={resource[imagePath] ? `https://image.tmdb.org/t/p/original/${resource[imagePath]}` : defaultPlaceholder}
         alt={resource.title || resource.name}
       />
     </div>

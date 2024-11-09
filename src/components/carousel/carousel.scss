@@ -3,6 +3,37 @@
 // Carousel Styles
 
 .carousel {
+  &__item {
+    margin: 0 10px;
+    position: relative;
+  }
+
+  .carousel__poster {
+    position: absolute;
+    bottom: 0;
+
+    .image {
+      margin-bottom: 0;
+      width: 80px;
+
+      @include hover {
+        opacity: 1;
+      }
+    }
+
+    @include breakpoint($large) {
+      .image {
+        width: 130px;
+      }
+    }
+
+    @include breakpoint($xlarge) {
+      .image {
+        width: 250px;
+      }
+    }
+  }
+
   .react-multiple-carousel {
     &__arrow--right,
     &__arrow--left {
@@ -22,6 +53,7 @@
         }
       }
     }
+
     @include breakpoint($xxlarge) {
       &__arrow--right,
       &__arrow--left {
@@ -36,6 +68,7 @@
       }
     }
   }
+
   .react-multi-carousel-list {
     overflow: visible;
   }

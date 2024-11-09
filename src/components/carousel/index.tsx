@@ -10,9 +10,15 @@ import "./carousel.scss";
 interface Props {
   resources: any;
   media: string;
+  responsiveOptions?: any;
+  imagePath?: string;
+  variant?: string;
+  autoPlay?: boolean;
+  autoPlaySpeed?: number;
+  infinite?: boolean;
 }
 
-const Carousel: React.FC<Props> = ({ resources, media }) => {
+const Carousel: React.FC<Props> = ({ resources, media, responsiveOptions, imagePath, variant, autoPlay = false, autoPlaySpeed, infinite }) => {
   const responsive = {
     desktop: {
       breakpoint: {
@@ -41,7 +47,7 @@ const Carousel: React.FC<Props> = ({ resources, media }) => {
 
   const options = {
     renderDotsOutside: true,
-    responsive: responsive,
+    responsive: { ...responsive, ...responsiveOptions },
     pauseOnHover: true,
     slidesToSlide: 5,
     infinite: true,
@@ -61,23 +67,43 @@ const Carousel: React.FC<Props> = ({ resources, media }) => {
     swipeable: true,
   };
 
+  const baseClass = "carousel";
+  const variantClass = variant ? `carousel--${variant}` : "";
+  const classes = [baseClass, variantClass].filter(Boolean).join(" ");
+
   return (
     <div
-      className="carousel"
+      className={classes}
       data-testid="carousel"
     >
-      <ReactCarousel {...options}>
+      <ReactCarousel
+        {...options}
+        autoPlay={autoPlay}
+        autoPlaySpeed={autoPlaySpeed}
+        infinite={infinite}
+      >
         {resources.map((item: any, i: number) => {
           return (
             <div
               key={i}
-              className="latest-releases__list-item"
+              className="carousel__item"
               onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
             >
               <Image
                 resource={item}
                 content
+                imagePath={imagePath}
               />
+              {variant === "banner" && (
+                <div className="carousel__poster">
+                  <Image
+                    resource={item}
+                    content
+                    imagePath="poster_path"
+                    size="large"
+                  />
+                </div>
+              )}
             </div>
           );
         })}
