@@ -13,6 +13,13 @@
       &__arrow--right,
       &__arrow--left {
         display: block;
+
+        &:focus-within {
+          background-color: $anakiwa;
+          &:before {
+            color: #000;
+          }
+        }
       }
     }
     @include breakpoint($xxlarge) {

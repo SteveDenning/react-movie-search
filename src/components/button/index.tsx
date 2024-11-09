@@ -18,6 +18,7 @@ interface Props {
   ariaHidden?: boolean;
   role?: string;
   onClick?: (event: any) => void;
+  tabIndex?: any;
 }
 
 const Button: React.FC<Props> = ({
@@ -35,6 +36,7 @@ const Button: React.FC<Props> = ({
   ariaHidden,
   role,
   onClick,
+  tabIndex,
 }) => {
   const baseClass = "button";
   const colorClass = `button--${color}`;
@@ -66,13 +68,18 @@ const Button: React.FC<Props> = ({
       target={target}
       aria-hidden={ariaHidden}
       role={role}
+      tabIndex={tabIndex}
     >
-      <span
-        className="button__content"
-        data-testid="button-content"
-      >
-        {children}
-      </span>
+      {variant === "null" ? (
+        children
+      ) : (
+        <span
+          className="button__content"
+          data-testid="button-content"
+        >
+          {children}
+        </span>
+      )}
     </Element>
   );
 };

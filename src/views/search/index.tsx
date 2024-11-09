@@ -118,30 +118,34 @@ const Search = () => {
               {suggestions.map((suggestion: any, index: number) => {
                 return (
                   <li
-                    tabIndex={1}
                     className="search__options-list-item"
                     key={index}
-                    onClick={() => {
-                      window.location.href = `/details/${suggestion["media_type"]}/${suggestion["id"]}`;
-                    }}
+                    // onClick={() => {
+                    //   window.location.href = `/details/${suggestion["media_type"]}/${suggestion["id"]}`;
+                    // }}
                   >
-                    <Image
-                      resource={suggestion}
-                      size="xsmall"
-                    />
-                    <div>
-                      <p>{suggestion["original_title"] || suggestion["name"]}</p>
-                      <p className="search__options-list-item-year">{moment(suggestion["release_date"]).format("YYYY")}</p>
-                    </div>
-                    <div className="search__options-media-icon">
-                      {suggestion["media_type"] === "tv" ? (
-                        <TvIcon sx={{ color: "#ccc", fontSize: 20 }} />
-                      ) : suggestion["media_type"] === "movie" ? (
-                        <TheatersIcon sx={{ color: "#ccc", fontSize: 20 }} />
-                      ) : (
-                        <PersonIcon sx={{ color: "#ccc", fontSize: 20 }} />
-                      )}
-                    </div>
+                    <Button
+                      href={`/details/${suggestion["media_type"]}/${suggestion["id"]}`}
+                      variant="null"
+                    >
+                      <Image
+                        resource={suggestion}
+                        size="xsmall"
+                      />
+                      <div>
+                        <p>{suggestion["original_title"] || suggestion["name"]}</p>
+                        <p className="search__options-list-item-year">{moment(suggestion["release_date"]).format("YYYY")}</p>
+                      </div>
+                      <div className="search__options-media-icon">
+                        {suggestion["media_type"] === "tv" ? (
+                          <TvIcon sx={{ color: "#ccc", fontSize: 20 }} />
+                        ) : suggestion["media_type"] === "movie" ? (
+                          <TheatersIcon sx={{ color: "#ccc", fontSize: 20 }} />
+                        ) : (
+                          <PersonIcon sx={{ color: "#ccc", fontSize: 20 }} />
+                        )}
+                      </div>
+                    </Button>
                   </li>
                 );
               })}

@@ -14,6 +14,7 @@
   font-weight: 100;
   justify-content: center;
   line-height: 24px;
+  outline: 0;
   padding: 4px 14px;
   position: relative;
   text-decoration: none;
@@ -222,9 +223,5 @@
         width: 100%;
       }
     }
-  }
-  &--null {
-    background: none;
-    width: 100%;
   }
 }
