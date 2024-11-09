@@ -1,8 +1,8 @@
 import React from "react";
+import ReactCarousel from "react-multi-carousel";
 
 // Components
 import Image from "../../components/image";
-import ReactCarousel from "react-multi-carousel";
 
 // Styles
 import "./carousel.scss";

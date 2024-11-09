@@ -6,13 +6,15 @@ import Search from "./../search";
 // Components
 import Button from "../../components/button";
 
+// MUI
+import { Container, Typography } from "@mui/material";
+
 // Icons
 import Person3OutlinedIcon from "@mui/icons-material/Person3Outlined";
 import TheatersIcon from "@mui/icons-material/Theaters";
 
 // Styles
 import "./header.scss";
-import { Container, Typography } from "@mui/material";
 
 interface Props {
   heading: string;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import moment from "moment";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import moment from "moment";
 
 // Utils
 import { getAllMedia } from "../../utils/get-resources";
@@ -10,11 +10,13 @@ import Button from "../../components/button";
 import Image from "../../components/image";
 
 // MUI
+import { Fade } from "@mui/material";
+
+// Icons
 import ClearIcon from "@mui/icons-material/Clear";
 import PersonIcon from "@mui/icons-material/Person";
 import TvIcon from "@mui/icons-material/Tv";
 import TheatersIcon from "@mui/icons-material/Theaters";
-import { Fade } from "@mui/material";
 
 // Styles
 import "./search.scss";
@@ -24,9 +26,10 @@ const Search = () => {
   const [showOptions, setShowOptions] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const [value, setValue] = useState(sessionStorage.getItem("query") || "");
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   const params = new URLSearchParams(searchParams);
+
   const updateQuery = (key, value) => {
     params.set(key, value);
     setSearchParams(params);

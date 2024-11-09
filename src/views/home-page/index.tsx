@@ -6,7 +6,9 @@ import { getAllMedia } from "../../utils/get-resources";
 
 // Components
 import Image from "../../components/image";
-import LatestReleases from "../latest-releases";
+
+// Views
+import LatestReleases from "./../latest-releases";
 
 // MUI
 import { Container, Fade, Typography } from "@mui/material";

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getLatestReleases } from "../../utils/get-resources";
 
 // Components
+import Button from "../../components/button";
 import Carousel from "../../components/carousel";
 
 // MUI
@@ -17,7 +18,6 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 // Styles
 import "./latest-releases.scss";
-import Button from "../../components/button";
 
 interface Props {
   label: string;

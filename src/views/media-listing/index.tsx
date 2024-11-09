@@ -1,5 +1,7 @@
-import DefaultLayout from "../../layout/default";
 import React from "react";
+
+// Layouts
+import DefaultLayout from "../../layout/default";
 
 const MediaListing = () => {
   return (
