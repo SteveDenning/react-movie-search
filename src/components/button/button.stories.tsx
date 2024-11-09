@@ -26,7 +26,7 @@ const meta: Meta<typeof Template> = {
     },
     variant: {
       control: "radio",
-      options: ["filled", "outlined", "link"],
+      options: ["filled", "outlined", "link", "heading"],
       type: { name: "string", required: false },
       description: "Applies variant classes to the button to control style - defaults to 'filled'",
     },
@@ -50,4 +50,40 @@ export const Default: Story = {
 Default.args = {
   children: "Lorem ipsum",
   color: "blue",
+};
+
+export const Filled: Story = {
+  render: (args) => <Button {...args} />,
+};
+Filled.args = {
+  children: "Button Text",
+  color: "blue",
+  variant: "filled",
+};
+
+export const Heading: Story = {
+  render: (args) => <Button {...args} />,
+};
+Heading.args = {
+  children: "Heading Text",
+  color: "blue",
+  variant: "heading",
+};
+
+export const Link: Story = {
+  render: (args) => <Button {...args} />,
+};
+Link.args = {
+  children: "Link Text",
+  color: "blue",
+  variant: "link",
+};
+
+export const Outlined: Story = {
+  render: (args) => <Button {...args} />,
+};
+Outlined.args = {
+  children: "Link Text",
+  color: "blue",
+  variant: "outlined",
 };
