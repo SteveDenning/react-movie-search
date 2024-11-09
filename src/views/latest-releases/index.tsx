@@ -4,12 +4,17 @@ import React, { useEffect, useState } from "react";
 import { getLatestReleases } from "../../utils/get-resources";
 
 // Components
+import Button from "../../components/button";
 import Carousel from "../../components/carousel";
 
 // MUI
 import Backdrop from "@mui/material/Backdrop";
 import { Container, Fade } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+import { Typography } from "@mui/material";
+
+// Icons
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 // Styles
 import "./latest-releases.scss";
@@ -48,9 +53,24 @@ const LatestReleases: React.FC<Props> = ({ label, media, path }) => {
           className="latest-releases"
         >
           <Container>
+            <div className="latest-releases__header">
+              <Typography
+                className="latest-releases__header-title"
+                variant="h2"
+                sx={{ fontSize: 24, fontWeight: "200" }}
+              >
+                <Button
+                  onClick={() => (window.location.href = "/media-listing")}
+                  variant="heading"
+                >
+                  {label}
+                  <ArrowForwardIosIcon />
+                </Button>
+              </Typography>
+            </div>
+
             <Carousel
               resources={resources}
-              label={label}
               media={media}
             />
           </Container>

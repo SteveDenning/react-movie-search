@@ -179,6 +179,22 @@
     background: none;
     padding: 0;
   }
+
+  &--heading {
+    background: none;
+    color: inherit;
+    font-size: inherit;
+
+    .button__content {
+      align-items: center;
+      display: flex;
+
+      svg {
+        margin-left: 10px;
+      }
+    }
+  }
+
   &--link {
     background: none;
     padding: 0;

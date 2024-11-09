@@ -12,7 +12,6 @@ describe("Carousel component", () => {
       render(
         <Carousel
           resources={resources}
-          label="Lorem Ipsom"
           media="movie"
         />,
       );
