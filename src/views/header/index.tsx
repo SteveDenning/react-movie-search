@@ -12,7 +12,7 @@ import TheatersIcon from "@mui/icons-material/Theaters";
 
 // Styles
 import "./header.scss";
-import { Container } from "@mui/material";
+import { Container, Typography } from "@mui/material";
 
 interface Props {
   heading: string;
@@ -34,7 +34,13 @@ const Header: React.FC<Props> = ({ heading, hasSearch }) => {
             <TheatersIcon sx={{ color: "#86f6ff", fontSize: 40 }} />
           </Button>
           <div className="header__inner">
-            <h1 className={hasSearch ? "sr-only" : ""}>{heading}</h1>
+            <Typography
+              className={hasSearch ? "sr-only" : ""}
+              variant="h1"
+              sx={{ fontSize: 24, fontWeight: "200" }}
+            >
+              {heading}
+            </Typography>
             {hasSearch && <Search />}
           </div>
           <Button

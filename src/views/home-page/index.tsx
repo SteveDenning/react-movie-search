@@ -9,7 +9,7 @@ import Image from "../../components/image";
 import LatestReleases from "../latest-releases";
 
 // MUI
-import { Container, Fade } from "@mui/material";
+import { Container, Fade, Typography } from "@mui/material";
 
 // Layouts
 import DefaultLayout from "../../layout/default";
@@ -80,7 +80,12 @@ const HomePage = () => {
                           />
                         </div>
                         <div className="home-page__list-item-content">
-                          <h3>{item.title || item["original_name"]}</h3>
+                          <Typography
+                            variant="h3"
+                            sx={{ fontSize: 24, fontWeight: "200" }}
+                          >
+                            {item.title || item["original_name"]}
+                          </Typography>
                           <p>{item.overview?.length > 300 ? `${item.overview.substring(0, 300)}. . .` : item.overview}</p>
                         </div>
                       </li>
