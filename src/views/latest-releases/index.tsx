@@ -13,6 +13,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 
 // Styles
 import "./latest-releases.scss";
+import Button from "../../components/button";
 
 interface Props {
   label: string;
@@ -48,9 +49,18 @@ const LatestReleases: React.FC<Props> = ({ label, media, path }) => {
           className="latest-releases"
         >
           <Container>
+            <div className="latest-releases__header">
+              <h2 className="latest-releases__header-title">{label}</h2>
+              <Button
+                onClick={() => (window.location.href = "/media-listing")}
+                variant="link"
+              >
+                Show More
+              </Button>
+            </div>
+
             <Carousel
               resources={resources}
-              label={label}
               media={media}
             />
           </Container>

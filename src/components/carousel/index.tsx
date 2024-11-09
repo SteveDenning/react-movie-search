@@ -9,11 +9,10 @@ import "./carousel.scss";
 
 interface Props {
   resources: any;
-  label: string;
   media: string;
 }
 
-const Carousel: React.FC<Props> = ({ resources, label, media }) => {
+const Carousel: React.FC<Props> = ({ resources, media }) => {
   const responsive = {
     desktop: {
       breakpoint: {
@@ -67,7 +66,6 @@ const Carousel: React.FC<Props> = ({ resources, label, media }) => {
       className="carousel"
       data-testid="carousel"
     >
-      <h2>{label}</h2>
       <ReactCarousel {...options}>
         {resources.map((item: any, i: number) => {
           return (
