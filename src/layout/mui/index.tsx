@@ -14,6 +14,23 @@ const theme = createTheme({
   typography: {
     fontFamily: "Inter,Arial,sans-serif",
   },
+  components: {
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          "&.MuiContainer-maxWidthSm": {
+            maxWidth: "400px",
+          },
+          "&.MuiContainer-maxWidthMd": {
+            maxWidth: "600px",
+          },
+          "&.MuiContainer-maxWidthLg": {
+            maxWidth: "1200px",
+          },
+        },
+      },
+    },
+  },
 });
 
 const MUILayout: React.FC<Props> = ({ children }) => {
