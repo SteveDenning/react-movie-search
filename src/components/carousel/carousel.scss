@@ -8,30 +8,8 @@
     position: relative;
   }
 
-  .carousel__poster {
-    position: absolute;
-    bottom: 0;
-
-    .image {
-      margin-bottom: 0;
-      width: 80px;
-
-      @include hover {
-        opacity: 1;
-      }
-    }
-
-    @include breakpoint($large) {
-      .image {
-        width: 130px;
-      }
-    }
-
-    @include breakpoint($xlarge) {
-      .image {
-        width: 250px;
-      }
-    }
+  &__poster {
+    display: none;
   }
 
   .react-multiple-carousel {
@@ -82,6 +60,50 @@
 
       img {
         cursor: auto;
+      }
+    }
+  }
+
+  // Variants
+  &--banner {
+    .carousel {
+      &__poster {
+        display: block;
+        bottom: 0;
+        position: absolute;
+
+        .image {
+          margin-bottom: 0;
+          width: 70px;
+
+          @include hover {
+            opacity: 1;
+          }
+        }
+
+        @include breakpoint($medium) {
+          .image {
+            width: 150px;
+          }
+        }
+
+        @include breakpoint($large) {
+          .image {
+            width: 200px;
+          }
+        }
+
+        @include breakpoint($xlarge) {
+          .image {
+            width: 200px;
+          }
+        }
+
+        @include breakpoint($xxxlarge) {
+          .image {
+            width: 200px;
+          }
+        }
       }
     }
   }

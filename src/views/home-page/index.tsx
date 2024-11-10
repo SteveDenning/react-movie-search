@@ -9,7 +9,7 @@ import Image from "../../components/image";
 
 // Views
 import LatestReleases from "./../latest-releases";
-import FeaturedBanner from "../featured-banner";
+import BannerCarousel from "../../views/banner-carousel";
 
 // MUI
 import { Container, Fade, Typography } from "@mui/material";
@@ -99,7 +99,7 @@ const HomePage = () => {
           </Container>
         ) : (
           <>
-            <FeaturedBanner
+            <BannerCarousel
               media="movie"
               path="movie/upcoming"
               imagePath="backdrop_path"

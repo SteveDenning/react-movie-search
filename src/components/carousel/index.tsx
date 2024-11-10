@@ -94,16 +94,14 @@ const Carousel: React.FC<Props> = ({ resources, media, responsiveOptions, imageP
                 content
                 imagePath={imagePath}
               />
-              {variant === "banner" && (
-                <div className="carousel__poster">
-                  <Image
-                    resource={item}
-                    content
-                    imagePath="poster_path"
-                    size="large"
-                  />
-                </div>
-              )}
+              <div className="carousel__poster">
+                <Image
+                  resource={item}
+                  content
+                  imagePath="poster_path"
+                  size="large"
+                />
+              </div>
             </div>
           );
         })}

@@ -12,7 +12,7 @@ import { Fade } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
 // Styles
-import "./featured-banner.scss";
+import "./banner-carousel.scss";
 
 interface Props {
   media: string;
@@ -20,7 +20,7 @@ interface Props {
   imagePath: string;
 }
 
-const FeaturedBanner: React.FC<Props> = ({ media, path, imagePath }) => {
+const BannerCarousel: React.FC<Props> = ({ media, path, imagePath }) => {
   const [resources, setResources] = useState<any>([]);
   const [open, setOpen] = useState(false);
 
@@ -70,11 +70,11 @@ const FeaturedBanner: React.FC<Props> = ({ media, path, imagePath }) => {
   return (
     <>
       <div
-        data-testid="featured-banner"
-        className="featured-banner"
+        data-testid="banner-carousel"
+        className="banner-carousel"
       >
         <Fade in={!!resources.length}>
-          <div className="featured-banner__inner">
+          <div className="banner-carousel__inner">
             <Carousel
               resources={resources}
               media={media}
@@ -98,4 +98,4 @@ const FeaturedBanner: React.FC<Props> = ({ media, path, imagePath }) => {
   );
 };
 
-export default FeaturedBanner;
+export default BannerCarousel;
