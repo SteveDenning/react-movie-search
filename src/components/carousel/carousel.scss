@@ -6,12 +6,17 @@
   &__item {
     margin: 0 10px;
     position: relative;
+
+    &:first-child {
+      margin-left: 0;
+    }
   }
 
   &__poster {
     display: none;
   }
 
+  // Overrides
   .react-multiple-carousel {
     &__arrow--right,
     &__arrow--left {

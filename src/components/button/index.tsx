@@ -5,7 +5,7 @@ import "./button.scss";
 
 interface Props {
   id?: string;
-  children: any;
+  children: React.ReactNode;
   className?: string;
   variant?: "filled" | "outlined" | "link" | "heading" | string | undefined;
   color?: "blue" | "orange" | "pink" | "teal" | undefined;
