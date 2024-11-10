@@ -10,15 +10,15 @@ import HomePage from "../index";
 
 describe("Home page component", () => {
   describe("Component rendering", () => {
-    const setup = () =>
+    beforeEach(() => {
       render(
         <MemoryRouter>
           <HomePage />
         </MemoryRouter>,
       );
+    });
 
     it("Should render the home page", () => {
-      setup();
       expect(screen.getByTestId("home-page")).toBeInTheDocument();
     });
   });

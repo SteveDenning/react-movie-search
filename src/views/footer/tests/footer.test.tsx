@@ -8,10 +8,11 @@ import Footer from "../index";
 
 describe("Footer component", () => {
   describe("Component rendering", () => {
-    const setup = () => render(<Footer />);
+    beforeEach(() => {
+      render(<Footer />);
+    });
 
     it("Should render the footer", () => {
-      setup();
       expect(screen.getByTestId("footer")).toBeInTheDocument();
     });
   });

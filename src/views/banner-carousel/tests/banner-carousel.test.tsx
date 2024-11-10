@@ -7,7 +7,7 @@ import BannerCarousel from "../index";
 
 describe("Banner carousel component", () => {
   describe("Component rendering", () => {
-    const setup = () =>
+    beforeEach(() => {
       render(
         <BannerCarousel
           media="test"
@@ -15,9 +15,9 @@ describe("Banner carousel component", () => {
           imagePath="/test/image-path"
         />,
       );
+    });
 
     it("Should render the Banner Carousel", () => {
-      setup();
       expect(screen.getByTestId("banner-carousel")).toBeInTheDocument();
     });
   });

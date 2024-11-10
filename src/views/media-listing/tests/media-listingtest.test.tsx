@@ -9,10 +9,11 @@ import MediaListing from "../index";
 
 describe("Media Listing component", () => {
   describe("Component rendering", () => {
-    const setup = () => render(<MediaListing />);
+    beforeEach(() => {
+      render(<MediaListing />);
+    });
 
     it("Should render media listing view", () => {
-      setup();
       expect(screen.getByTestId("media-listing")).toBeInTheDocument();
     });
   });

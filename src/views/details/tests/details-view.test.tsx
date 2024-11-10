@@ -10,15 +10,15 @@ import DetailsView from "../index";
 
 describe("Details Page component", () => {
   describe("Component rendering", () => {
-    const setup = () =>
+    beforeEach(() => {
       render(
         <MemoryRouter>
           <DetailsView />
         </MemoryRouter>,
       );
+    });
 
     it("Should render details page", () => {
-      setup();
       expect(screen.getByTestId("details-view")).toBeInTheDocument();
     });
   });

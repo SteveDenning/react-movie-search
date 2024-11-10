@@ -9,7 +9,7 @@ import LatestReleases from "../index";
 
 describe("Latest Releases component", () => {
   describe("Component rendering", () => {
-    const setup = () =>
+    beforeEach(() => {
       render(
         <LatestReleases
           label="string"
@@ -18,9 +18,9 @@ describe("Latest Releases component", () => {
           imagePath="/"
         />,
       );
+    });
 
     it("Should render latest releases block", () => {
-      setup();
       expect(screen.getByTestId("latest-releases")).toBeInTheDocument();
     });
   });
