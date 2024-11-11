@@ -5,13 +5,11 @@
 .details-view {
   background-position: center !important;
   background-size: cover !important;
-  display: flex;
   height: calc(100vh - 144px);
-  justify-content: center;
-  padding: 10px;
 
   &__content {
     background: rgba($color: #000000, $alpha: 0.5);
+
     padding: 20px;
   }
 

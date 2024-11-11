@@ -2,19 +2,28 @@ import React from "react";
 import ReactPlayer from "react-player";
 import "./video.scss";
 
-const Video = () => {
-  const trailerUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
+interface Props {
+  url: string;
+  responsive?: boolean;
+}
+
+const Video: React.FC<Props> = ({ responsive = true, url }) => {
+  const trailerUrl = `https://www.youtube.com/watch?v=${url}`;
+  const baseClass = "video";
+  const responsiveClass = responsive ? "video--responsive" : "";
+  const classes = [baseClass, responsiveClass].filter(Boolean).join(" ");
 
   return (
-    <div className="video">
+    <div className={classes}>
       <ReactPlayer
         className="video__player"
+        data-testid="video-player"
         muted={true}
         url={trailerUrl}
-        width="100%"
+        width={responsive ? "100%" : "auto"}
         height="100%"
-        data-testid="video-player"
         controls={true}
+        playing={true}
       />
     </div>
   );

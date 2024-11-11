@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 
 // Utils
-import { getMediaByID } from "../../utils/get-resources";
+import { getMediaByID, getMediaVideos } from "../../utils/get-resources";
 
 // Components
 import Button from "../../components/button";
 import Image from "../../components/image";
+import Video from "../../components/video";
 
 // MUI
-import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import { Backdrop, Box, CircularProgress, Container, Fade } from "@mui/material";
 
 // Layout
 import DefaultLayout from "../../layout/default";
@@ -21,24 +23,46 @@ const DetailsView = () => {
   const [heading, setHeading] = useState<string>("");
   const [loaded, setLoaded] = useState<boolean>(false);
   const [resource, setResource] = useState<any>({});
+  const [video, setVideo] = useState<string>("");
 
   const programmeId = window.location.pathname.split("/")[3] as string;
   const type = window.location.pathname.split("/")[2];
   const backgroundImage = backDrop ? `url(${process.env.REACT_APP_TMDB_PATH}/t/p/original/${backDrop})` : "";
 
+  const getMedia = () => {
+    if (programmeId && type) {
+      getMediaByID(programmeId, type)
+        .then((response: any) => {
+          setResource(response.data);
+          setHeading(`${response.data.title || response.data["original_name"] || response.data.name} : ${type}`); // Add type to details
+          setBackDrop(response.data.backdrop_path);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
+
+  const getVideos = (id: string, type: string) => {
+    if (resource) {
+      getMediaVideos(id, type)
+        .then((response: any) => {
+          setVideo(response.data.results[0]?.key);
+          setLoaded(true);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
+
   useEffect(() => {
-    getMediaByID(programmeId, type)
-      .then((response: any) => {
-        setResource(response.data);
-        setHeading(`${response.data.title || response.data["original_name"] || response.data.name} : ${type}`); // Add type to details
-        setBackDrop(response.data.backdrop_path);
-        setLoaded(true);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [programmeId, type]);
+    getVideos(programmeId, type);
+  }, [resource]);
+
+  useEffect(() => {
+    getMedia();
+  }, [programmeId]);
 
   return (
     <DefaultLayout heading={heading as string}>
@@ -48,8 +72,20 @@ const DetailsView = () => {
           className="details-view"
           style={{ backgroundImage: backgroundImage }}
         >
-          <div data-testid="details-view__inner">
-            <Container>
+          <Container>
+            {!!video && (
+              <Box sx={{ flexGrow: 1 }}>
+                <Grid
+                  container
+                  spacing={2}
+                >
+                  <Grid size={12}>
+                    <Video url={video} />
+                  </Grid>
+                </Grid>
+              </Box>
+            )}
+            <div data-testid="details-view__inner">
               <div className="details-view__content">
                 <p>{resource.overview || resource.biography || "Description not available"}</p>
                 {resource["profile_path"] && (
@@ -99,8 +135,8 @@ const DetailsView = () => {
                   <Button onClick={() => (window.location.href = "/")}>Back</Button>
                 </div>
               </div>
-            </Container>
-          </div>
+            </div>
+          </Container>
         </div>
       </Fade>
       <Backdrop
