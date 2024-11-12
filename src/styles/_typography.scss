@@ -51,12 +51,12 @@ li {
 
 a {
   cursor: pointer;
-  color: $anakiwa;
+  color: $primary-color;
   position: relative;
   text-decoration: none;
 
   &:before {
-    background: $anakiwa;
+    background: $primary-color;
     border-radius: 2px;
     bottom: -2px;
     content: "";

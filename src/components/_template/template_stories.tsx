@@ -4,8 +4,11 @@ import { Meta, StoryObj } from "@storybook/react";
 // Components
 import Template from "./index";
 
+// MUI
+import { Container } from "@mui/material";
+
 const meta: Meta<typeof Template> = {
-  title: "Views/Footer",
+  title: "Components/Modal",
   component: Template,
   tags: ["autodocs"],
   argTypes: {},
@@ -14,8 +17,13 @@ export default meta;
 
 type Story = StoryObj<typeof Template>;
 
-const Footer = () => <Template />;
+const Modal = (args: any) => <Template {...args} />;
 
 export const Default: Story = {
-  render: () => <Footer />,
+  render: (args) => (
+    <Container>
+      <Modal {...args} />
+    </Container>
+  ),
 };
+Default.args = {};

@@ -44,7 +44,7 @@ const DetailsView = () => {
   };
 
   const getVideos = (id: string, type: string) => {
-    if (resource) {
+    if (type !== "person") {
       getMediaVideos(id, type)
         .then((response: any) => {
           setVideo(response.data.results[0]?.key);
@@ -53,6 +53,8 @@ const DetailsView = () => {
         .catch((error) => {
           console.error(error);
         });
+    } else {
+      setLoaded(true);
     }
   };
 
@@ -87,13 +89,14 @@ const DetailsView = () => {
             )}
             <div data-testid="details-view__inner">
               <div className="details-view__content">
-                <p>{resource.overview || resource.biography || "Description not available"}</p>
                 {resource["profile_path"] && (
                   <Image
                     resource={resource}
                     size="medium"
+                    imagePath="profile_path"
                   />
                 )}
+                <p>{resource.overview || resource.biography || "Description not available"}</p>
                 {!!resource.genres?.length && (
                   <>
                     <ul>

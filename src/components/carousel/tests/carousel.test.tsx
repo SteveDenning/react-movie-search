@@ -8,17 +8,17 @@ import Carousel from "../index";
 describe("Carousel component", () => {
   describe("Component rendering", () => {
     const resources = [{ image: "", alt: "Lorem ipsum" }];
-    const setup = () =>
+
+    beforeEach(() => {
       render(
         <Carousel
           resources={resources}
-          label="Lorem Ipsom"
           media="movie"
         />,
       );
+    });
 
     it("Should render an carousel", () => {
-      setup();
       expect(screen.getByTestId("carousel")).toBeInTheDocument();
     });
   });

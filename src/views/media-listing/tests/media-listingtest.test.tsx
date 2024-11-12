@@ -3,17 +3,18 @@ import "@testing-library/jest-dom";
 import { screen, render } from "@testing-library/react";
 
 // Components
-import Footer from "../index";
+import MediaListing from "../index";
+
 // Icons
 
-describe("Footer component", () => {
+describe("Media Listing component", () => {
   describe("Component rendering", () => {
     beforeEach(() => {
-      render(<Footer />);
+      render(<MediaListing />);
     });
 
-    it("Should render the footer", () => {
-      expect(screen.getByTestId("footer")).toBeInTheDocument();
+    it("Should render media listing view", () => {
+      expect(screen.getByTestId("media-listing")).toBeInTheDocument();
     });
   });
 });

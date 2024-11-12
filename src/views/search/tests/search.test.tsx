@@ -8,15 +8,15 @@ import Search from "../index";
 
 describe("Latest Releases component", () => {
   describe("Component rendering", () => {
-    const setup = () =>
+    beforeEach(() => {
       render(
         <MemoryRouter>
           <Search />
         </MemoryRouter>,
       );
+    });
 
     it("Should render the search field", () => {
-      setup();
       expect(screen.getByTestId("search")).toBeInTheDocument();
     });
   });

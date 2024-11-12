@@ -4,12 +4,15 @@ import { useLocation } from "react-router-dom";
 // Utils
 import { getAllMedia } from "../../utils/get-resources";
 
-// Components
-import Image from "../../components/image";
-import LatestReleases from "../latest-releases";
+// Assets
+import defaultPlaceholder from "../../assets/images/placeholder.png";
+
+// Views
+import BannerCarousel from "../../views/banner-carousel";
+import LatestReleases from "./../latest-releases";
 
 // MUI
-import { Container, Fade } from "@mui/material";
+import { Container, Fade, Typography } from "@mui/material";
 
 // Layouts
 import DefaultLayout from "../../layout/default";
@@ -67,6 +70,7 @@ const HomePage = () => {
               <ul className="home-page__list">
                 {loaded &&
                   resources.map((item: any, i: number) => {
+                    const imageSrc = item["poster_path"] || item["profile_path"];
                     return (
                       <li
                         className="home-page__list-item"
@@ -74,13 +78,18 @@ const HomePage = () => {
                         onClick={() => (window.location.href = `/details/${item["media_type"]}/${item.id}`)}
                       >
                         <div className="home-page__list-item-image-wrapper">
-                          <Image
-                            resource={item}
-                            size="small"
+                          <img
+                            src={imageSrc ? `https://image.tmdb.org/t/p/original/${imageSrc}` : defaultPlaceholder}
+                            alt={item.title || item.name}
                           />
                         </div>
                         <div className="home-page__list-item-content">
-                          <h3>{item.title || item["original_name"]}</h3>
+                          <Typography
+                            variant="h3"
+                            sx={{ fontSize: 24, fontWeight: "200" }}
+                          >
+                            {item.title || item["original_name"]}
+                          </Typography>
                           <p>{item.overview?.length > 300 ? `${item.overview.substring(0, 300)}. . .` : item.overview}</p>
                         </div>
                       </li>
@@ -91,20 +100,22 @@ const HomePage = () => {
           </Container>
         ) : (
           <>
-            <LatestReleases
-              label="Upcoming Movies"
+            <BannerCarousel
               media="movie"
               path="movie/upcoming"
+              imagePath="backdrop_path"
             />
             <LatestReleases
               label="Movie Releases"
               media="movie"
               path="discover/movie"
+              imagePath="poster_path"
             />
             <LatestReleases
               label="TV Releases"
               media="tv"
               path="discover/tv"
+              imagePath="poster_path"
             />
           </>
         )}

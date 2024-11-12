@@ -3,6 +3,20 @@
 // Carousel Styles
 
 .carousel {
+  &__item {
+    margin: 0 10px;
+    position: relative;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  &__content {
+    display: none;
+  }
+
+  // Overrides
   .react-multiple-carousel {
     &__arrow--right,
     &__arrow--left {
@@ -13,8 +27,16 @@
       &__arrow--right,
       &__arrow--left {
         display: block;
+
+        @include hover {
+          background-color: $anakiwa;
+          &:before {
+            color: #000;
+          }
+        }
       }
     }
+
     @include breakpoint($xxlarge) {
       &__arrow--right,
       &__arrow--left {
@@ -29,6 +51,7 @@
       }
     }
   }
+
   .react-multi-carousel-list {
     overflow: visible;
   }
@@ -42,6 +65,68 @@
 
       img {
         cursor: auto;
+      }
+    }
+  }
+
+  // Variants
+  &--banner {
+    .carousel {
+      &__content {
+        bottom: 0;
+        display: flex;
+        pointer-events: none;
+        position: absolute;
+        width: 100%;
+      }
+
+      &__details {
+        align-items: flex-end;
+        display: flex;
+        justify-content: flex-end;
+        margin-left: auto;
+        padding: 0 20px;
+        position: relative;
+        width: 100%;
+
+        h2 {
+          position: relative;
+          z-index: 10;
+        }
+
+        &::before {
+          background: linear-gradient(rgba($black, 0.1), $black);
+          bottom: 0;
+          content: "";
+          display: block;
+          height: 100px;
+          left: 0;
+          position: absolute;
+          width: 100%;
+        }
+      }
+
+      &__poster {
+        .image {
+          margin-bottom: 0;
+          width: 70px;
+
+          @include hover {
+            opacity: 1;
+          }
+        }
+
+        @include breakpoint($medium) {
+          .image {
+            width: 150px;
+          }
+        }
+
+        @include breakpoint($large) {
+          .image {
+            width: 200px;
+          }
+        }
       }
     }
   }
