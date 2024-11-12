@@ -4,8 +4,8 @@ import { useLocation } from "react-router-dom";
 // Utils
 import { getAllMedia } from "../../utils/get-resources";
 
-// Components
-import Image from "../../components/image";
+// Assets
+import defaultPlaceholder from "../../assets/images/placeholder.png";
 
 // Views
 import LatestReleases from "./../latest-releases";
@@ -77,9 +77,17 @@ const HomePage = () => {
                         onClick={() => (window.location.href = `/details/${item["media_type"]}/${item.id}`)}
                       >
                         <div className="home-page__list-item-image-wrapper">
-                          <Image
+                          {/* <Image
                             resource={item}
                             size="small"
+                          /> */}
+                          <img
+                            src={
+                              item["poster_path"] || item["profile_path"]
+                                ? `https://image.tmdb.org/t/p/original/${item["poster_path"] || item["profile_path"]}`
+                                : defaultPlaceholder
+                            }
+                            alt={item.title || item.name}
                           />
                         </div>
                         <div className="home-page__list-item-content">

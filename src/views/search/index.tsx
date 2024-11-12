@@ -7,7 +7,9 @@ import { getAllMedia } from "../../utils/get-resources";
 
 // Components
 import Button from "../../components/button";
-import Image from "../../components/image";
+
+// Assets
+import defaultPlaceholder from "../../assets/images/placeholder.png";
 
 // MUI
 import { Fade } from "@mui/material";
@@ -128,9 +130,13 @@ const Search = () => {
                       href={`/details/${suggestion["media_type"]}/${suggestion["id"]}`}
                       variant="null"
                     >
-                      <Image
-                        resource={suggestion}
-                        size="xsmall"
+                      <img
+                        src={
+                          suggestion["poster_path"] || suggestion["profile_path"]
+                            ? `https://image.tmdb.org/t/p/original/${suggestion["poster_path"] || suggestion["profile_path"]}`
+                            : defaultPlaceholder
+                        }
+                        alt={suggestion.title || suggestion.name}
                       />
                       <div>
                         <p>{suggestion["original_title"] || suggestion["name"]}</p>

@@ -31,7 +31,10 @@ const Header: React.FC<Props> = ({ heading, hasSearch }) => {
         >
           <Button
             variant="icon"
-            onClick={() => (window.location.href = "/")}
+            onClick={() => {
+              window.location.href = "/";
+              sessionStorage.removeItem("query");
+            }}
           >
             <span className="sr-only">Home</span>
             <TheatersIcon sx={{ color: "#86f6ff", fontSize: 40 }} />

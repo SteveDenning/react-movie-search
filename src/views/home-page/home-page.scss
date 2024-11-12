@@ -23,6 +23,7 @@
   &__list-item-image-wrapper {
     align-items: center;
     display: flex;
+    max-width: 100px;
 
     img {
       cursor: pointer;
