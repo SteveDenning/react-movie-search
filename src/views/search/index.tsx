@@ -7,9 +7,7 @@ import { getAllMedia } from "../../utils/get-resources";
 
 // Components
 import Button from "../../components/button";
-
-// Assets
-import defaultPlaceholder from "../../assets/images/placeholder.png";
+import Image from "../../components/image";
 
 // MUI
 import { Fade } from "@mui/material";
@@ -106,6 +104,7 @@ const Search = () => {
       {!!value && (
         <Button
           variant="icon"
+          className="search__form-clear"
           type="reset"
           onClick={clear}
         >
@@ -122,23 +121,17 @@ const Search = () => {
                   <li
                     className="search__options-list-item"
                     key={index}
-                    // onClick={() => {
-                    //   window.location.href = `/details/${suggestion["media_type"]}/${suggestion["id"]}`;
-                    // }}
                   >
                     <Button
                       href={`/details/${suggestion["media_type"]}/${suggestion["id"]}`}
                       variant="null"
                     >
-                      <img
-                        src={
-                          suggestion["poster_path"] || suggestion["profile_path"]
-                            ? `https://image.tmdb.org/t/p/original/${suggestion["poster_path"] || suggestion["profile_path"]}`
-                            : defaultPlaceholder
-                        }
-                        alt={suggestion.title || suggestion.name}
+                      <Image
+                        resource={suggestion}
+                        size="xsmall"
+                        imagePath={suggestion["poster_path"] ? "poster_path" : "profile_path"}
                       />
-                      <div>
+                      <div className="search__options-content">
                         <p>{suggestion["original_title"] || suggestion["name"]}</p>
                         <p className="search__options-list-item-year">{moment(suggestion["release_date"]).format("YYYY")}</p>
                       </div>

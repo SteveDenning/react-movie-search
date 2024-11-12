@@ -12,7 +12,7 @@
     }
   }
 
-  &__poster {
+  &__content {
     display: none;
   }
 
@@ -72,11 +72,41 @@
   // Variants
   &--banner {
     .carousel {
-      &__poster {
-        display: block;
+      &__content {
+        display: flex;
         bottom: 0;
+        pointer-events: none;
         position: absolute;
+        width: 100%;
+      }
 
+      &__details {
+        align-items: flex-end;
+        display: flex;
+        justify-content: flex-end;
+        margin-left: auto;
+        padding: 0 20px;
+        position: relative;
+        width: 100%;
+
+        h2 {
+          position: relative;
+          z-index: 10;
+        }
+
+        &::before {
+          background: linear-gradient(rgba($black, 0.1), $black);
+          bottom: 0;
+          content: "";
+          display: block;
+          height: 100px;
+          left: 0;
+          position: absolute;
+          width: 100%;
+        }
+      }
+
+      &__poster {
         .image {
           margin-bottom: 0;
           width: 70px;
@@ -93,18 +123,6 @@
         }
 
         @include breakpoint($large) {
-          .image {
-            width: 200px;
-          }
-        }
-
-        @include breakpoint($xlarge) {
-          .image {
-            width: 200px;
-          }
-        }
-
-        @include breakpoint($xxxlarge) {
           .image {
             width: 200px;
           }

@@ -22,7 +22,7 @@ const Image: React.FC<Props> = ({ resource, size, scale, content, imagePath }) =
   const isMobile = screenSize.width <= 480;
 
   const baseClass = "image";
-  const sizeClass = `image--${size}`;
+  const sizeClass = size ? `image--${size}` : "";
   const contentClass = content ? "image--content" : "";
   const scaleClass = scale ? "image--scale" : "";
   const mobileClass = isMobile ? "image--mobile" : "";

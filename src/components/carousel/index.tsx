@@ -94,13 +94,18 @@ const Carousel: React.FC<Props> = ({ resources, media, responsiveOptions, imageP
                 content
                 imagePath={imagePath}
               />
-              <div className="carousel__poster">
-                <Image
-                  resource={item}
-                  content
-                  imagePath="poster_path"
-                  size="large"
-                />
+              <div className="carousel__content">
+                <div className="carousel__poster">
+                  <Image
+                    resource={item}
+                    content
+                    imagePath="poster_path"
+                    size="large"
+                  />
+                </div>
+                <div className="carousel__details">
+                  <h2>{item.title || item.name}</h2>
+                </div>
               </div>
             </div>
           );
