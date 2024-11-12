@@ -102,6 +102,7 @@ Default.args = {
       culpa illum voluptatum doloribus aspernatur expedita non ad, sed cum excepturi pariatur!
     </p>
   ),
+  footer: <p>Footer text</p>,
 };
 
 export const Large: Story = {
@@ -110,13 +111,30 @@ export const Large: Story = {
 Large.args = {
   id: "test-modal",
   title: "Large Modal",
+  variant: ["large"],
   children: (
     <p>
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi molestiae vero similique autem repellendus eum nesciunt porro? Ipsum rem, ipsam,
       atque nemo voluptas vero adipisci debitis aut, necessitatibus deserunt ea!,
     </p>
   ),
-  variant: ["large"],
+  footer: <p>Footer text</p>,
+};
+
+export const Small: Story = {
+  render: (args) => <Modal {...args} />,
+};
+Small.args = {
+  id: "test-modal",
+  title: "Small Modal",
+  variant: ["small"],
+  children: (
+    <p>
+      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi molestiae vero similique autem repellendus eum nesciunt porro? Ipsum rem, ipsam,
+      atque nemo voluptas vero adipisci debitis aut, necessitatibus deserunt ea!,
+    </p>
+  ),
+  footer: <p>Footer text</p>,
 };
 
 export const Video: Story = {

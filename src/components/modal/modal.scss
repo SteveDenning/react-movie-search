@@ -33,7 +33,7 @@
 
   &__header {
     color: $white;
-    padding: 24px;
+    padding: 1rem;
     border-bottom: 1px solid $primary-color;
   }
 
@@ -44,30 +44,20 @@
   }
 
   &__body {
-    padding: 20px;
-
-    p {
-      margin: 0 0 1rem;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
+    padding: 1rem;
   }
 
   &__footer {
-    background: $white;
+    border-top: 1px solid $primary-color;
+    padding: 1rem;
+  }
 
-    @include breakpoint($medium) {
+  p {
+    margin: 0 0 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
     }
-  }
-
-  &__description {
-    color: $white;
-  }
-
-  &__header-content {
-    color: $white;
   }
 
   // Variants

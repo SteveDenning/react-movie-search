@@ -28,7 +28,7 @@ describe("Modal component", () => {
       expect(screen.getByTestId("modal")).toBeInTheDocument();
     });
 
-    it("Should have have variant classes of 'modal--test modal--test-2", () => {
+    it("Should have variant classes applied", () => {
       expect(screen.getByTestId("modal")).toHaveClass("modal modal--test modal--test-2");
     });
 
