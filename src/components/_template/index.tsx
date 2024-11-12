@@ -1,21 +1,21 @@
 import React from "react";
 
 // Styles
-import "./image.scss";
+import "./template.scss";
 
 interface Props {
   children?: React.ReactNode;
 }
 
-const Image: React.FC<Props> = ({ children }) => {
+const Template: React.FC<Props> = ({ children }) => {
   return (
     <div
-      className="modal"
-      data-testid="modal"
+      className="template"
+      data-testid="template"
     >
       {children}
     </div>
   );
 };
 
-export default Image;
+export default Template;
