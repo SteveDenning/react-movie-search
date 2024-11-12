@@ -6,7 +6,10 @@ const Video = () => {
   const trailerUrl = "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4";
 
   return (
-    <div className="video">
+    <div
+      className="video"
+      data-testid="video"
+    >
       <ReactPlayer
         className="video__player"
         muted={true}

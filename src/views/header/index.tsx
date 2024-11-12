@@ -31,8 +31,12 @@ const Header: React.FC<Props> = ({ heading, hasSearch }) => {
         >
           <Button
             variant="icon"
-            onClick={() => (window.location.href = "/")}
+            onClick={() => {
+              window.location.href = "/";
+              sessionStorage.removeItem("query");
+            }}
           >
+            <span className="sr-only">Home</span>
             <TheatersIcon sx={{ color: "#86f6ff", fontSize: 40 }} />
           </Button>
           <div className="header__inner">
@@ -49,6 +53,7 @@ const Header: React.FC<Props> = ({ heading, hasSearch }) => {
             variant="icon"
             onClick={() => alert("TODO - Log in")}
           >
+            <span className="sr-only">Log in</span>
             <Person3OutlinedIcon sx={{ color: "#86f6ff", fontSize: 40 }} />
           </Button>
         </div>

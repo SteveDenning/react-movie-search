@@ -56,6 +56,7 @@ const DetailsView = () => {
                   <Image
                     resource={resource}
                     size="medium"
+                    imagePath="profile_path"
                   />
                 )}
                 {!!resource.genres?.length && (

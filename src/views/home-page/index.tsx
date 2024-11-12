@@ -4,10 +4,11 @@ import { useLocation } from "react-router-dom";
 // Utils
 import { getAllMedia } from "../../utils/get-resources";
 
-// Components
-import Image from "../../components/image";
+// Assets
+import defaultPlaceholder from "../../assets/images/placeholder.png";
 
 // Views
+import BannerCarousel from "../../views/banner-carousel";
 import LatestReleases from "./../latest-releases";
 
 // MUI
@@ -69,6 +70,7 @@ const HomePage = () => {
               <ul className="home-page__list">
                 {loaded &&
                   resources.map((item: any, i: number) => {
+                    const imageSrc = item["poster_path"] || item["profile_path"];
                     return (
                       <li
                         className="home-page__list-item"
@@ -76,9 +78,9 @@ const HomePage = () => {
                         onClick={() => (window.location.href = `/details/${item["media_type"]}/${item.id}`)}
                       >
                         <div className="home-page__list-item-image-wrapper">
-                          <Image
-                            resource={item}
-                            size="small"
+                          <img
+                            src={imageSrc ? `https://image.tmdb.org/t/p/original/${imageSrc}` : defaultPlaceholder}
+                            alt={item.title || item.name}
                           />
                         </div>
                         <div className="home-page__list-item-content">
@@ -98,20 +100,22 @@ const HomePage = () => {
           </Container>
         ) : (
           <>
-            <LatestReleases
-              label="Upcoming Movies"
+            <BannerCarousel
               media="movie"
               path="movie/upcoming"
+              imagePath="backdrop_path"
             />
             <LatestReleases
               label="Movie Releases"
               media="movie"
               path="discover/movie"
+              imagePath="poster_path"
             />
             <LatestReleases
               label="TV Releases"
               media="tv"
               path="discover/tv"
+              imagePath="poster_path"
             />
           </>
         )}
