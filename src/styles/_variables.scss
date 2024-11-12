@@ -27,7 +27,7 @@ $desktop-gutter: 40px;
 
 // Base
 $lilac: #7989fc;
-$anakiwa: #86f6ff;
+$primary-color: #86f6ff;
 $orange: #ff7f50;
 $pink: #ff89be;
 $yellow: #ecf284;
@@ -56,6 +56,6 @@ $linkedin: #3275b0;
 $whatsapp: #65d072;
 
 // Theme
-$primary-text-color: $purple;
-$primary-color: $grey;
+$primary-color: $primary-color;
+$secondary-color: $light-blue;
 $background-color: radial-gradient(ellipse at top, $lilac, transparent), radial-gradient(ellipse at bottom, $purple, transparent);
