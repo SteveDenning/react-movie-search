@@ -28,7 +28,7 @@
       &__arrow--left {
         display: block;
 
-        &:focus-within {
+        @include hover {
           background-color: $anakiwa;
           &:before {
             color: #000;
