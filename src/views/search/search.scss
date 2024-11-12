@@ -31,18 +31,18 @@
   &__form-input {
     background-color: $grey;
     border: 0;
-    color: $anakiwa;
+    color: $primary-color;
     border-radius: 10px;
     font-size: 18px;
     padding: 10px 20px;
     width: 100%;
 
     &::placeholder {
-      color: $anakiwa;
+      color: $primary-color;
     }
 
     &::-ms-input-placeholder {
-      color: $anakiwa;
+      color: $primary-color;
     }
 
     @include hover {

@@ -73,8 +73,8 @@
   &--banner {
     .carousel {
       &__content {
-        display: flex;
         bottom: 0;
+        display: flex;
         pointer-events: none;
         position: absolute;
         width: 100%;

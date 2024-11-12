@@ -27,6 +27,10 @@ const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [value, setValue] = useState(sessionStorage.getItem("query") || "");
 
+  const iconProps = {
+    sx: { color: "#ccc", fontSize: 20 },
+  };
+
   const navigate = useNavigate();
   const params = new URLSearchParams(searchParams);
 
@@ -137,11 +141,11 @@ const Search = () => {
                       </div>
                       <div className="search__options-media-icon">
                         {suggestion["media_type"] === "tv" ? (
-                          <TvIcon sx={{ color: "#ccc", fontSize: 20 }} />
+                          <TvIcon sx={iconProps} />
                         ) : suggestion["media_type"] === "movie" ? (
-                          <TheatersIcon sx={{ color: "#ccc", fontSize: 20 }} />
+                          <TheatersIcon sx={iconProps} />
                         ) : (
-                          <PersonIcon sx={{ color: "#ccc", fontSize: 20 }} />
+                          <PersonIcon sx={iconProps} />
                         )}
                       </div>
                     </Button>

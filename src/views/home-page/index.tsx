@@ -8,8 +8,8 @@ import { getAllMedia } from "../../utils/get-resources";
 import defaultPlaceholder from "../../assets/images/placeholder.png";
 
 // Views
-import LatestReleases from "./../latest-releases";
 import BannerCarousel from "../../views/banner-carousel";
+import LatestReleases from "./../latest-releases";
 
 // MUI
 import { Container, Fade, Typography } from "@mui/material";
@@ -70,6 +70,7 @@ const HomePage = () => {
               <ul className="home-page__list">
                 {loaded &&
                   resources.map((item: any, i: number) => {
+                    const imageSrc = item["poster_path"] || item["profile_path"];
                     return (
                       <li
                         className="home-page__list-item"
@@ -77,16 +78,8 @@ const HomePage = () => {
                         onClick={() => (window.location.href = `/details/${item["media_type"]}/${item.id}`)}
                       >
                         <div className="home-page__list-item-image-wrapper">
-                          {/* <Image
-                            resource={item}
-                            size="small"
-                          /> */}
                           <img
-                            src={
-                              item["poster_path"] || item["profile_path"]
-                                ? `https://image.tmdb.org/t/p/original/${item["poster_path"] || item["profile_path"]}`
-                                : defaultPlaceholder
-                            }
+                            src={imageSrc ? `https://image.tmdb.org/t/p/original/${imageSrc}` : defaultPlaceholder}
                             alt={item.title || item.name}
                           />
                         </div>
