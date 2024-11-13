@@ -18,7 +18,7 @@ interface Props {
   className?: string;
   open: boolean;
   handleClose: () => any;
-  title: string;
+  title?: string;
   header?: any;
   children?: any;
   description?: string;
@@ -44,7 +44,7 @@ const Modal: React.FC<Props> = ({ variant, className, id, open, handleClose, tit
       <>
         <Fade in={open}>
           <div className="modal__inner">
-            {!video && (
+            {!video && title && (
               <div
                 className="modal__header"
                 data-testid="modal-header"

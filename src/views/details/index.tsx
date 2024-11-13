@@ -7,10 +7,10 @@ import { getMediaByID, getMediaVideos } from "../../utils/get-resources";
 import Button from "../../components/button";
 import Image from "../../components/image";
 import Video from "../../components/video";
+import Modal from "../../components/modal";
 
 // MUI
-import Grid from "@mui/material/Grid2";
-import { Backdrop, Box, CircularProgress, Container, Fade } from "@mui/material";
+import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 
 // Layout
 import DefaultLayout from "../../layout/default";
@@ -22,6 +22,7 @@ const DetailsView = () => {
   const [backDrop, setBackDrop] = useState<string>("");
   const [heading, setHeading] = useState<string>("");
   const [loaded, setLoaded] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [resource, setResource] = useState<any>({});
   const [video, setVideo] = useState<string>("");
 
@@ -58,6 +59,10 @@ const DetailsView = () => {
     }
   };
 
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   useEffect(() => {
     getVideos(programmeId, type);
   }, [resource]);
@@ -90,7 +95,40 @@ const DetailsView = () => {
                       imagePath="profile_path"
                     />
                   )}
-                  <p>{resource.overview || resource.biography || "Description not available"}</p>
+                  {(resource?.overview?.length || resource?.biography?.length) > 200 ? (
+                    <>
+                      <p>
+                        {(resource.overview || resource.biography).slice(0, 200)}.....{" "}
+                        <Button
+                          onClick={() => setIsOpen(true)}
+                          variant="link"
+                        >
+                          More
+                        </Button>
+                      </p>
+
+                      <Modal
+                        id={resource.id}
+                        open={isOpen}
+                        handleClose={handleClose}
+                      >
+                        <p>{resource.overview || resource.biography}</p>
+                      </Modal>
+                    </>
+                  ) : (
+                    <p>{resource.overview || resource.biography || "Description not available"}</p>
+                  )}
+                  {resource["imdb_id"] && (
+                    <p>
+                      <Button
+                        target="_blank"
+                        variant="link"
+                        href={`https://www.imdb.com/title/${resource["imdb_id"]}`}
+                      >
+                        IMDB Link
+                      </Button>
+                    </p>
+                  )}
                   {!!resource.genres?.length && (
                     <>
                       <ul>
