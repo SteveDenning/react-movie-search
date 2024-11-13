@@ -67,7 +67,7 @@ const DetailsView = () => {
   }, [programmeId]);
 
   return (
-    <DefaultLayout heading={heading as string}>
+    <DefaultLayout heading={heading}>
       <Fade in={loaded}>
         <div
           data-testid="details-view"
@@ -75,67 +75,62 @@ const DetailsView = () => {
           style={{ backgroundImage: backgroundImage }}
         >
           <Container>
-            {!!video && (
-              <Box sx={{ flexGrow: 1 }}>
-                <Grid
-                  container
-                  spacing={2}
-                >
-                  <Grid size={12}>
-                    <Video url={video} />
-                  </Grid>
-                </Grid>
-              </Box>
-            )}
-            <div data-testid="details-view__inner">
-              <div className="details-view__content">
-                {resource["profile_path"] && (
-                  <Image
-                    resource={resource}
-                    size="medium"
-                    imagePath="profile_path"
-                  />
-                )}
-                <p>{resource.overview || resource.biography || "Description not available"}</p>
-                {!!resource.genres?.length && (
-                  <>
-                    <ul>
-                      {resource.genres.map((genre: any, i: number) => (
-                        <li
-                          className="genre-tag"
-                          key={genre.id + i}
-                        >
-                          {genre["name"]}
-                          <span>|</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-                {resource.seasons?.length && (
-                  <>
-                    <p>Seasons: {resource.seasons?.length}</p>
-                  </>
-                )}
-                {resource.networks?.length && (
-                  <>
-                    <p>Networks</p>
-                    <ul>
-                      {resource.networks.map((network: any, i: number) => (
-                        <li key={network.id + i}>
-                          <img
-                            src={`${process.env.REACT_APP_TMDB_PATH}/t/p/original/${network["logo_path"]}`}
-                            alt=""
-                            style={{ width: "100px", background: "#ccc", padding: "10px", marginRight: "10px", borderRadius: "10px" }}
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-                <br />
-                <div className="details-view__back-button">
-                  <Button onClick={() => (window.location.href = "/")}>Back</Button>
+            <div className="details-view__inner">
+              {!!video && (
+                <div className="details-view__video">
+                  <Video url={video} />
+                </div>
+              )}
+              <div data-testid="details-view__inner">
+                <div className="details-view__content">
+                  {resource["profile_path"] && (
+                    <Image
+                      resource={resource}
+                      size="medium"
+                      imagePath="profile_path"
+                    />
+                  )}
+                  <p>{resource.overview || resource.biography || "Description not available"}</p>
+                  {!!resource.genres?.length && (
+                    <>
+                      <ul>
+                        {resource.genres.map((genre: any, i: number) => (
+                          <li
+                            className="genre-tag"
+                            key={genre.id + i}
+                          >
+                            {genre["name"]}
+                            <span>|</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
+                  {resource.seasons?.length && (
+                    <>
+                      <p>Seasons: {resource.seasons?.length}</p>
+                    </>
+                  )}
+                  {resource.networks?.length && (
+                    <>
+                      <p>Networks</p>
+                      <ul>
+                        {resource.networks.map((network: any, i: number) => (
+                          <li key={network.id + i}>
+                            <img
+                              src={`${process.env.REACT_APP_TMDB_PATH}/t/p/original/${network["logo_path"]}`}
+                              alt=""
+                              style={{ width: "100px", background: "#ccc", padding: "10px", marginRight: "10px", borderRadius: "10px" }}
+                            />
+                          </li>
+                        ))}
+                      </ul>
+                    </>
+                  )}
+                  <br />
+                  <div className="details-view__back-button">
+                    <Button onClick={() => (window.location.href = "/")}>Back</Button>
+                  </div>
                 </div>
               </div>
             </div>
