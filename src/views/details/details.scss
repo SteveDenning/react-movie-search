@@ -5,13 +5,32 @@
 .details-view {
   background-position: center !important;
   background-size: cover !important;
-  display: flex;
-  height: calc(100vh - 144px);
-  justify-content: center;
-  padding: 10px;
+  padding: 20px 0;
+
+  @include breakpoint($small) {
+    min-height: calc(100vh - 144px);
+  }
+
+  &__inner {
+    @include breakpoint($large) {
+      padding: 0 200px;
+    }
+
+    @include breakpoint($xxxxlarge) {
+      padding: 0 150px;
+    }
+  }
+
+  &__profile {
+    display: flex;
+  }
+
+  &__profile-image {
+    margin-right: 20px;
+  }
 
   &__content {
-    background: rgba($color: #000000, $alpha: 0.5);
+    background: rgba($color: $black, $alpha: 0.5);
     padding: 20px;
   }
 

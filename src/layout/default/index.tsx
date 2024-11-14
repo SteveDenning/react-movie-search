@@ -16,14 +16,11 @@ interface Props {
   hasSearch?: boolean;
 }
 
-const DefaultLayout: React.FC<Props> = ({ children, heading, hasSearch }) => {
+const DefaultLayout: React.FC<Props> = ({ children, heading }) => {
   return (
     <MUILayout>
       {/* SEO goes here */}
-      <Header
-        heading={heading}
-        hasSearch={hasSearch}
-      />
+      <Header heading={heading} />
       <main className="main-wrapper">{children}</main>
       <Footer />
     </MUILayout>

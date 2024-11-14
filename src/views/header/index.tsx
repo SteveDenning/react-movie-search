@@ -18,10 +18,9 @@ import "./header.scss";
 
 interface Props {
   heading: string;
-  hasSearch?: boolean;
 }
 
-const Header: React.FC<Props> = ({ heading, hasSearch }) => {
+const Header: React.FC<Props> = ({ heading }) => {
   return (
     <header>
       <Container>
@@ -41,13 +40,13 @@ const Header: React.FC<Props> = ({ heading, hasSearch }) => {
           </Button>
           <div className="header__inner">
             <Typography
-              className={hasSearch ? "sr-only" : ""}
+              className="sr-only"
               variant="h1"
               sx={{ fontSize: 24, fontWeight: "200" }}
             >
               {heading}
             </Typography>
-            {hasSearch && <Search />}
+            <Search />
           </div>
           <Button
             variant="icon"

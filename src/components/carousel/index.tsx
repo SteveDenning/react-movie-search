@@ -100,7 +100,6 @@ const Carousel: React.FC<Props> = ({ resources, media, responsiveOptions, imageP
                     resource={item}
                     content
                     imagePath="poster_path"
-                    size="large"
                   />
                 </div>
                 <div className="carousel__details">

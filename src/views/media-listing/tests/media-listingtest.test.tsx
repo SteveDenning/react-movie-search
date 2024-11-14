@@ -1,5 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
+import { MemoryRouter } from "react-router-dom";
 import { screen, render } from "@testing-library/react";
 
 // Components
@@ -10,7 +11,11 @@ import MediaListing from "../index";
 describe("Media Listing component", () => {
   describe("Component rendering", () => {
     beforeEach(() => {
-      render(<MediaListing />);
+      render(
+        <MemoryRouter>
+          <MediaListing />
+        </MemoryRouter>,
+      );
     });
 
     it("Should render media listing view", () => {
