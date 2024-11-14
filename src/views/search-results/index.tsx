@@ -52,36 +52,41 @@ const SearchResults = () => {
     <Container>
       {resources.length ? (
         <Fade in={!!resources.length}>
-          <ul className="search-results__list">
-            {window.location.search &&
-              loaded &&
-              resources.map((item: any, i: number) => {
-                const imageSrc = item["poster_path"] || item["profile_path"];
-                return (
-                  <li
-                    className="search-results__list-item"
-                    key={i}
-                    onClick={() => (window.location.href = `/details/${item["media_type"]}/${item.id}`)}
-                  >
-                    <div className="search-results__list-item-image-wrapper">
-                      <img
-                        src={imageSrc ? `https://image.tmdb.org/t/p/original/${imageSrc}` : defaultPlaceholder}
-                        alt={item.title || item.name}
-                      />
-                    </div>
-                    <div className="search-results__list-item-content">
-                      <Typography
-                        variant="h3"
-                        sx={{ fontSize: 24, fontWeight: "200" }}
-                      >
-                        {item.title || item["original_name"]}
-                      </Typography>
-                      <p>{item.overview?.length > 300 ? `${item.overview.substring(0, 300)}. . .` : item.overview}</p>
-                    </div>
-                  </li>
-                );
-              })}
-          </ul>
+          <div>
+            <ul className="search-results__list">
+              {window.location.search &&
+                loaded &&
+                resources.map((item: any, i: number) => {
+                  // if (!item["poster_path"]) {
+                  //   return false;
+                  // }
+                  const imageSrc = item["poster_path"] || item["profile_path"];
+                  return (
+                    <li
+                      className="search-results__list-item"
+                      key={i}
+                      onClick={() => (window.location.href = `/details/${item["media_type"]}/${item.id}`)}
+                    >
+                      <div className="search-results__list-item-image-wrapper">
+                        <img
+                          src={imageSrc ? `https://image.tmdb.org/t/p/original/${imageSrc}` : defaultPlaceholder}
+                          alt={item.title || item.name}
+                        />
+                      </div>
+                      {/* <div className="search-results__list-item-content">
+                <Typography
+                  variant="h3"
+                  sx={{ fontSize: 24, fontWeight: "200" }}
+                >
+                  {item.title || item["original_name"]}
+                </Typography>
+                <p>{item.overview?.length > 300 ? `${item.overview.substring(0, 300)}. . .` : item.overview}</p>
+              </div> */}
+                    </li>
+                  );
+                })}
+            </ul>
+          </div>
         </Fade>
       ) : (
         <h3>No results</h3>
