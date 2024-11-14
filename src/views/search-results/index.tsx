@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 // Utils
 import { getAllMedia } from "../../utils/get-resources";
@@ -18,17 +19,25 @@ const SearchResults = () => {
   const [query, setQuery] = useState<string>(sessionStorage.getItem("query"));
 
   const handleSearchInput = () => {
-    sessionStorage.setItem("query", query);
-    getAllMedia(query)
-      .then((response: any) => {
-        setResources(response.data.results);
-        setLoaded(true);
-        setQuery(query);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    if (query) {
+      sessionStorage.setItem("query", query);
+      getAllMedia(query)
+        .then((response: any) => {
+          setResources(response.data.results);
+          setLoaded(true);
+          setQuery(query);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
+
+  const location = useLocation();
+
+  useEffect(() => {
+    setResources([]);
+  }, [location.search]);
 
   useEffect(() => {
     handleSearchInput();
@@ -75,7 +84,7 @@ const SearchResults = () => {
           </ul>
         </Fade>
       ) : (
-        <h3>Maks a search</h3>
+        <h3>No results</h3>
       )}
     </Container>
   );

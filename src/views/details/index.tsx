@@ -164,7 +164,7 @@ const DetailsView = () => {
                   )}
                   <br />
                   <div className="details-view__back-button">
-                    <Button onClick={() => navigate(-2)}>Back</Button>
+                    <Button onClick={() => navigate(-1)}>Back</Button>
                   </div>
                 </div>
               </div>

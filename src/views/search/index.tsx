@@ -42,12 +42,12 @@ const Search = () => {
   };
 
   const handleSubmit = (event: any) => {
-    const value = event.target[0].value;
     event.preventDefault();
+    const value = event.target[0].value;
+
     setValue(value);
     updateQuery("query", value);
     setShowOptions(false);
-
     sessionStorage.setItem("query", value);
     window.location.href = `${config.searchResults.path}${window.location.search}`;
   };
