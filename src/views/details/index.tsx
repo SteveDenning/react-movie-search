@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 // Utils
 import { getMediaByID, getMediaVideos } from "../../utils/get-resources";
@@ -12,20 +13,17 @@ import Modal from "../../components/modal";
 // MUI
 import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 
-// Layout
-import DefaultLayout from "../../layout/default";
-
 // Styles
-import "./details-view.scss";
+import "./details.scss";
 
 const DetailsView = () => {
   const [backDrop, setBackDrop] = useState<string>("");
-  const [heading, setHeading] = useState<string>("");
   const [loaded, setLoaded] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [resource, setResource] = useState<any>({});
   const [video, setVideo] = useState<string>("");
 
+  const navigate = useNavigate();
   const programmeId = window.location.pathname.split("/")[3] as string;
   const type = window.location.pathname.split("/")[2];
   const backgroundImage = backDrop ? `url(${process.env.REACT_APP_TMDB_PATH}/t/p/original/${backDrop})` : "";
@@ -35,7 +33,6 @@ const DetailsView = () => {
       getMediaByID(programmeId, type)
         .then((response: any) => {
           setResource(response.data);
-          setHeading(`${response.data.title || response.data["original_name"] || response.data.name} : ${type}`); // Add type to details
           setBackDrop(response.data.backdrop_path);
         })
         .catch((error) => {
@@ -72,7 +69,7 @@ const DetailsView = () => {
   }, [programmeId]);
 
   return (
-    <DefaultLayout heading={heading}>
+    <>
       <Fade in={loaded}>
         <div
           data-testid="details-view"
@@ -167,7 +164,7 @@ const DetailsView = () => {
                   )}
                   <br />
                   <div className="details-view__back-button">
-                    <Button onClick={() => (window.location.href = "/")}>Back</Button>
+                    <Button onClick={() => navigate(-2)}>Back</Button>
                   </div>
                 </div>
               </div>
@@ -181,7 +178,7 @@ const DetailsView = () => {
       >
         <CircularProgress color="inherit" />
       </Backdrop>
-    </DefaultLayout>
+    </>
   );
 };
 export default DetailsView;

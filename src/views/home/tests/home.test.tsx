@@ -4,7 +4,7 @@ import { screen, render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 // Components
-import HomePage from "../index";
+import Home from "../index";
 
 // Icons
 
@@ -13,13 +13,13 @@ describe("Home page component", () => {
     beforeEach(() => {
       render(
         <MemoryRouter>
-          <HomePage />
+          <Home />
         </MemoryRouter>,
       );
     });
 
-    it("Should render the home page", () => {
-      expect(screen.getByTestId("home-page")).toBeInTheDocument();
+    it("Should render the home view", () => {
+      expect(screen.getByTestId("home")).toBeInTheDocument();
     });
   });
 });

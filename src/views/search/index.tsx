@@ -5,6 +5,9 @@ import moment from "moment";
 // Utils
 import { getAllMedia } from "../../utils/get-resources";
 
+// Config
+import { config } from "../../config/routes";
+
 // Components
 import Button from "../../components/button";
 import Image from "../../components/image";
@@ -27,12 +30,11 @@ const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [value, setValue] = useState(sessionStorage.getItem("query") || "");
 
+  const params = new URLSearchParams(searchParams);
   const iconProps = {
     sx: { color: "#ccc", fontSize: 20 },
   };
-
   const navigate = useNavigate();
-  const params = new URLSearchParams(searchParams);
 
   const updateQuery = (key, value) => {
     params.set(key, value);
@@ -40,12 +42,14 @@ const Search = () => {
   };
 
   const handleSubmit = (event: any) => {
-    event.preventDefault();
     const value = event.target[0].value;
-
+    event.preventDefault();
     setValue(value);
     updateQuery("query", value);
     setShowOptions(false);
+
+    sessionStorage.setItem("query", value);
+    window.location.href = `${config.searchResults.path}${window.location.search}`;
   };
 
   const handleSuggestions = (event: any) => {
@@ -63,10 +67,18 @@ const Search = () => {
 
   const clear = () => {
     setValue("");
-    navigate("/");
     setSuggestions([]);
     setShowOptions(false);
+    removeQueryParam("query");
     sessionStorage.removeItem("query");
+  };
+
+  const removeQueryParam = (key) => {
+    params.delete(key);
+    navigate({
+      pathname: location.pathname,
+      search: params.toString(),
+    });
   };
 
   useEffect(() => {
