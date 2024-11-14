@@ -81,7 +81,10 @@ const DetailsView = () => {
             <div className="details-view__inner">
               {!!video && (
                 <div className="details-view__video">
-                  <Video url={video} />
+                  <Video
+                    url={video}
+                    playing
+                  />
                 </div>
               )}
               <div data-testid="details-view__inner">

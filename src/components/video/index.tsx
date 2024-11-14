@@ -5,9 +5,10 @@ import "./video.scss";
 interface Props {
   url: string;
   responsive?: boolean;
+  playing?: boolean;
 }
 
-const Video: React.FC<Props> = ({ responsive = true, url }) => {
+const Video: React.FC<Props> = ({ responsive = true, url, playing }) => {
   const trailerUrl = `https://www.youtube.com/watch?v=${url}`;
   const baseClass = "video";
   const responsiveClass = responsive ? "video--responsive" : "";
@@ -23,7 +24,7 @@ const Video: React.FC<Props> = ({ responsive = true, url }) => {
         width={responsive ? "100%" : "auto"}
         height="100%"
         controls={true}
-        playing={true}
+        playing={playing}
       />
     </div>
   );

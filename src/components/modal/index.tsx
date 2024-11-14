@@ -44,7 +44,7 @@ const Modal: React.FC<Props> = ({ variant, className, id, open, handleClose, tit
       <>
         <Fade in={open}>
           <div className="modal__inner">
-            {!video && title && (
+            {title && (
               <div
                 className="modal__header"
                 data-testid="modal-header"
