@@ -8,7 +8,7 @@ import { getAllMedia } from "../../utils/get-resources";
 import defaultPlaceholder from "../../assets/images/placeholder.png";
 
 // MUI
-import { Container, Fade, Typography } from "@mui/material";
+import { Container, Fade } from "@mui/material";
 
 // Styles
 import "./search-results.scss";
