@@ -2,7 +2,10 @@
 
 // Home Page styles
 .search-results {
+  margin-top: 40px;
+
   &__list {
+    display: flex;
     flex-wrap: wrap;
     justify-content: center;
     list-style: none;
@@ -10,11 +13,9 @@
   }
 
   &__list-item {
-    background: rgba($color: #000000, $alpha: 0.5);
     cursor: pointer;
     margin-bottom: 20px;
     padding: 15px;
-    width: 100%;
 
     @include breakpoint($small) {
       display: flex;
@@ -24,11 +25,19 @@
   &__list-item-image-wrapper {
     align-items: center;
     display: flex;
-    max-width: 100px;
+    max-width: 200px;
 
     img {
+      box-shadow: rgba(0, 0, 0, 0.4) 10px 10px 5px 0px;
       cursor: pointer;
+      height: 100%;
+      object-fit: cover;
+      transition: box-shadow 0.4s ease;
       width: 100%;
+
+      @include hover {
+        box-shadow: rgba(0, 0, 0, 0.4) -10px -10px 5px 0px;
+      }
     }
   }
 

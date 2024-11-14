@@ -71,6 +71,7 @@ const Search = () => {
     setShowOptions(false);
     removeQueryParam("query");
     sessionStorage.removeItem("query");
+    window.location.href = "/";
   };
 
   const removeQueryParam = (key) => {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 // Utils
 import { getMediaByID, getMediaVideos } from "../../utils/get-resources";
@@ -86,22 +87,31 @@ const DetailsView = () => {
               <div data-testid="details-view__inner">
                 <div className="details-view__content">
                   {resource["profile_path"] && (
-                    <Image
-                      resource={resource}
-                      size="medium"
-                      imagePath="profile_path"
-                    />
+                    <div className="details-view__profile">
+                      <div className="details-view__profile-image">
+                        <Image
+                          resource={resource}
+                          size="medium"
+                          imagePath="profile_path"
+                        />
+                      </div>
+                      <div className="details-view__profile-details">
+                        <h2>{resource.name}</h2>
+                        <p>{moment(resource.birthday).format("MMMM Do YYYY")}</p>
+                        <p>{resource["place_of_birth"]}</p>
+                      </div>
+                    </div>
                   )}
-                  {(resource?.overview?.length || resource?.biography?.length) > 200 ? (
+                  {(resource?.overview?.length || resource?.biography?.length) > 1200 ? (
                     <>
                       <p>
-                        {(resource.overview || resource.biography).slice(0, 200)}.....{" "}
-                        <Button
+                        {(resource.overview || resource.biography).slice(0, 10000)}.....{" "}
+                        {/* <Button
                           onClick={() => setIsOpen(true)}
                           variant="link"
                         >
                           More
-                        </Button>
+                        </Button> */}
                       </p>
 
                       <Modal

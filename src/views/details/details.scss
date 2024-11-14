@@ -21,6 +21,14 @@
     }
   }
 
+  &__profile {
+    display: flex;
+  }
+
+  &__profile-image {
+    margin-right: 20px;
+  }
+
   &__content {
     background: rgba($color: $black, $alpha: 0.5);
     padding: 20px;
