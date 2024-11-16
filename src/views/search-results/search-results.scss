@@ -4,11 +4,17 @@
 .search-results {
   margin-top: 40px;
 
+  &__count {
+    h3 {
+      color: $primary-color;
+    }
+  }
+
   &__list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     list-style: none;
+    margin: 0 -16px;
     width: 100%;
   }
 
@@ -25,7 +31,7 @@
   &__list-item-image-wrapper {
     align-items: center;
     display: flex;
-    max-width: 200px;
+    max-width: 125px;
 
     img {
       box-shadow: rgba(0, 0, 0, 0.4) 10px 10px 5px 0px;
@@ -50,5 +56,19 @@
   .image--mobile {
     margin-bottom: 20px;
     width: 100%;
+  }
+
+  &__pagination {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+
+    .MuiButtonBase-root {
+      color: #fff;
+      font-size: 20px;
+    }
+    .MuiSvgIcon-root {
+      font-size: 30px;
+    }
   }
 }

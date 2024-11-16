@@ -26,38 +26,41 @@ import "./search.scss";
 
 const Search = () => {
   const [suggestions, setSuggestions] = useState([]);
-  const [showOptions, setShowOptions] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [value, setValue] = useState(sessionStorage.getItem("query") || "");
-
   const params = new URLSearchParams(searchParams);
+  const [searchTerm, setSearchTerm] = useState(params.get("query"));
+
+  const navigate = useNavigate();
   const iconProps = {
     sx: { color: "#ccc", fontSize: 20 },
   };
-  const navigate = useNavigate();
 
   const updateQuery = (key, value) => {
     params.set(key, value);
+
     setSearchParams(params);
   };
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    const value = event.target[0].value;
+    const searchTerm = event.target[0].value;
 
-    setValue(value);
-    updateQuery("query", value);
-    setShowOptions(false);
-    sessionStorage.setItem("query", value);
-    window.location.href = `${config.searchResults.path}${window.location.search}`;
+    setSearchTerm(searchTerm);
+    updateQuery("query", searchTerm);
+    setSuggestions([]);
+    sessionStorage.setItem("query", searchTerm);
+
+    if (window.location.pathname !== config.searchResults.path) {
+      window.location.href = `${config.searchResults.path}${window.location.search}`;
+    }
   };
 
   const handleSuggestions = (event: any) => {
     if (event.target.value.length > 2) {
-      getAllMedia(event.target.value)
+      getAllMedia(`?query=${event.target.value}`)
         .then((response: any) => {
           setSuggestions(response.data.results.slice(0, 10));
-          setShowOptions(true);
+          console.log(response);
         })
         .catch((error) => {
           console.error(error);
@@ -66,12 +69,12 @@ const Search = () => {
   };
 
   const clear = () => {
-    setValue("");
+    setSearchTerm("");
     setSuggestions([]);
-    setShowOptions(false);
     removeQueryParam("query");
     sessionStorage.removeItem("query");
     window.location.href = "/";
+    setSearchParams({});
   };
 
   const removeQueryParam = (key) => {
@@ -112,13 +115,13 @@ const Search = () => {
           className="search__form-input"
           type="text"
           placeholder="Search..."
-          value={value}
+          value={searchTerm || ""}
           onChange={(e) => {
-            setValue(e.target.value);
+            setSearchTerm(e.target.value);
           }}
         />
       </form>
-      {!!value && (
+      {window.location.search && (
         <Button
           variant="icon"
           className="search__form-clear"
@@ -129,7 +132,7 @@ const Search = () => {
         </Button>
       )}
 
-      <Fade in={!!suggestions.length && showOptions && !!value}>
+      <Fade in={!!suggestions.length && !!searchTerm}>
         <div>
           {!!suggestions.length && (
             <ul className="search__options-list">

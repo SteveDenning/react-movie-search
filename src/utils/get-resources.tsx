@@ -24,9 +24,9 @@ export const getLatestReleases = (path: string) =>
       });
   });
 
-export const getAllMedia = (keyword: string) =>
+export const getAllMedia = (queryString: string) =>
   new Promise((resolve, reject) => {
-    const url = `${apiUrl}/search/multi?query=${keyword}&include_adult=false&language=en-US&page=1`;
+    const url = `${apiUrl}/search/multi${queryString}&include_adult=false&language=en-US`;
     axios
       .get(url, headers)
       .then((response) => {
@@ -53,6 +53,20 @@ export const getMediaByID = (id: string, type: string) =>
 export const getMediaVideos = (id: string, type: string) =>
   new Promise((resolve, reject) => {
     const url = `${apiUrl}/${type}/${id}/videos?language=en-US`;
+    axios
+      .get(url, headers)
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
+export const getCasting = (id: string, type: string) =>
+  new Promise((resolve, reject) => {
+    const url = `${apiUrl}/${type}/${id}/movie_credits?language=en-US`;
+    console.log(url);
     axios
       .get(url, headers)
       .then((response) => {

@@ -4,8 +4,13 @@
 
 .carousel {
   &__item {
+    height: 100%;
     margin: 0 10px;
     position: relative;
+
+    .image {
+      height: 100%;
+    }
 
     &:first-child {
       margin-left: 0;

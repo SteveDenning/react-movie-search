@@ -12,6 +12,8 @@
   }
 
   &__inner {
+    margin-bottom: 50px;
+
     @include breakpoint($large) {
       padding: 0 200px;
     }
@@ -27,6 +29,20 @@
 
   &__profile-image {
     margin-right: 20px;
+
+    img {
+      border-radius: 50%;
+    }
+  }
+
+  &__imdb {
+    .button__content span {
+      background: $imdb;
+      border-radius: 5px;
+      font-weight: bold;
+      color: $black;
+      padding: 0 5px;
+    }
   }
 
   &__content {

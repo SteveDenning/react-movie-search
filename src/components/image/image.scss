@@ -9,7 +9,9 @@
 
   img {
     cursor: pointer;
+    object-fit: cover;
     transition: scale 0.2s ease, border 0.2s ease;
+    height: 100%;
     width: 100%;
   }
 

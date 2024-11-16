@@ -9,7 +9,7 @@ import "./carousel.scss";
 
 interface Props {
   resources: any;
-  media: string;
+  media?: string;
   responsiveOptions?: any;
   imagePath?: string;
   variant?: string;
@@ -83,6 +83,7 @@ const Carousel: React.FC<Props> = ({ resources, media, responsiveOptions, imageP
         infinite={infinite}
       >
         {resources.map((item: any, i: number) => {
+          console.log(item);
           return (
             <div
               key={i}

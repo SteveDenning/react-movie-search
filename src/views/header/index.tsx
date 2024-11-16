@@ -30,13 +30,14 @@ const Header: React.FC<Props> = ({ heading }) => {
         >
           <Button
             variant="icon"
+            className="header__logo"
             onClick={() => {
               window.location.href = "/";
               sessionStorage.removeItem("query");
             }}
           >
             <span className="sr-only">Home</span>
-            <TheatersIcon sx={{ color: "#86f6ff", fontSize: 40 }} />
+            <TheatersIcon />
           </Button>
           <div className="header__inner">
             <Typography
@@ -51,9 +52,10 @@ const Header: React.FC<Props> = ({ heading }) => {
           <Button
             variant="icon"
             onClick={() => alert("TODO - Log in")}
+            className="header__login"
           >
             <span className="sr-only">Log in</span>
-            <Person3OutlinedIcon sx={{ color: "#86f6ff", fontSize: 40 }} />
+            <Person3OutlinedIcon />
           </Button>
         </div>
       </Container>

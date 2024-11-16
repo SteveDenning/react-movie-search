@@ -9,8 +9,8 @@ import Carousel from "../../components/carousel";
 
 // MUI
 import Backdrop from "@mui/material/Backdrop";
-import { Container, Fade } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+import { Container, Fade } from "@mui/material";
 import { Typography } from "@mui/material";
 
 // Icons

@@ -25,7 +25,7 @@ const theme = createTheme({
             maxWidth: "600px",
           },
           "&.MuiContainer-maxWidthLg": {
-            maxWidth: "1200px",
+            maxWidth: "1400px",
           },
         },
       },
