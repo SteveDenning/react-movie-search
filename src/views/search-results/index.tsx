@@ -9,7 +9,7 @@ import { getAllMedia } from "../../utils/get-resources";
 import defaultPlaceholder from "../../assets/images/placeholder.png";
 
 // MUI
-import { Container, Fade } from "@mui/material";
+import { Container, Fade, Grid } from "@mui/material";
 import Pagination from "@mui/material/Pagination";
 
 // Styles
@@ -83,36 +83,41 @@ const SearchResults = () => {
             <div className="search-results__count">
               <h3>Total results - {totalResults}</h3>
             </div>
-            <ul className="search-results__list">
+            <Grid
+              aria-label="Results"
+              container
+              spacing={2}
+              rowGap={0}
+              component="ul"
+            >
               {window.location.search &&
                 loaded &&
                 resources.map((item: any, i: number) => {
                   const imageSrc = item["poster_path"] || item["profile_path"];
+
                   return (
-                    <li
-                      className="search-results__list-item"
+                    <Grid
+                      component="li"
+                      item
+                      xs={6}
+                      sm={6}
+                      lg={3}
                       key={i}
-                      onClick={() => (window.location.href = `/details/${item["media_type"]}/${item.id}`)}
                     >
-                      <div className="search-results__list-item-image-wrapper">
+                      <button
+                        className="search-results__list-item-image-wrapper"
+                        onClick={() => (window.location.href = `/details/${item["media_type"]}/${item.id}`)}
+                        tabIndex={0}
+                      >
                         <img
                           src={imageSrc ? `https://image.tmdb.org/t/p/original/${imageSrc}` : defaultPlaceholder}
                           alt={item.title || item.name}
                         />
-                      </div>
-                      {/* <div className="search-results__list-item-content">
-                <Typography
-                  variant="h3"
-                  sx={{ fontSize: 24, fontWeight: "200" }}
-                >
-                  {item.title || item["original_name"]}
-                </Typography>
-                <p>{item.overview?.length > 300 ? `${item.overview.substring(0, 300)}. . .` : item.overview}</p>
-              </div> */}
-                    </li>
+                      </button>
+                    </Grid>
                   );
                 })}
-            </ul>
+            </Grid>
             <div className="search-results__pagination">
               <Pagination
                 count={count}

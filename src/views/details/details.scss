@@ -14,7 +14,7 @@
   &__inner {
     margin-bottom: 50px;
 
-    @include breakpoint($large) {
+    @include breakpoint($xxlarge) {
       padding: 0 200px;
     }
 

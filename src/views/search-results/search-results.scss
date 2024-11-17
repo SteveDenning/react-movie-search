@@ -31,7 +31,9 @@
   &__list-item-image-wrapper {
     align-items: center;
     display: flex;
-    max-width: 125px;
+    height: 100%;
+    border: 0;
+    background: none;
 
     img {
       box-shadow: rgba(0, 0, 0, 0.4) 10px 10px 5px 0px;
@@ -61,7 +63,7 @@
   &__pagination {
     display: flex;
     justify-content: center;
-    padding: 10px;
+    padding: 40px 0;
 
     .MuiButtonBase-root {
       color: #fff;

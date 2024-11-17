@@ -9,9 +9,9 @@
 
   img {
     cursor: pointer;
+    height: 100%;
     object-fit: cover;
     transition: scale 0.2s ease, border 0.2s ease;
-    height: 100%;
     width: 100%;
   }
 
@@ -35,13 +35,14 @@
   &--scale {
     img {
       @include hover {
-        scale: 2;
+        scale: 1.02;
       }
     }
   }
 
   &--content {
     transition: opacity 0.2s ease;
+
     @include hover {
       opacity: 0.5;
     }

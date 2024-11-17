@@ -43,15 +43,17 @@ const Search = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    const searchTerm = event.target[0].value;
+    if (suggestions.length) {
+      const searchTerm = event.target[0].value;
 
-    setSearchTerm(searchTerm);
-    updateQuery("query", searchTerm);
-    setSuggestions([]);
-    sessionStorage.setItem("query", searchTerm);
+      setSearchTerm(searchTerm);
+      updateQuery("query", searchTerm);
+      setSuggestions([]);
+      sessionStorage.setItem("query", searchTerm);
 
-    if (window.location.pathname !== config.searchResults.path) {
-      window.location.href = `${config.searchResults.path}${window.location.search}`;
+      if (window.location.pathname !== config.searchResults.path) {
+        window.location.href = `${config.searchResults.path}${window.location.search}`;
+      }
     }
   };
 
@@ -60,7 +62,6 @@ const Search = () => {
       getAllMedia(`?query=${event.target.value}`)
         .then((response: any) => {
           setSuggestions(response.data.results.slice(0, 10));
-          console.log(response);
         })
         .catch((error) => {
           console.error(error);
