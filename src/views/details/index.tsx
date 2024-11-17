@@ -118,7 +118,6 @@ const DetailsView = () => {
                       <div className="details-view__profile-details">
                         <h2>{resource.name}</h2>
                         {resource.birthday && <p>{moment(resource.birthday).format("MMMM Do YYYY")}</p>}
-
                         {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
                         {resource["known_for_department"] && <p>{resource["known_for_department"]}</p>}
                         {resource["imdb_id"] && (

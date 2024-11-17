@@ -58,7 +58,6 @@ const SearchResults = () => {
   };
 
   useEffect(() => {
-    console.log("query change", location.search);
     if (!location.search) {
       setResources([]);
     } else {

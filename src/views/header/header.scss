@@ -26,8 +26,8 @@
   &__login,
   &__logo {
     svg {
-      font-size: 25px;
       cursor: pointer;
+      font-size: 25px;
 
       @include breakpoint($medium) {
         font-size: 35px;

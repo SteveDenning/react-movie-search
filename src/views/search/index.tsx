@@ -31,9 +31,6 @@ const Search = () => {
   const [searchTerm, setSearchTerm] = useState(params.get("query"));
 
   const navigate = useNavigate();
-  const iconProps = {
-    sx: { color: "#ccc", fontSize: 20 },
-  };
 
   const updateQuery = (key, value) => {
     params.set(key, value);
@@ -72,10 +69,10 @@ const Search = () => {
   const clear = () => {
     setSearchTerm("");
     setSuggestions([]);
+    setSearchParams({});
     removeQueryParam("query");
     sessionStorage.removeItem("query");
     window.location.href = "/";
-    setSearchParams({});
   };
 
   const removeQueryParam = (key) => {
@@ -157,13 +154,7 @@ const Search = () => {
                         <p className="search__options-list-item-year">{moment(suggestion["release_date"]).format("YYYY")}</p>
                       </div>
                       <div className="search__options-media-icon">
-                        {suggestion["media_type"] === "tv" ? (
-                          <TvIcon sx={iconProps} />
-                        ) : suggestion["media_type"] === "movie" ? (
-                          <TheatersIcon sx={iconProps} />
-                        ) : (
-                          <PersonIcon sx={iconProps} />
-                        )}
+                        {suggestion["media_type"] === "tv" ? <TvIcon /> : suggestion["media_type"] === "movie" ? <TheatersIcon /> : <PersonIcon />}
                       </div>
                     </Button>
                   </li>
