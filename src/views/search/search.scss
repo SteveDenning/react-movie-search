@@ -31,11 +31,16 @@
   &__form-input {
     background-color: $grey;
     border: 0;
+    border-radius: 5px;
     color: $primary-color;
-    border-radius: 10px;
-    font-size: 18px;
-    padding: 10px 20px;
+    font-size: 16px;
+    padding: 5px 20px;
     width: 100%;
+
+    @include breakpoint($xlarge) {
+      padding: 10px 20px;
+      font-size: 18px;
+    }
 
     &::placeholder {
       color: $primary-color;

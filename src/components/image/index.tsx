@@ -10,6 +10,7 @@ import defaultPlaceholder from "../../assets/images/placeholder.png";
 import "./image.scss";
 
 interface Props {
+  id?: string;
   resource: any;
   size?: "xsmall" | "small" | "medium" | "large";
   scale?: boolean;
@@ -17,7 +18,7 @@ interface Props {
   imagePath?: string;
 }
 
-const Image: React.FC<Props> = ({ resource, size, scale, content, imagePath }) => {
+const Image: React.FC<Props> = ({ resource, size, scale, content, imagePath, id }) => {
   const screenSize = useScreenSize();
   const isMobile = screenSize.width <= 480;
 
@@ -35,7 +36,7 @@ const Image: React.FC<Props> = ({ resource, size, scale, content, imagePath }) =
     >
       <img
         src={resource[imagePath] ? `https://image.tmdb.org/t/p/original/${resource[imagePath]}` : defaultPlaceholder}
-        alt={resource.title || resource.name}
+        alt={(resource.title || resource.name) + id}
       />
     </div>
   );

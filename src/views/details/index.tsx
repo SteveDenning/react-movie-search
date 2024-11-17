@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 // Utils
-import { getMediaByID, getMediaVideos } from "../../utils/get-resources";
+import { getMediaByID, getMediaVideos, getCasting } from "../../utils/get-resources";
 
 // Components
 import Button from "../../components/button";
@@ -16,6 +16,7 @@ import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 
 // Styles
 import "./details.scss";
+import Carousel from "../../components/carousel";
 
 const DetailsView = () => {
   const [backDrop, setBackDrop] = useState<string>("");
@@ -23,6 +24,7 @@ const DetailsView = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [resource, setResource] = useState<any>({});
   const [video, setVideo] = useState<string>("");
+  const [castings, setCastings] = useState<string>("");
 
   const navigate = useNavigate();
   const programmeId = window.location.pathname.split("/")[3] as string;
@@ -57,12 +59,27 @@ const DetailsView = () => {
     }
   };
 
+  const getCastingMedia = (id: string, type: string) => {
+    if (type == "person") {
+      getCasting(id, type)
+        .then((response: any) => {
+          setCastings(response.data.cast);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      setLoaded(true);
+    }
+  };
+
   const handleClose = () => {
     setIsOpen(false);
   };
 
   useEffect(() => {
     getVideos(programmeId, type);
+    getCastingMedia(programmeId, type);
   }, [resource]);
 
   useEffect(() => {
@@ -100,8 +117,20 @@ const DetailsView = () => {
                       </div>
                       <div className="details-view__profile-details">
                         <h2>{resource.name}</h2>
-                        <p>{moment(resource.birthday).format("MMMM Do YYYY")}</p>
-                        <p>{resource["place_of_birth"]}</p>
+                        {resource.birthday && <p>{moment(resource.birthday).format("MMMM Do YYYY")}</p>}
+                        {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
+                        {resource["known_for_department"] && <p>{resource["known_for_department"]}</p>}
+                        {resource["imdb_id"] && (
+                          <p className="details-view__imdb">
+                            <Button
+                              target="_blank"
+                              variant="link"
+                              href={`https://www.imdb.com/name/${resource["imdb_id"]}`}
+                            >
+                              <span>IMDb</span>
+                            </Button>
+                          </p>
+                        )}
                       </div>
                     </div>
                   )}
@@ -126,26 +155,19 @@ const DetailsView = () => {
                       </Modal>
                     </>
                   ) : (
-                    <p>{resource.overview || resource.biography || "Description not available"}</p>
+                    <>
+                      <h2>{resource.title}</h2>
+                      <p>{resource.overview || resource.biography}</p>
+                    </>
                   )}
-                  {resource["imdb_id"] && (
-                    <p>
-                      <Button
-                        target="_blank"
-                        variant="link"
-                        href={`https://www.imdb.com/title/${resource["imdb_id"]}`}
-                      >
-                        IMDB Link
-                      </Button>
-                    </p>
-                  )}
+
                   {!!resource.genres?.length && (
                     <>
                       <ul>
-                        {resource.genres.map((genre: any, i: number) => (
+                        {resource.genres.map((genre: any) => (
                           <li
                             className="genre-tag"
-                            key={genre.id + i}
+                            key={genre.id + genre["name"]}
                           >
                             {genre["name"]}
                             <span>|</span>
@@ -182,6 +204,16 @@ const DetailsView = () => {
                 </div>
               </div>
             </div>
+            {castings.length && (
+              <>
+                <h2>Known For:</h2>
+                <Carousel
+                  resources={castings}
+                  imagePath="poster_path"
+                  media="movie"
+                />
+              </>
+            )}
           </Container>
         </div>
       </Fade>

@@ -9,7 +9,7 @@ import "./carousel.scss";
 
 interface Props {
   resources: any;
-  media: string;
+  media?: string;
   responsiveOptions?: any;
   imagePath?: string;
   variant?: string;
@@ -97,6 +97,7 @@ const Carousel: React.FC<Props> = ({ resources, media, responsiveOptions, imageP
               <div className="carousel__content">
                 <div className="carousel__poster">
                   <Image
+                    id={item.id}
                     resource={item}
                     content
                     imagePath="poster_path"

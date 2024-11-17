@@ -1,6 +1,10 @@
 // Page routing config
 
 export const config = {
+  home: {
+    name: "home",
+    path: "/",
+  },
   details: {
     name: "Details",
     path: "/details",
