@@ -3,15 +3,15 @@ import React from "react";
 // Layouts
 import DefaultLayout from "../layout/default";
 
-const MediaListing = () => {
+// Views
+import MediaListing from "../views/media-listing";
+
+const MediaListingPage = () => {
   return (
-    <DefaultLayout
-      hasSearch
-      heading="The Movie Seeker: React App for All Things Cinema"
-    >
-      <h1>MEDIA LAYOUT</h1>
+    <DefaultLayout heading="The Movie Seeker: React App for All Things Cinema">
+      <MediaListing />
     </DefaultLayout>
   );
 };
 
-export default MediaListing;
+export default MediaListingPage;

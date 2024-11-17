@@ -6,7 +6,7 @@ import { config } from "../config/routes";
 // Views
 import HomePage from "../pages/home";
 import DetailsPage from "../pages/details";
-import MediaListing from "../pages/media-listing";
+import MediaListingPage from "../pages/media-listing";
 import PageNotFound from "../pages/page-not-found";
 import SearchResultsPage from "../pages/search-results";
 
@@ -30,7 +30,7 @@ const routes = {
       },
       {
         path: config.mediaListing.path,
-        element: <MediaListing />,
+        element: <MediaListingPage />,
       },
     );
 

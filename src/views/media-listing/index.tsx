@@ -1,16 +1,19 @@
 import React from "react";
 
 // Layouts
-import DefaultLayout from "../../layout/default";
+import { Container } from "@mui/material";
 
 const MediaListing = () => {
   return (
-    <DefaultLayout heading="title goes here">
+    <Container>
       <div
         className="media-listing"
         data-testid="media-listing"
-      ></div>
-    </DefaultLayout>
+        style={{ textAlign: "center", padding: "2rem" }}
+      >
+        <h1>Under Construction</h1>
+      </div>
+    </Container>
   );
 };
 
