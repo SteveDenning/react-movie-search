@@ -83,7 +83,6 @@ const Carousel: React.FC<Props> = ({ resources, media, responsiveOptions, imageP
         infinite={infinite}
       >
         {resources.map((item: any, i: number) => {
-          console.log(item);
           return (
             <div
               key={i}
@@ -98,6 +97,7 @@ const Carousel: React.FC<Props> = ({ resources, media, responsiveOptions, imageP
               <div className="carousel__content">
                 <div className="carousel__poster">
                   <Image
+                    id={item.id}
                     resource={item}
                     content
                     imagePath="poster_path"

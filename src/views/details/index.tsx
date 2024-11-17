@@ -165,10 +165,10 @@ const DetailsView = () => {
                   {!!resource.genres?.length && (
                     <>
                       <ul>
-                        {resource.genres.map((genre: any, i: number) => (
+                        {resource.genres.map((genre: any) => (
                           <li
                             className="genre-tag"
-                            key={genre.id + i}
+                            key={genre.id + genre["name"]}
                           >
                             {genre["name"]}
                             <span>|</span>

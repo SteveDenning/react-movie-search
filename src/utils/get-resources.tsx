@@ -66,7 +66,6 @@ export const getMediaVideos = (id: string, type: string) =>
 export const getCasting = (id: string, type: string) =>
   new Promise((resolve, reject) => {
     const url = `${apiUrl}/${type}/${id}/movie_credits?language=en-US`;
-    console.log(url);
     axios
       .get(url, headers)
       .then((response) => {
