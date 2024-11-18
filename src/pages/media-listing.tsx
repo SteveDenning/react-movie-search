@@ -8,7 +8,7 @@ import MediaListing from "../views/media-listing";
 
 const MediaListingPage = () => {
   return (
-    <DefaultLayout heading="The Movie Seeker: React App for All Things Cinema">
+    <DefaultLayout heading="Media Listing Page">
       <MediaListing />
     </DefaultLayout>
   );

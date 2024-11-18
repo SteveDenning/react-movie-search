@@ -1,7 +1,7 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { screen, render, waitFor } from "@testing-library/react";
-import axios from "axios";
+// import axios from "axios";
 
 // jest.mock("axios");
 // const mockedAxios = axios as jest.Mocked<typeof axios>;
