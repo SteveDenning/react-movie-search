@@ -36,7 +36,7 @@ const Image: React.FC<Props> = ({ resource, size, scale, content, imagePath, id 
     >
       <img
         src={resource[imagePath] ? `https://image.tmdb.org/t/p/original/${resource[imagePath]}` : defaultPlaceholder}
-        alt={`${resource.title || resource.name} ${imagePath.replace("_path", "")}`}
+        alt={`${resource.title || resource.name} ${imagePath?.replace("_path", "")}`}
       />
     </div>
   );
