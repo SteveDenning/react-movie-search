@@ -3,15 +3,17 @@ import React from "react";
 // Layouts
 import DefaultLayout from "../layout/default";
 
-// Routes config
-// import { config } from "../config/routes";
+// Assets
+import backgroundImage from "../assets/images/404.png";
 
 const PageNotFound = () => {
-  // const pageTitle = config.public.pageNotFound.name;
-
   return (
-    <DefaultLayout heading={"pageTitle"}>
-      <h1>TODO - Eh Up, page not found</h1>
+    <DefaultLayout heading="404 - Page not found">
+      <div
+        data-testid="details-view"
+        className="details-view"
+        style={{ backgroundImage: backgroundImage, backgroundSize: "cover", backgroundPosition: "center" }}
+      ></div>
     </DefaultLayout>
   );
 };

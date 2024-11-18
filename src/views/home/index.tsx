@@ -27,6 +27,12 @@ const HomePage = () => {
         path="discover/tv"
         imagePath="poster_path"
       />
+      <LatestReleases
+        label="Popular Actors"
+        media="person"
+        path="person/popular"
+        imagePath="profile_path"
+      />
     </div>
   );
 };

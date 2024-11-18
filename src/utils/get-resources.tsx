@@ -10,9 +10,9 @@ const headers = {
   },
 };
 
-export const getLatestReleases = (path: string) =>
+export const getLatestReleases = (path: string, query = "?page=1") =>
   new Promise((resolve, reject) => {
-    const url = `${apiUrl}/${path}?&language=en-US`;
+    const url = `${apiUrl}/${path}${query}&language=en-US`;
 
     axios
       .get(url, headers)
@@ -26,7 +26,7 @@ export const getLatestReleases = (path: string) =>
 
 export const getAllMedia = (queryString: string) =>
   new Promise((resolve, reject) => {
-    const url = `${apiUrl}/search/multi${queryString}&&language=en-US`;
+    const url = `${apiUrl}/search/multi${queryString}&language=en-US`;
     axios
       .get(url, headers)
       .then((response) => {

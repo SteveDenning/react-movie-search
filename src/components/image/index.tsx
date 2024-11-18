@@ -18,7 +18,7 @@ interface Props {
   imagePath?: string;
 }
 
-const Image: React.FC<Props> = ({ resource, size, scale, content, imagePath, id }) => {
+const Image: React.FC<Props> = ({ resource, size, scale, content, imagePath }) => {
   const screenSize = useScreenSize();
   const isMobile = screenSize.width <= 480;
 
@@ -36,7 +36,7 @@ const Image: React.FC<Props> = ({ resource, size, scale, content, imagePath, id 
     >
       <img
         src={resource[imagePath] ? `https://image.tmdb.org/t/p/original/${resource[imagePath]}` : defaultPlaceholder}
-        alt={(resource.title || resource.name) + id}
+        alt={`${resource.title || resource.name} ${imagePath?.replace("_path", "")}`}
       />
     </div>
   );

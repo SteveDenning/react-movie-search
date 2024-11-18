@@ -119,7 +119,7 @@ const Search = () => {
           }}
         />
       </form>
-      {window.location.search && (
+      {!!searchTerm && (
         <Button
           variant="icon"
           className="search__form-clear"
