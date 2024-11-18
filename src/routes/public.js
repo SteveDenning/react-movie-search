@@ -29,7 +29,7 @@ const routes = {
         element: <DetailsPage />,
       },
       {
-        path: config.mediaListing.path,
+        path: `${config.mediaListing.path}/:type/:media`,
         element: <MediaListingPage />,
       },
     );

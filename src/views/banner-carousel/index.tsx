@@ -53,7 +53,7 @@ const BannerCarousel: React.FC<Props> = ({ media, path, imagePath }) => {
 
   const fetchLatestRelease = () => {
     setOpen(true);
-    getLatestReleases(path)
+    getLatestReleases(path, "?page=1")
       .then((response: any) => {
         setResources(response.data.results);
         setOpen(false);

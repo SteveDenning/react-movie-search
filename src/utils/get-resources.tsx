@@ -10,9 +10,9 @@ const headers = {
   },
 };
 
-export const getLatestReleases = (path: string) =>
+export const getLatestReleases = (path: string, query: string) =>
   new Promise((resolve, reject) => {
-    const url = `${apiUrl}/${path}?&language=en-US`;
+    const url = `${apiUrl}/${path}${query}&language=en-US`;
 
     axios
       .get(url, headers)

@@ -32,7 +32,7 @@ const LatestReleases: React.FC<Props> = ({ label, media, path, imagePath }) => {
 
   const fetchLatestRelease = () => {
     setOpen(true);
-    getLatestReleases(path)
+    getLatestReleases(path, "?page=1")
       .then((response: any) => {
         setResources(response.data.results);
         setOpen(false);
@@ -61,7 +61,7 @@ const LatestReleases: React.FC<Props> = ({ label, media, path, imagePath }) => {
                 sx={{ fontSize: 24, fontWeight: "200" }}
               >
                 <Button
-                  onClick={() => (window.location.href = "/media-listing")}
+                  onClick={() => (window.location.href = `/media-listing/${path}?page=1`)}
                   variant="heading"
                 >
                   {label}
@@ -71,17 +71,14 @@ const LatestReleases: React.FC<Props> = ({ label, media, path, imagePath }) => {
             </div>
 
             <Carousel
-              resources={resources}
-              media={media}
               imagePath={imagePath}
+              media={media}
+              resources={resources}
             />
           </Container>
         </div>
       </Fade>
-      <Backdrop
-        sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
-        open={open}
-      >
+      <Backdrop open={open}>
         <CircularProgress color="inherit" />
       </Backdrop>
     </>
