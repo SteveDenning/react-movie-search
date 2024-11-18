@@ -62,14 +62,15 @@ const LatestReleases: React.FC<Props> = ({ label, media, path, imagePath }) => {
                     variant="h2"
                     sx={{ fontSize: 24, fontWeight: "200" }}
                   >
-                    <Button
-                      onClick={() => (window.location.href = `/media-listing/${path}?page=1`)}
-                      variant="heading"
-                    >
-                      {label}
-                      <ArrowForwardIosIcon />
-                    </Button>
+                    {label}
                   </Typography>
+                  <Button
+                    onClick={() => (window.location.href = `/media-listing/${path}?page=1`)}
+                    variant="heading"
+                  >
+                    <span className="latest-releases__link-text">View all</span>
+                    <ArrowForwardIosIcon />
+                  </Button>
                 </div>
                 <Carousel
                   imagePath={imagePath}

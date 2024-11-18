@@ -3,5 +3,34 @@
 // Card styles
 
 .card {
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   position: relative;
+
+  &__content {
+    background-color: rgba($color: $white, $alpha: 0.1);
+    min-height: 80px;
+    padding: 5px 10px;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  &__title {
+    color: $white;
+    font-size: 18px;
+  }
+
+  &__date {
+    color: #ccc;
+    font-size: 18px;
+  }
+
+  // Variants
+  &--banner {
+    border-radius: 0;
+  }
 }

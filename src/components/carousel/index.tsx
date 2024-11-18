@@ -2,6 +2,7 @@ import React from "react";
 import ReactCarousel from "react-multi-carousel";
 
 // Components
+import Card from "../../components/card";
 import Image from "../../components/image";
 
 // Styles
@@ -25,7 +26,8 @@ const Carousel: React.FC<Props> = ({ resources, media, responsiveOptions, imageP
         max: 3000,
         min: 1024,
       },
-      items: 7,
+      items: 5,
+      slidesToSlide: 5,
     },
     tablet: {
       breakpoint: {
@@ -89,11 +91,15 @@ const Carousel: React.FC<Props> = ({ resources, media, responsiveOptions, imageP
               className="carousel__item"
               onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
             >
-              <Image
-                resource={item}
-                content
-                imagePath={imagePath}
-              />
+              <Card resource={item}>
+                <Image
+                  resource={item}
+                  content
+                  imagePath={imagePath}
+                />
+              </Card>
+
+              {/* Banner Carousel - TODO - remove and make a child */}
               <div className="carousel__content">
                 <div className="carousel__poster">
                   <Image

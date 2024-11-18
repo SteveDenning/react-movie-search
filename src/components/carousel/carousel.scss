@@ -4,6 +4,7 @@
 
 .carousel {
   &__item {
+    display: flex;
     height: 100%;
     margin: 0 10px;
     position: relative;
