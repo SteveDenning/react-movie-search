@@ -34,7 +34,7 @@ const Button: React.FC<Props> = ({
   rel,
   target,
   ariaHidden,
-  role,
+  role = "button",
   onClick,
   tabIndex,
 }) => {

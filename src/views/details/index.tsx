@@ -23,7 +23,7 @@ const DetailsView = () => {
   const [loaded, setLoaded] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [resource, setResource] = useState<any>({});
-  const [video, setVideo] = useState<string>("");
+  const [videoKey, setVideoKey] = useState<string>("");
   const [castings, setCastings] = useState<string>("");
 
   const navigate = useNavigate();
@@ -48,7 +48,7 @@ const DetailsView = () => {
     if (type !== "person") {
       getMediaVideos(id, type)
         .then((response: any) => {
-          setVideo(response.data.results[0]?.key);
+          setVideoKey(response.data.results[0]?.key);
           setLoaded(true);
         })
         .catch((error) => {
@@ -96,10 +96,10 @@ const DetailsView = () => {
         >
           <Container>
             <div className="details-view__inner">
-              {!!video && (
+              {!!videoKey && (
                 <div className="details-view__video">
                   <Video
-                    url={video}
+                    youTubeKey={videoKey}
                     playing
                   />
                 </div>

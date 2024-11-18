@@ -54,27 +54,30 @@ const LatestReleases: React.FC<Props> = ({ label, media, path, imagePath }) => {
           className="latest-releases"
         >
           <Container>
-            <div className="latest-releases__header">
-              <Typography
-                className="latest-releases__header-title"
-                variant="h2"
-                sx={{ fontSize: 24, fontWeight: "200" }}
-              >
-                <Button
-                  onClick={() => (window.location.href = "/media-listing")}
-                  variant="heading"
-                >
-                  {label}
-                  <ArrowForwardIosIcon />
-                </Button>
-              </Typography>
-            </div>
-
-            <Carousel
-              resources={resources}
-              media={media}
-              imagePath={imagePath}
-            />
+            {resources.length && (
+              <>
+                <div className="latest-releases__header">
+                  <Typography
+                    className="latest-releases__header-title"
+                    variant="h2"
+                    sx={{ fontSize: 24, fontWeight: "200" }}
+                  >
+                    <Button
+                      onClick={() => (window.location.href = `/media-listing/${path}?page=1`)}
+                      variant="heading"
+                    >
+                      {label}
+                      <ArrowForwardIosIcon />
+                    </Button>
+                  </Typography>
+                </div>
+                <Carousel
+                  imagePath={imagePath}
+                  media={media}
+                  resources={resources}
+                />
+              </>
+            )}
           </Container>
         </div>
       </Fade>
