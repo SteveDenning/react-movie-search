@@ -18,7 +18,7 @@ interface Props {
   imagePath?: string;
 }
 
-const Image: React.FC<Props> = ({ resource, size, scale, content, imagePath, id }) => {
+const Image: React.FC<Props> = ({ resource, size, scale, content, imagePath }) => {
   const screenSize = useScreenSize();
   const isMobile = screenSize.width <= 480;
 
