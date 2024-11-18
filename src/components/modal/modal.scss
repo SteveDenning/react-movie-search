@@ -25,15 +25,29 @@
   }
 
   &__close {
+    background: $primary-color;
+    padding: 5px 5px 0;
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 0;
+    top: 0;
     z-index: 1;
+
+    svg {
+      color: $black;
+    }
+
+    @include hover {
+      background: $purple;
+
+      svg {
+        color: $white;
+      }
+    }
   }
 
   &__header {
     color: $white;
-    padding: 1rem;
+    padding: 16px;
     border-bottom: 1px solid $primary-color;
   }
 
@@ -44,7 +58,7 @@
   }
 
   &__body {
-    padding: 1rem;
+    padding: 32px;
   }
 
   &__footer {

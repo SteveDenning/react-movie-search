@@ -69,10 +69,17 @@
     justify-content: center;
     padding: 40px 0;
 
-    .MuiButtonBase-root {
-      color: #fff;
+    .MuiButtonBase-root,
+    .MuiPaginationItem-text {
+      color: $white;
       font-size: 20px;
     }
+
+    .MuiButtonBase-root.Mui-selected {
+      color: $black;
+      background-color: $primary-color;
+    }
+
     .MuiSvgIcon-root {
       font-size: 30px;
     }

@@ -7,7 +7,7 @@ import { getLatestReleases } from "../../utils/get-resources";
 // Views
 import Resources from "../../views/resources";
 
-// Layouts
+// MUI
 import { Container } from "@mui/material";
 
 const MediaListing = () => {
@@ -15,8 +15,8 @@ const MediaListing = () => {
   const [page, setPage] = useState<number>(1);
   const [count, setCount] = useState<number>(0);
   const [totalResults, setTotalResults] = useState<number>(0);
-
   const [searchParams, setSearchParams] = useSearchParams();
+
   const params = new URLSearchParams(searchParams);
   const path = `${window.location.pathname.split("/")[2]}/${window.location.pathname.split("/")[3]}`;
 
@@ -31,15 +31,17 @@ const MediaListing = () => {
   };
 
   const fetchLatestRelease = () => {
-    getLatestReleases(path, location.search)
-      .then((response: any) => {
-        setResources(response.data.results);
-        setTotalResults(response.data["total_results"]);
-        setCount(Math.ceil(response.data["total_pages"]));
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    if (location.search) {
+      getLatestReleases(path, location.search)
+        .then((response: any) => {
+          setResources(response.data.results);
+          setTotalResults(response.data["total_results"]);
+          setCount(Math.ceil(response.data["total_pages"]));
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
 
   useEffect(() => {

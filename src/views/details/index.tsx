@@ -137,13 +137,13 @@ const DetailsView = () => {
                   {(resource?.overview?.length || resource?.biography?.length) > 1200 ? (
                     <>
                       <p>
-                        {(resource.overview || resource.biography).slice(0, 10000)}.....{" "}
-                        {/* <Button
+                        {(resource.overview || resource.biography).slice(0, 1200)}.....{" "}
+                        <Button
                           onClick={() => setIsOpen(true)}
                           variant="link"
                         >
                           More
-                        </Button> */}
+                        </Button>
                       </p>
 
                       <Modal
@@ -204,7 +204,7 @@ const DetailsView = () => {
                 </div>
               </div>
             </div>
-            {castings.length && (
+            {!!castings.length && (
               <>
                 <h2>Known For:</h2>
                 <Carousel

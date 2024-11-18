@@ -15,14 +15,14 @@ import Resources from "../../views/resources";
 import "./search-results.scss";
 
 const SearchResults = () => {
-  const [resources, setResources] = useState<any>([]);
+  const [resources, setResources] = useState<any[]>([]);
   const [query, setQuery] = useState<string>(sessionStorage.getItem("query"));
   const [page, setPage] = useState<number>(1);
   const [count, setCount] = useState<number>(0);
   const [totalResults, setTotalResults] = useState<number>(0);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const [searchParams, setSearchParams] = useSearchParams(); // Sets URL params
-  const params = new URLSearchParams(searchParams); // Creates params
+  const params = new URLSearchParams(searchParams);
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -72,7 +72,7 @@ const SearchResults = () => {
 
   return (
     <Container>
-      {resources.length ? (
+      {resources.length && (
         <Resources
           resources={resources}
           totalResults={totalResults}
@@ -80,8 +80,6 @@ const SearchResults = () => {
           handlePageChange={handlePageChange}
           count={count}
         />
-      ) : (
-        !window.location.search && <h3>No results</h3>
       )}
     </Container>
   );
