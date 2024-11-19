@@ -10,20 +10,15 @@ import "./card.scss";
 
 interface Props {
   resource: any;
-  imagePath: string;
 }
 
-const Card: React.FC<Props> = ({ imagePath, resource }) => {
+const Card: React.FC<Props> = ({ resource }) => {
   return (
     <div
       className="card"
       data-testid="card"
     >
-      <Image
-        resource={resource}
-        content
-        imagePath={imagePath}
-      />
+      <Image resource={resource} />
       <div className="card__content">
         <h3 className="card__title">{resource?.name || resource?.title}</h3>
         {resource["first_air_date"] && <p className="card__date">{moment(resource["first_air_date"]).format("YYYY")}</p>}

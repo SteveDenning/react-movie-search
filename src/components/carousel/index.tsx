@@ -12,7 +12,6 @@ interface Props {
   autoPlaySpeed?: number;
   autoPlay?: boolean;
   banner?: boolean;
-  imagePath?: string;
   infinite?: boolean;
   media?: string;
   resources: any;
@@ -20,17 +19,7 @@ interface Props {
   variant?: string;
 }
 
-const Carousel: React.FC<Props> = ({
-  autoPlay = false,
-  autoPlaySpeed,
-  banner,
-  imagePath,
-  infinite,
-  media,
-  resources,
-  responsiveOptions,
-  variant,
-}) => {
+const Carousel: React.FC<Props> = ({ autoPlay = false, autoPlaySpeed, banner, infinite, media, resources, responsiveOptions, variant }) => {
   const responsive = {
     desktop: {
       breakpoint: {
@@ -106,16 +95,13 @@ const Carousel: React.FC<Props> = ({
                 <>
                   <Image
                     resource={item}
-                    content
-                    imagePath={imagePath}
+                    banner
                   />
                   <div className="carousel__banner-content">
                     <div className="carousel__banner-poster">
                       <Image
                         id={item.id}
                         resource={item}
-                        content
-                        imagePath="poster_path"
                       />
                     </div>
                     <div className="carousel__banner-details">
@@ -124,10 +110,7 @@ const Carousel: React.FC<Props> = ({
                   </div>
                 </>
               ) : (
-                <Card
-                  resource={item}
-                  imagePath={imagePath}
-                />
+                <Card resource={item} />
               )}
             </div>
           );

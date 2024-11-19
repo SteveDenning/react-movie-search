@@ -14,20 +14,20 @@ interface Props {
   resource: any;
   size?: "xsmall" | "small" | "medium" | "large";
   scale?: boolean;
-  content?: boolean;
-  imagePath?: string;
+  banner?: boolean;
 }
 
-const Image: React.FC<Props> = ({ resource, size, scale, content, imagePath }) => {
+const Image: React.FC<Props> = ({ resource, size, scale, banner }) => {
   const screenSize = useScreenSize();
   const isMobile = screenSize.width <= 480;
 
   const baseClass = "image";
   const sizeClass = size ? `image--${size}` : "";
-  const contentClass = content ? "image--content" : "";
+  const bannerClass = banner ? "image--banner" : "";
   const scaleClass = scale ? "image--scale" : "";
   const mobileClass = isMobile ? "image--mobile" : "";
-  const classes = [baseClass, sizeClass, scaleClass, mobileClass, contentClass].filter(Boolean).join(" ");
+  const classes = [baseClass, sizeClass, scaleClass, mobileClass, bannerClass].filter(Boolean).join(" ");
+  const imageSrc = resource["poster_path"] || resource["profile_path"] || resource["backdrop_path"];
 
   return (
     <div
@@ -35,8 +35,8 @@ const Image: React.FC<Props> = ({ resource, size, scale, content, imagePath }) =
       data-testid="image"
     >
       <img
-        src={resource[imagePath] ? `https://image.tmdb.org/t/p/original/${resource[imagePath]}` : defaultPlaceholder}
-        alt={`${resource.title || resource.name} ${imagePath?.replace("_path", "")}`}
+        src={imageSrc ? `https://image.tmdb.org/t/p/original/${banner ? resource["backdrop_path"] : imageSrc}` : defaultPlaceholder}
+        alt={resource["profile_path"] ? `Actor - ${resource.name}` : ""}
       />
     </div>
   );
