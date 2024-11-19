@@ -9,17 +9,28 @@ import Image from "../../components/image";
 import "./carousel.scss";
 
 interface Props {
-  resources: any;
-  media?: string;
-  responsiveOptions?: any;
-  imagePath?: string;
-  variant?: string;
-  autoPlay?: boolean;
   autoPlaySpeed?: number;
+  autoPlay?: boolean;
+  banner?: boolean;
+  imagePath?: string;
   infinite?: boolean;
+  media?: string;
+  resources: any;
+  responsiveOptions?: any;
+  variant?: string;
 }
 
-const Carousel: React.FC<Props> = ({ resources, media, responsiveOptions, imagePath, variant, autoPlay = false, autoPlaySpeed, infinite }) => {
+const Carousel: React.FC<Props> = ({
+  autoPlay = false,
+  autoPlaySpeed,
+  banner,
+  imagePath,
+  infinite,
+  media,
+  resources,
+  responsiveOptions,
+  variant,
+}) => {
   const responsive = {
     desktop: {
       breakpoint: {
@@ -91,28 +102,33 @@ const Carousel: React.FC<Props> = ({ resources, media, responsiveOptions, imageP
               className="carousel__item"
               onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
             >
-              <Card resource={item}>
-                <Image
-                  resource={item}
-                  content
-                  imagePath={imagePath}
-                />
-              </Card>
-
-              {/* Banner Carousel - TODO - remove and make a child */}
-              <div className="carousel__content">
-                <div className="carousel__poster">
+              {banner ? (
+                <>
                   <Image
-                    id={item.id}
                     resource={item}
                     content
-                    imagePath="poster_path"
+                    imagePath={imagePath}
                   />
-                </div>
-                <div className="carousel__details">
-                  <h2>{item.title || item.name}</h2>
-                </div>
-              </div>
+                  <div className="carousel__banner-content">
+                    <div className="carousel__banner-poster">
+                      <Image
+                        id={item.id}
+                        resource={item}
+                        content
+                        imagePath="poster_path"
+                      />
+                    </div>
+                    <div className="carousel__banner-details">
+                      <h2>{item.title || item.name}</h2>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <Card
+                  resource={item}
+                  imagePath={imagePath}
+                />
+              )}
             </div>
           );
         })}

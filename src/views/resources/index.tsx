@@ -1,10 +1,13 @@
 import React from "react";
 
-// Styles
-import { Fade, Grid, Pagination } from "@mui/material";
-
 // Assets
 import defaultPlaceholder from "../../assets/images/placeholder.png";
+
+// Components
+// import Card from "../../components/card";
+
+// MUI
+import { Fade, Grid, Pagination } from "@mui/material";
 
 // Styles
 import "./resources.scss";
@@ -31,7 +34,7 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
       data-testid="resources"
     >
       <Fade in={!!resources?.length}>
-        <div className="resources">
+        <div className="resources__inner">
           <div className="resources__count">
             <h3>
               Total results - {totalResults < 10000 ? totalResults : 10000} {totalResults > 10000 ? "(Max Results)" : ""}
@@ -66,6 +69,10 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
                       alt={item.title || item.name}
                     />
                   </button>
+                  {/* <Card
+                    resource={item}
+                    imagePath={"poster_path"}
+                  /> */}
                 </Grid>
               );
             })}

@@ -9,9 +9,10 @@ describe("card component", () => {
   describe("Component rendering", () => {
     beforeEach(() =>
       render(
-        <Card resource={{}}>
-          <p>Lorem Ipsom</p>
-        </Card>,
+        <Card
+          resource={{}}
+          imagePath="/"
+        />,
       ),
     );
 

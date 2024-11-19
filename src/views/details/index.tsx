@@ -126,15 +126,13 @@ const DetailsView = () => {
                       {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
                       {resource["known_for_department"] && <p>{resource["known_for_department"]}</p>}
                       {resource["imdb_id"] && (
-                        <p className="details-view__imdb">
-                          <Button
-                            target="_blank"
-                            variant="link"
-                            href={`https://www.imdb.com/name/${resource["imdb_id"]}`}
-                          >
-                            <span>IMDb</span>
-                          </Button>
-                        </p>
+                        <Button
+                          target="_blank"
+                          variant="imdb"
+                          href={`https://www.imdb.com/name/${resource["imdb_id"]}`}
+                        >
+                          IMDb
+                        </Button>
                       )}
                     </div>
                   </div>
@@ -165,9 +163,7 @@ const DetailsView = () => {
                     <p>{resource.overview || resource.biography}</p>
                   </>
                 )}
-                <p>TODO - add actors</p>
-                <p>TODO - add date of release</p>
-                <p>TODO - IMDB</p>
+
                 {!!resource.genres?.length && (
                   <>
                     <ul>
@@ -204,7 +200,15 @@ const DetailsView = () => {
                     </ul>
                   </>
                 )}
-                <br />
+                {resource["imdb_id"] && (
+                  <Button
+                    target="_blank"
+                    variant="imdb"
+                    href={`https://www.imdb.com/name/${resource["imdb_id"]}`}
+                  >
+                    IMDb
+                  </Button>
+                )}
                 <div className="details-view__back-button">
                   <Button onClick={() => navigate(-1)}>Back</Button>
                 </div>

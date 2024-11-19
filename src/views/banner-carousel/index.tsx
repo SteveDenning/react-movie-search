@@ -84,6 +84,7 @@ const BannerCarousel: React.FC<Props> = ({ media, path, imagePath }) => {
               autoPlay={true}
               autoPlaySpeed={3000}
               infinite
+              banner
             />
           </div>
         </Fade>

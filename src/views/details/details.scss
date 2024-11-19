@@ -52,16 +52,6 @@
     }
   }
 
-  &__imdb {
-    .button__content span {
-      background: $imdb;
-      border-radius: 5px;
-      font-weight: bold;
-      color: $black;
-      padding: 0 5px;
-    }
-  }
-
   &__back-button {
     display: flex;
     justify-content: flex-end;

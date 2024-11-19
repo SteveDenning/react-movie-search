@@ -4,10 +4,14 @@
 
 .carousel {
   &__item {
+    background: none;
+    border: 0;
+    cursor: pointer;
     display: flex;
     height: 100%;
     margin: 0 10px;
     position: relative;
+    text-align: left;
 
     .image {
       height: 100%;
@@ -18,7 +22,7 @@
     }
   }
 
-  &__content {
+  &__banner-content {
     display: none;
   }
 
@@ -69,64 +73,63 @@
       opacity: 0.1;
       pointer-events: none;
 
+      .card__content-button {
+        display: none;
+      }
+
       img {
         cursor: auto;
       }
     }
   }
 
-  // Variants
-  &--banner {
-    .carousel {
-      &__content {
-        bottom: 0;
-        display: flex;
-        pointer-events: none;
-        position: absolute;
-        width: 100%;
+  &__banner-content {
+    bottom: 0;
+    display: flex;
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+  }
+
+  &__banner-details {
+    align-items: flex-end;
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+    padding: 0 20px;
+    position: relative;
+    width: 100%;
+
+    h2 {
+      position: relative;
+      z-index: 10;
+    }
+
+    &::before {
+      background: linear-gradient(rgba($black, 0.1), $black);
+      bottom: 0;
+      content: "";
+      display: block;
+      height: 100px;
+      left: 0;
+      position: absolute;
+      width: 100%;
+    }
+  }
+
+  &__banner-poster {
+    .image {
+      margin-bottom: 0;
+      width: 70px;
+
+      @include hover {
+        opacity: 1;
       }
+    }
 
-      &__details {
-        align-items: flex-end;
-        display: flex;
-        justify-content: flex-end;
-        margin-left: auto;
-        padding: 0 20px;
-        position: relative;
-        width: 100%;
-
-        h2 {
-          position: relative;
-          z-index: 10;
-        }
-
-        &::before {
-          background: linear-gradient(rgba($black, 0.1), $black);
-          bottom: 0;
-          content: "";
-          display: block;
-          height: 100px;
-          left: 0;
-          position: absolute;
-          width: 100%;
-        }
-      }
-
-      &__poster {
-        .image {
-          margin-bottom: 0;
-          width: 70px;
-
-          @include hover {
-            opacity: 1;
-          }
-        }
-
-        @include breakpoint($medium) {
-          .image {
-            width: 150px;
-          }
-        }
+    @include breakpoint($medium) {
+      .image {
+        width: 150px;
       }
     }
   }
