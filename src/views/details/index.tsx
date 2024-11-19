@@ -117,7 +117,6 @@ const DetailsView = () => {
                       <Image
                         resource={resource}
                         size="medium"
-                        imagePath="profile_path"
                       />
                     </div>
                     <div className="details-view__profile-details">
@@ -219,7 +218,6 @@ const DetailsView = () => {
                 <h2>Known For:</h2>
                 <Carousel
                   resources={castings}
-                  imagePath="poster_path"
                   media="movie"
                 />
               </>

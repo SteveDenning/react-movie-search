@@ -13,25 +13,21 @@ const HomePage = () => {
       <BannerCarousel
         media="movie"
         path="movie/upcoming"
-        imagePath="backdrop_path"
       />
       <LatestReleases
         label="Movie Releases"
         media="movie"
         path="discover/movie"
-        imagePath="poster_path"
       />
       <LatestReleases
         label="TV Releases"
         media="tv"
         path="discover/tv"
-        imagePath="poster_path"
       />
       <LatestReleases
         label="Popular Actors"
         media="person"
         path="person/popular"
-        imagePath="profile_path"
       />
     </div>
   );

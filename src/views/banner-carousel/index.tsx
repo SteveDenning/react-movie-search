@@ -17,10 +17,9 @@ import "./banner-carousel.scss";
 interface Props {
   media: string;
   path: string;
-  imagePath: string;
 }
 
-const BannerCarousel: React.FC<Props> = ({ media, path, imagePath }) => {
+const BannerCarousel: React.FC<Props> = ({ media, path }) => {
   const [resources, setResources] = useState<any>([]);
   const [open, setOpen] = useState(false);
 
@@ -79,7 +78,6 @@ const BannerCarousel: React.FC<Props> = ({ media, path, imagePath }) => {
               resources={resources}
               media={media}
               responsiveOptions={responsiveOptions}
-              imagePath={imagePath}
               variant="banner"
               autoPlay={true}
               autoPlaySpeed={3000}

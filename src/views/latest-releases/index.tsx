@@ -23,10 +23,9 @@ interface Props {
   label: string;
   media: string;
   path: string;
-  imagePath: string;
 }
 
-const LatestReleases: React.FC<Props> = ({ label, media, path, imagePath }) => {
+const LatestReleases: React.FC<Props> = ({ label, media, path }) => {
   const [resources, setResources] = useState<any>([]);
   const [open, setOpen] = useState(false);
 
@@ -73,7 +72,6 @@ const LatestReleases: React.FC<Props> = ({ label, media, path, imagePath }) => {
                   </Button>
                 </div>
                 <Carousel
-                  imagePath={imagePath}
                   media={media}
                   resources={resources}
                 />

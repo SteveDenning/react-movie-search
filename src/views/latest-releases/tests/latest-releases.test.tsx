@@ -19,7 +19,6 @@ describe("Latest Releases component", () => {
           label="TV Releases"
           media="tv"
           path="discover/tv"
-          imagePath="poster_path"
         />,
       );
     });

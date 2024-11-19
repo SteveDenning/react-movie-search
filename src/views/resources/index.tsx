@@ -71,7 +71,6 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
                   </button>
                   {/* <Card
                     resource={item}
-                    imagePath={"poster_path"}
                   /> */}
                 </Grid>
               );
