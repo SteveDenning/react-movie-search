@@ -165,7 +165,9 @@ const DetailsView = () => {
                     <p>{resource.overview || resource.biography}</p>
                   </>
                 )}
-
+                <p>TODO - add actors</p>
+                <p>TODO - add date of release</p>
+                <p>TODO - IMDB</p>
                 {!!resource.genres?.length && (
                   <>
                     <ul>

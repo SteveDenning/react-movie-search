@@ -9,6 +9,9 @@ import defaultPlaceholder from "../../assets/images/placeholder.png";
 // Styles
 import "./resources.scss";
 
+// Utils
+import useScreenSize from "../../utils/use-screen-size";
+
 interface Props {
   resources?: any;
   totalResults?: number;
@@ -19,6 +22,9 @@ interface Props {
 }
 
 const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange, count, page, mediaType = "media_type" }) => {
+  const screenSize = useScreenSize();
+  const isMobile = screenSize.width <= 480;
+
   return (
     <div
       className="resources"
@@ -47,7 +53,7 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
                   item
                   xs={6}
                   sm={6}
-                  lg={2}
+                  lg={3}
                   key={i}
                 >
                   <button
@@ -70,6 +76,7 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
               page={page}
               onChange={handlePageChange}
               color="primary"
+              siblingCount={isMobile ? 0 : 3}
             />
           </div>
         </div>
