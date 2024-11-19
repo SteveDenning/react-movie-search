@@ -9,7 +9,7 @@ describe("card component", () => {
   describe("Component rendering", () => {
     beforeEach(() =>
       render(
-        <Card>
+        <Card resource={{}}>
           <p>Lorem Ipsom</p>
         </Card>,
       ),

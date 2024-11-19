@@ -15,9 +15,10 @@ interface Props {
   handlePageChange?: (event: React.ChangeEvent<unknown>, value: number) => void;
   count?: number;
   page?: number;
+  mediaType?: string;
 }
 
-const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange, count, page }) => {
+const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange, count, page, mediaType = "media_type" }) => {
   return (
     <div
       className="resources"
@@ -51,7 +52,7 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
                 >
                   <button
                     className="resources__list-item-image-wrapper"
-                    onClick={() => (window.location.href = `/details/${item["media_type"]}/${item.id}`)}
+                    onClick={() => (window.location.href = `/details/${item[mediaType] || mediaType}/${item.id}`)}
                     tabIndex={0}
                   >
                     <img

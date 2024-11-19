@@ -18,7 +18,7 @@ const Card: React.FC<Props> = ({ children, resource }) => {
     >
       {children}
       <div className="card__content">
-        <p className="card__title">{resource.name || resource.title}</p>
+        <p className="card__title">{resource?.name || resource?.title}</p>
         {resource["first_air_date"] && <p className="card__date">{moment(resource["first_air_date"]).format("YYYY")}</p>}
         {resource["release_date"] && <p className="card__date">{moment(resource["release_date"]).format("YYYY")}</p>}
         {resource["known_for_department"] && <p className="card__date">{resource["known_for_department"]}</p>}

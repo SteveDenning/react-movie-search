@@ -95,112 +95,116 @@ const DetailsView = () => {
           style={{ backgroundImage: backgroundImage }}
         >
           <Container>
-            <div className="details-view__inner">
+            <div
+              className="details-view__inner"
+              data-testid="details-view-inner"
+            >
               {!!videoKey && (
-                <div className="details-view__video">
+                <div
+                  className="details-view__video"
+                  data-test-id="details-view-video"
+                >
                   <Video
                     youTubeKey={videoKey}
                     playing
                   />
                 </div>
               )}
-              <div data-testid="details-view__inner">
-                <div className="details-view__content">
-                  {resource["profile_path"] && (
-                    <div className="details-view__profile">
-                      <div className="details-view__profile-image">
-                        <Image
-                          resource={resource}
-                          size="medium"
-                          imagePath="profile_path"
-                        />
-                      </div>
-                      <div className="details-view__profile-details">
-                        <h2>{resource.name}</h2>
-                        {resource.birthday && <p>{moment(resource.birthday).format("MMMM Do YYYY")}</p>}
-                        {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
-                        {resource["known_for_department"] && <p>{resource["known_for_department"]}</p>}
-                        {resource["imdb_id"] && (
-                          <p className="details-view__imdb">
-                            <Button
-                              target="_blank"
-                              variant="link"
-                              href={`https://www.imdb.com/name/${resource["imdb_id"]}`}
-                            >
-                              <span>IMDb</span>
-                            </Button>
-                          </p>
-                        )}
-                      </div>
+              <div className="details-view__content">
+                {resource["profile_path"] && (
+                  <div className="details-view__profile">
+                    <div className="details-view__profile-image">
+                      <Image
+                        resource={resource}
+                        size="medium"
+                        imagePath="profile_path"
+                      />
                     </div>
-                  )}
-                  {(resource?.overview?.length || resource?.biography?.length) > 1200 ? (
-                    <>
-                      <p>
-                        {(resource.overview || resource.biography).slice(0, 1200)}.....{" "}
-                        <Button
-                          onClick={() => setIsOpen(true)}
-                          variant="link"
-                        >
-                          More
-                        </Button>
-                      </p>
-
-                      <Modal
-                        id={resource.id}
-                        open={isOpen}
-                        handleClose={handleClose}
-                      >
-                        <p>{resource.overview || resource.biography}</p>
-                      </Modal>
-                    </>
-                  ) : (
-                    <>
-                      <h2>{resource.title}</h2>
-                      <p>{resource.overview || resource.biography}</p>
-                    </>
-                  )}
-
-                  {!!resource.genres?.length && (
-                    <>
-                      <ul>
-                        {resource.genres.map((genre: any) => (
-                          <li
-                            className="genre-tag"
-                            key={genre.id + genre["name"]}
+                    <div className="details-view__profile-details">
+                      <h2>{resource.name}</h2>
+                      {resource.birthday && <p>{moment(resource.birthday).format("MMMM Do YYYY")}</p>}
+                      {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
+                      {resource["known_for_department"] && <p>{resource["known_for_department"]}</p>}
+                      {resource["imdb_id"] && (
+                        <p className="details-view__imdb">
+                          <Button
+                            target="_blank"
+                            variant="link"
+                            href={`https://www.imdb.com/name/${resource["imdb_id"]}`}
                           >
-                            {genre["name"]}
-                            <span>|</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
-                  {resource.seasons?.length && (
-                    <>
-                      <p>Seasons: {resource.seasons?.length}</p>
-                    </>
-                  )}
-                  {resource.networks?.length && (
-                    <>
-                      <p>Networks</p>
-                      <ul>
-                        {resource.networks.map((network: any, i: number) => (
-                          <li key={network.id + i}>
-                            <img
-                              src={`${process.env.REACT_APP_TMDB_PATH}/t/p/original/${network["logo_path"]}`}
-                              alt=""
-                              style={{ width: "100px", background: "#ccc", padding: "10px", marginRight: "10px", borderRadius: "10px" }}
-                            />
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
-                  <br />
-                  <div className="details-view__back-button">
-                    <Button onClick={() => navigate(-1)}>Back</Button>
+                            <span>IMDb</span>
+                          </Button>
+                        </p>
+                      )}
+                    </div>
                   </div>
+                )}
+                {(resource?.overview?.length || resource?.biography?.length) > 400 ? (
+                  <>
+                    <p>
+                      {(resource.overview || resource.biography).slice(0, 400)}.....{" "}
+                      <Button
+                        onClick={() => setIsOpen(true)}
+                        variant="link"
+                      >
+                        More
+                      </Button>
+                    </p>
+
+                    <Modal
+                      id={resource.id}
+                      open={isOpen}
+                      handleClose={handleClose}
+                    >
+                      <p>{resource.overview || resource.biography}</p>
+                    </Modal>
+                  </>
+                ) : (
+                  <>
+                    <h2>{resource.title}</h2>
+                    <p>{resource.overview || resource.biography}</p>
+                  </>
+                )}
+
+                {!!resource.genres?.length && (
+                  <>
+                    <ul>
+                      {resource.genres.map((genre: any) => (
+                        <li
+                          className="genre-tag"
+                          key={genre.id + genre["name"]}
+                        >
+                          {genre["name"]}
+                          <span>|</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+                {resource.seasons?.length && (
+                  <>
+                    <p>Seasons: {resource.seasons?.length}</p>
+                  </>
+                )}
+                {resource.networks?.length && (
+                  <>
+                    <p>Networks</p>
+                    <ul>
+                      {resource.networks.map((network: any, i: number) => (
+                        <li key={network.id + i}>
+                          <img
+                            src={`${process.env.REACT_APP_TMDB_PATH}/t/p/original/${network["logo_path"]}`}
+                            alt=""
+                            style={{ width: "100px", background: "#ccc", padding: "10px", marginRight: "10px", borderRadius: "10px" }}
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+                <br />
+                <div className="details-view__back-button">
+                  <Button onClick={() => navigate(-1)}>Back</Button>
                 </div>
               </div>
             </div>
