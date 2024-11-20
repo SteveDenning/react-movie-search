@@ -23,9 +23,10 @@ interface Props {
   label: string;
   media: string;
   path: string;
+  responsiveOptions?: any;
 }
 
-const LatestReleases: React.FC<Props> = ({ label, media, path }) => {
+const LatestReleases: React.FC<Props> = ({ label, media, path, responsiveOptions }) => {
   const [resources, setResources] = useState<any>([]);
   const [open, setOpen] = useState(false);
 
@@ -74,6 +75,7 @@ const LatestReleases: React.FC<Props> = ({ label, media, path }) => {
                 <Carousel
                   media={media}
                   resources={resources}
+                  responsiveOptions={responsiveOptions}
                 />
               </>
             )}

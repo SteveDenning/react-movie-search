@@ -20,7 +20,6 @@ const MediaListing = () => {
   const params = new URLSearchParams(searchParams);
   const type = window.location.pathname.split("/")[3];
   const path = `${window.location.pathname.split("/")[2]}/${type}`;
-  const mediaType = type === "popular" ? "person" : type;
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -63,7 +62,6 @@ const MediaListing = () => {
         page={page}
         handlePageChange={handlePageChange}
         count={count}
-        mediaType={mediaType}
       />
     </Container>
   );

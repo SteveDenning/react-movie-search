@@ -2,6 +2,7 @@ import React from "react";
 import ReactCarousel from "react-multi-carousel";
 
 // Components
+import Button from "../../components/button";
 import Card from "../../components/card";
 import Image from "../../components/image";
 
@@ -89,7 +90,6 @@ const Carousel: React.FC<Props> = ({ autoPlay = false, autoPlaySpeed, banner, in
             <div
               key={i}
               className="carousel__item"
-              onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
             >
               {banner ? (
                 <>
@@ -106,11 +106,20 @@ const Carousel: React.FC<Props> = ({ autoPlay = false, autoPlaySpeed, banner, in
                     </div>
                     <div className="carousel__banner-details">
                       <h2>{item.title || item.name}</h2>
+                      <Button
+                        className="carousel__banner-button"
+                        onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
+                      >
+                        View details
+                      </Button>
                     </div>
                   </div>
                 </>
               ) : (
-                <Card resource={item} />
+                <Card
+                  resource={item}
+                  onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
+                />
               )}
             </div>
           );

@@ -4,11 +4,14 @@ import { Meta, StoryObj } from "@storybook/react";
 // Components
 import Template from "./index";
 
+// Layout
+import StorybookLayout from "../../layout/storybook";
+
 // MUI
 import { Container } from "@mui/material";
 
 const meta: Meta<typeof Template> = {
-  title: "Components/Card",
+  title: "Views/SearchResults",
   component: Template,
   tags: ["autodocs"],
   argTypes: {},
@@ -17,21 +20,17 @@ export default meta;
 
 type Story = StoryObj<typeof Template>;
 
-const Card = (args: any) => <Template {...args} />;
+const SearchResults = () => (
+  <StorybookLayout>
+    <Template />
+  </StorybookLayout>
+);
 
 export const Default: Story = {
-  render: (args) => (
+  render: () => (
     <Container>
-      <Card {...args} />
+      <SearchResults />
     </Container>
   ),
 };
-Default.args = {
-  resource: {
-    name: "John Doe",
-    title: "John Doe",
-    first_air_date: "2021-01-01",
-    release_date: "2021-01-01",
-    known_for_department: "Acting",
-  },
-};
+Default.args = {};

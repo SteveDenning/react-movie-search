@@ -8,7 +8,7 @@ import Template from "./index";
 import { Container } from "@mui/material";
 
 const meta: Meta<typeof Template> = {
-  title: "Components/Resources",
+  title: "Views/Resources",
   component: Template,
   tags: ["autodocs"],
   argTypes: {},
@@ -26,4 +26,6 @@ export const Default: Story = {
     </Container>
   ),
 };
-Default.args = {};
+Default.args = {
+  resources: [],
+};

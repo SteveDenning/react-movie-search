@@ -5,6 +5,17 @@ import BannerCarousel from "../../views/banner-carousel";
 import LatestReleases from "./../latest-releases";
 
 const HomePage = () => {
+  const personOptions = {
+    desktop: {
+      breakpoint: {
+        max: 3000,
+        min: 1024,
+      },
+      items: 7,
+      slidesToSlide: 7,
+    },
+  };
+
   return (
     <div
       className="home"
@@ -28,6 +39,7 @@ const HomePage = () => {
         label="Popular Actors"
         media="person"
         path="person/popular"
+        responsiveOptions={personOptions}
       />
     </div>
   );

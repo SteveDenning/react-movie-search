@@ -1,10 +1,7 @@
 import React from "react";
 
-// Assets
-import defaultPlaceholder from "../../assets/images/placeholder.png";
-
 // Components
-// import Card from "../../components/card";
+import Card from "../../components/card";
 
 // MUI
 import { Fade, Grid, Pagination } from "@mui/material";
@@ -21,10 +18,9 @@ interface Props {
   handlePageChange?: (event: React.ChangeEvent<unknown>, value: number) => void;
   count?: number;
   page?: number;
-  mediaType?: string;
 }
 
-const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange, count, page, mediaType = "media_type" }) => {
+const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange, count, page }) => {
   const screenSize = useScreenSize();
   const isMobile = screenSize.width <= 480;
 
@@ -48,7 +44,7 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
             component="ul"
           >
             {resources.map((item: any, i: number) => {
-              const imageSrc = item["poster_path"] || item["profile_path"];
+              const segment = item.gender ? 2 : 3;
 
               return (
                 <Grid
@@ -59,19 +55,10 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
                   lg={3}
                   key={i}
                 >
-                  <button
-                    className="resources__list-item-image-wrapper"
-                    onClick={() => (window.location.href = `/details/${item[mediaType] || mediaType}/${item.id}`)}
-                    tabIndex={0}
-                  >
-                    <img
-                      src={imageSrc ? `https://image.tmdb.org/t/p/original/${imageSrc}` : defaultPlaceholder}
-                      alt={item.title || item.name}
-                    />
-                  </button>
-                  {/* <Card
+                  <Card
                     resource={item}
-                  /> */}
+                    onClick={() => (window.location.href = `/details/${window.location.pathname.split("/")[segment]}/${item.id}`)}
+                  />
                 </Grid>
               );
             })}

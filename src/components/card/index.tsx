@@ -10,9 +10,10 @@ import "./card.scss";
 
 interface Props {
   resource: any;
+  onClick?: () => void;
 }
 
-const Card: React.FC<Props> = ({ resource }) => {
+const Card: React.FC<Props> = ({ resource, onClick }) => {
   return (
     <div
       className="card"
@@ -21,11 +22,11 @@ const Card: React.FC<Props> = ({ resource }) => {
       <Image resource={resource} />
       <div className="card__content">
         <h3 className="card__title">{resource?.name || resource?.title}</h3>
-        {resource["first_air_date"] && <p className="card__date">{moment(resource["first_air_date"]).format("YYYY")}</p>}
-        {resource["release_date"] && <p className="card__date">{moment(resource["release_date"]).format("YYYY")}</p>}
-        {resource["known_for_department"] && <p className="card__date">{resource["known_for_department"]}</p>}
+        {resource?.["first_air_date"] && <p className="card__date">{moment(resource?.["first_air_date"]).format("YYYY")}</p>}
+        {resource?.["release_date"] && <p className="card__date">{moment(resource?.["release_date"]).format("YYYY")}</p>}
+        {resource?.["known_for_department"] && <p className="card__date">{resource["known_for_department"]}</p>}
         <div className="card__content-button">
-          <Button>View</Button>
+          <Button onClick={onClick}>View</Button>
         </div>
       </div>
     </div>

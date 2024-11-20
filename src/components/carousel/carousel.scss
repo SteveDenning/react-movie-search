@@ -6,7 +6,6 @@
   &__item {
     background: none;
     border: 0;
-    cursor: pointer;
     display: flex;
     height: 100%;
     margin: 0 10px;
@@ -20,6 +19,11 @@
     &:first-child {
       margin-left: 0;
     }
+  }
+
+  &__item-button {
+    border: 0;
+    background: none;
   }
 
   &__banner-content {
@@ -73,7 +77,8 @@
       opacity: 0.1;
       pointer-events: none;
 
-      .card__content-button {
+      .card__content-button,
+      .carousel__banner-button {
         display: none;
       }
 
@@ -86,7 +91,6 @@
   &__banner-content {
     bottom: 0;
     display: flex;
-    pointer-events: none;
     position: absolute;
     width: 100%;
   }
@@ -94,6 +98,7 @@
   &__banner-details {
     align-items: flex-end;
     display: flex;
+    flex-direction: column;
     justify-content: flex-end;
     margin-left: auto;
     padding: 0 20px;

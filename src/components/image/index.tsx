@@ -4,7 +4,7 @@ import React from "react";
 import useScreenSize from "../../utils/use-screen-size";
 
 // Assets
-import defaultPlaceholder from "../../assets/images/placeholder.png";
+import defaultPlaceholder from "../../assets/images/placeholder-1.png";
 
 // Styles
 import "./image.scss";
