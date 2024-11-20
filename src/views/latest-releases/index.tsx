@@ -83,7 +83,7 @@ const LatestReleases: React.FC<Props> = ({ label, media, path, responsiveOptions
         </div>
       </Fade>
       <Backdrop open={open}>
-        <CircularProgress color="inherit" />
+        <CircularProgress color="primary" />
       </Backdrop>
     </>
   );

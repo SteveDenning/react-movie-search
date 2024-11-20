@@ -29,7 +29,9 @@
   &__content {
     align-items: center;
     background: rgba($black, 0.7);
+    border: 0;
     bottom: 0;
+    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;

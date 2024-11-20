@@ -116,7 +116,7 @@ const DetailsView = () => {
                     <div className="details-view__profile-image">
                       <Image
                         resource={resource}
-                        size="medium"
+                        size="large"
                       />
                     </div>
                     <div className="details-view__profile-details">
@@ -124,15 +124,6 @@ const DetailsView = () => {
                       {resource.birthday && <p>{moment(resource.birthday).format("MMMM Do YYYY")}</p>}
                       {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
                       {resource["known_for_department"] && <p>{resource["known_for_department"]}</p>}
-                      {resource["imdb_id"] && (
-                        <Button
-                          target="_blank"
-                          variant="imdb"
-                          href={`https://www.imdb.com/name/${resource["imdb_id"]}`}
-                        >
-                          IMDb
-                        </Button>
-                      )}
                     </div>
                   </div>
                 )}
@@ -185,7 +176,6 @@ const DetailsView = () => {
                 )}
                 {resource.networks?.length && (
                   <>
-                    <p>Networks</p>
                     <ul>
                       {resource.networks.map((network: any, i: number) => (
                         <li key={network.id + i}>
@@ -229,7 +219,7 @@ const DetailsView = () => {
         sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
         open={!loaded}
       >
-        <CircularProgress color="inherit" />
+        <CircularProgress color="primary" />
       </Backdrop>
     </>
   );

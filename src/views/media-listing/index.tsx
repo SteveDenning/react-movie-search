@@ -11,6 +11,7 @@ import Resources from "../../views/resources";
 import { Container } from "@mui/material";
 
 const MediaListing = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const [resources, setResources] = useState<any>([]);
   const [page, setPage] = useState<number>(1);
   const [count, setCount] = useState<number>(0);
@@ -33,13 +34,16 @@ const MediaListing = () => {
 
   const fetchLatestRelease = () => {
     if (location.search) {
+      setLoading(true);
       getLatestReleases(path, location.search)
         .then((response: any) => {
           setResources(response.data.results);
           setTotalResults(response.data["total_results"]);
           setCount(Math.ceil(response.data["total_pages"]));
+          setLoading(false);
         })
         .catch((error) => {
+          setLoading(false);
           console.error(error);
         });
     }
@@ -62,6 +66,7 @@ const MediaListing = () => {
         page={page}
         handlePageChange={handlePageChange}
         count={count}
+        loading={loading}
       />
     </Container>
   );

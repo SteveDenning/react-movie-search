@@ -41,14 +41,21 @@
   }
 
   &__profile {
-    display: flex;
+    @include breakpoint($small) {
+      display: flex;
+    }
   }
 
   &__profile-image {
-    margin-right: 20px;
+    margin-bottom: 30px;
+
+    @include breakpoint($small) {
+      margin-bottom: 0;
+      margin-right: 20px;
+    }
 
     img {
-      border-radius: 50%;
+      border-radius: 0 30px;
     }
   }
 

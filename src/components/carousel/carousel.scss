@@ -30,64 +30,6 @@
     display: none;
   }
 
-  // Overrides
-  .react-multiple-carousel {
-    &__arrow--right,
-    &__arrow--left {
-      display: none;
-    }
-
-    @include breakpoint($xlarge) {
-      &__arrow--right,
-      &__arrow--left {
-        display: block;
-
-        @include hover {
-          background-color: $anakiwa;
-          &:before {
-            color: #000;
-          }
-        }
-      }
-    }
-
-    @include breakpoint($xxlarge) {
-      &__arrow--right,
-      &__arrow--left {
-        display: block;
-      }
-      &__arrow--right {
-        right: calc(-5% + 1px);
-      }
-
-      &__arrow--left {
-        left: calc(-5% + 1px);
-      }
-    }
-  }
-
-  .react-multi-carousel-list {
-    overflow: visible;
-  }
-
-  .react-multi-carousel-item {
-    transition: opacity 0.4s ease;
-
-    &:not(.react-multi-carousel-item--active) {
-      opacity: 0.1;
-      pointer-events: none;
-
-      .card__content-button,
-      .carousel__banner-button {
-        display: none;
-      }
-
-      img {
-        cursor: auto;
-      }
-    }
-  }
-
   &__banner-content {
     bottom: 0;
     display: flex;
@@ -135,6 +77,64 @@
     @include breakpoint($medium) {
       .image {
         width: 150px;
+      }
+    }
+  }
+
+  // Overrides
+  .react-multiple-carousel {
+    &__arrow--right,
+    &__arrow--left {
+      display: none;
+    }
+
+    @include breakpoint($xlarge) {
+      &__arrow--right,
+      &__arrow--left {
+        display: block;
+
+        @include hover {
+          background-color: $anakiwa;
+          &:before {
+            color: #000;
+          }
+        }
+      }
+    }
+
+    @include breakpoint($xxlarge) {
+      &__arrow--right,
+      &__arrow--left {
+        display: block;
+      }
+      &__arrow--right {
+        right: calc(-5% + 1px);
+      }
+
+      &__arrow--left {
+        left: calc(-5% + 1px);
+      }
+    }
+  }
+
+  .react-multi-carousel-list {
+    overflow: visible;
+  }
+
+  .react-multi-carousel-item {
+    transition: opacity 0.4s ease;
+
+    &:not(.react-multi-carousel-item--active) {
+      opacity: 0.1;
+      pointer-events: none;
+
+      .card__overlay,
+      .carousel__banner-button {
+        display: none;
+      }
+
+      img {
+        cursor: auto;
       }
     }
   }

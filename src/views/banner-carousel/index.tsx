@@ -91,7 +91,7 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
         sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
         open={open}
       >
-        <CircularProgress color="inherit" />
+        <CircularProgress color="primary" />
       </Backdrop>
     </>
   );

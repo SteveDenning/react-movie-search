@@ -4,6 +4,8 @@ import React from "react";
 import Card from "../../components/card";
 
 // MUI
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 import { Fade, Grid, Pagination } from "@mui/material";
 
 // Styles
@@ -18,9 +20,10 @@ interface Props {
   handlePageChange?: (event: React.ChangeEvent<unknown>, value: number) => void;
   count?: number;
   page?: number;
+  loading?: boolean;
 }
 
-const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange, count, page }) => {
+const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange, count, page, loading }) => {
   const screenSize = useScreenSize();
   const isMobile = screenSize.width <= 480;
 
@@ -44,7 +47,7 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
             component="ul"
           >
             {resources.map((item: any, i: number) => {
-              const segment = item.gender ? 2 : 3;
+              const path = item["media_type"] ? item["media_type"] : window.location.pathname.split("/")[item.gender ? 2 : 3];
 
               return (
                 <Grid
@@ -57,7 +60,7 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
                 >
                   <Card
                     resource={item}
-                    onClick={() => (window.location.href = `/details/${window.location.pathname.split("/")[segment]}/${item.id}`)}
+                    onClick={() => (window.location.href = `/details/${path}/${item.id}`)}
                   />
                 </Grid>
               );
@@ -74,6 +77,9 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
           </div>
         </div>
       </Fade>
+      <Backdrop open={!!loading}>
+        <CircularProgress color="primary" />
+      </Backdrop>
     </div>
   );
 };
