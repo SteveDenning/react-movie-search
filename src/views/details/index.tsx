@@ -201,10 +201,10 @@ const DetailsView = () => {
                         IMDb
                       </Button>
                     )}
-                    <div className="details-view__back-button">
-                      <Button onClick={() => navigate(-1)}>Back</Button>
-                    </div>
                   </div>
+                </div>
+                <div className="details-view__back-button">
+                  <Button onClick={() => navigate(-1)}>Back</Button>
                 </div>
               </div>
             </div>
