@@ -37,19 +37,15 @@
     width: 100%;
   }
 
+  &--banner {
+    pointer-events: none;
+  }
+
   &--scale {
     img {
       @include hover {
         scale: 1.02;
       }
-    }
-  }
-
-  &--banner {
-    transition: opacity 0.2s ease;
-
-    @include hover {
-      opacity: 0.5;
     }
   }
 }

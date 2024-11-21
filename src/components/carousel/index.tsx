@@ -70,6 +70,7 @@ const Carousel: React.FC<Props> = ({ autoPlay = false, autoPlaySpeed, banner, in
     swipeable: true,
   };
 
+  // Class Definitions
   const baseClass = "carousel";
   const variantClass = variant ? `carousel--${variant}` : "";
   const classes = [baseClass, variantClass].filter(Boolean).join(" ");
@@ -95,7 +96,7 @@ const Carousel: React.FC<Props> = ({ autoPlay = false, autoPlaySpeed, banner, in
                 <>
                   <Image
                     resource={item}
-                    banner
+                    variant="banner"
                   />
                   <div className="carousel__banner-content">
                     <div className="carousel__banner-poster">

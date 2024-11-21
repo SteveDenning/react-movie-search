@@ -38,6 +38,7 @@ const Button: React.FC<Props> = ({
   onClick,
   tabIndex,
 }) => {
+  // Class Definitions
   const baseClass = "button";
   const colorClass = `button--${color}`;
   const variantClass = `button--${variant}`;

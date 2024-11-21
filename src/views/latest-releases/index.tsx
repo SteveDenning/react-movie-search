@@ -11,7 +11,6 @@ import Carousel from "../../components/carousel";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Container, Fade } from "@mui/material";
-import { Typography } from "@mui/material";
 
 // Icons
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -57,18 +56,12 @@ const LatestReleases: React.FC<Props> = ({ label, media, path, responsiveOptions
             {resources.length && (
               <>
                 <div className="latest-releases__header">
-                  <Typography
-                    className="latest-releases__header-title"
-                    variant="h2"
-                    sx={{ fontSize: 24, fontWeight: "200" }}
-                  >
-                    {label}
-                  </Typography>
+                  <h2 className="text-glow">{label}</h2>
                   <Button
                     onClick={() => (window.location.href = `/media-listing/${path}?page=1`)}
                     variant="heading"
                   >
-                    <span className="latest-releases__link-text">View all</span>
+                    <span className="latest-releases__link-text text-glow">View all</span>
                     <ArrowForwardIosIcon />
                   </Button>
                 </div>

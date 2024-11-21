@@ -10,6 +10,8 @@ interface Props {
 
 const Video: React.FC<Props> = ({ responsive = true, youTubeKey, playing }) => {
   const trailerUrl = `https://www.youtube.com/watch?v=${youTubeKey}`;
+
+  // Class Definitions
   const baseClass = "video";
   const responsiveClass = responsive ? "video--responsive" : "";
   const classes = [baseClass, responsiveClass].filter(Boolean).join(" ");
