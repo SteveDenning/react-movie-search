@@ -8,7 +8,7 @@ import Template from "./index";
 import { Container } from "@mui/material";
 
 const meta: Meta<typeof Template> = {
-  title: "Views/Resources",
+  title: "Components/Card",
   component: Template,
   tags: ["autodocs"],
   argTypes: {},
@@ -17,15 +17,21 @@ export default meta;
 
 type Story = StoryObj<typeof Template>;
 
-const Resources = (args: any) => <Template {...args} />;
+const Card = (args: any) => <Template {...args} />;
 
 export const Default: Story = {
   render: (args) => (
     <Container>
-      <Resources {...args} />
+      <Card {...args} />
     </Container>
   ),
 };
 Default.args = {
-  resources: [],
+  resource: {
+    name: "John Doe",
+    title: "John Doe",
+    first_air_date: "2021-01-01",
+    release_date: "2021-01-01",
+    known_for_department: "Acting",
+  },
 };

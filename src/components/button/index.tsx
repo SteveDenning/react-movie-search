@@ -34,10 +34,11 @@ const Button: React.FC<Props> = ({
   rel,
   target,
   ariaHidden,
-  role,
+  role = "button",
   onClick,
   tabIndex,
 }) => {
+  // Class Definitions
   const baseClass = "button";
   const colorClass = `button--${color}`;
   const variantClass = `button--${variant}`;

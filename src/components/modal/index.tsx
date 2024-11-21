@@ -27,6 +27,7 @@ interface Props {
 }
 
 const Modal: React.FC<Props> = ({ variant, className, id, open, handleClose, title, children, footer, video }) => {
+  // Class Definitions
   const baseClass = "modal";
   const variantClasses = variant ? variant.map((name) => `modal--${name}`).join(" ") : "";
   const videoClass = video ? "modal--video" : "";

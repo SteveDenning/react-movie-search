@@ -1,13 +1,18 @@
 import React from "react";
 
-// Styles
-import { Fade, Grid, Pagination } from "@mui/material";
+// Components
+import Card from "../../components/card";
 
-// Assets
-import defaultPlaceholder from "../../assets/images/placeholder.png";
+// MUI
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
+import { Fade, Grid, Pagination } from "@mui/material";
 
 // Styles
 import "./resources.scss";
+
+// Utils
+import useScreenSize from "../../utils/use-screen-size";
 
 interface Props {
   resources?: any;
@@ -15,16 +20,20 @@ interface Props {
   handlePageChange?: (event: React.ChangeEvent<unknown>, value: number) => void;
   count?: number;
   page?: number;
+  loading?: boolean;
 }
 
-const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange, count, page }) => {
+const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange, count, page, loading }) => {
+  const screenSize = useScreenSize();
+  const isMobile = screenSize.width <= 480;
+
   return (
     <div
       className="resources"
       data-testid="resources"
     >
       <Fade in={!!resources?.length}>
-        <div className="resources">
+        <div className="resources__inner">
           <div className="resources__count">
             <h3>
               Total results - {totalResults < 10000 ? totalResults : 10000} {totalResults > 10000 ? "(Max Results)" : ""}
@@ -38,7 +47,7 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
             component="ul"
           >
             {resources.map((item: any, i: number) => {
-              const imageSrc = item["poster_path"] || item["profile_path"];
+              const path = item["media_type"] ? item["media_type"] : window.location.pathname.split("/")[item.gender ? 2 : 3];
 
               return (
                 <Grid
@@ -46,19 +55,13 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
                   item
                   xs={6}
                   sm={6}
-                  lg={2}
+                  lg={3}
                   key={i}
                 >
-                  <button
-                    className="resources__list-item-image-wrapper"
-                    onClick={() => (window.location.href = `/details/${item["media_type"]}/${item.id}`)}
-                    tabIndex={0}
-                  >
-                    <img
-                      src={imageSrc ? `https://image.tmdb.org/t/p/original/${imageSrc}` : defaultPlaceholder}
-                      alt={item.title || item.name}
-                    />
-                  </button>
+                  <Card
+                    resource={item}
+                    onClick={() => (window.location.href = `/details/${path}/${item.id}`)}
+                  />
                 </Grid>
               );
             })}
@@ -69,10 +72,14 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
               page={page}
               onChange={handlePageChange}
               color="primary"
+              siblingCount={isMobile ? 0 : 3}
             />
           </div>
         </div>
       </Fade>
+      <Backdrop open={!!loading}>
+        <CircularProgress color="primary" />
+      </Backdrop>
     </div>
   );
 };

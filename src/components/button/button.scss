@@ -229,4 +229,25 @@
     padding: 0;
     width: 100%;
   }
+
+  &--imdb {
+    background: $imdb;
+    border-radius: 5px;
+    margin: 20px 0;
+    padding: 0 10px;
+
+    span {
+      font-weight: bold;
+      color: $black;
+    }
+
+    @include hover {
+      background: $black;
+
+      span {
+        font-weight: bold;
+        color: $imdb;
+      }
+    }
+  }
 }

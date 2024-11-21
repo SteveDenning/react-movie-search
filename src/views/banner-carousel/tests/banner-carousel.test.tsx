@@ -12,7 +12,6 @@ describe("Banner carousel component", () => {
         <BannerCarousel
           media="test"
           path="/test/path"
-          imagePath="/test/image-path"
         />,
       );
     });

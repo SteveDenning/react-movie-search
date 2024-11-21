@@ -4,18 +4,16 @@ import { Meta, StoryObj } from "@storybook/react";
 // Components
 import Template from "./index";
 
-// Layout
-import StorybookLayout from "../../layout/storybook";
-
 const meta: Meta<typeof Template> = {
-  title: "Views/Header",
+  title: "Components/Carousel",
   component: Template,
   tags: ["autodocs"],
   argTypes: {
-    heading: {
+    resources: {
+      // TODO
       control: "text",
-      type: { name: "string", required: false },
-      description: "Heading text",
+      type: { name: "string", required: true },
+      description: "YouTube key for selected video",
     },
   },
 };
@@ -23,15 +21,17 @@ export default meta;
 
 type Story = StoryObj<typeof Template>;
 
-const Header = (args: any) => (
-  <StorybookLayout>
-    <Template {...args} />
-  </StorybookLayout>
-);
+const Video = (args: any) => {
+  return (
+    <div>
+      <Template {...args} />
+    </div>
+  );
+};
 
 export const Default: Story = {
-  render: (args: any) => <Header {...args} />,
+  render: (args) => <Video {...args} />,
 };
 Default.args = {
-  heading: "Lorem ipsum",
+  resources: [],
 };

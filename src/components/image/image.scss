@@ -5,6 +5,7 @@
 .image {
   align-items: center;
   display: flex;
+  height: 100%;
   width: auto;
 
   img {
@@ -32,19 +33,19 @@
     width: 250px;
   }
 
+  &--mobile {
+    width: 100%;
+  }
+
+  &--banner {
+    pointer-events: none;
+  }
+
   &--scale {
     img {
       @include hover {
         scale: 1.02;
       }
-    }
-  }
-
-  &--content {
-    transition: opacity 0.2s ease;
-
-    @include hover {
-      opacity: 0.5;
     }
   }
 }

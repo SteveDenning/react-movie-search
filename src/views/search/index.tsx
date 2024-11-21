@@ -147,7 +147,6 @@ const Search = () => {
                       <Image
                         resource={suggestion}
                         size="xsmall"
-                        imagePath={suggestion["poster_path"] ? "poster_path" : "profile_path"}
                       />
                       <div className="search__options-content">
                         <p>{suggestion["original_title"] || suggestion["name"]}</p>

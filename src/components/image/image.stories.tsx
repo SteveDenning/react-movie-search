@@ -17,11 +17,6 @@ const meta: Meta<typeof Template> = {
       type: { name: "string", required: false },
       description: "Resource data to display image and attributes",
     },
-    scale: {
-      control: "boolean",
-      type: { name: "boolean", required: false },
-      description: "Scale image on hover",
-    },
     size: {
       control: "radio",
       options: ["small", "medium", "large", "fill"],

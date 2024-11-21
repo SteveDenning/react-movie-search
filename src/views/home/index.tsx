@@ -5,6 +5,17 @@ import BannerCarousel from "../../views/banner-carousel";
 import LatestReleases from "./../latest-releases";
 
 const HomePage = () => {
+  const personOptions = {
+    desktop: {
+      breakpoint: {
+        max: 3000,
+        min: 1024,
+      },
+      items: 7,
+      slidesToSlide: 7,
+    },
+  };
+
   return (
     <div
       className="home"
@@ -13,25 +24,22 @@ const HomePage = () => {
       <BannerCarousel
         media="movie"
         path="movie/upcoming"
-        imagePath="backdrop_path"
       />
       <LatestReleases
         label="Movie Releases"
         media="movie"
         path="discover/movie"
-        imagePath="poster_path"
       />
       <LatestReleases
         label="TV Releases"
         media="tv"
         path="discover/tv"
-        imagePath="poster_path"
       />
       <LatestReleases
         label="Popular Actors"
         media="person"
         path="person/popular"
-        imagePath="profile_path"
+        responsiveOptions={personOptions}
       />
     </div>
   );

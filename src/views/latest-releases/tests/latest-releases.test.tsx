@@ -1,6 +1,10 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { screen, render } from "@testing-library/react";
+import { screen, render, waitFor } from "@testing-library/react";
+// import axios from "axios";
+
+// jest.mock("axios");
+// const mockedAxios = axios as jest.Mocked<typeof axios>;
 
 // Components
 import LatestReleases from "../index";
@@ -12,16 +16,27 @@ describe("Latest Releases component", () => {
     beforeEach(() => {
       render(
         <LatestReleases
-          label="string"
-          media="video"
-          path="/"
-          imagePath="/"
+          label="TV Releases"
+          media="tv"
+          path="discover/tv"
         />,
       );
     });
 
     it("Should render latest releases block", () => {
       expect(screen.getByTestId("latest-releases")).toBeInTheDocument();
+    });
+
+    it("Should render a heading link with the text TV Releases", async () => {
+      await waitFor(() => {
+        expect(screen.getByText("TV Releases")).toBeInTheDocument();
+      });
+    });
+
+    it("Should render the carousel", async () => {
+      await waitFor(() => {
+        expect(screen.getByTestId("carousel")).toBeInTheDocument();
+      });
     });
   });
 });

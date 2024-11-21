@@ -2,30 +2,33 @@ import React from "react";
 import ReactCarousel from "react-multi-carousel";
 
 // Components
+import Button from "../../components/button";
+import Card from "../../components/card";
 import Image from "../../components/image";
 
 // Styles
 import "./carousel.scss";
 
 interface Props {
-  resources: any;
-  media?: string;
-  responsiveOptions?: any;
-  imagePath?: string;
-  variant?: string;
-  autoPlay?: boolean;
   autoPlaySpeed?: number;
+  autoPlay?: boolean;
+  banner?: boolean;
   infinite?: boolean;
+  media?: string;
+  resources: any;
+  responsiveOptions?: any;
+  variant?: string;
 }
 
-const Carousel: React.FC<Props> = ({ resources, media, responsiveOptions, imagePath, variant, autoPlay = false, autoPlaySpeed, infinite }) => {
+const Carousel: React.FC<Props> = ({ autoPlay = false, autoPlaySpeed, banner, infinite, media, resources, responsiveOptions, variant }) => {
   const responsive = {
     desktop: {
       breakpoint: {
         max: 3000,
         min: 1024,
       },
-      items: 7,
+      items: 5,
+      slidesToSlide: 5,
     },
     tablet: {
       breakpoint: {
@@ -67,6 +70,7 @@ const Carousel: React.FC<Props> = ({ resources, media, responsiveOptions, imageP
     swipeable: true,
   };
 
+  // Class Definitions
   const baseClass = "carousel";
   const variantClass = variant ? `carousel--${variant}` : "";
   const classes = [baseClass, variantClass].filter(Boolean).join(" ");
@@ -87,26 +91,37 @@ const Carousel: React.FC<Props> = ({ resources, media, responsiveOptions, imageP
             <div
               key={i}
               className="carousel__item"
-              onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
             >
-              <Image
-                resource={item}
-                content
-                imagePath={imagePath}
-              />
-              <div className="carousel__content">
-                <div className="carousel__poster">
+              {banner ? (
+                <>
                   <Image
-                    id={item.id}
                     resource={item}
-                    content
-                    imagePath="poster_path"
+                    variant="banner"
                   />
-                </div>
-                <div className="carousel__details">
-                  <h2>{item.title || item.name}</h2>
-                </div>
-              </div>
+                  <div className="carousel__banner-content">
+                    <div className="carousel__banner-poster">
+                      <Image
+                        id={item.id}
+                        resource={item}
+                      />
+                    </div>
+                    <div className="carousel__banner-details">
+                      <h2>{item.title || item.name}</h2>
+                      <Button
+                        className="carousel__banner-button"
+                        onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
+                      >
+                        View details
+                      </Button>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <Card
+                  resource={item}
+                  onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
+                />
+              )}
             </div>
           );
         })}

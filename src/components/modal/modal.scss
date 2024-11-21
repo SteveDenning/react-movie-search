@@ -9,7 +9,8 @@
   &__inner {
     font-family: Arial, Helvetica, sans-serif; // TODO - update font family
     background-color: $grey;
-    border-radius: 10px;
+    border-radius: 0 20px;
+    overflow: hidden;
     color: $white;
     left: 50%;
     max-height: calc(100% - 32px);
@@ -59,6 +60,10 @@
 
   &__body {
     padding: 32px;
+
+    img {
+      width: 100%;
+    }
   }
 
   &__footer {
@@ -67,6 +72,7 @@
   }
 
   p {
+    line-height: 32px;
     margin: 0 0 1rem;
 
     &:last-child {
@@ -91,10 +97,20 @@
     }
   }
 
-  &--video {
+  &--video,
+  &--image {
     .modal {
       &__body {
         padding: 0;
+      }
+    }
+  }
+
+  &--image {
+    .modal {
+      &__inner {
+        border: 1px solid rgba($primary-color, 0.3);
+        max-width: 500px;
       }
     }
   }

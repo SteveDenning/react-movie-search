@@ -4,6 +4,12 @@
 .resources {
   margin-top: 40px;
 
+  &__inner {
+    @include breakpoint($xxlarge) {
+      margin: 0 150px;
+    }
+  }
+
   &__count {
     h3 {
       color: $primary-color;

@@ -1,34 +1,37 @@
 @import "../../styles/dependencies";
 
 // Latest releases styles
-
 .latest-releases {
   position: relative;
   margin-bottom: 40px;
 
   &__header {
     display: flex;
-    margin-bottom: 10px;
-
-    .MuiTypography-h2 {
-      font-size: 20px;
-    }
-
-    @include breakpoint($xlarge) {
-      width: 700px;
-
-      .MuiTypography-h2 {
-        font-size: 24px;
-      }
-    }
+    margin-bottom: 20px;
+    width: 100%;
 
     .button {
       margin-left: auto;
+      font-size: 24px;
+      color: $primary-color;
+    }
+
+    @include breakpoint($xlarge) {
+      .MuiTypography-h2 {
+        padding: 0;
+      }
+    }
+  }
+
+  &__link-text {
+    display: none;
+
+    @include breakpoint($medium) {
+      display: flex;
     }
   }
 
   &__header-title {
-    border-left: 5px solid $primary-color;
     color: $primary-color;
     font-size: 24px;
     margin-bottom: 0;
