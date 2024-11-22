@@ -6,5 +6,6 @@
   },
   "testEnvironment": "jest-environment-jsdom",
   "coveragePathIgnorePatterns": ["node_modules", "<rootDir>/src/utils"],
-  "transformIgnorePatterns": ["node_modules/(?!(decode-uri-component|filter-obj|split-on-first|query-string)/)"]
+  "transformIgnorePatterns": ["node_modules/(?!(decode-uri-component|filter-obj|split-on-first|query-string)/)"],
+  "setupFilesAfterEnv": ["<rootDir>/jest.setup.js"]
 }

@@ -10,20 +10,6 @@ const headers = {
   },
 };
 
-export const getLatestReleases = (path: string, query = "?page=1") =>
-  new Promise((resolve, reject) => {
-    const url = `${apiUrl}/${path}${query}&language=en-US`;
-
-    axios
-      .get(url, headers)
-      .then((response) => {
-        resolve(response);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-
 export const getAllMedia = (queryString: string) =>
   new Promise((resolve, reject) => {
     const url = `${apiUrl}/search/multi${queryString}&language=en-US`;
@@ -50,7 +36,23 @@ export const getMediaByID = (id: string, type: string) =>
       });
   });
 
-export const getMediaVideos = (id: string, type: string) =>
+// **********************************************************************
+
+export const getLatestReleases = (path: string, query = "?page=1") =>
+  new Promise((resolve, reject) => {
+    const url = `${apiUrl}/${path}${query}&language=en-US`;
+
+    axios
+      .get(url, headers)
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
+export const getVideos = (id: string, type: string) =>
   new Promise((resolve, reject) => {
     const url = `${apiUrl}/${type}/${id}/videos?language=en-US`;
     axios
@@ -63,9 +65,22 @@ export const getMediaVideos = (id: string, type: string) =>
       });
   });
 
-export const getCasting = (id: string, type: string) =>
+export const getCredits = (id: string, type: string) =>
   new Promise((resolve, reject) => {
-    const url = `${apiUrl}/${type}/${id}/movie_credits?language=en-US`;
+    const url = `${apiUrl}/${type}/${id}/credits?language=en-US`;
+    axios
+      .get(url, headers)
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
+export const getMedia = (pathName: string) =>
+  new Promise((resolve, reject) => {
+    const url = `${apiUrl}/${pathName}?page=1`;
     axios
       .get(url, headers)
       .then((response) => {

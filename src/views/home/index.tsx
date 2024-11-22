@@ -1,8 +1,9 @@
 import React from "react";
 
 // Views
-import BannerCarousel from "../../views/banner-carousel";
-import LatestReleases from "./../latest-releases";
+import BannerCarousel from "./../banner-carousel";
+import MediaCarousel from "./../media-carousel";
+import { Container } from "@mui/material";
 
 const HomePage = () => {
   const personOptions = {
@@ -25,22 +26,28 @@ const HomePage = () => {
         media="movie"
         path="movie/upcoming"
       />
-      <LatestReleases
-        label="Movie Releases"
-        media="movie"
-        path="discover/movie"
-      />
-      <LatestReleases
-        label="TV Releases"
-        media="tv"
-        path="discover/tv"
-      />
-      <LatestReleases
-        label="Popular Actors"
-        media="person"
-        path="person/popular"
-        responsiveOptions={personOptions}
-      />
+      <Container>
+        <MediaCarousel
+          buttonText="View all"
+          label="Movie Releases"
+          pathName="discover/movie"
+          media="movie"
+        />
+        <MediaCarousel
+          buttonText="View all"
+          label="TV releases"
+          pathName="discover/tv"
+          media="tv"
+        />
+
+        <MediaCarousel
+          buttonText="View all"
+          label="Known for"
+          pathName="person/popular"
+          responsiveOptions={personOptions}
+          media="person"
+        />
+      </Container>
     </div>
   );
 };

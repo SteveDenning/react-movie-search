@@ -1,0 +1,33 @@
+@import "../../styles/dependencies";
+
+// Media Carousel styles
+.media-carousel {
+  position: relative;
+  margin-bottom: 40px;
+
+  &__header {
+    display: flex;
+    margin-bottom: 20px;
+    width: 100%;
+
+    .button {
+      margin-left: auto;
+      font-size: 24px;
+      color: $primary-color;
+    }
+
+    @include breakpoint($xlarge) {
+      .MuiTypography-h2 {
+        padding: 0;
+      }
+    }
+  }
+
+  &__link-text {
+    display: none;
+
+    @include breakpoint($medium) {
+      display: flex;
+    }
+  }
+}

@@ -20,7 +20,7 @@ interface Props {
   variant?: string;
 }
 
-const Carousel: React.FC<Props> = ({ autoPlay = false, autoPlaySpeed, banner, infinite, media, resources, responsiveOptions, variant }) => {
+const Carousel: React.FC<Props> = ({ autoPlay = false, autoPlaySpeed, banner, infinite, media = "movie", resources, responsiveOptions, variant }) => {
   const responsive = {
     desktop: {
       breakpoint: {

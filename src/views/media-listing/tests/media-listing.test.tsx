@@ -6,8 +6,6 @@ import { screen, render } from "@testing-library/react";
 // Components
 import MediaListing from "../index";
 
-// Icons
-
 describe("Media Listing component", () => {
   describe("Component rendering", () => {
     beforeEach(() => {

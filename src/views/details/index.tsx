@@ -3,20 +3,20 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 // Utils
-import { getMediaByID, getMediaVideos, getCasting } from "../../utils/get-resources";
+import { getMediaByID, getVideos, getCredits } from "../../utils/get-resources";
 
 // Components
 import Button from "../../components/button";
 import Image from "../../components/image";
-import Video from "../../components/video";
+import MediaCarousel from "../../views/media-carousel";
 import Modal from "../../components/modal";
+import Video from "../../components/video";
 
 // MUI
 import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 
 // Styles
 import "./details.scss";
-import Carousel from "../../components/carousel";
 
 const DetailsView = () => {
   const [backDrop, setBackDrop] = useState<string>("");
@@ -30,8 +30,20 @@ const DetailsView = () => {
   const programmeId = window.location.pathname.split("/")[3] as string;
   const type = window.location.pathname.split("/")[2];
   const backgroundImage = backDrop ? `url(${process.env.REACT_APP_TMDB_PATH}/t/p/original/${backDrop})` : "";
-  // const isMedia = type == "tv" || type == "movie";
   const isMedia = type == "tv" || "movie";
+
+  const pathName = `${type}/${programmeId}/credits?language=en-US`;
+
+  const personOptions = {
+    desktop: {
+      breakpoint: {
+        max: 3000,
+        min: 1024,
+      },
+      items: 7,
+      slidesToSlide: 7,
+    },
+  };
 
   const getMedia = () => {
     if (programmeId && type) {
@@ -46,9 +58,9 @@ const DetailsView = () => {
     }
   };
 
-  const getVideos = (id: string, type: string) => {
+  const fetchVideos = (id: string, type: string) => {
     if (type !== "person") {
-      getMediaVideos(id, type)
+      getVideos(id, type)
         .then((response: any) => {
           setVideoKey(response.data.results[0]?.key);
           setLoaded(true);
@@ -61,9 +73,9 @@ const DetailsView = () => {
     }
   };
 
-  const getCastingMedia = (id: string, type: string) => {
+  const getCreditsMedia = (id: string, type: string) => {
     if (type == "person") {
-      getCasting(id, type)
+      getCredits(id, type)
         .then((response: any) => {
           setCastings(response.data.cast);
         })
@@ -80,8 +92,8 @@ const DetailsView = () => {
   };
 
   useEffect(() => {
-    getVideos(programmeId, type);
-    getCastingMedia(programmeId, type);
+    fetchVideos(programmeId, type);
+    getCreditsMedia(programmeId, type);
   }, [resource]);
 
   useEffect(() => {
@@ -122,10 +134,11 @@ const DetailsView = () => {
                       />
                     </div>
                   )}
-                  <div className="details-view__section">
+                  <div>
                     <div className="details-view__profile-details">
                       <h2 className="details-view__title">
-                        {resource.name || resource.title} {isMedia && <span>({moment(resource?.["release_date"]).format("YYYY")})</span>}
+                        {resource.name || resource.title}{" "}
+                        {isMedia && resource?.["release_date"] && <span>({moment(resource?.["release_date"]).format("YYYY")})</span>}
                       </h2>
                       {resource.birthday && <p>{moment().diff(resource.birthday, "years")} years old</p>}
                       {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
@@ -209,13 +222,12 @@ const DetailsView = () => {
               </div>
             </div>
             {!!castings.length && (
-              <>
-                <h2>Known For: TODO - link to all</h2>
-                <Carousel
-                  resources={castings}
-                  media="movie"
-                />
-              </>
+              <MediaCarousel
+                label="Known for"
+                pathName={pathName}
+                dataResource="cast"
+                responsiveOptions={personOptions}
+              />
             )}
           </Container>
         </div>
