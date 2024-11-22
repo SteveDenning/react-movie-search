@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import moment from "moment";
 
 // Utils
-import { getAllMedia } from "../../utils/get-resources";
+import { getAllMediaFromSearch } from "../../utils/get-resources";
 
 // Config
 import { config } from "../../config/routes";
@@ -56,7 +56,7 @@ const Search = () => {
 
   const handleSuggestions = (event: any) => {
     if (event.target.value.length > 2) {
-      getAllMedia(`?query=${event.target.value}`)
+      getAllMediaFromSearch(`?query=${event.target.value}`)
         .then((response: any) => {
           setSuggestions(response.data.results.slice(0, 10));
         })

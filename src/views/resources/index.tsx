@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 // Components
 import Card from "../../components/card";
@@ -27,6 +27,10 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
   const screenSize = useScreenSize();
   const isMobile = screenSize.width <= 480;
 
+  useEffect(() => {
+    window.scroll({ top: 0, left: 0, behavior: "smooth" });
+  }, [page]);
+
   return (
     <div
       className="resources"
@@ -45,6 +49,7 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
             spacing={2}
             rowGap={0}
             component="ul"
+            columns={20}
           >
             {resources.map((item: any, i: number) => {
               const path = item["media_type"] ? item["media_type"] : window.location.pathname.split("/")[item.gender ? 2 : 3];
@@ -53,9 +58,9 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
                 <Grid
                   component="li"
                   item
-                  xs={6}
-                  sm={6}
-                  lg={3}
+                  xs={10}
+                  sm={5}
+                  lg={4}
                   key={i}
                 >
                   <Card

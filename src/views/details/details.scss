@@ -38,6 +38,7 @@
     border-radius: 0 50px 0 50px;
     overflow: hidden;
     padding: 20px;
+    position: relative;
   }
 
   &__title {
@@ -71,8 +72,9 @@
   }
 
   &__back-button {
-    display: flex;
-    justify-content: flex-end;
+    bottom: 20px;
+    position: absolute;
+    right: 20px;
   }
 
   ul {

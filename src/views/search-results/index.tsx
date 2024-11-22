@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 
 // Utils
-import { getAllMedia } from "../../utils/get-resources";
+import { getAllMediaFromSearch } from "../../utils/get-resources";
 
 // MUI
 import { Container } from "@mui/material";
@@ -37,7 +37,7 @@ const SearchResults = () => {
   const handleSearchInput = () => {
     if (window.location.search) {
       setLoading(true);
-      getAllMedia(window.location.search)
+      getAllMediaFromSearch(window.location.search)
         .then((response: any) => {
           setResources(response.data.results);
           setQuery(query);

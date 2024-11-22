@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 // Utils
-import { getLatestReleases } from "../../utils/get-resources";
+import { getMedia } from "../../utils/get-resources";
 
 // Components
 import Carousel from "../../components/carousel";
@@ -52,7 +52,7 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
 
   const fetchLatestRelease = () => {
     setOpen(true);
-    getLatestReleases(path)
+    getMedia(path)
       .then((response: any) => {
         setResources(response.data.results);
         setOpen(false);
@@ -86,10 +86,7 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
           </div>
         </Fade>
       </div>
-      <Backdrop
-        sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
-        open={open}
-      >
+      <Backdrop open={open}>
         <CircularProgress color="primary" />
       </Backdrop>
     </>

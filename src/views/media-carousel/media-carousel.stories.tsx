@@ -5,7 +5,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import Template from "./index";
 
 const meta: Meta<typeof Template> = {
-  title: "Views/LatestReleases",
+  title: "Views/MediaCarousel",
   component: Template,
   tags: ["autodocs"],
   argTypes: {},
@@ -14,9 +14,9 @@ export default meta;
 
 type Story = StoryObj<typeof Template>;
 
-const LatestReleases = (args: any) => <Template {...args} />;
+const MediaCarousel = (args: any) => <Template {...args} />;
 
 export const Default: Story = {
-  render: () => <LatestReleases />,
+  render: () => <MediaCarousel />,
 };
 Default.args = {};

@@ -1,7 +1,7 @@
 @import "../../styles/dependencies";
 
-// Latest releases styles
-.latest-releases {
+// Media Carousel styles
+.media-carousel {
   position: relative;
   margin-bottom: 40px;
 
@@ -29,33 +29,5 @@
     @include breakpoint($medium) {
       display: flex;
     }
-  }
-
-  &__header-title {
-    color: $primary-color;
-    font-size: 24px;
-    margin-bottom: 0;
-    padding-left: 10px;
-  }
-
-  &__list {
-    display: flex;
-    flex-wrap: wrap;
-    list-style: none;
-    justify-content: center;
-  }
-
-  &__list-item {
-    margin: 10px;
-
-    &:first-child {
-      margin-left: 0;
-    }
-  }
-
-  &__loader {
-    padding: 100px;
-    display: flex;
-    justify-content: center;
   }
 }
