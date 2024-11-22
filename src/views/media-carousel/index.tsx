@@ -24,7 +24,7 @@ interface Props {
   responsiveOptions?: any;
   buttonText?: string;
   dataResource?: "cast" | "results";
-  media?: "tv" | "movie" | "person";
+  media?: string;
 }
 
 const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, buttonText, dataResource = "results", media }) => {
@@ -77,7 +77,7 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
           )}
         </div>
       </Fade>
-      <Backdrop open={loading}>
+      <Backdrop open={!!loading}>
         <CircularProgress color="primary" />
       </Backdrop>
     </>

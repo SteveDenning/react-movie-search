@@ -42,7 +42,7 @@ const HomePage = () => {
 
         <MediaCarousel
           buttonText="View all"
-          label="Known for"
+          label="Popular actors"
           pathName="person/popular"
           responsiveOptions={personOptions}
           media="person"

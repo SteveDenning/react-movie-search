@@ -49,7 +49,6 @@ const Image: React.FC<Props> = ({ resource, size, variant }) => {
         src={imagePath}
         alt={resource["profile_path"] ? `Actor - ${resource.name}` : ""}
         onClick={() => setIsOpen(true)}
-        loading="lazy"
       />
       <Modal
         id={resource.id}

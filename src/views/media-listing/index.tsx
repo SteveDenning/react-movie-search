@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 // Utils
-import { getLatestReleases } from "../../utils/get-resources";
+import { getMedia } from "../../utils/get-resources";
 
 // Views
 import Resources from "../../views/resources";
@@ -20,7 +20,7 @@ const MediaListing = () => {
 
   const params = new URLSearchParams(searchParams);
   const type = window.location.pathname.split("/")[3];
-  const path = `${window.location.pathname.split("/")[2]}/${type}`;
+  const pathName = `${window.location.pathname.split("/")[2]}/${type}${location.search}`;
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -35,7 +35,7 @@ const MediaListing = () => {
   const fetchLatestRelease = () => {
     if (location.search) {
       setLoading(true);
-      getLatestReleases(path, location.search)
+      getMedia(pathName)
         .then((response: any) => {
           setResources(response.data.results);
           setTotalResults(response.data["total_results"]);

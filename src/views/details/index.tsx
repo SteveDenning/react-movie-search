@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 // Utils
-import { getMediaByID, getVideos, getCredits } from "../../utils/get-resources";
+import { getMediaByID, getVideos } from "../../utils/get-resources";
 
 // Components
 import Button from "../../components/button";
@@ -20,18 +20,17 @@ import "./details.scss";
 
 const DetailsView = () => {
   const [backDrop, setBackDrop] = useState<string>("");
-  const [loaded, setLoaded] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [resource, setResource] = useState<any>({});
   const [videoKey, setVideoKey] = useState<string>("");
-  const [castings, setCastings] = useState<string>("");
 
   const navigate = useNavigate();
   const programmeId = window.location.pathname.split("/")[3] as string;
   const type = window.location.pathname.split("/")[2];
   const backgroundImage = backDrop ? `url(${process.env.REACT_APP_TMDB_PATH}/t/p/original/${backDrop})` : "";
   const isMedia = type == "tv" || "movie";
-
+  const MediaCarouselLabel = type === "person" ? "Known for" : "Top Cast";
   const pathName = `${type}/${programmeId}/credits?language=en-US`;
 
   const personOptions = {
@@ -47,12 +46,15 @@ const DetailsView = () => {
 
   const getMedia = () => {
     if (programmeId && type) {
+      setLoading(true);
       getMediaByID(programmeId, type)
         .then((response: any) => {
           setResource(response.data);
           setBackDrop(response.data.backdrop_path);
+          setLoading(false);
         })
         .catch((error) => {
+          setLoading(false);
           console.error(error);
         });
     }
@@ -60,30 +62,17 @@ const DetailsView = () => {
 
   const fetchVideos = (id: string, type: string) => {
     if (type !== "person") {
+      setLoading(true);
       getVideos(id, type)
         .then((response: any) => {
           setVideoKey(response.data.results[0]?.key);
-          setLoaded(true);
+          setLoading(false);
         })
         .catch((error) => {
           console.error(error);
         });
     } else {
-      setLoaded(true);
-    }
-  };
-
-  const getCreditsMedia = (id: string, type: string) => {
-    if (type == "person") {
-      getCredits(id, type)
-        .then((response: any) => {
-          setCastings(response.data.cast);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    } else {
-      setLoaded(true);
+      setLoading(false);
     }
   };
 
@@ -93,7 +82,6 @@ const DetailsView = () => {
 
   useEffect(() => {
     fetchVideos(programmeId, type);
-    getCreditsMedia(programmeId, type);
   }, [resource]);
 
   useEffect(() => {
@@ -102,7 +90,7 @@ const DetailsView = () => {
 
   return (
     <>
-      <Fade in={loaded}>
+      <Fade in={!loading}>
         <div
           data-testid="details-view"
           className="details-view"
@@ -221,21 +209,17 @@ const DetailsView = () => {
                 </div>
               </div>
             </div>
-            {!!castings.length && (
-              <MediaCarousel
-                label="Known for"
-                pathName={pathName}
-                dataResource="cast"
-                responsiveOptions={personOptions}
-              />
-            )}
+            <MediaCarousel
+              label={MediaCarouselLabel}
+              pathName={pathName}
+              dataResource="cast"
+              responsiveOptions={personOptions}
+              media={type === "person" ? "movie" : "person"}
+            />
           </Container>
         </div>
       </Fade>
-      <Backdrop
-        sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
-        open={!loaded}
-      >
+      <Backdrop open={loading}>
         <CircularProgress color="primary" />
       </Backdrop>
     </>
