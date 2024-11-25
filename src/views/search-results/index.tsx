@@ -24,7 +24,7 @@ const SearchResults = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const type = window.location.pathname.split("/")[2];
 
-  sessionStorage.setItem("urlParams", window.location.search);
+  // sessionStorage.setItem("urlParams", window.location.search);
 
   const params = new URLSearchParams(searchParams);
 
@@ -69,10 +69,10 @@ const SearchResults = () => {
   useEffect(() => {
     handleSearchInput();
 
-    return () => {
-      setResources([]);
-      sessionStorage.removeItem("query");
-    };
+    // return () => {
+    //   setResources([]);
+    //   sessionStorage.removeItem("query");
+    // };
   }, []);
 
   return (

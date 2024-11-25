@@ -1,0 +1,64 @@
+@import "../../styles/dependencies";
+
+// Select styles
+.select {
+  .select {
+    &__control {
+      background-color: $grey;
+      border: 0;
+      min-width: 100px;
+    }
+
+    &__input {
+      color: $primary-color;
+    }
+  }
+
+  &__label {
+    color: $primary-color;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 24px;
+    margin-bottom: 5px;
+  }
+
+  .select__placeholder {
+    color: $primary-color;
+  }
+
+  .select__single-value {
+    color: $primary-color;
+  }
+
+  .select__menu {
+    background-color: $grey;
+    box-shadow: none;
+    overflow: hidden;
+    margin: 0;
+  }
+
+  .select__menu-list {
+    padding: 0;
+  }
+
+  .select__menu-notice {
+    color: $primary-color;
+  }
+
+  .select__indicator-separator {
+    display: none;
+  }
+
+  .select__option {
+    cursor: pointer;
+    color: $primary-color;
+    font-size: 16px;
+    line-height: 24px;
+    padding: 12px 16px;
+
+    &--is-focused {
+      background-color: #666;
+      font-weight: 600;
+    }
+  }
+}

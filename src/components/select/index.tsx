@@ -19,7 +19,10 @@ const SelectComponent: React.FC<Props> = ({ onChange, label, id, value, options 
   };
 
   return (
-    <div className="select">
+    <div
+      className="select"
+      data-testid="select"
+    >
       <label
         className="select__label"
         htmlFor={id}

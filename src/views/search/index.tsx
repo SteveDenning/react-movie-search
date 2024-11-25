@@ -28,35 +28,38 @@ const Search = () => {
   const [suggestions, setSuggestions] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
   const params = new URLSearchParams(searchParams);
-  const [searchTerm, setSearchTerm] = useState(params.get("query"));
+
+  const [formData, setFormData] = useState({
+    query: "",
+    mediaType: "multi",
+  });
 
   const navigate = useNavigate();
 
   const updateQuery = (key, value) => {
     params.set(key, value);
-
+    sessionStorage.setItem(key, value);
     setSearchParams(params);
   };
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
     if (suggestions.length) {
-      const searchTerm = event.target[0].value;
-
-      setSearchTerm(searchTerm);
-      updateQuery("query", searchTerm);
-      setSuggestions([]);
-      sessionStorage.setItem("query", searchTerm);
-
+      updateQuery("query", formData.query);
       if (window.location.pathname !== config.searchResults.path) {
-        window.location.href = `${config.searchResults.path}${window.location.search}`;
+        window.location.href = `${config.searchResults.path}/${formData.mediaType}?query=${formData.query}`;
       }
     }
   };
 
   const handleSuggestions = (event: any) => {
     if (event.target.value.length > 2) {
-      getAllMediaFromSearch(`?query=${event.target.value}`)
+      setFormData({
+        ...formData,
+        query: event.target.value,
+      });
+
+      getAllMediaFromSearch(`${formData.mediaType}?query=${formData.query}`)
         .then((response: any) => {
           setSuggestions(response.data.results.slice(0, 10));
         })
@@ -67,7 +70,6 @@ const Search = () => {
   };
 
   const clear = () => {
-    setSearchTerm("");
     setSuggestions([]);
     setSearchParams({});
     removeQueryParam("query");
@@ -113,24 +115,27 @@ const Search = () => {
           className="search__form-input"
           type="text"
           placeholder="Search..."
-          value={searchTerm || ""}
+          value={formData.query || ""}
           onChange={(e) => {
-            setSearchTerm(e.target.value);
+            setFormData({
+              ...formData,
+              query: e.target.value,
+            });
           }}
         />
       </form>
-      {!!searchTerm && (
+      {!!formData.query && (
         <Button
           variant="icon"
           className="search__form-clear"
           type="reset"
           onClick={clear}
         >
-          <ClearIcon sx={{ color: "#ccc", fontSize: 20 }} />
+          <ClearIcon />
         </Button>
       )}
 
-      <Fade in={!!suggestions.length && !!searchTerm}>
+      <Fade in={!!suggestions.length && !!formData.query}>
         <div>
           {!!suggestions.length && (
             <ul className="search__options-list">
