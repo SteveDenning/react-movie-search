@@ -73,7 +73,7 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
           </Grid>
           <div className="resources__pagination">
             <Pagination
-              count={count < 500 ? page : 500}
+              count={count < 500 ? count : 500}
               page={page}
               onChange={handlePageChange}
               color="primary"
