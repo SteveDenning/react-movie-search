@@ -22,6 +22,7 @@ const SearchResults = () => {
   const [count, setCount] = useState<number>(0);
   const [totalResults, setTotalResults] = useState<number>(0);
   const [searchParams, setSearchParams] = useSearchParams();
+  const type = window.location.pathname.split("/")[2];
 
   sessionStorage.setItem("urlParams", window.location.search);
 
@@ -37,7 +38,7 @@ const SearchResults = () => {
   const handleSearchInput = () => {
     if (window.location.search) {
       setLoading(true);
-      getAllMediaFromSearch(window.location.search)
+      getAllMediaFromSearch(`${type}${window.location.search}`)
         .then((response: any) => {
           setResources(response.data.results);
           setQuery(query);

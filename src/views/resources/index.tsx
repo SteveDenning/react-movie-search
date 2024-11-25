@@ -52,7 +52,7 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
             columns={20}
           >
             {resources.map((item: any, i: number) => {
-              const path = item["media_type"] ? item["media_type"] : window.location.pathname.split("/")[item.gender ? 2 : 3];
+              const path = item["media_type"] ? item["media_type"] : window.location.pathname.split("/")[2];
 
               return (
                 <Grid
