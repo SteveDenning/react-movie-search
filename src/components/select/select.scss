@@ -5,12 +5,29 @@
   .select {
     &__control {
       background-color: $grey;
+      border-radius: 5px 0 0 5px;
+      border-color: transparent !important;
+      box-shadow: none;
       border: 0;
+      cursor: pointer;
       min-width: 100px;
+      min-height: 34px;
+
+      @include breakpoint($xlarge) {
+        min-height: 41px;
+      }
     }
 
     &__input {
       color: $primary-color;
+    }
+
+    &__indicator {
+      padding: 0 10px 0 0;
+
+      svg {
+        fill: $primary-color;
+      }
     }
   }
 
@@ -54,11 +71,11 @@
     color: $primary-color;
     font-size: 16px;
     line-height: 24px;
-    padding: 12px 16px;
+    padding: 10px;
 
-    &--is-focused {
+    &--is-focused,
+    &--is-selected {
       background-color: #666;
-      font-weight: 600;
     }
   }
 }

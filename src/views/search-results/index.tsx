@@ -69,10 +69,10 @@ const SearchResults = () => {
   useEffect(() => {
     handleSearchInput();
 
-    // return () => {
-    //   setResources([]);
-    //   sessionStorage.removeItem("query");
-    // };
+    return () => {
+      setResources([]);
+      sessionStorage.removeItem("query");
+    };
   }, []);
 
   return (

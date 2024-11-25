@@ -11,6 +11,7 @@ import { config } from "../../config/routes";
 // Components
 import Button from "../../components/button";
 import Image from "../../components/image";
+import Select from "../../components/select";
 
 // MUI
 import { Fade } from "@mui/material";
@@ -31,7 +32,7 @@ const Search = () => {
 
   const [formData, setFormData] = useState({
     query: "",
-    mediaType: "multi",
+    mediaType: { value: "multi", label: "All" },
   });
 
   const navigate = useNavigate();
@@ -42,12 +43,12 @@ const Search = () => {
     setSearchParams(params);
   };
 
-  const handleSubmit = (event: any) => {
-    event.preventDefault();
+  const handleSubmit = () => {
     if (suggestions.length) {
       updateQuery("query", formData.query);
+      updateQuery("mediaType", formData.mediaType.value);
       if (window.location.pathname !== config.searchResults.path) {
-        window.location.href = `${config.searchResults.path}/${formData.mediaType}?query=${formData.query}`;
+        window.location.href = `${config.searchResults.path}/${formData.mediaType.value}?query=${formData.query}`;
       }
     }
   };
@@ -59,7 +60,7 @@ const Search = () => {
         query: event.target.value,
       });
 
-      getAllMediaFromSearch(`${formData.mediaType}?query=${formData.query}`)
+      getAllMediaFromSearch(`${formData.mediaType.value}?query=${formData.query}`)
         .then((response: any) => {
           setSuggestions(response.data.results.slice(0, 10));
         })
@@ -91,83 +92,109 @@ const Search = () => {
     }
   }, []);
 
+  const handleMediType = (event: any) => {
+    setFormData({
+      ...formData,
+      mediaType: event,
+    });
+  };
+
   return (
     <div
       className="search"
       data-testid="search"
     >
-      <form
-        className="search__form"
-        onChange={(e) => {
-          handleSuggestions(e);
-        }}
-        onSubmit={handleSubmit}
-      >
-        <label
-          htmlFor="search"
-          aria-labelledby="search"
-          className="sr-only"
-        >
-          Search for media
-        </label>
-        <input
-          id="search"
-          className="search__form-input"
-          type="text"
-          placeholder="Search..."
-          value={formData.query || ""}
+      <Select
+        id="mediaType"
+        label="Select media type"
+        value={formData.mediaType}
+        onChange={handleMediType}
+        options={[
+          { value: "multi", label: "All" },
+          { value: "tv", label: "TV" },
+          { value: "movie", label: "Film" },
+          { value: "person", label: "Actor" },
+        ]}
+        placeholder="Select..."
+        searchable={false}
+        defaultValue={"multi"}
+      />
+      <div className="search__options">
+        <form
+          className="search__form"
           onChange={(e) => {
-            setFormData({
-              ...formData,
-              query: e.target.value,
-            });
+            handleSuggestions(e);
           }}
-        />
-      </form>
-      {!!formData.query && (
-        <Button
-          variant="icon"
-          className="search__form-clear"
-          type="reset"
-          onClick={clear}
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
         >
-          <ClearIcon />
-        </Button>
-      )}
-
-      <Fade in={!!suggestions.length && !!formData.query}>
-        <div>
-          {!!suggestions.length && (
-            <ul className="search__options-list">
-              {suggestions.map((suggestion: any, index: number) => {
-                return (
-                  <li
-                    className="search__options-list-item"
-                    key={index}
-                  >
-                    <Button
-                      href={`/details/${suggestion["media_type"]}/${suggestion["id"]}`}
-                      variant="null"
+          <label
+            htmlFor="search"
+            aria-labelledby="search"
+            className="sr-only"
+          >
+            Search for media
+          </label>
+          <input
+            id="search"
+            className="search__form-input"
+            type="text"
+            placeholder="Search..."
+            value={formData.query || ""}
+            onChange={(e) => {
+              setFormData({
+                ...formData,
+                query: e.target.value,
+              });
+            }}
+          />
+        </form>
+        {!!formData.query && (
+          <Button
+            variant="icon"
+            className="search__form-clear"
+            type="reset"
+            onClick={clear}
+          >
+            <ClearIcon />
+          </Button>
+        )}
+        <Fade in={!!suggestions.length && !!formData.query}>
+          <div>
+            {!!suggestions.length && (
+              <ul className="search__options-list">
+                {suggestions.map((suggestion: any, index: number) => {
+                  return (
+                    <li
+                      className="search__options-list-item"
+                      key={index}
                     >
-                      <Image
-                        resource={suggestion}
-                        size="xsmall"
-                      />
-                      <div className="search__options-content">
-                        <p>{suggestion["original_title"] || suggestion["name"]}</p>
-                        <p className="search__options-list-item-year">{moment(suggestion["release_date"]).format("YYYY")}</p>
-                      </div>
-                      <div className="search__options-media-icon">
-                        {suggestion["media_type"] === "tv" ? <TvIcon /> : suggestion["media_type"] === "movie" ? <TheatersIcon /> : <PersonIcon />}
-                      </div>
-                    </Button>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
-        </div>
-      </Fade>
+                      <Button
+                        href={`/details/${suggestion["media_type"]}/${suggestion["id"]}`}
+                        variant="null"
+                      >
+                        <Image
+                          resource={suggestion}
+                          size="xsmall"
+                        />
+                        <div className="search__options-content">
+                          <p>{suggestion["original_title"] || suggestion["name"]}</p>
+                          <p className="search__options-list-item-year">{moment(suggestion["release_date"]).format("YYYY")}</p>
+                        </div>
+                        <div className="search__options-media-icon">
+                          {suggestion["media_type"] === "tv" ? <TvIcon /> : suggestion["media_type"] === "movie" ? <TheatersIcon /> : <PersonIcon />}
+                        </div>
+                      </Button>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
+        </Fade>
+      </div>
     </div>
   );
 };

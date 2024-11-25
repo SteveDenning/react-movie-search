@@ -53,6 +53,14 @@ li {
   line-height: 24px;
 }
 
+p {
+  white-space: pre-wrap;
+  white-space: -moz-pre-wrap;
+  white-space: -pre-wrap;
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
 a {
   cursor: pointer;
   color: $primary-color;
