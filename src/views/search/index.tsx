@@ -26,7 +26,8 @@ import TheatersIcon from "@mui/icons-material/Theaters";
 import "./search.scss";
 
 const Search = () => {
-  const [suggestions, setSuggestions] = useState([]);
+  const [suggestions, setSuggestions] = useState<any[]>([]);
+  const [isSelectDisabled, setIsSelectDisabled] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const params = new URLSearchParams(searchParams);
 
@@ -55,6 +56,7 @@ const Search = () => {
 
   const handleSuggestions = (event: any) => {
     if (event.target.value.length > 2) {
+      setIsSelectDisabled(true);
       setFormData({
         ...formData,
         query: event.target.value,
@@ -67,6 +69,8 @@ const Search = () => {
         .catch((error) => {
           console.error(error);
         });
+    } else {
+      setIsSelectDisabled(false);
     }
   };
 
@@ -118,6 +122,7 @@ const Search = () => {
         placeholder="Select..."
         searchable={false}
         defaultValue={"multi"}
+        isDisabled={isSelectDisabled}
       />
       <div className="search__options">
         <form
@@ -166,13 +171,15 @@ const Search = () => {
             {!!suggestions.length && (
               <ul className="search__options-list">
                 {suggestions.map((suggestion: any, index: number) => {
+                  const mediaType = formData.mediaType.value === "multi" ? suggestion["media_type"] : formData.mediaType.value;
+
                   return (
                     <li
                       className="search__options-list-item"
                       key={index}
                     >
                       <Button
-                        href={`/details/${suggestion["media_type"]}/${suggestion["id"]}`}
+                        href={`/details/${mediaType}/${suggestion["id"]}`}
                         variant="null"
                       >
                         <Image
@@ -184,7 +191,7 @@ const Search = () => {
                           <p className="search__options-list-item-year">{moment(suggestion["release_date"]).format("YYYY")}</p>
                         </div>
                         <div className="search__options-media-icon">
-                          {suggestion["media_type"] === "tv" ? <TvIcon /> : suggestion["media_type"] === "movie" ? <TheatersIcon /> : <PersonIcon />}
+                          {mediaType === "tv" ? <TvIcon /> : mediaType === "movie" ? <TheatersIcon /> : <PersonIcon />}
                         </div>
                       </Button>
                     </li>

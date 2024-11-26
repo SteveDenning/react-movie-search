@@ -5,13 +5,10 @@
   .select {
     &__control {
       background-color: $grey;
-      border-radius: 5px 0 0 5px;
-      border-color: transparent !important;
       box-shadow: none;
       border: 0;
       cursor: pointer;
       min-width: 100px;
-      min-height: 34px;
 
       @include breakpoint($xlarge) {
         min-height: 41px;
@@ -73,9 +70,17 @@
     line-height: 24px;
     padding: 10px;
 
-    &--is-focused,
-    &--is-selected {
-      background-color: #666;
+    &--is-focused {
+      background-color: $grey;
+      color: $white;
     }
+
+    &--is-selected {
+      background-color: $mid-grey;
+    }
+  }
+
+  &--is-disabled {
+    opacity: 0.5;
   }
 }

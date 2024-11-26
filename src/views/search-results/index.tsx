@@ -20,20 +20,17 @@ const SearchResults = () => {
   const [query, setQuery] = useState<string>(sessionStorage.getItem("query"));
   const [page, setPage] = useState<number>(1);
   const [count, setCount] = useState<number>(0);
-  const [totalResults, setTotalResults] = useState<number>(0);
   const [searchParams, setSearchParams] = useSearchParams();
-  const type = window.location.pathname.split("/")[2];
 
   // sessionStorage.setItem("urlParams", window.location.search);
-
+  const type = window.location.pathname.split("/")[2];
   const params = new URLSearchParams(searchParams);
+  const location = useLocation();
 
   const handlePageChange = (event, value) => {
     setPage(value);
     updateQuery("page", value);
   };
-
-  const location = useLocation();
 
   const handleSearchInput = () => {
     if (window.location.search) {
@@ -43,7 +40,6 @@ const SearchResults = () => {
           setResources(response.data.results);
           setQuery(query);
           setCount(response.data["total_pages"]);
-          setTotalResults(response.data["total_results"]);
           setLoading(false);
         })
         .catch((error) => {
@@ -80,7 +76,6 @@ const SearchResults = () => {
       {resources.length && (
         <Resources
           resources={resources}
-          totalResults={totalResults}
           page={page}
           handlePageChange={handlePageChange}
           count={count}

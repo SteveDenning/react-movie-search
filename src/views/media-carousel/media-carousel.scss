@@ -6,9 +6,12 @@
   margin-bottom: 40px;
 
   &__header {
+    background: $background-opacity-color;
+    border-radius: 0 20px;
     display: flex;
-    margin-bottom: 20px;
-    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    width: calc(100% - 15px);
 
     .button {
       margin-left: auto;
@@ -16,10 +19,11 @@
       color: $primary-color;
     }
 
-    @include breakpoint($xlarge) {
-      .MuiTypography-h2 {
-        padding: 0;
-      }
+    @include breakpoint($medium) {
+    }
+
+    @include breakpoint($large) {
+      padding: 20px;
     }
   }
 

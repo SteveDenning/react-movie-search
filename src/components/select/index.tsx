@@ -6,7 +6,7 @@ import "./select.scss";
 
 interface Props {
   id: string;
-  onChange: (e: any) => void;
+  onChange: (event: React.ChangeEvent<any>) => void;
   options: any[];
   value: any;
   label?: string;
@@ -15,9 +15,10 @@ interface Props {
   searchable?: boolean;
   defaultValue?: any;
   labeled?: boolean;
+  isDisabled?: boolean;
 }
 
-const SelectComponent: React.FC<Props> = ({ onChange, label, id, value, options, placeholder, searchable, defaultValue, labeled }) => {
+const SelectComponent: React.FC<Props> = ({ onChange, label, id, value, options, placeholder, searchable, defaultValue, labeled, isDisabled }) => {
   const handleSelectChange = (selection) => {
     onChange(selection);
   };
@@ -43,6 +44,7 @@ const SelectComponent: React.FC<Props> = ({ onChange, label, id, value, options,
         placeholder={placeholder}
         isSearchable={searchable}
         defaultValue={defaultValue}
+        isDisabled={isDisabled}
       />
     </div>
   );
