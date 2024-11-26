@@ -71,15 +71,17 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
               );
             })}
           </Grid>
-          <div className="resources__pagination">
-            <Pagination
-              count={count < 500 ? page : 500}
-              page={page}
-              onChange={handlePageChange}
-              color="primary"
-              siblingCount={isMobile ? 0 : 3}
-            />
-          </div>
+          {count > 1 && (
+            <div className="resources__pagination">
+              <Pagination
+                count={count < 500 ? page : 500}
+                page={page}
+                onChange={handlePageChange}
+                color="primary"
+                siblingCount={isMobile ? 0 : 3}
+              />
+            </div>
+          )}
         </div>
       </Fade>
       <Backdrop open={!!loading}>

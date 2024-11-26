@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Views
 import Search from "./../search";
 
 // Components
 import Button from "../../components/button";
+import Modal from "../../components/modal";
 
 // MUI
 import { Container, Typography } from "@mui/material";
@@ -21,6 +22,20 @@ interface Props {
 }
 
 const Header: React.FC<Props> = ({ heading }) => {
+  const [open, setOpen] = useState(false);
+
+  const handleLoginModal = () => {
+    return (
+      <Modal
+        id="log-in-modal"
+        open={open}
+        handleClose={() => setOpen(false)}
+      >
+        <h2>TODO - Login in</h2>
+        <p>Log in to access more features</p>
+      </Modal>
+    );
+  };
   return (
     <header>
       <Container>
@@ -51,7 +66,7 @@ const Header: React.FC<Props> = ({ heading }) => {
           </div>
           <Button
             variant="icon"
-            onClick={() => alert("TODO - Log in")}
+            onClick={() => setOpen(true)}
             className="header__login"
           >
             <span className="sr-only">Log in</span>
@@ -59,6 +74,7 @@ const Header: React.FC<Props> = ({ heading }) => {
           </Button>
         </div>
       </Container>
+      {handleLoginModal()}
     </header>
   );
 };
