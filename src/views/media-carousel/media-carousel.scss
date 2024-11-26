@@ -19,9 +19,6 @@
       color: $primary-color;
     }
 
-    @include breakpoint($medium) {
-    }
-
     @include breakpoint($large) {
       padding: 20px;
     }

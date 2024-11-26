@@ -32,7 +32,7 @@ const Search = () => {
   const params = new URLSearchParams(searchParams);
 
   const [formData, setFormData] = useState({
-    query: "",
+    searchTerm: "",
     mediaType: { value: "multi", label: "All" },
   });
 
@@ -46,10 +46,10 @@ const Search = () => {
 
   const handleSubmit = () => {
     if (suggestions.length) {
-      updateQuery("query", formData.query);
+      updateQuery("query", formData.searchTerm);
       updateQuery("mediaType", formData.mediaType.value);
       if (window.location.pathname !== config.searchResults.path) {
-        window.location.href = `${config.searchResults.path}/${formData.mediaType.value}?query=${formData.query}`;
+        window.location.href = `${config.searchResults.path}/${formData.mediaType.value}?query=${formData.searchTerm}`;
       }
     }
   };
@@ -59,10 +59,10 @@ const Search = () => {
       setIsSelectDisabled(true);
       setFormData({
         ...formData,
-        query: event.target.value,
+        searchTerm: event.target.value,
       });
 
-      getAllMediaFromSearch(`${formData.mediaType.value}?query=${formData.query}`)
+      getAllMediaFromSearch(`${formData.mediaType.value}?query=${formData.searchTerm}`)
         .then((response: any) => {
           setSuggestions(response.data.results.slice(0, 10));
         })
@@ -147,16 +147,16 @@ const Search = () => {
             className="search__form-input"
             type="text"
             placeholder="Search..."
-            value={formData.query || ""}
+            value={formData.searchTerm || ""}
             onChange={(e) => {
               setFormData({
                 ...formData,
-                query: e.target.value,
+                searchTerm: e.target.value,
               });
             }}
           />
         </form>
-        {!!formData.query && (
+        {!!formData.searchTerm && (
           <Button
             variant="icon"
             className="search__form-clear"
@@ -166,7 +166,7 @@ const Search = () => {
             <ClearIcon />
           </Button>
         )}
-        <Fade in={!!suggestions.length && !!formData.query}>
+        <Fade in={!!suggestions.length && !!formData.searchTerm}>
           <div>
             {!!suggestions.length && (
               <ul className="search__options-list">

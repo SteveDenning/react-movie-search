@@ -26,57 +26,57 @@
         fill: $primary-color;
       }
     }
-  }
 
-  &__label {
-    color: $primary-color;
-    cursor: pointer;
-    font-size: 16px;
-    line-height: 24px;
-    margin-bottom: 5px;
-  }
-
-  .select__placeholder {
-    color: $primary-color;
-  }
-
-  .select__single-value {
-    color: $primary-color;
-  }
-
-  .select__menu {
-    background-color: $grey;
-    box-shadow: none;
-    overflow: hidden;
-    margin: 0;
-  }
-
-  .select__menu-list {
-    padding: 0;
-  }
-
-  .select__menu-notice {
-    color: $primary-color;
-  }
-
-  .select__indicator-separator {
-    display: none;
-  }
-
-  .select__option {
-    cursor: pointer;
-    color: $primary-color;
-    font-size: 16px;
-    line-height: 24px;
-    padding: 10px;
-
-    &--is-focused {
-      background-color: $grey;
-      color: $white;
+    &__label {
+      color: $primary-color;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 24px;
+      margin-bottom: 5px;
     }
 
-    &--is-selected {
-      background-color: $mid-grey;
+    &__placeholder {
+      color: $primary-color;
+    }
+
+    &__single-value {
+      color: $primary-color;
+    }
+
+    &__menu {
+      background-color: $grey;
+      box-shadow: none;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    &__menu-list {
+      padding: 0;
+    }
+
+    &__menu-notice {
+      color: $primary-color;
+    }
+
+    &__indicator-separator {
+      display: none;
+    }
+
+    &__option {
+      cursor: pointer;
+      color: $primary-color;
+      font-size: 16px;
+      line-height: 24px;
+      padding: 10px;
+
+      &--is-focused {
+        background-color: $grey;
+        color: $white;
+      }
+
+      &--is-selected {
+        background-color: $mid-grey;
+      }
     }
   }
 

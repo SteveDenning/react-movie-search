@@ -5,7 +5,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import Template from "./index";
 
 // MUI
-// import { Container } from "@mui/material";
+import { Container } from "@mui/material";
 
 const meta: Meta<typeof Template> = {
   title: "Components/Select",
@@ -45,7 +45,11 @@ type Story = StoryObj<typeof Template>;
 const Select = (args: any) => <Template {...args} />;
 
 export const Default: Story = {
-  render: (args) => <Select {...args} />,
+  render: (args) => (
+    <Container>
+      <Select {...args} />
+    </Container>
+  ),
 };
 Default.args = {
   id: "number",

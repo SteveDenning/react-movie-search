@@ -17,12 +17,11 @@ import "./search-results.scss";
 const SearchResults = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [resources, setResources] = useState<any[]>([]);
-  const [query, setQuery] = useState<string>(sessionStorage.getItem("query"));
+  const [query, setQuery] = useState<string>(window.location.search);
   const [page, setPage] = useState<number>(1);
   const [count, setCount] = useState<number>(0);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // sessionStorage.setItem("urlParams", window.location.search);
   const type = window.location.pathname.split("/")[2];
   const params = new URLSearchParams(searchParams);
   const location = useLocation();
@@ -33,9 +32,9 @@ const SearchResults = () => {
   };
 
   const handleSearchInput = () => {
-    if (window.location.search) {
+    if (query) {
       setLoading(true);
-      getAllMediaFromSearch(`${type}${window.location.search}`)
+      getAllMediaFromSearch(`${type}${query}`)
         .then((response: any) => {
           setResources(response.data.results);
           setQuery(query);

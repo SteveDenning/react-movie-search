@@ -26,5 +26,9 @@ describe("Select component", () => {
     it("Should render a Select", () => {
       expect(screen.getByTestId("select")).toBeInTheDocument();
     });
+
+    it("Should render a Select label with accessible class", () => {
+      expect(screen.getByTestId("select-label")).toHaveClass("select__label sr-only");
+    });
   });
 });
