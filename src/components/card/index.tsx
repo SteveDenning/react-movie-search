@@ -10,12 +10,18 @@ import "./card.scss";
 interface Props {
   resource: any;
   onClick?: () => void;
+  variant?: string;
 }
 
-const Card: React.FC<Props> = ({ resource, onClick }) => {
+const Card: React.FC<Props> = ({ resource, onClick, variant }) => {
+  // Class definitions
+  const baseClass = "card";
+  const variantClass = variant ? `${baseClass}--${variant}` : "";
+  const classes = [baseClass, variantClass].filter(Boolean).join(" ");
+
   return (
     <div
-      className="card"
+      className={classes}
       data-testid="card"
     >
       <Image resource={resource} />

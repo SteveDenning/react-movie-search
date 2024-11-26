@@ -30,7 +30,8 @@ const DetailsView = () => {
   const type = window.location.pathname.split("/")[2];
   const backgroundImage = backDrop ? `url(${process.env.REACT_APP_TMDB_PATH}/t/p/original/${backDrop})` : "";
   const isMedia = type == "tv" || "movie";
-  const MediaCarouselLabel = type === "person" ? "Known for" : "Top Cast";
+  const isPerson = type == "person";
+  const MediaCarouselLabel = isPerson ? "Known for" : "Top Cast";
   const pathName = `${type}/${programmeId}/credits?language=en-US`;
 
   const personOptions = {
@@ -197,7 +198,7 @@ const DetailsView = () => {
                       <Button
                         target="_blank"
                         variant="imdb"
-                        href={`https://www.imdb.com/name/${resource["imdb_id"]}`}
+                        href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource["imdb_id"]}`}
                       >
                         IMDb
                       </Button>

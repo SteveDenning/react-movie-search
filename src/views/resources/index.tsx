@@ -15,15 +15,14 @@ import "./resources.scss";
 import useScreenSize from "../../utils/use-screen-size";
 
 interface Props {
-  resources?: any;
-  totalResults?: number;
-  handlePageChange?: (event: React.ChangeEvent<unknown>, value: number) => void;
-  count?: number;
-  page?: number;
-  loading?: boolean;
+  resources: any;
+  handlePageChange?: (event: React.ChangeEvent<any>, value: number) => void;
+  count: number;
+  page: number;
+  loading: boolean;
 }
 
-const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange, count, page, loading }) => {
+const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, loading }) => {
   const screenSize = useScreenSize();
   const isMobile = screenSize.width <= 480;
 
@@ -38,11 +37,6 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
     >
       <Fade in={!!resources?.length}>
         <div className="resources__inner">
-          <div className="resources__count">
-            <h3>
-              Total results - {totalResults < 10000 ? totalResults : 10000} {totalResults > 10000 ? "(Max Results)" : ""}
-            </h3>
-          </div>
           <Grid
             aria-label="Results"
             container
@@ -52,7 +46,7 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
             columns={20}
           >
             {resources.map((item: any, i: number) => {
-              const path = item["media_type"] ? item["media_type"] : window.location.pathname.split("/")[item.gender ? 2 : 3];
+              const path = item["media_type"] ? item["media_type"] : window.location.pathname.split("/")[2];
 
               return (
                 <Grid
@@ -66,6 +60,7 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
                   <Card
                     resource={item}
                     onClick={() => (window.location.href = `/details/${path}/${item.id}`)}
+                    variant="resource"
                   />
                 </Grid>
               );
@@ -73,7 +68,7 @@ const Resources: React.FC<Props> = ({ resources, totalResults, handlePageChange,
           </Grid>
           <div className="resources__pagination">
             <Pagination
-              count={count < 500 ? page : 500}
+              count={count < 500 ? count : 500}
               page={page}
               onChange={handlePageChange}
               color="primary"

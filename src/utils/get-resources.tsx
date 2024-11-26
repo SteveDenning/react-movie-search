@@ -25,7 +25,7 @@ export const getMedia = (pathName: string) =>
 
 export const getAllMediaFromSearch = (queryString: string) =>
   new Promise((resolve, reject) => {
-    const url = `${apiUrl}/search/multi${queryString}&language=en-US`;
+    const url = `${apiUrl}/search/${queryString}&language=en-US`;
     axios
       .get(url, headers)
       .then((response) => {

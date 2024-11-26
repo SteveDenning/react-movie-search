@@ -21,7 +21,7 @@ const routes = {
         errorElement: <PageNotFound />,
       },
       {
-        path: config.searchResults.path,
+        path: `${config.searchResults.path}/:type`,
         element: <SearchResultsPage />,
       },
       {
