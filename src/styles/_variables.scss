@@ -41,6 +41,9 @@ $blue: #0000ff;
 $light-blue: #424283;
 $light-grey: #cccccc;
 
+// Md
+$mid-grey: #555555;
+
 // Grayscale
 $white: #ffffff;
 $black: #000000;
@@ -61,3 +64,7 @@ $imdb: #fec601;
 $primary-color: $anakiwa;
 $secondary-color: $light-blue;
 $background-color: radial-gradient(ellipse at top, $lilac, transparent), radial-gradient(ellipse at bottom, $purple, transparent);
+$background-opacity-color: rgba(
+  $color: $black,
+  $alpha: 0.5,
+);

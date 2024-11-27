@@ -78,7 +78,7 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
               resources={resources}
               media={media}
               responsiveOptions={responsiveOptions}
-              autoPlay={false}
+              autoPlay={true}
               autoPlaySpeed={5000}
               infinite
               banner

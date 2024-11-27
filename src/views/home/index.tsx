@@ -30,13 +30,13 @@ const HomePage = () => {
         <MediaCarousel
           buttonText="View all"
           label="Movie Releases"
-          pathName="discover/movie"
+          pathName="movie/popular"
           media="movie"
         />
         <MediaCarousel
           buttonText="View all"
           label="TV releases"
-          pathName="discover/tv"
+          pathName="tv/popular"
           media="tv"
         />
 

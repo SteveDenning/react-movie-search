@@ -15,7 +15,6 @@ const MediaListing = () => {
   const [resources, setResources] = useState<any>([]);
   const [page, setPage] = useState<number>(1);
   const [count, setCount] = useState<number>(0);
-  const [totalResults, setTotalResults] = useState<number>(0);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const params = new URLSearchParams(searchParams);
@@ -38,7 +37,6 @@ const MediaListing = () => {
       getMedia(pathName)
         .then((response: any) => {
           setResources(response.data.results);
-          setTotalResults(response.data["total_results"]);
           setCount(Math.ceil(response.data["total_pages"]));
           setLoading(false);
         })
@@ -62,7 +60,6 @@ const MediaListing = () => {
     <Container data-testid="media-listing">
       <Resources
         resources={resources}
-        totalResults={totalResults}
         page={page}
         handlePageChange={handlePageChange}
         count={count}

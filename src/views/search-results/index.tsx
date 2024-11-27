@@ -17,32 +17,28 @@ import "./search-results.scss";
 const SearchResults = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [resources, setResources] = useState<any[]>([]);
-  const [query, setQuery] = useState<string>(sessionStorage.getItem("query"));
+  const [query, setQuery] = useState<string>(window.location.search);
   const [page, setPage] = useState<number>(1);
   const [count, setCount] = useState<number>(0);
-  const [totalResults, setTotalResults] = useState<number>(0);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  sessionStorage.setItem("urlParams", window.location.search);
-
+  const type = window.location.pathname.split("/")[2];
   const params = new URLSearchParams(searchParams);
+  const location = useLocation();
 
   const handlePageChange = (event, value) => {
     setPage(value);
     updateQuery("page", value);
   };
 
-  const location = useLocation();
-
   const handleSearchInput = () => {
-    if (window.location.search) {
+    if (query) {
       setLoading(true);
-      getAllMediaFromSearch(window.location.search)
+      getAllMediaFromSearch(`${type}${query}`)
         .then((response: any) => {
           setResources(response.data.results);
           setQuery(query);
           setCount(response.data["total_pages"]);
-          setTotalResults(response.data["total_results"]);
           setLoading(false);
         })
         .catch((error) => {
@@ -79,7 +75,6 @@ const SearchResults = () => {
       {resources.length && (
         <Resources
           resources={resources}
-          totalResults={totalResults}
           page={page}
           handlePageChange={handlePageChange}
           count={count}

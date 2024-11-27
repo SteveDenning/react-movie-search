@@ -4,16 +4,6 @@
 .resources {
   margin-top: 40px;
 
-  &__count {
-    h3 {
-      color: $primary-color;
-    }
-  }
-
-  .card {
-    box-shadow: rgba(0, 0, 0, 0.4) 10px 10px 5px 0px;
-  }
-
   &__pagination {
     display: flex;
     justify-content: center;
