@@ -28,6 +28,7 @@ interface Props {
 const Header: React.FC<Props> = ({ heading }) => {
   const [open, setOpen] = useState(false);
   const [requestToken, setRequestToken] = useState<string>(null);
+  const [username, setUsername] = useState<string>(sessionStorage.getItem("user"));
   const [searchParams, setSearchParams] = useSearchParams(window.location.search);
 
   const params = new URLSearchParams(searchParams);
@@ -45,7 +46,10 @@ const Header: React.FC<Props> = ({ heading }) => {
   const handleAccountDetails = () => {
     getAccountDetails(sessionId)
       .then((response: any) => {
-        console.log(response);
+        if (response.data["username"]) {
+          sessionStorage.setItem("user", response.data["username"]);
+          setUsername(response.data["username"]);
+        }
       })
       .catch((error) => console.error(error));
   };
@@ -53,9 +57,11 @@ const Header: React.FC<Props> = ({ heading }) => {
   const handleDeleteSession = () => {
     if (sessionId) {
       deleteSession(sessionId)
-        .then((response) => {
-          if (response["data"]["success"]) {
+        .then((response: any) => {
+          if (response.data["success"]) {
             sessionStorage.removeItem("session_id");
+            sessionStorage.removeItem("user");
+            setUsername(null);
           }
         })
         .catch((error) => console.error(error));
@@ -115,6 +121,7 @@ const Header: React.FC<Props> = ({ heading }) => {
           >
             <span className="sr-only">Log in</span>
             <Person3OutlinedIcon />
+            <span>{username || ""}</span>
           </Button>
         </div>
       </Container>
@@ -124,7 +131,7 @@ const Header: React.FC<Props> = ({ heading }) => {
         handleClose={() => setOpen(false)}
       >
         <h2>TODO - Login in</h2>
-        <Button onClick={handleGetRequestToken}>Approve Login</Button>
+        <Button onClick={handleGetRequestToken}>Login</Button>
         <br /> <br />
         <Button
           onClick={getSessionWithToken}
