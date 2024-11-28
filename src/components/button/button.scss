@@ -86,6 +86,11 @@
       color: $white;
     }
 
+    &.button--red {
+      @include filledColorVariant($white, $red, $black, 5%);
+      color: $white;
+    }
+
     &.button--purple {
       @include filledColorVariant($white, $purple, $orange, 5%);
       color: $white;
