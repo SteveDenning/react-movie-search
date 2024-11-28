@@ -33,6 +33,7 @@ const Header: React.FC<Props> = ({ heading }) => {
 
   const params = new URLSearchParams(searchParams);
   const requestTokenParam = params.get("request_token");
+  const requestApproved = params.get("approved");
   const sessionId = sessionStorage.getItem("session_id");
 
   const handleGetRequestToken = () => {
@@ -43,12 +44,14 @@ const Header: React.FC<Props> = ({ heading }) => {
       .catch((error) => console.error(error));
   };
 
-  const handleAccountDetails = () => {
+  const handleAccountDetails = (sessionId) => {
     getAccountDetails(sessionId)
       .then((response: any) => {
-        if (response.data["username"]) {
-          sessionStorage.setItem("user", response.data["username"]);
-          setUsername(response.data["username"]);
+        if (response.data["name"]) {
+          const userInitials = response.data["name"].match(/\b(\w)/g).join("");
+          sessionStorage.setItem("user", userInitials);
+
+          setUsername(userInitials);
         }
       })
       .catch((error) => console.error(error));
@@ -62,6 +65,7 @@ const Header: React.FC<Props> = ({ heading }) => {
             sessionStorage.removeItem("session_id");
             sessionStorage.removeItem("user");
             setUsername(null);
+            setOpen(false);
           }
         })
         .catch((error) => console.error(error));
@@ -73,18 +77,26 @@ const Header: React.FC<Props> = ({ heading }) => {
       request_token: requestTokenParam, // Approved request token
     })
       .then((response) => {
-        setSearchParams({});
-        sessionStorage.setItem("session_id", response["data"]["session_id"]);
+        if (response["data"]["session_id"]) {
+          setSearchParams({});
+          sessionStorage.setItem("session_id", response["data"]["session_id"]);
+          handleAccountDetails(response["data"]["session_id"]);
+        }
       })
       .catch((error) => console.error(error));
   };
 
   useEffect(() => {
     if (requestToken) {
-      // window.open(`https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=http://localhost:3000/`, "_blank");
       window.location.href = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=http://localhost:3000/`;
     }
   }, [requestToken]);
+
+  useEffect(() => {
+    if (requestApproved && requestTokenParam) {
+      getSessionWithToken();
+    }
+  }, [requestApproved]);
 
   return (
     <header>
@@ -120,8 +132,7 @@ const Header: React.FC<Props> = ({ heading }) => {
             className="header__login"
           >
             <span className="sr-only">Log in</span>
-            <Person3OutlinedIcon />
-            <span>{username || ""}</span>
+            {username ? <span className="header__user">{username}</span> : <Person3OutlinedIcon />}
           </Button>
         </div>
       </Container>
@@ -130,24 +141,14 @@ const Header: React.FC<Props> = ({ heading }) => {
         open={open}
         handleClose={() => setOpen(false)}
       >
-        <h2>TODO - Login in</h2>
+        <h2>Login</h2>
         <Button onClick={handleGetRequestToken}>Login</Button>
-        <br /> <br />
-        <Button
-          onClick={getSessionWithToken}
-          color="purple"
-        >
-          Create Session
-        </Button>
-        <br /> <br />
         <Button
           onClick={handleDeleteSession}
           color="red"
         >
-          Delete Session
+          Log Out
         </Button>
-        <br /> <br />
-        <Button onClick={handleAccountDetails}>Get Account Details</Button>
       </Modal>
     </header>
   );
