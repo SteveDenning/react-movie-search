@@ -27,6 +27,7 @@ interface Props {
 
 const Header: React.FC<Props> = ({ heading }) => {
   const [open, setOpen] = useState(false);
+  const [avatar, setAvatar] = useState<string>(sessionStorage.getItem("avatar"));
   const [requestToken, setRequestToken] = useState<string>(null);
   const [username, setUsername] = useState<string>(sessionStorage.getItem("user"));
   const [searchParams, setSearchParams] = useSearchParams(window.location.search);
@@ -50,7 +51,9 @@ const Header: React.FC<Props> = ({ heading }) => {
         if (response.data["name"]) {
           const userInitials = response.data["name"].match(/\b(\w)/g).join("");
           sessionStorage.setItem("user", userInitials);
+          sessionStorage.setItem("avatar", response.data["avatar"]["tmdb"]["avatar_path"]);
 
+          setAvatar(response.data["avatar"]["tmdb"]["avatar_path"]);
           setUsername(userInitials);
         }
       })
@@ -64,8 +67,10 @@ const Header: React.FC<Props> = ({ heading }) => {
           if (response.data["success"]) {
             sessionStorage.removeItem("session_id");
             sessionStorage.removeItem("user");
+            sessionStorage.removeItem("avatar");
             setUsername(null);
             setOpen(false);
+            setAvatar(null);
           }
         })
         .catch((error) => console.error(error));
@@ -132,7 +137,17 @@ const Header: React.FC<Props> = ({ heading }) => {
             className="header__login"
           >
             <span className="sr-only">Log in</span>
-            {username ? <span className="header__user">{username}</span> : <Person3OutlinedIcon />}
+            {avatar ? (
+              <img
+                className="header__avatar"
+                src={`https://image.tmdb.org/t/p/original/${avatar}`}
+                alt={username}
+              />
+            ) : username ? (
+              <span className="header__user">{username}</span>
+            ) : (
+              <Person3OutlinedIcon />
+            )}
           </Button>
         </div>
       </Container>
