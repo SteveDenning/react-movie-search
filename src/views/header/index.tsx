@@ -8,10 +8,9 @@ import Search from "./../search";
 
 // Components
 import Button from "../../components/button";
-import Modal from "../../components/modal";
 
 // MUI
-import { Container, Typography } from "@mui/material";
+import { Box, Container, Drawer, Typography } from "@mui/material";
 
 // Icons
 import Person3OutlinedIcon from "@mui/icons-material/Person3Outlined";
@@ -25,22 +24,33 @@ interface Props {
   heading: string;
 }
 
+interface UserType {
+  avatar: {
+    tmdb: {
+      avatar_path: string;
+    };
+  };
+  id: string;
+  name: string;
+  username: string;
+}
 const Header: React.FC<Props> = ({ heading }) => {
   const [open, setOpen] = useState(false);
-  const [avatar, setAvatar] = useState<string>(sessionStorage.getItem("avatar"));
-  const [requestToken, setRequestToken] = useState<string>(null);
-  const [username, setUsername] = useState<string>(sessionStorage.getItem("user"));
+  const [user, setUser] = useState<UserType>(JSON.parse(sessionStorage.getItem("user")));
   const [searchParams, setSearchParams] = useSearchParams(window.location.search);
 
   const params = new URLSearchParams(searchParams);
-  const requestTokenParam = params.get("request_token");
-  const requestApproved = params.get("approved");
   const sessionId = sessionStorage.getItem("session_id");
+  const environment = process.env.NODE_ENV;
 
   const handleGetRequestToken = () => {
     getRequestToken()
       .then((response: any) => {
-        setRequestToken(response.data["request_token"]);
+        if (response.data["request_token"]) {
+          window.location.href = `https://www.themoviedb.org/authenticate/${response.data["request_token"]}?redirect_to=${
+            environment === "development" ? "http://localhost:3000/" : "https://sd-react-movie-search.web.app/"
+          }`;
+        }
       })
       .catch((error) => console.error(error));
   };
@@ -49,12 +59,8 @@ const Header: React.FC<Props> = ({ heading }) => {
     getAccountDetails(sessionId)
       .then((response: any) => {
         if (response.data["name"]) {
-          const userInitials = response.data["name"].match(/\b(\w)/g).join("");
-          sessionStorage.setItem("user", userInitials);
-          sessionStorage.setItem("avatar", response.data["avatar"]["tmdb"]["avatar_path"]);
-
-          setAvatar(response.data["avatar"]["tmdb"]["avatar_path"]);
-          setUsername(userInitials);
+          setUser(response.data);
+          sessionStorage.setItem("user", JSON.stringify(response.data));
         }
       })
       .catch((error) => console.error(error));
@@ -67,10 +73,8 @@ const Header: React.FC<Props> = ({ heading }) => {
           if (response.data["success"]) {
             sessionStorage.removeItem("session_id");
             sessionStorage.removeItem("user");
-            sessionStorage.removeItem("avatar");
-            setUsername(null);
             setOpen(false);
-            setAvatar(null);
+            setUser(null);
           }
         })
         .catch((error) => console.error(error));
@@ -78,30 +82,28 @@ const Header: React.FC<Props> = ({ heading }) => {
   };
 
   const getSessionWithToken = () => {
-    createSessionWithLogin({
-      request_token: requestTokenParam, // Approved request token
-    })
-      .then((response) => {
-        if (response["data"]["session_id"]) {
-          setSearchParams({});
-          sessionStorage.setItem("session_id", response["data"]["session_id"]);
-          handleAccountDetails(response["data"]["session_id"]);
-        }
+    if (params.get("request_token")) {
+      createSessionWithLogin({
+        request_token: params.get("request_token"),
       })
-      .catch((error) => console.error(error));
+        .then((response) => {
+          if (response["data"]["session_id"]) {
+            setSearchParams({});
+            sessionStorage.setItem("session_id", response["data"]["session_id"]);
+            handleAccountDetails(response["data"]["session_id"]);
+          }
+        })
+        .catch((error) => console.error(error));
+    }
+  };
+
+  const toggleDrawer = (newOpen: boolean) => () => {
+    setOpen(newOpen);
   };
 
   useEffect(() => {
-    if (requestToken) {
-      window.location.href = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=http://localhost:3000/`;
-    }
-  }, [requestToken]);
-
-  useEffect(() => {
-    if (requestApproved && requestTokenParam) {
-      getSessionWithToken();
-    }
-  }, [requestApproved]);
+    getSessionWithToken();
+  }, [params.get("request_token")]);
 
   return (
     <header>
@@ -133,38 +135,59 @@ const Header: React.FC<Props> = ({ heading }) => {
           </div>
           <Button
             variant="icon"
-            onClick={() => setOpen(true)}
+            onClick={toggleDrawer(true)}
             className="header__login"
           >
-            <span className="sr-only">Log in</span>
-            {avatar ? (
+            <span className="sr-only">User Profile</span>
+            {user?.avatar?.tmdb?.avatar_path ? (
               <img
                 className="header__avatar"
-                src={`https://image.tmdb.org/t/p/original/${avatar}`}
-                alt={username}
+                src={`https://image.tmdb.org/t/p/original/${user.avatar.tmdb.avatar_path}`}
+                alt={user.name}
               />
-            ) : username ? (
-              <span className="header__user">{username}</span>
+            ) : user?.name ? (
+              <span className="header__user">{user.name.match(/\b(\w)/g).join("")}</span>
             ) : (
               <Person3OutlinedIcon />
             )}
           </Button>
         </div>
-      </Container>
-      <Modal
-        id="log-in-modal"
-        open={open}
-        handleClose={() => setOpen(false)}
-      >
-        <h2>Login</h2>
-        <Button onClick={handleGetRequestToken}>Login</Button>
-        <Button
-          onClick={handleDeleteSession}
-          color="red"
+        <Drawer
+          open={open}
+          onClose={toggleDrawer(false)}
+          anchor="right"
+          PaperProps={{
+            sx: {
+              width: 300,
+              bgcolor: "#555",
+            },
+          }}
         >
-          Log Out
-        </Button>
-      </Modal>
+          <Box sx={{ mt: 5, mx: 2.5 }}>
+            {sessionId && (
+              <ul style={{ margin: "0", padding: "20px" }}>
+                <li>
+                  <a href="">TODO - Profile page</a>
+                </li>
+                <li>
+                  <a href="">TODO - Lists</a>
+                </li>
+              </ul>
+            )}
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <Button
+                variant="link"
+                onClick={() => {
+                  sessionId ? handleDeleteSession() : handleGetRequestToken();
+                }}
+                color="red"
+              >
+                {sessionId ? "Log Out" : "Login"}
+              </Button>
+            </div>
+          </Box>
+        </Drawer>
+      </Container>
     </header>
   );
 };
