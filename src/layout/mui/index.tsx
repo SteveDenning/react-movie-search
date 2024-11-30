@@ -12,7 +12,7 @@ interface Props {
 
 const theme = createTheme({
   typography: {
-    fontFamily: "Inter,Arial,sans-serif",
+    fontFamily: "Gothic,Arial,sans-serif",
   },
   components: {
     MuiContainer: {

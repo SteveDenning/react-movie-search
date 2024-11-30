@@ -7,8 +7,8 @@ h4,
 h5,
 h6 {
   color: $white;
-  font-weight: 200;
-  letter-spacing: -1px;
+  font-family: Gothic, Arial, sans-serif;
+  font-weight: normal;
   margin: 0;
   margin-bottom: 1rem;
 }
@@ -66,11 +66,8 @@ a,
 li {
   color: $white;
   font-size: 16px;
-  font-weight: 400;
+  font-weight: normal;
   line-height: 24px;
-}
-
-p {
   white-space: pre-wrap;
   white-space: -moz-pre-wrap;
   white-space: -pre-wrap;
