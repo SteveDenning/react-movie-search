@@ -5,6 +5,7 @@
     "autodocs",
     "Colour",
     "colours",
+    "imdb",
     "Ipsom",
     "OMDB",
     "swipeable",
@@ -13,6 +14,7 @@
     "xlarge",
     "xsmall",
     "xxlarge",
-    "xxxlarge"
+    "xxxlarge",
+    "xxxxlarge"
   ]
 }

@@ -1,5 +1,6 @@
 import axios from "axios";
 
+const apiUrl = "https://api.themoviedb.org/3";
 const headers = {
   method: "GET",
   headers: {
@@ -9,12 +10,9 @@ const headers = {
   },
 };
 
-const apiUrl = "https://api.themoviedb.org/3";
-
-export const getLatestReleases = (path: string) =>
+export const getMedia = (pathName: string) =>
   new Promise((resolve, reject) => {
-    const url = `${apiUrl}/${path}?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`;
-
+    const url = `${apiUrl}/${pathName}?page=1&language=en-US`;
     axios
       .get(url, headers)
       .then((response) => {
@@ -25,9 +23,9 @@ export const getLatestReleases = (path: string) =>
       });
   });
 
-export const getAllMedia = (keyword: string) =>
+export const getAllMediaFromSearch = (queryString: string) =>
   new Promise((resolve, reject) => {
-    const url = `${apiUrl}/search/multi?query=${keyword}&include_adult=false&language=en-US&page=1`;
+    const url = `${apiUrl}/search/${queryString}&language=en-US`;
     axios
       .get(url, headers)
       .then((response) => {
@@ -37,9 +35,25 @@ export const getAllMedia = (keyword: string) =>
         reject(error);
       });
   });
+
 export const getMediaByID = (id: string, type: string) =>
   new Promise((resolve, reject) => {
     const url = `${apiUrl}/${type}/${id}?language=en-US`;
+    axios
+      .get(url, headers)
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+
+// **********************************************************************
+
+export const getVideos = (id: string, type: string) =>
+  new Promise((resolve, reject) => {
+    const url = `${apiUrl}/${type}/${id}/videos?language=en-US`;
     axios
       .get(url, headers)
       .then((response) => {

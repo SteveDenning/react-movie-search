@@ -1,12 +1,11 @@
 // Footer Styles
-@import "../../styles/variables";
+@import "../../styles/dependencies";
 
 .header {
   align-items: center;
   background: $black;
   display: flex;
   min-height: 81px;
-  padding: 0 10px;
   width: 100%;
 
   &__inner {
@@ -24,7 +23,15 @@
     }
   }
 
-  svg {
-    cursor: pointer;
+  &__login,
+  &__logo {
+    svg {
+      cursor: pointer;
+      font-size: 25px;
+
+      @include breakpoint($medium) {
+        font-size: 35px;
+      }
+    }
   }
 }

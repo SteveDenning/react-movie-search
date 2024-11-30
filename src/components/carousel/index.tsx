@@ -2,24 +2,33 @@ import React from "react";
 import ReactCarousel from "react-multi-carousel";
 
 // Components
+import Button from "../../components/button";
+import Card from "../../components/card";
 import Image from "../../components/image";
 
 // Styles
 import "./carousel.scss";
 
 interface Props {
+  autoPlaySpeed?: number;
+  autoPlay?: boolean;
+  banner?: boolean;
+  infinite?: boolean;
+  media?: string;
   resources: any;
-  media: string;
+  responsiveOptions?: any;
+  variant?: string;
 }
 
-const Carousel: React.FC<Props> = ({ resources, media }) => {
+const Carousel: React.FC<Props> = ({ autoPlay = false, autoPlaySpeed, banner, infinite, media = "movie", resources, responsiveOptions, variant }) => {
   const responsive = {
     desktop: {
       breakpoint: {
         max: 3000,
         min: 1024,
       },
-      items: 7,
+      items: 5,
+      slidesToSlide: 5,
     },
     tablet: {
       breakpoint: {
@@ -41,7 +50,7 @@ const Carousel: React.FC<Props> = ({ resources, media }) => {
 
   const options = {
     renderDotsOutside: true,
-    responsive: responsive,
+    responsive: { ...responsive, ...responsiveOptions },
     pauseOnHover: true,
     slidesToSlide: 5,
     infinite: true,
@@ -61,23 +70,58 @@ const Carousel: React.FC<Props> = ({ resources, media }) => {
     swipeable: true,
   };
 
+  // Class Definitions
+  const baseClass = "carousel";
+  const variantClass = variant ? `carousel--${variant}` : "";
+  const classes = [baseClass, variantClass].filter(Boolean).join(" ");
+
   return (
     <div
-      className="carousel"
+      className={classes}
       data-testid="carousel"
     >
-      <ReactCarousel {...options}>
+      <ReactCarousel
+        {...options}
+        autoPlay={autoPlay}
+        autoPlaySpeed={autoPlaySpeed}
+        infinite={infinite}
+      >
         {resources.map((item: any, i: number) => {
           return (
             <div
               key={i}
-              className="latest-releases__list-item"
-              onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
+              className="carousel__item"
             >
-              <Image
-                resource={item}
-                content
-              />
+              {banner ? (
+                <>
+                  <Image
+                    resource={item}
+                    variant="banner"
+                  />
+                  <div className="carousel__banner-content">
+                    <div className="carousel__banner-poster">
+                      <Image
+                        id={item.id}
+                        resource={item}
+                      />
+                    </div>
+                    <div className="carousel__banner-details">
+                      <h2>{item.title || item.name}</h2>
+                      <Button
+                        className="carousel__banner-button"
+                        onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
+                      >
+                        View details
+                      </Button>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <Card
+                  resource={item}
+                  onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
+                />
+              )}
             </div>
           );
         })}

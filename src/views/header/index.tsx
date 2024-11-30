@@ -18,10 +18,9 @@ import "./header.scss";
 
 interface Props {
   heading: string;
-  hasSearch?: boolean;
 }
 
-const Header: React.FC<Props> = ({ heading, hasSearch }) => {
+const Header: React.FC<Props> = ({ heading }) => {
   return (
     <header>
       <Container>
@@ -31,25 +30,32 @@ const Header: React.FC<Props> = ({ heading, hasSearch }) => {
         >
           <Button
             variant="icon"
-            onClick={() => (window.location.href = "/")}
+            className="header__logo"
+            onClick={() => {
+              window.location.href = "/";
+              sessionStorage.removeItem("query");
+            }}
           >
-            <TheatersIcon sx={{ color: "#86f6ff", fontSize: 40 }} />
+            <span className="sr-only">Home</span>
+            <TheatersIcon />
           </Button>
           <div className="header__inner">
             <Typography
-              className={hasSearch ? "sr-only" : ""}
+              className="sr-only"
               variant="h1"
               sx={{ fontSize: 24, fontWeight: "200" }}
             >
               {heading}
             </Typography>
-            {hasSearch && <Search />}
+            <Search />
           </div>
           <Button
             variant="icon"
             onClick={() => alert("TODO - Log in")}
+            className="header__login"
           >
-            <Person3OutlinedIcon sx={{ color: "#86f6ff", fontSize: 40 }} />
+            <span className="sr-only">Log in</span>
+            <Person3OutlinedIcon />
           </Button>
         </div>
       </Container>

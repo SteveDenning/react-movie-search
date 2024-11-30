@@ -9,15 +9,15 @@ import Header from "../index";
 
 describe("Header component", () => {
   describe("Component rendering", () => {
-    const setup = () =>
+    beforeEach(() => {
       render(
         <MemoryRouter>
           <Header heading="Search" />
         </MemoryRouter>,
       );
+    });
 
     it("Should render the header", () => {
-      setup();
       expect(screen.getByTestId("header")).toBeInTheDocument();
     });
   });

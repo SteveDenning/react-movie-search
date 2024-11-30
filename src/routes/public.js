@@ -1,11 +1,16 @@
 import React from "react";
 
-// Views
-import HomePage from "../views/home-page";
-import DetailsView from "../views/details";
-import MediaListing from "../views/media-listing";
+// Config
+import { config } from "../config/routes";
 
-const publicRoutes = {
+// Views
+import HomePage from "../pages/home";
+import DetailsPage from "../pages/details";
+import MediaListingPage from "../pages/media-listing";
+import PageNotFound from "../pages/page-not-found";
+import SearchResultsPage from "../pages/search-results";
+
+const routes = {
   createRoutes: () => {
     const routes = [];
 
@@ -13,14 +18,19 @@ const publicRoutes = {
       {
         path: "/",
         element: <HomePage />,
+        errorElement: <PageNotFound />,
       },
       {
-        path: "/details/:type/:id",
-        element: <DetailsView />,
+        path: `${config.searchResults.path}/:type`,
+        element: <SearchResultsPage />,
       },
       {
-        path: "/media-listing/",
-        element: <MediaListing />,
+        path: `${config.details.path}/:type/:id`,
+        element: <DetailsPage />,
+      },
+      {
+        path: `${config.mediaListing.path}/:type/:media`,
+        element: <MediaListingPage />,
       },
     );
 
@@ -28,4 +38,4 @@ const publicRoutes = {
   },
 };
 
-export default publicRoutes;
+export default routes;

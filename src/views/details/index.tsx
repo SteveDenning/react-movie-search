@@ -1,115 +1,229 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import moment from "moment";
 
 // Utils
-import { getMediaByID } from "../../utils/get-resources";
+import { getMediaByID, getVideos } from "../../utils/get-resources";
 
 // Components
 import Button from "../../components/button";
 import Image from "../../components/image";
+import MediaCarousel from "../../views/media-carousel";
+import Modal from "../../components/modal";
+import Video from "../../components/video";
 
 // MUI
 import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 
-// Layout
-import DefaultLayout from "../../layout/default";
-
 // Styles
-import "./details-view.scss";
+import "./details.scss";
 
 const DetailsView = () => {
   const [backDrop, setBackDrop] = useState<string>("");
-  const [heading, setHeading] = useState<string>("");
-  const [loaded, setLoaded] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [resource, setResource] = useState<any>({});
+  const [videoKey, setVideoKey] = useState<string>("");
 
+  const navigate = useNavigate();
   const programmeId = window.location.pathname.split("/")[3] as string;
   const type = window.location.pathname.split("/")[2];
   const backgroundImage = backDrop ? `url(${process.env.REACT_APP_TMDB_PATH}/t/p/original/${backDrop})` : "";
+  const isMedia = type == "tv" || "movie";
+  const isPerson = type == "person";
+  const MediaCarouselLabel = isPerson ? "Known for" : "Top Cast";
+  const pathName = `${type}/${programmeId}/credits?language=en-US`;
+
+  const personOptions = {
+    desktop: {
+      breakpoint: {
+        max: 3000,
+        min: 1024,
+      },
+      items: 7,
+      slidesToSlide: 7,
+    },
+  };
+
+  const getMedia = () => {
+    if (programmeId && type) {
+      setLoading(true);
+      getMediaByID(programmeId, type)
+        .then((response: any) => {
+          setResource(response.data);
+          setBackDrop(response.data.backdrop_path);
+          setLoading(false);
+        })
+        .catch((error) => {
+          setLoading(false);
+          console.error(error);
+        });
+    }
+  };
+
+  const fetchVideos = (id: string, type: string) => {
+    if (type !== "person") {
+      setLoading(true);
+      getVideos(id, type)
+        .then((response: any) => {
+          setVideoKey(response.data.results[0]?.key);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } else {
+      setLoading(false);
+    }
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
 
   useEffect(() => {
-    getMediaByID(programmeId, type)
-      .then((response: any) => {
-        setResource(response.data);
-        setHeading(`${response.data.title || response.data["original_name"] || response.data.name} : ${type}`); // Add type to details
-        setBackDrop(response.data.backdrop_path);
-        setLoaded(true);
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [programmeId, type]);
+    fetchVideos(programmeId, type);
+  }, [resource]);
+
+  useEffect(() => {
+    getMedia();
+  }, [programmeId]);
 
   return (
-    <DefaultLayout heading={heading as string}>
-      <Fade in={loaded}>
+    <>
+      <Fade in={!loading}>
         <div
           data-testid="details-view"
           className="details-view"
           style={{ backgroundImage: backgroundImage }}
         >
-          <div data-testid="details-view__inner">
-            <Container>
-              <div className="details-view__content">
-                <p>{resource.overview || resource.biography || "Description not available"}</p>
-                {resource["profile_path"] && (
-                  <Image
-                    resource={resource}
-                    size="medium"
+          <Container>
+            <div
+              className="details-view__inner"
+              data-testid="details-view-inner"
+            >
+              {!!videoKey && (
+                <div
+                  className="details-view__video"
+                  data-test-id="details-view-video"
+                >
+                  <Video
+                    youTubeKey={videoKey}
+                    playing
                   />
-                )}
-                {!!resource.genres?.length && (
-                  <>
-                    <ul>
-                      {resource.genres.map((genre: any, i: number) => (
-                        <li
-                          className="genre-tag"
-                          key={genre.id + i}
+                </div>
+              )}
+              <div className="details-view__content">
+                <div className="details-view__profile">
+                  {resource["profile_path"] && (
+                    <div className="details-view__profile-image">
+                      <Image
+                        resource={resource}
+                        size="large"
+                      />
+                    </div>
+                  )}
+                  <div>
+                    <div className="details-view__profile-details">
+                      <h2 className="details-view__title">
+                        {resource.name || resource.title}{" "}
+                        {isMedia && resource?.["release_date"] && <span>({moment(resource?.["release_date"]).format("YYYY")})</span>}
+                      </h2>
+                      {resource.birthday && <p>{moment().diff(resource.birthday, "years")} years old</p>}
+                      {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
+                      {resource["known_for_department"] && <p>Known for: {resource["known_for_department"]}</p>}
+                    </div>
+                    {(resource?.overview?.length || resource?.biography?.length) > 400 ? (
+                      <>
+                        <p>
+                          {(resource.overview || resource.biography).slice(0, 400)}.....{" "}
+                          <Button
+                            onClick={() => setIsOpen(true)}
+                            variant="link"
+                          >
+                            More
+                          </Button>
+                        </p>
+
+                        <Modal
+                          id={resource.id}
+                          open={isOpen}
+                          handleClose={handleClose}
                         >
-                          {genre["name"]}
-                          <span>|</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-                {resource.seasons?.length && (
-                  <>
-                    <p>Seasons: {resource.seasons?.length}</p>
-                  </>
-                )}
-                {resource.networks?.length && (
-                  <>
-                    <p>Networks</p>
-                    <ul>
-                      {resource.networks.map((network: any, i: number) => (
-                        <li key={network.id + i}>
-                          <img
-                            src={`${process.env.REACT_APP_TMDB_PATH}/t/p/original/${network["logo_path"]}`}
-                            alt=""
-                            style={{ width: "100px", background: "#ccc", padding: "10px", marginRight: "10px", borderRadius: "10px" }}
-                          />
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-                <br />
+                          <p>{resource.overview || resource.biography}</p>
+                        </Modal>
+                      </>
+                    ) : (
+                      <>
+                        <p>{resource.overview || resource.biography}</p>
+                      </>
+                    )}
+
+                    {!!resource.genres?.length && (
+                      <>
+                        <ul>
+                          {resource.genres.map((genre: any) => (
+                            <li
+                              className="genre-tag"
+                              key={genre.id + genre["name"]}
+                            >
+                              {genre["name"]}
+                              <span>|</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                    {resource.seasons?.length && (
+                      <>
+                        <p>Seasons: {resource.seasons?.length}</p>
+                      </>
+                    )}
+                    {resource.networks?.length && (
+                      <>
+                        <ul>
+                          {resource.networks.map((network: any, i: number) => (
+                            <li key={network.id + i}>
+                              <img
+                                src={`${process.env.REACT_APP_TMDB_PATH}/t/p/original/${network["logo_path"]}`}
+                                alt=""
+                                style={{ width: "100px", background: "#ccc", padding: "10px", marginRight: "10px", borderRadius: "10px" }}
+                              />
+                            </li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                    {resource["imdb_id"] && (
+                      <Button
+                        target="_blank"
+                        variant="imdb"
+                        href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource["imdb_id"]}`}
+                      >
+                        IMDb
+                      </Button>
+                    )}
+                  </div>
+                </div>
                 <div className="details-view__back-button">
-                  <Button onClick={() => (window.location.href = "/")}>Back</Button>
+                  <Button onClick={() => navigate(-1)}>Back</Button>
                 </div>
               </div>
-            </Container>
-          </div>
+            </div>
+            <MediaCarousel
+              label={MediaCarouselLabel}
+              pathName={pathName}
+              dataResource="cast"
+              responsiveOptions={personOptions}
+              media={type === "person" ? "movie" : "person"}
+            />
+          </Container>
         </div>
       </Fade>
-      <Backdrop
-        sx={(theme) => ({ color: "#fff", zIndex: theme.zIndex.drawer + 1 })}
-        open={!loaded}
-      >
-        <CircularProgress color="inherit" />
+      <Backdrop open={loading}>
+        <CircularProgress color="primary" />
       </Backdrop>
-    </DefaultLayout>
+    </>
   );
 };
 export default DetailsView;

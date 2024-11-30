@@ -4,6 +4,9 @@ import { Meta, StoryObj } from "@storybook/react";
 // Components
 import Template from "./index";
 
+// Layout
+import StorybookLayout from "../../layout/storybook";
+
 const meta: Meta<typeof Template> = {
   title: "Views/Header",
   component: Template,
@@ -20,12 +23,15 @@ export default meta;
 
 type Story = StoryObj<typeof Template>;
 
-const Header = (args: any) => <Template {...args} />;
+const Header = (args: any) => (
+  <StorybookLayout>
+    <Template {...args} />
+  </StorybookLayout>
+);
 
 export const Default: Story = {
-  render: (args) => <Header {...args} />,
+  render: (args: any) => <Header {...args} />,
 };
-
 Default.args = {
   heading: "Lorem ipsum",
 };

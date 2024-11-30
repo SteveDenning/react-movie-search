@@ -13,6 +13,7 @@ $large: "min-width: 60em"; // 960px
 $xlarge: "min-width: 64em"; // 1024px
 $xxlarge: "min-width: 81.25em"; // 1300px
 $xxxlarge: "min-width: 90em"; // 1440px
+$xxxxlarge: "min-width: 100em"; // 1600px
 
 //***********************************
 // Gutter padding
@@ -40,6 +41,9 @@ $blue: #0000ff;
 $light-blue: #424283;
 $light-grey: #cccccc;
 
+// Md
+$mid-grey: #555555;
+
 // Grayscale
 $white: #ffffff;
 $black: #000000;
@@ -54,8 +58,13 @@ $light-green: #dff7e6;
 $twitter: #454545;
 $linkedin: #3275b0;
 $whatsapp: #65d072;
+$imdb: #fec601;
 
 // Theme
-$primary-text-color: $purple;
-$primary-color: $grey;
+$primary-color: $anakiwa;
+$secondary-color: $light-blue;
 $background-color: radial-gradient(ellipse at top, $lilac, transparent), radial-gradient(ellipse at bottom, $purple, transparent);
+$background-opacity-color: rgba(
+  $color: $black,
+  $alpha: 0.5,
+);

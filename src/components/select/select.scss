@@ -1,0 +1,86 @@
+@import "../../styles/dependencies";
+
+// Select styles
+.select {
+  .select {
+    &__control {
+      background-color: $grey;
+      box-shadow: none;
+      border: 0;
+      cursor: pointer;
+      min-width: 100px;
+
+      @include breakpoint($xlarge) {
+        min-height: 41px;
+      }
+    }
+
+    &__input {
+      color: $primary-color;
+    }
+
+    &__indicator {
+      padding: 0 10px 0 0;
+
+      svg {
+        fill: $primary-color;
+      }
+    }
+
+    &__label {
+      color: $primary-color;
+      cursor: pointer;
+      font-size: 16px;
+      line-height: 24px;
+      margin-bottom: 5px;
+    }
+
+    &__placeholder {
+      color: $primary-color;
+    }
+
+    &__single-value {
+      color: $primary-color;
+    }
+
+    &__menu {
+      background-color: $grey;
+      box-shadow: none;
+      overflow: hidden;
+      margin: 0;
+    }
+
+    &__menu-list {
+      padding: 0;
+    }
+
+    &__menu-notice {
+      color: $primary-color;
+    }
+
+    &__indicator-separator {
+      display: none;
+    }
+
+    &__option {
+      cursor: pointer;
+      color: $primary-color;
+      font-size: 16px;
+      line-height: 24px;
+      padding: 10px;
+
+      &--is-focused {
+        background-color: $grey;
+        color: $white;
+      }
+
+      &--is-selected {
+        background-color: $mid-grey;
+      }
+    }
+  }
+
+  &--is-disabled {
+    opacity: 0.5;
+  }
+}

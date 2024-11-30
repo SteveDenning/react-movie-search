@@ -1,0 +1,34 @@
+@import "./variables";
+
+.text-glow {
+  background: linear-gradient(to right, #6666ff, #0099ff, #ff3399, #6666ff);
+  background-clip: text;
+  color: transparent;
+  animation: glow 5s ease-in-out infinite;
+  background-size: 400% 100%;
+  margin-bottom: 0;
+}
+
+// Animations
+@keyframes glow {
+  0%,
+  100% {
+    background-position: 0 0;
+  }
+
+  50% {
+    background-position: 100% 0;
+  }
+}
+
+@keyframes scale {
+  0% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.01;
+  }
+  100% {
+    scale: 1;
+  }
+}

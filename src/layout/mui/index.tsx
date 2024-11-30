@@ -7,12 +7,29 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 interface Props {
-  children: any;
+  children: React.ReactNode;
 }
 
 const theme = createTheme({
   typography: {
     fontFamily: "Gothic,Arial,sans-serif",
+  },
+  components: {
+    MuiContainer: {
+      styleOverrides: {
+        root: {
+          "&.MuiContainer-maxWidthSm": {
+            maxWidth: "400px",
+          },
+          "&.MuiContainer-maxWidthMd": {
+            maxWidth: "600px",
+          },
+          "&.MuiContainer-maxWidthLg": {
+            maxWidth: "1400px",
+          },
+        },
+      },
+    },
   },
 });
 

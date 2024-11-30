@@ -1,0 +1,33 @@
+@import "../../styles/dependencies";
+
+// Banner carousel styles
+.banner-carousel {
+  background: #000;
+  position: relative;
+
+  &:after {
+    background: rgb(2, 0, 36);
+    background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+    bottom: -300px;
+    content: "";
+    height: 300px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+  }
+
+  &__inner {
+    max-width: 700px;
+    margin: 0 auto 50px;
+
+    @include breakpoint($xxxxlarge) {
+      margin: 0 auto 80px;
+      max-width: 900px;
+    }
+  }
+
+  .react-multi-carousel-track {
+    background: $black;
+    padding-bottom: 40px;
+  }
+}
