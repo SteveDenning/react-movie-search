@@ -18,7 +18,7 @@ jobs:
           name: Build the App
           command: |
             npm install
-            npm run build
+            npm run build:circle
 
   build-and-deploy:
     # Build node project
@@ -35,7 +35,7 @@ jobs:
           name: Build the App
           command: |
             npm install
-            npm run build
+            npm run build:circle
       - run:
           name: Deploy on Firebase
           command: |
