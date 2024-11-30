@@ -48,7 +48,7 @@ const Header: React.FC<Props> = ({ heading }) => {
       .then((response: any) => {
         if (response.data["request_token"]) {
           window.location.href = `https://www.themoviedb.org/authenticate/${response.data["request_token"]}?redirect_to=${
-            environment === "development" ? "http://localhost:3000/" : "https://sd-react-movie-search.web.app/"
+            environment === "development" ? "http://localhost:3000/" : "https://tmdb.sdenning.co.uk/"
           }`;
         }
       })
