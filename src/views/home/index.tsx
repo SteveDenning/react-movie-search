@@ -30,7 +30,7 @@ const HomePage = () => {
         <MediaCarousel
           buttonText="View all"
           label="Movie Releases"
-          pathName="movie/popular"
+          pathName="movie/now_playing"
           media="movie"
         />
         <MediaCarousel
