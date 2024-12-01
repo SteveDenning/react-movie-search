@@ -21,7 +21,8 @@ interface Props {
 
 const BannerCarousel: React.FC<Props> = ({ media, path }) => {
   const [resources, setResources] = useState<any>([]);
-  const [open, setOpen] = useState(false);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const responsiveOptions = {
     desktop: {
@@ -51,14 +52,16 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
   };
 
   const fetchLatestRelease = () => {
-    setOpen(true);
+    setLoading(true);
     getMedia(path)
       .then((response: any) => {
         setResources(response.data.results);
-        setOpen(false);
+        setLoading(false);
       })
       .catch((error) => {
         console.error(error);
+        setError(true);
+        setLoading(false);
       });
   };
 
@@ -72,7 +75,7 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
         data-testid="banner-carousel"
         className="banner-carousel"
       >
-        <Fade in={!!resources.length}>
+        <Fade in={!loading}>
           <div className="banner-carousel__inner">
             <Carousel
               resources={resources}
@@ -86,7 +89,15 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
           </div>
         </Fade>
       </div>
-      <Backdrop open={open}>
+      {error && (
+        <p
+          className="error"
+          data-testid="banner-carousel-error"
+        >
+          {`There was a problem getting the ${media} latest releases - please try again later`}
+        </p>
+      )}
+      <Backdrop open={loading}>
         <CircularProgress color="primary" />
       </Backdrop>
     </>

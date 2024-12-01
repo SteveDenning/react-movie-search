@@ -42,17 +42,36 @@ const Header: React.FC<Props> = ({ heading }) => {
   const params = new URLSearchParams(searchParams);
   const sessionId = sessionStorage.getItem("session_id");
   const environment = process.env.NODE_ENV;
+  const redirectPath = environment === "development" ? "http://localhost:3000/" : "https://sd-react-movie-search.web.app/";
 
   const handleGetRequestToken = () => {
     getRequestToken()
       .then((response: any) => {
-        if (response.data["request_token"]) {
-          window.location.href = `https://www.themoviedb.org/authenticate/${response.data["request_token"]}?redirect_to=${
-            environment === "development" ? "http://localhost:3000/" : "https://sd-react-movie-search.web.app/"
-          }`;
+        const requestToken = response.data["request_token"];
+
+        if (requestToken) {
+          window.location.href = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${redirectPath}`;
         }
       })
       .catch((error) => console.error(error));
+  };
+
+  const getSessionWithToken = () => {
+    if (params.get("request_token")) {
+      createSessionWithLogin({
+        request_token: params.get("request_token"),
+      })
+        .then((response) => {
+          const sessionID = response["data"]["session_id"];
+
+          if (sessionID) {
+            setSearchParams({});
+            sessionStorage.setItem("session_id", sessionID);
+            handleAccountDetails(sessionID);
+          }
+        })
+        .catch((error) => console.error(error));
+    }
   };
 
   const handleAccountDetails = (sessionId) => {
@@ -71,26 +90,10 @@ const Header: React.FC<Props> = ({ heading }) => {
       deleteSession(sessionId)
         .then((response: any) => {
           if (response.data["success"]) {
-            sessionStorage.removeItem("session_id");
-            sessionStorage.removeItem("user");
             setOpen(false);
             setUser(null);
-          }
-        })
-        .catch((error) => console.error(error));
-    }
-  };
-
-  const getSessionWithToken = () => {
-    if (params.get("request_token")) {
-      createSessionWithLogin({
-        request_token: params.get("request_token"),
-      })
-        .then((response) => {
-          if (response["data"]["session_id"]) {
-            setSearchParams({});
-            sessionStorage.setItem("session_id", response["data"]["session_id"]);
-            handleAccountDetails(response["data"]["session_id"]);
+            sessionStorage.removeItem("session_id");
+            sessionStorage.removeItem("user");
           }
         })
         .catch((error) => console.error(error));

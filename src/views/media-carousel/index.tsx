@@ -29,17 +29,20 @@ interface Props {
 
 const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, buttonText, dataResource = "results", media }) => {
   const [resources, setResources] = useState<any>([]);
-  const [loading, seLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const fetchMediaForCarousel = () => {
-    seLoading(true);
+    setLoading(true);
     getMedia(pathName)
       .then((response: any) => {
         setResources(response.data[dataResource]);
-        seLoading(false);
+        setLoading(false);
       })
       .catch((error) => {
         console.error(error);
+        setError(true);
+        setLoading(false);
       });
   };
 
@@ -77,7 +80,15 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
           )}
         </div>
       </Fade>
-      <Backdrop open={!!loading}>
+      {error && (
+        <p
+          className="error"
+          data-testid="banner-carousel-error"
+        >
+          {`There was a problem getting the ${media} - please try again later`}
+        </p>
+      )}
+      <Backdrop open={loading}>
         <CircularProgress color="primary" />
       </Backdrop>
     </>

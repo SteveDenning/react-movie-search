@@ -20,12 +20,14 @@ import "./details.scss";
 
 const DetailsView = () => {
   const [backDrop, setBackDrop] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [resource, setResource] = useState<any>({});
   const [videoKey, setVideoKey] = useState<string>("");
 
   const navigate = useNavigate();
+
   const programmeId = window.location.pathname.split("/")[3] as string;
   const type = window.location.pathname.split("/")[2];
   const backgroundImage = backDrop ? `url(${process.env.REACT_APP_TMDB_PATH}/t/p/original/${backDrop})` : "";
@@ -55,8 +57,9 @@ const DetailsView = () => {
           setLoading(false);
         })
         .catch((error) => {
-          setLoading(false);
           console.error(error);
+          setLoading(false);
+          setError(true);
         });
     }
   };
@@ -71,6 +74,8 @@ const DetailsView = () => {
         })
         .catch((error) => {
           console.error(error);
+          setLoading(false);
+          setError(true);
         });
     } else {
       setLoading(false);
@@ -220,6 +225,14 @@ const DetailsView = () => {
           </Container>
         </div>
       </Fade>
+      {error && (
+        <p
+          className="error"
+          data-testid="banner-carousel-error"
+        >
+          There was a problem getting the detail - please try again later
+        </p>
+      )}
       <Backdrop open={loading}>
         <CircularProgress color="primary" />
       </Backdrop>
