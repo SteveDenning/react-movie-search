@@ -6,44 +6,51 @@
   justify-content: center;
   padding: 40px 0;
 
-  nav {
-    background: #dde1e7;
-    padding: 25px;
-    border-radius: 3px;
-    // box-shadow: -3px -3px 7px #ffffff73, 3px 3px 5px rgba(94, 104, 121, 0.288);
-
-    ul {
-      display: flex;
-      list-style: none;
-    }
-  }
-
   li {
-    button.MuiButtonBase-root {
+    button,
+    .MuiPaginationItem-ellipsis {
+      color: $white;
+      font-size: 22px;
+    }
+
+    button {
+      background: rgba($color: $lilac, $alpha: 0.3);
+      border: 1px solid rgba($color: $lilac, $alpha: 0.3);
+      border-radius: 0 5px;
       flex: 1;
+      height: auto;
       margin: 0px 5px;
-      background: #dde1e7;
-      border-radius: 3px;
-      box-shadow: -3px -3px 7px #ffffff73, 3px 3px 5px rgba(94, 104, 121, 0.288);
+      padding: 5px;
+      transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+
+      svg {
+        font-size: 32px;
+      }
 
       &.Mui-selected {
-        color: black;
-        box-shadow: inset -3px -3px 7px #ffffff73, inset 3px 3px 5px rgba(94, 104, 121, 0.288);
+        border: 1px solid $primary-color;
+        color: $primary-color;
       }
-    }
-    .MuiPaginationItem-ellipsis {
-      color: $primary-color;
+
+      @include hover {
+        border: 1px solid $primary-color;
+        color: $primary-color;
+      }
+
+      @include breakpoint($xlarge) {
+        padding: 8px 16px;
+      }
     }
 
     &:first-child,
     &:last-child {
-      button.MuiButtonBase-root {
-        padding: 5px 10px;
+      button {
+        padding: 5px;
+
+        @include breakpoint($xlarge) {
+          padding: 8px 16px;
+        }
       }
     }
-  }
-
-  .MuiSvgIcon-root {
-    font-size: 30px;
   }
 }

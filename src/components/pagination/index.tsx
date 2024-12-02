@@ -5,6 +5,11 @@ import useScreenSize from "../../utils/use-screen-size";
 
 // MUI
 import { Pagination } from "@mui/material";
+import PaginationItem from "@mui/material/PaginationItem";
+
+// MUI Icons
+import NavigateBefore from "@mui/icons-material/NavigateBefore";
+import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 // Styles
 import "./pagination.scss";
@@ -17,7 +22,7 @@ interface Props {
 
 const PaginationComponent: React.FC<Props> = ({ count, onChange, page }) => {
   const screenSize = useScreenSize();
-  const isMobile = screenSize.width <= 480;
+  const isTablet = screenSize.width <= 1024;
 
   return (
     <div
@@ -29,8 +34,16 @@ const PaginationComponent: React.FC<Props> = ({ count, onChange, page }) => {
           count={count < 500 ? count : 500}
           page={page}
           onChange={onChange}
-          color="primary"
-          siblingCount={isMobile ? 0 : 3}
+          siblingCount={isTablet ? 0 : 3}
+          renderItem={(item) => (
+            <PaginationItem
+              {...item}
+              components={{
+                previous: () => (isTablet ? <NavigateBefore /> : <span>Previous</span>),
+                next: () => (isTablet ? <NavigateNextIcon /> : <span>Next</span>),
+              }}
+            />
+          )}
         />
       )}
     </div>
