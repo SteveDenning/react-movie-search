@@ -2,17 +2,15 @@ import React, { useEffect } from "react";
 
 // Components
 import Card from "../../components/card";
+import Pagination from "../../components/pagination";
 
 // MUI
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Fade, Grid, Pagination } from "@mui/material";
+import { Fade, Grid } from "@mui/material";
 
 // Styles
 import "./resources.scss";
-
-// Utils
-import useScreenSize from "../../utils/use-screen-size";
 
 interface Props {
   resources: any;
@@ -23,9 +21,6 @@ interface Props {
 }
 
 const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, loading }) => {
-  const screenSize = useScreenSize();
-  const isMobile = screenSize.width <= 480;
-
   useEffect(() => {
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
   }, [page]);
@@ -69,11 +64,9 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
           {count > 1 && (
             <div className="resources__pagination">
               <Pagination
-                count={count < 500 ? count : 500}
+                count={count}
                 page={page}
                 onChange={handlePageChange}
-                color="primary"
-                siblingCount={isMobile ? 0 : 3}
               />
             </div>
           )}

@@ -2,26 +2,5 @@
 
 // resources styles
 .resources {
-  margin-top: 40px;
-
-  &__pagination {
-    display: flex;
-    justify-content: center;
-    padding: 40px 0;
-
-    .MuiButtonBase-root,
-    .MuiPaginationItem-text {
-      color: $white;
-      font-size: 20px;
-    }
-
-    .MuiButtonBase-root.Mui-selected {
-      color: $black;
-      background-color: $primary-color;
-    }
-
-    .MuiSvgIcon-root {
-      font-size: 30px;
-    }
-  }
+  margin: 40px 0;
 }

@@ -1,0 +1,49 @@
+@import "../../styles/dependencies";
+
+// Pagination styles
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+
+  nav {
+    background: #dde1e7;
+    padding: 25px;
+    border-radius: 3px;
+    // box-shadow: -3px -3px 7px #ffffff73, 3px 3px 5px rgba(94, 104, 121, 0.288);
+
+    ul {
+      display: flex;
+      list-style: none;
+    }
+  }
+
+  li {
+    button.MuiButtonBase-root {
+      flex: 1;
+      margin: 0px 5px;
+      background: #dde1e7;
+      border-radius: 3px;
+      box-shadow: -3px -3px 7px #ffffff73, 3px 3px 5px rgba(94, 104, 121, 0.288);
+
+      &.Mui-selected {
+        color: black;
+        box-shadow: inset -3px -3px 7px #ffffff73, inset 3px 3px 5px rgba(94, 104, 121, 0.288);
+      }
+    }
+    .MuiPaginationItem-ellipsis {
+      color: $primary-color;
+    }
+
+    &:first-child,
+    &:last-child {
+      button.MuiButtonBase-root {
+        padding: 5px 10px;
+      }
+    }
+  }
+
+  .MuiSvgIcon-root {
+    font-size: 30px;
+  }
+}
