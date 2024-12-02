@@ -185,8 +185,22 @@
     padding: 0;
 
     .button__content {
-      display: flex;
       align-items: center;
+      display: flex;
+    }
+
+    &.button--default {
+      svg,
+      svg.MuiSvgIcon-root {
+        fill: $anakiwa;
+      }
+
+      @include hover {
+        svg,
+        svg.MuiSvgIcon-root {
+          fill: $lilac;
+        }
+      }
     }
   }
 

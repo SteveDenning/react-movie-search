@@ -4,6 +4,9 @@ import { Meta, StoryObj } from "@storybook/react";
 // Components
 import Template from "./index";
 
+// MUI Icons
+import Person3OutlinedIcon from "@mui/icons-material/Person3Outlined";
+
 const meta: Meta<typeof Template> = {
   title: "Components/Button",
   component: Template,
@@ -32,9 +35,9 @@ const meta: Meta<typeof Template> = {
     },
     color: {
       control: "radio",
-      options: ["blue", "purple"],
+      options: ["blue", "orange", "pink", "teal", "red", "purple"],
       type: { name: "string", required: false },
-      description: "Applies variant classes to the button to control element colours",
+      description: "Applies a color class to the button",
     },
   },
 };
@@ -61,13 +64,13 @@ Filled.args = {
   variant: "filled",
 };
 
-export const Heading: Story = {
+export const Outlined: Story = {
   render: (args) => <Button {...args} />,
 };
-Heading.args = {
-  children: "Heading Text",
+Outlined.args = {
+  children: "Link Text",
   color: "blue",
-  variant: "heading",
+  variant: "outlined",
 };
 
 export const Link: Story = {
@@ -79,11 +82,19 @@ Link.args = {
   variant: "link",
 };
 
-export const Outlined: Story = {
+export const Heading: Story = {
   render: (args) => <Button {...args} />,
 };
-Outlined.args = {
-  children: "Link Text",
+Heading.args = {
+  children: "Heading Text",
   color: "blue",
-  variant: "outlined",
+  variant: "heading",
+};
+
+export const Icon: Story = {
+  render: (args) => <Button {...args} />,
+};
+Icon.args = {
+  children: <Person3OutlinedIcon />,
+  variant: "icon",
 };
