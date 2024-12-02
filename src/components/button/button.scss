@@ -87,6 +87,11 @@
       color: $white;
     }
 
+    &.button--red {
+      @include filledColorVariant($white, $red, $black, 5%);
+      color: $white;
+    }
+
     &.button--purple {
       @include filledColorVariant($white, $purple, $orange, 5%);
       color: $white;
@@ -178,6 +183,25 @@
   &--icon {
     background: none;
     padding: 0;
+
+    .button__content {
+      align-items: center;
+      display: flex;
+    }
+
+    &.button--default {
+      svg,
+      svg.MuiSvgIcon-root {
+        fill: $anakiwa;
+      }
+
+      @include hover {
+        svg,
+        svg.MuiSvgIcon-root {
+          fill: $lilac;
+        }
+      }
+    }
   }
 
   &--heading {

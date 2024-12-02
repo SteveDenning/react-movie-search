@@ -16,8 +16,8 @@ import "./search-results.scss";
 
 const SearchResults = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState(false);
   const [resources, setResources] = useState<any[]>([]);
-  const [query, setQuery] = useState<string>(window.location.search);
   const [page, setPage] = useState<number>(1);
   const [count, setCount] = useState<number>(0);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -32,18 +32,18 @@ const SearchResults = () => {
   };
 
   const handleSearchInput = () => {
-    if (query) {
+    if (window.location.search) {
       setLoading(true);
-      getAllMediaFromSearch(`${type}${query}`)
+      getAllMediaFromSearch(`${type}${window.location.search}`)
         .then((response: any) => {
           setResources(response.data.results);
-          setQuery(query);
           setCount(response.data["total_pages"]);
           setLoading(false);
         })
         .catch((error) => {
-          setLoading(false);
           console.error(error);
+          setLoading(false);
+          setError(true);
         });
     }
   };
@@ -80,6 +80,14 @@ const SearchResults = () => {
           count={count}
           loading={loading}
         />
+      )}
+      {error && (
+        <p
+          className="error"
+          data-testid="search-results-error"
+        >
+          There was a problem getting the results - please try again later
+        </p>
       )}
     </Container>
   );

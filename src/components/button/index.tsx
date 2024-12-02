@@ -8,7 +8,7 @@ interface Props {
   children: React.ReactNode;
   className?: string;
   variant?: "filled" | "outlined" | "link" | "heading" | string | undefined;
-  color?: "blue" | "orange" | "pink" | "teal" | undefined;
+  color?: "blue" | "orange" | "pink" | "teal" | "red" | "purple" | undefined;
   disabled?: boolean;
   href?: string;
   type?: "button" | "submit" | "reset" | undefined;

@@ -34,4 +34,15 @@
       }
     }
   }
+  &__user {
+    background-color: $primary-color;
+    border-radius: 50%;
+    color: $black;
+    padding: 5px;
+  }
+
+  &__avatar {
+    border-radius: 50%;
+    width: 40px;
+  }
 }
