@@ -96,7 +96,7 @@ export const createSessionWithLogin = (body) =>
 
 export const deleteSession = (sessionId) =>
   new Promise((resolve, reject) => {
-    const url = `https://api.themoviedb.org/3/authentication/session?api_key=${process.env.REACT_APP_TMDB_API_KEY}`;
+    const url = "https://api.themoviedb.org/3/authentication/session";
     axios
       .delete(url, {
         ...headers,

@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 // Utils
 import { getRequestToken, createSessionWithLogin, deleteSession, getAccountDetails } from "../../utils/get-resources";
 
-// Views
-import Search from "../../components/search";
-
 // Components
+import Search from "../../components/search";
 import Button from "../../components/button";
 
 // MUI
@@ -18,7 +17,6 @@ import TheatersIcon from "@mui/icons-material/Theaters";
 
 // Styles
 import "./header.scss";
-import { useSearchParams } from "react-router-dom";
 
 interface Props {
   heading: string;
@@ -34,13 +32,14 @@ interface UserType {
   name: string;
   username: string;
 }
+
 const Header: React.FC<Props> = ({ heading }) => {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<UserType>(JSON.parse(sessionStorage.getItem("user")));
   const [searchParams, setSearchParams] = useSearchParams(window.location.search);
 
   const params = new URLSearchParams(searchParams);
-  const sessionId = sessionStorage.getItem("session_id");
+  const sessionId = sessionStorage.getItem("sessionId");
   const environment = process.env.NODE_ENV;
   const redirectPath = environment === "development" ? "http://localhost:3000/" : "https://sd-react-movie-search.web.app/";
 
@@ -57,16 +56,18 @@ const Header: React.FC<Props> = ({ heading }) => {
   };
 
   const getSessionWithToken = () => {
-    if (params.get("request_token")) {
+    const requestToken = params.get("request_token");
+
+    if (requestToken) {
       createSessionWithLogin({
-        request_token: params.get("request_token"),
+        request_token: requestToken,
       })
-        .then((response) => {
-          const sessionID = response["data"]["session_id"];
+        .then((response: any) => {
+          const sessionID = response.data["session_id"];
 
           if (sessionID) {
             setSearchParams({});
-            sessionStorage.setItem("session_id", sessionID);
+            sessionStorage.setItem("sessionId", sessionID);
             handleAccountDetails(sessionID);
           }
         })
@@ -92,7 +93,7 @@ const Header: React.FC<Props> = ({ heading }) => {
           if (response.data["success"]) {
             setOpen(false);
             setUser(null);
-            sessionStorage.removeItem("session_id");
+            sessionStorage.removeItem("sessionId");
             sessionStorage.removeItem("user");
           }
         })
@@ -155,6 +156,7 @@ const Header: React.FC<Props> = ({ heading }) => {
             )}
           </Button>
         </div>
+        {/* TODO - move to navigation component */}
         <Drawer
           open={open}
           onClose={toggleDrawer(false)}
