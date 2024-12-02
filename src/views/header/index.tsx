@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { getRequestToken, createSessionWithLogin, deleteSession, getAccountDetails } from "../../utils/get-resources";
 
 // Views
-import Search from "./../search";
+import Search from "../../components/search";
 
 // Components
 import Button from "../../components/button";

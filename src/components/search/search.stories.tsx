@@ -11,7 +11,7 @@ import StorybookLayout from "../../layout/storybook";
 import { Container } from "@mui/material";
 
 const meta: Meta<typeof Template> = {
-  title: "Views/Search",
+  title: "Components/Search",
   component: Template,
   tags: ["autodocs"],
   argTypes: {},
