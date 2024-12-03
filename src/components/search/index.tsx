@@ -26,14 +26,22 @@ import TheatersIcon from "@mui/icons-material/Theaters";
 import "./search.scss";
 
 const Search = () => {
+  const [mediaSelection, setMediaSelection] = useState({ value: "multi", label: "All" });
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [isSelectDisabled, setIsSelectDisabled] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const params = new URLSearchParams(searchParams);
 
+  const options = [
+    { value: "multi", label: "All" },
+    { value: "tv", label: "TV" },
+    { value: "movie", label: "Film" },
+    { value: "person", label: "Actor" },
+  ];
+
   const [formData, setFormData] = useState({
     searchTerm: "",
-    mediaType: { value: "multi", label: "All" },
+    mediaType: "multi",
   });
 
   const navigate = useNavigate();
@@ -47,10 +55,14 @@ const Search = () => {
   const handleSubmit = () => {
     if (suggestions.length) {
       updateQuery("query", formData.searchTerm);
-      updateQuery("mediaType", formData.mediaType.value);
-      if (window.location.pathname !== config.searchResults.path) {
-        window.location.href = `${config.searchResults.path}/${formData.mediaType.value}?query=${formData.searchTerm}`;
-      }
+      updateQuery("mediaType", formData.mediaType);
+      navigate(
+        {
+          pathname: `${config.searchResults.path}/${formData.mediaType}`,
+          search: `?query=${formData.searchTerm}`,
+        },
+        { replace: window.location.pathname !== config.searchResults.path },
+      );
     }
   };
 
@@ -62,7 +74,7 @@ const Search = () => {
         searchTerm: event.target.value,
       });
 
-      getAllMediaFromSearch(`${formData.mediaType.value}?query=${formData.searchTerm}`)
+      getAllMediaFromSearch(`${formData.mediaType}?query=${formData.searchTerm}`)
         .then((response: any) => {
           setSuggestions(response.data.results.slice(0, 10));
         })
@@ -97,10 +109,16 @@ const Search = () => {
   }, []);
 
   const handleMediType = (event: any) => {
+    setMediaSelection(handleSetMedia(event.value));
+
     setFormData({
       ...formData,
-      mediaType: event,
+      mediaType: event.value,
     });
+  };
+
+  const handleSetMedia = (value: string) => {
+    return options.find((option) => option.value === value);
   };
 
   return (
@@ -111,14 +129,9 @@ const Search = () => {
       <Select
         id="mediaType"
         label="Select media type"
-        value={formData.mediaType}
+        value={mediaSelection}
         onChange={handleMediType}
-        options={[
-          { value: "multi", label: "All" },
-          { value: "tv", label: "TV" },
-          { value: "movie", label: "Film" },
-          { value: "person", label: "Actor" },
-        ]}
+        options={options}
         placeholder="Select..."
         searchable={false}
         defaultValue={"multi"}
@@ -171,7 +184,7 @@ const Search = () => {
             {!!suggestions.length && (
               <ul className="search__options-list">
                 {suggestions.map((suggestion: any, index: number) => {
-                  const mediaType = formData.mediaType.value === "multi" ? suggestion["media_type"] : formData.mediaType.value;
+                  const mediaType = formData.mediaType === "multi" ? suggestion["media_type"] : formData.mediaType;
 
                   return (
                     <li
