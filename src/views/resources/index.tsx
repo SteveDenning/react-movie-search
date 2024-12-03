@@ -66,7 +66,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
               <Pagination
                 count={count}
                 page={page}
-                onChange={handlePageChange}
+                onChangePage={handlePageChange}
               />
             </div>
           )}

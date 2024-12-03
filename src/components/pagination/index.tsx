@@ -17,10 +17,10 @@ import "./pagination.scss";
 interface Props {
   count: number;
   page: number;
-  onChange: (event: React.ChangeEvent<any>, value: number) => void;
+  onChangePage: (event: React.ChangeEvent<any>, value: number) => void;
 }
 
-const PaginationComponent: React.FC<Props> = ({ count, onChange, page }) => {
+const PaginationComponent: React.FC<Props> = ({ count, onChangePage, page }) => {
   const screenSize = useScreenSize();
   const isTablet = screenSize.width <= 1024;
 
@@ -33,7 +33,7 @@ const PaginationComponent: React.FC<Props> = ({ count, onChange, page }) => {
         <Pagination
           count={count < 500 ? count : 500}
           page={page}
-          onChange={onChange}
+          onChange={onChangePage}
           siblingCount={isTablet ? 0 : 3}
           renderItem={(item) => (
             <PaginationItem

@@ -9,7 +9,7 @@ describe("Pagination component", () => {
   const onChange = jest.fn();
 
   describe("Component rendering", () => {
-    global.innerWidth = 2000;
+    global.innerWidth = 375;
     beforeEach(() =>
       render(
         <Pagination
@@ -24,9 +24,9 @@ describe("Pagination component", () => {
       expect(screen.getByTestId("pagination")).toBeInTheDocument();
     });
 
-    it("Should render Previous and Next buttons", () => {
-      expect(screen.getByText("Previous")).toBeInTheDocument();
-      expect(screen.getByText("Next")).toBeInTheDocument();
+    it("Should render Previous and Next button as icons on smaller devices", () => {
+      expect(screen.getByTestId("NavigateBeforeIcon")).toBeInTheDocument();
+      expect(screen.getByTestId("NavigateNextIcon")).toBeInTheDocument();
     });
   });
 });
