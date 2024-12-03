@@ -28,5 +28,10 @@ describe("Pagination component", () => {
       expect(screen.getByTestId("NavigateBeforeIcon")).toBeInTheDocument();
       expect(screen.getByTestId("NavigateNextIcon")).toBeInTheDocument();
     });
+
+    it("Should not render Previous and Next button as text", () => {
+      expect(screen.queryByText("Previous")).not.toBeInTheDocument();
+      expect(screen.queryByText("Next")).not.toBeInTheDocument();
+    });
   });
 });

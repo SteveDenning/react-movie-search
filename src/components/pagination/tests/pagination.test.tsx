@@ -10,6 +10,7 @@ describe("Pagination component", () => {
 
   describe("Component rendering", () => {
     global.innerWidth = 2000;
+
     beforeEach(() =>
       render(
         <Pagination
@@ -25,8 +26,29 @@ describe("Pagination component", () => {
     });
 
     it("Should render Previous and Next buttons", () => {
-      expect(screen.getByText("Previous")).toBeInTheDocument();
-      expect(screen.getByText("Next")).toBeInTheDocument();
+      expect(screen.queryByText("Previous")).toBeInTheDocument();
+      expect(screen.queryByText("Next")).toBeInTheDocument();
+    });
+
+    it("Should not render Previous and Next button as icons", () => {
+      expect(screen.queryByTestId("NavigateBeforeIcon")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("NavigateNextIcon")).not.toBeInTheDocument();
+    });
+  });
+
+  describe("Component rendering", () => {
+    beforeEach(() =>
+      render(
+        <Pagination
+          count={1}
+          page={1}
+          onChangePage={onChange}
+        />,
+      ),
+    );
+
+    it("Should not render the Pagination if only one page is available", () => {
+      expect(screen.queryByTestId("pagination")).toBeNull();
     });
   });
 });

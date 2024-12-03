@@ -25,12 +25,11 @@ const PaginationComponent: React.FC<Props> = ({ count, onChangePage, page }) => 
   const isTablet = screenSize.width <= 1024;
 
   return (
-    <div
-      className="pagination"
-      data-testid="pagination"
-    >
+    <>
       {count > 1 && (
         <Pagination
+          className="pagination"
+          data-testid="pagination"
           count={count < 500 ? count : 500}
           page={page}
           onChange={onChangePage}
@@ -46,7 +45,7 @@ const PaginationComponent: React.FC<Props> = ({ count, onChangePage, page }) => 
           )}
         />
       )}
-    </div>
+    </>
   );
 };
 
