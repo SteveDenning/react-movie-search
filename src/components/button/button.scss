@@ -190,14 +190,12 @@
     }
 
     &.button--default {
-      svg,
-      svg.MuiSvgIcon-root {
+      svg {
         fill: $anakiwa;
       }
 
       @include hover {
-        svg,
-        svg.MuiSvgIcon-root {
+        svg {
           fill: $lilac;
         }
       }

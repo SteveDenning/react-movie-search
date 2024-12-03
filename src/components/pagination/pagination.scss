@@ -1,0 +1,56 @@
+@import "../../styles/dependencies";
+
+// Pagination styles
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+
+  li {
+    button,
+    .MuiPaginationItem-ellipsis {
+      color: $white;
+      font-size: 22px;
+    }
+
+    button {
+      background: rgba($color: $lilac, $alpha: 0.3);
+      border: 1px solid rgba($color: $lilac, $alpha: 0.3);
+      border-radius: 0 5px;
+      flex: 1;
+      height: auto;
+      margin: 0px 5px;
+      padding: 5px;
+      transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+
+      svg {
+        font-size: 32px;
+      }
+
+      &.Mui-selected {
+        border: 1px solid $primary-color;
+        color: $primary-color;
+      }
+
+      @include hover {
+        border: 1px solid $primary-color;
+        color: $primary-color;
+      }
+
+      @include breakpoint($xlarge) {
+        padding: 8px 16px;
+      }
+    }
+
+    &:first-child,
+    &:last-child {
+      button {
+        padding: 5px;
+
+        @include breakpoint($xlarge) {
+          padding: 8px 16px;
+        }
+      }
+    }
+  }
+}
