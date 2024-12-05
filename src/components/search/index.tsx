@@ -139,6 +139,7 @@ const Search = () => {
       />
       <div className="search__options">
         <form
+          autoComplete="off"
           className="search__form"
           onChange={(e) => {
             handleSuggestions(e);
