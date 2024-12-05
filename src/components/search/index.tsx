@@ -26,7 +26,7 @@ import TheatersIcon from "@mui/icons-material/Theaters";
 import "./search.scss";
 
 const Search = () => {
-  const [mediaSelection, setMediaSelection] = useState(null);
+  const [mediaType, setMediaType] = useState(null);
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [isSelectDisabled, setIsSelectDisabled] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -108,8 +108,8 @@ const Search = () => {
     }
   }, []);
 
-  const handleMediType = (event: any) => {
-    setMediaSelection(handleSetMedia(event.value));
+  const handleMediaTypeChange = (event: any) => {
+    setMediaType(handleSetMedia(event.value));
 
     setFormData({
       ...formData,
@@ -129,8 +129,8 @@ const Search = () => {
       <Select
         id="mediaType"
         label="Select media type"
-        value={mediaSelection}
-        onChange={handleMediType}
+        value={mediaType}
+        onChange={handleMediaTypeChange}
         options={options}
         placeholder="All"
         searchable={false}
