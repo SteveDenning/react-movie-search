@@ -26,7 +26,7 @@ import TheatersIcon from "@mui/icons-material/Theaters";
 import "./search.scss";
 
 const Search = () => {
-  const [mediaSelection, setMediaSelection] = useState({ value: "multi", label: "All" });
+  const [mediaSelection, setMediaSelection] = useState(null);
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [isSelectDisabled, setIsSelectDisabled] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -132,7 +132,7 @@ const Search = () => {
         value={mediaSelection}
         onChange={handleMediType}
         options={options}
-        placeholder="Select..."
+        placeholder="All"
         searchable={false}
         defaultValue={"multi"}
         isDisabled={isSelectDisabled}
