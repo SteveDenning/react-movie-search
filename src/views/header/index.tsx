@@ -41,7 +41,7 @@ const Header: React.FC<Props> = ({ heading }) => {
   const params = new URLSearchParams(searchParams);
   const sessionId = sessionStorage.getItem("sessionId");
   const environment = process.env.NODE_ENV;
-  const redirectPath = environment === "development" ? "http://localhost:3000/" : "https://sd-react-movie-search.web.app/";
+  const redirectTo = environment === "development" ? "http://localhost:3000/" : "https://sd-react-movie-search.web.app/";
 
   const handleGetRequestToken = () => {
     getRequestToken()
@@ -49,7 +49,7 @@ const Header: React.FC<Props> = ({ heading }) => {
         const requestToken = response.data["request_token"];
 
         if (requestToken) {
-          window.location.href = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${redirectPath}`;
+          window.location.href = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${redirectTo}`;
         }
       })
       .catch((error) => console.error(error));
