@@ -10,10 +10,10 @@
     font-family: Arial, Helvetica, sans-serif; // TODO - update font family
     background-color: $grey;
     border-radius: 0 20px;
-    overflow: hidden;
+    overflow-y: auto;
     color: $white;
     left: 50%;
-    max-height: calc(100% - 32px);
+    max-height: 700px;
     max-width: calc(100% - 32px);
     position: absolute;
     top: 50%;
@@ -21,6 +21,7 @@
     width: 100%;
 
     @include breakpoint($medium) {
+      max-height: 900px;
       max-width: 744px;
     }
   }
