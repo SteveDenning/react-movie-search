@@ -1,6 +1,15 @@
 @import "../../styles/dependencies";
 
-// Home Page styles
+// Search Results styles
 .search-results {
   margin-top: 40px;
+
+  &__no-results {
+    text-align: center;
+    margin: 60px 0;
+  }
+
+  &__no-results-title {
+    color: $primary-color;
+  }
 }

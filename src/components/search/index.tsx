@@ -30,8 +30,13 @@ const Search = () => {
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [isSelectDisabled, setIsSelectDisabled] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-  const params = new URLSearchParams(searchParams);
 
+  const navigate = useNavigate();
+
+  const showOptions = window.location.pathname !== config.searchResults.path;
+  const params = new URLSearchParams(searchParams);
+  const type = params.get("type") || "multi";
+  const query = params.get("query");
   const options = [
     { value: "multi", label: "All" },
     { value: "tv", label: "TV" },
@@ -39,27 +44,20 @@ const Search = () => {
     { value: "person", label: "Actor" },
   ];
 
-  const [formData, setFormData] = useState({
-    searchTerm: "",
-    mediaType: "multi",
-  });
-
-  const navigate = useNavigate();
-
   const updateQuery = (key, value) => {
     params.set(key, value);
-    sessionStorage.setItem(key, value);
+    // sessionStorage.setItem(key, value);
     setSearchParams(params);
   };
 
   const handleSubmit = () => {
     if (suggestions.length) {
-      updateQuery("query", formData.searchTerm);
-      updateQuery("mediaType", formData.mediaType);
+      updateQuery("query", query);
+      updateQuery("type", type);
       navigate(
         {
-          pathname: `${config.searchResults.path}/${formData.mediaType}`,
-          search: `?query=${formData.searchTerm}`,
+          pathname: `${config.searchResults.path}`,
+          search: `?query=${query}&type=${type}`,
         },
         { replace: window.location.pathname !== config.searchResults.path },
       );
@@ -69,12 +67,7 @@ const Search = () => {
   const handleSuggestions = (event: any) => {
     if (event.target.value.length > 2) {
       setIsSelectDisabled(true);
-      setFormData({
-        ...formData,
-        searchTerm: event.target.value,
-      });
-
-      getAllMediaFromSearch(`${formData.mediaType}?query=${formData.searchTerm}`)
+      getAllMediaFromSearch(`${type}?query=${query}`)
         .then((response: any) => {
           setSuggestions(response.data.results.slice(0, 10));
         })
@@ -90,8 +83,8 @@ const Search = () => {
     setSuggestions([]);
     setSearchParams({});
     removeQueryParam("query");
-    sessionStorage.removeItem("query");
-    window.location.href = "/";
+    removeQueryParam("type");
+    // sessionStorage.removeItem("query");
   };
 
   const removeQueryParam = (key) => {
@@ -104,22 +97,23 @@ const Search = () => {
 
   useEffect(() => {
     if (sessionStorage.getItem("query")) {
-      updateQuery("query", sessionStorage.getItem("query"));
+      // updateQuery("query", sessionStorage.getItem("query"));
     }
   }, []);
 
   const handleMediaTypeChange = (event: any) => {
-    setMediaType(handleSetMedia(event.value));
-
-    setFormData({
-      ...formData,
-      mediaType: event.value,
-    });
+    updateQuery("type", event.value);
   };
 
   const handleSetMedia = (value: string) => {
     return options.find((option) => option.value === value);
   };
+
+  useEffect(() => {
+    if (type) {
+      setMediaType(handleSetMedia(type));
+    }
+  }, [type]);
 
   return (
     <div
@@ -161,16 +155,13 @@ const Search = () => {
             className="search__form-input"
             type="text"
             placeholder="Search..."
-            value={formData.searchTerm || ""}
+            value={query || ""}
             onChange={(e) => {
-              setFormData({
-                ...formData,
-                searchTerm: e.target.value,
-              });
+              updateQuery("query", e.target.value);
             }}
           />
         </form>
-        {!!formData.searchTerm && (
+        {!!query && (
           <Button
             variant="icon"
             className="search__form-clear"
@@ -180,12 +171,12 @@ const Search = () => {
             <ClearIcon />
           </Button>
         )}
-        <Fade in={!!suggestions.length && !!formData.searchTerm}>
+        <Fade in={!!suggestions.length && !!query}>
           <div>
-            {!!suggestions.length && (
+            {!!suggestions.length && showOptions && (
               <ul className="search__options-list">
                 {suggestions.map((suggestion: any, index: number) => {
-                  const mediaType = formData.mediaType === "multi" ? suggestion["media_type"] : formData.mediaType;
+                  const mediaType = type === "multi" ? suggestion["media_type"] : type;
 
                   return (
                     <li
