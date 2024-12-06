@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
 
 // Components
 import Card from "../../components/card";

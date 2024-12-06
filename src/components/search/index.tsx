@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import moment from "moment";
 
 // Utils
 import { getAllMediaFromSearch } from "../../utils/get-resources";
@@ -9,8 +8,8 @@ import { getAllMediaFromSearch } from "../../utils/get-resources";
 import { config } from "../../config/routes";
 
 // Components
+import AutoSuggestOptions from "../suggestions";
 import Button from "../../components/button";
-import Image from "../../components/image";
 import Select from "../../components/select";
 
 // MUI
@@ -18,9 +17,6 @@ import { Fade } from "@mui/material";
 
 // Icons
 import ClearIcon from "@mui/icons-material/Clear";
-import PersonIcon from "@mui/icons-material/Person";
-import TvIcon from "@mui/icons-material/Tv";
-import TheatersIcon from "@mui/icons-material/Theaters";
 
 // Styles
 import "./search.scss";
@@ -28,7 +24,6 @@ import "./search.scss";
 const Search = () => {
   const [mediaType, setMediaType] = useState(null);
   const [suggestions, setSuggestions] = useState<any[]>([]);
-  const [isSelectDisabled, setIsSelectDisabled] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const navigate = useNavigate();
@@ -46,7 +41,6 @@ const Search = () => {
 
   const updateQuery = (key, value) => {
     params.set(key, value);
-    // sessionStorage.setItem(key, value);
     setSearchParams(params);
   };
 
@@ -66,7 +60,6 @@ const Search = () => {
 
   const handleSuggestions = (event: any) => {
     if (event.target.value.length > 2) {
-      setIsSelectDisabled(true);
       getAllMediaFromSearch(`${type}?query=${query}`)
         .then((response: any) => {
           setSuggestions(response.data.results.slice(0, 10));
@@ -74,8 +67,6 @@ const Search = () => {
         .catch((error) => {
           console.error(error);
         });
-    } else {
-      setIsSelectDisabled(false);
     }
   };
 
@@ -84,7 +75,6 @@ const Search = () => {
     setSearchParams({});
     removeQueryParam("query");
     removeQueryParam("type");
-    // sessionStorage.removeItem("query");
   };
 
   const removeQueryParam = (key) => {
@@ -94,12 +84,6 @@ const Search = () => {
       search: params.toString(),
     });
   };
-
-  useEffect(() => {
-    if (sessionStorage.getItem("query")) {
-      // updateQuery("query", sessionStorage.getItem("query"));
-    }
-  }, []);
 
   const handleMediaTypeChange = (event: any) => {
     updateQuery("type", event.value);
@@ -129,7 +113,6 @@ const Search = () => {
         placeholder="All"
         searchable={false}
         defaultValue={"multi"}
-        isDisabled={isSelectDisabled}
       />
       <div className="search__options">
         <form
@@ -154,7 +137,7 @@ const Search = () => {
             id="search"
             className="search__form-input"
             type="text"
-            placeholder="Search..."
+            placeholder="Search TMDB"
             value={query || ""}
             onChange={(e) => {
               updateQuery("query", e.target.value);
@@ -174,35 +157,10 @@ const Search = () => {
         <Fade in={!!suggestions.length && !!query}>
           <div>
             {!!suggestions.length && showOptions && (
-              <ul className="search__options-list">
-                {suggestions.map((suggestion: any, index: number) => {
-                  const mediaType = type === "multi" ? suggestion["media_type"] : type;
-
-                  return (
-                    <li
-                      className="search__options-list-item"
-                      key={index}
-                    >
-                      <Button
-                        href={`/details/${mediaType}/${suggestion["id"]}`}
-                        variant="null"
-                      >
-                        <Image
-                          resource={suggestion}
-                          size="xsmall"
-                        />
-                        <div className="search__options-content">
-                          <p>{suggestion["original_title"] || suggestion["name"]}</p>
-                          <p className="search__options-list-item-year">{moment(suggestion["release_date"]).format("YYYY")}</p>
-                        </div>
-                        <div className="search__options-media-icon">
-                          {mediaType === "tv" ? <TvIcon /> : mediaType === "movie" ? <TheatersIcon /> : <PersonIcon />}
-                        </div>
-                      </Button>
-                    </li>
-                  );
-                })}
-              </ul>
+              <AutoSuggestOptions
+                type={type}
+                options={suggestions}
+              />
             )}
           </div>
         </Fade>
