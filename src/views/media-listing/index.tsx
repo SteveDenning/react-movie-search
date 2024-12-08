@@ -4,8 +4,8 @@ import { useSearchParams } from "react-router-dom";
 // Utils
 import { getMedia } from "../../utils/get-resources";
 
-// Views
-import Resources from "../../views/resources";
+// Components
+import Resources from "../../components/resources";
 
 // MUI
 import { Container } from "@mui/material";

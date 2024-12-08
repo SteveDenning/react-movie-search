@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import MUILayout from "../../layout/mui";
 
 interface Props {
-  children?: React.ReactNode;
+  children: any;
 }
 
 const StorybookLayout: React.FC<Props> = ({ children }) => {

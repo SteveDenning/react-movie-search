@@ -8,8 +8,8 @@ import { getAllMediaFromSearch } from "../../utils/get-resources";
 // MUI
 import { Container } from "@mui/material";
 
-// Views
-import Resources from "../../views/resources";
+// Components
+import Resources from "../../components/resources";
 
 // Styles
 import "./search-results.scss";

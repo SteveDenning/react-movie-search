@@ -7,8 +7,8 @@ import "./select.scss";
 interface Props {
   id: string;
   onChange: (event: React.ChangeEvent<any>) => void;
-  options: object[];
-  value: object;
+  options: any[];
+  value: any;
   label: string;
   className?: string;
   placeholder?: string;
