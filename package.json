@@ -10,7 +10,8 @@
     "test:circle": "node --experimental-vm-modules node_modules/jest/bin/jest.js --maxWorkers=2",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "build:deploy": "webpack --mode production && firebase deploy"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",
