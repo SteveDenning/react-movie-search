@@ -11,7 +11,33 @@ const meta: Meta<typeof Template> = {
   title: "Components/Resources",
   component: Template,
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    resources: {
+      control: "text",
+      type: { name: "string", required: true },
+      description: "Array of resource objects",
+    },
+    handlePageChange: {
+      control: false,
+      type: { name: "function", required: true },
+      description: "Function to trigger the pagination",
+    },
+    count: {
+      control: "text",
+      type: { name: "number", required: true },
+      description: "Displays the number of pages available",
+    },
+    page: {
+      control: "text",
+      type: { name: "number", required: true },
+      description: "Number used to display the current page",
+    },
+    loading: {
+      control: "boolean",
+      type: { name: "boolean", required: false },
+      description: "Dictates the current state of the page loading the resources",
+    },
+  },
 };
 export default meta;
 
