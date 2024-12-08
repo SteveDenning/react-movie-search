@@ -21,7 +21,7 @@ import "./media-carousel.scss";
 interface Props {
   label?: string;
   pathName: string;
-  responsiveOptions?: any;
+  responsiveOptions?: object;
   buttonText?: string;
   dataResource?: "cast" | "results";
   media?: string;

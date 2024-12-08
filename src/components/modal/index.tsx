@@ -14,13 +14,12 @@ import "./modal.scss";
 
 interface Props {
   id: string;
-  variant?: any[];
+  variant?: string[];
   className?: string;
   open: boolean;
   handleClose: () => any;
   title?: string;
-  header?: any;
-  children?: any;
+  children?: React.ReactNode;
   description?: string;
   footer?: any;
   video?: boolean;

@@ -8,8 +8,8 @@ import { getAllMediaFromSearch } from "../../utils/get-resources";
 // MUI
 import { Container } from "@mui/material";
 
-// Views
-import Resources from "../../views/resources";
+// Components
+import Resources from "../../components/resources";
 
 // Styles
 import "./search-results.scss";
@@ -22,8 +22,8 @@ const SearchResults = () => {
   const [count, setCount] = useState<number>(0);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const type = window.location.pathname.split("/")[2];
   const params = new URLSearchParams(searchParams);
+  const type = params.get("type") || "multi";
   const location = useLocation();
 
   const handlePageChange = (event, value) => {
@@ -72,7 +72,7 @@ const SearchResults = () => {
 
   return (
     <Container>
-      {resources.length && (
+      {resources.length ? (
         <Resources
           resources={resources}
           page={page}
@@ -80,6 +80,10 @@ const SearchResults = () => {
           count={count}
           loading={loading}
         />
+      ) : (
+        <div className="search-results__no-results">
+          <h2 className="search-results__no-results-title">No results found</h2>
+        </div>
       )}
       {error && (
         <p

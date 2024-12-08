@@ -17,8 +17,8 @@ interface Props {
   target?: string;
   ariaHidden?: boolean;
   role?: string;
-  onClick?: (event: any) => void;
-  tabIndex?: any;
+  onClick?: (event: MouseEvent) => void;
+  tabIndex?: number;
 }
 
 const Button: React.FC<Props> = ({

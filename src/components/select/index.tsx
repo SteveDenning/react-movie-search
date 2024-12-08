@@ -13,7 +13,7 @@ interface Props {
   className?: string;
   placeholder?: string;
   searchable?: boolean;
-  defaultValue?: any;
+  defaultValue?: string;
   labeled?: boolean;
   isDisabled?: boolean;
 }

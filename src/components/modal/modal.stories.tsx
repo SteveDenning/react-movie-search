@@ -41,11 +41,6 @@ const meta: Meta<typeof Template> = {
       type: { name: "string", required: true },
       description: "Main heading element to be displayed in the modal window",
     },
-    header: {
-      control: "text",
-      type: { name: "string", required: false },
-      description: "Any react node to optionally display in the modal window header area",
-    },
     children: {
       control: "text",
       type: { name: "string", required: false },
@@ -154,5 +149,18 @@ Video.args = {
         type="video/mp4"
       />
     </video>
+  ),
+};
+
+export const Text: Story = {
+  render: (args) => <Modal {...args} />,
+};
+Text.args = {
+  id: "text",
+  children: (
+    <p>
+      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab delectus dolor laboriosam praesentium neque eius cum architecto quibusdam ex
+      tempora. Quaerat illo blanditiis saepe tempore eligendi, quibusdam eum beatae quidem.
+    </p>
   ),
 };

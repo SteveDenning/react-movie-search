@@ -11,7 +11,7 @@ import Footer from "../../views/footer";
 import Header from "../../views/header";
 
 interface Props {
-  children?: any;
+  children: React.ReactNode;
   heading: string;
   hasSearch?: boolean;
 }
