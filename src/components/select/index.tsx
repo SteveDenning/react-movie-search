@@ -7,13 +7,13 @@ import "./select.scss";
 interface Props {
   id: string;
   onChange: (event: React.ChangeEvent<any>) => void;
-  options: any[];
-  value: any;
+  options: object[];
+  value: object;
   label: string;
   className?: string;
   placeholder?: string;
   searchable?: boolean;
-  defaultValue?: any;
+  defaultValue?: string;
   labeled?: boolean;
   isDisabled?: boolean;
 }

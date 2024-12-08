@@ -6,6 +6,18 @@
     background: rgba($black, 0.6);
   }
 
+  &__body {
+    padding: 40px 16px;
+
+    @include breakpoint($medium) {
+      padding: 32px;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+
   &__inner {
     background-color: $grey;
     border-radius: 0 20px;
@@ -57,21 +69,12 @@
     margin: 0;
   }
 
-  &__body {
-    padding: 32px;
-
-    img {
-      width: 100%;
-    }
-  }
-
   &__footer {
     border-top: 1px solid $primary-color;
     padding: 1rem;
   }
 
   p {
-    line-height: 32px;
     margin: 0 0 1rem;
 
     &:last-child {

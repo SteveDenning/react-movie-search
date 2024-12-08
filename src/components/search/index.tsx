@@ -113,6 +113,7 @@ const Search = () => {
         placeholder="All"
         searchable={false}
         defaultValue={"multi"}
+        isDisabled={!!suggestions.length}
       />
       <div className="search__options">
         <form
@@ -143,17 +144,17 @@ const Search = () => {
               updateQuery("query", e.target.value);
             }}
           />
+          {!!query && (
+            <Button
+              variant="icon"
+              className="search__form-clear"
+              type="reset"
+              onClick={clear}
+            >
+              <ClearIcon />
+            </Button>
+          )}
         </form>
-        {!!query && (
-          <Button
-            variant="icon"
-            className="search__form-clear"
-            type="reset"
-            onClick={clear}
-          >
-            <ClearIcon />
-          </Button>
-        )}
         <Fade in={!!suggestions.length && !!query}>
           <div>
             {!!suggestions.length && showOptions && (

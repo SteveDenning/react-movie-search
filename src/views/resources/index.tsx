@@ -13,7 +13,7 @@ import { Fade, Grid } from "@mui/material";
 import "./resources.scss";
 
 interface Props {
-  resources: any;
+  resources: object[];
   handlePageChange?: (event: React.ChangeEvent<any>, value: number) => void;
   count: number;
   page: number;

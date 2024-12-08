@@ -15,7 +15,7 @@
     max-width: 700px;
     padding: 10px 10px 0;
     position: absolute;
-    top: 55px;
+    top: 16px;
     transform: translateX(-50%);
     width: 100%;
     z-index: 2000;
@@ -38,7 +38,7 @@
     }
 
     .image,
-    .search__media-icon {
+    .suggestions__media-icon {
       display: none;
 
       @include breakpoint($xlarge) {

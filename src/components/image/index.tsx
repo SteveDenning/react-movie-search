@@ -7,7 +7,8 @@ import useScreenSize from "../../utils/use-screen-size";
 import Modal from "../../components/modal";
 
 // Assets
-import defaultPlaceholder from "../../assets/images/placeholder-1.png";
+import mediaPlaceholder from "../../assets/images/placeholder.png";
+import avatarPlaceholder from "../../assets/images/avatar-placeholder.png";
 
 // Styles
 import "./image.scss";
@@ -22,6 +23,15 @@ interface Props {
 const Image: React.FC<Props> = ({ resource, size, variant }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
+  const isPerson = Object.prototype.hasOwnProperty.call(resource, "gender");
+
+  const getPlaceholder = () => {
+    if (isPerson) {
+      return avatarPlaceholder;
+    }
+    return mediaPlaceholder;
+  };
+
   const screenSize = useScreenSize();
   const isMobile = screenSize.width <= 480;
 
@@ -34,7 +44,7 @@ const Image: React.FC<Props> = ({ resource, size, variant }) => {
   const imageSrc = resource["poster_path"] || resource["profile_path"] || resource["backdrop_path"];
   const imagePath = imageSrc
     ? `https://image.tmdb.org/t/p/original/${variant === "banner" ? resource["backdrop_path"] : imageSrc}`
-    : defaultPlaceholder;
+    : getPlaceholder();
 
   const handleClose = () => {
     setIsOpen(false);
