@@ -7,7 +7,7 @@ import useScreenSize from "../../utils/use-screen-size";
 import Modal from "../../components/modal";
 
 // Assets
-import mediaPlaceholder from "../../assets/images/placeholder.png";
+import mediaPlaceholder from "../../assets/images/placeholder-3.jpeg";
 import avatarPlaceholder from "../../assets/images/avatar-placeholder.png";
 
 // Styles

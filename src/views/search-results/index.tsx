@@ -54,7 +54,6 @@ const SearchResults = () => {
   };
 
   useEffect(() => {
-    // Add debounce
     if (!location.search) {
       setResources([]);
     } else {
