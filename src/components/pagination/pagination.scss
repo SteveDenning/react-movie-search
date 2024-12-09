@@ -19,9 +19,28 @@
       border-radius: 0 5px;
       flex: 1;
       height: auto;
-      margin: 0px 5px;
-      padding: 5px;
+      margin: 0px 2px;
+      padding: 0;
       transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+
+      &:first-child,
+      &:last-child {
+        button {
+          padding: 0;
+        }
+      }
+
+      @include breakpoint($small) {
+        margin: 0px 5px;
+        padding: 3px 10px 0px 10px;
+
+        &:first-child,
+        &:last-child {
+          button {
+            padding: 5px;
+          }
+        }
+      }
 
       svg {
         font-size: 32px;
@@ -46,6 +65,15 @@
     &:last-child {
       button {
         padding: 0;
+      }
+    }
+
+    @include breakpoint($small) {
+      &:first-child,
+      &:last-child {
+        button {
+          padding: 0 5px;
+        }
       }
     }
   }

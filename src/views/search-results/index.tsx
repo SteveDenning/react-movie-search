@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 
 // Utils
@@ -25,7 +24,6 @@ const SearchResults = () => {
   const params = new URLSearchParams(searchParams);
   const type = params.get("type") || "multi";
   const query = params.get("query") || null;
-  const location = useLocation();
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -56,6 +54,9 @@ const SearchResults = () => {
 
   useEffect(() => {
     handleSearchInput();
+    if (!query) {
+      setResources([]);
+    }
   }, [type, query]);
 
   useEffect(() => {
@@ -78,7 +79,7 @@ const SearchResults = () => {
         />
       ) : (
         <div className="search-results__no-results">
-          <h2 className="search-results__no-results-title">No results found</h2>
+          <h2 className="search-results__no-results-title">Let&#39;s try another search</h2>
         </div>
       )}
       {error && (

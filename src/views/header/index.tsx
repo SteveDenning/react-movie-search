@@ -91,10 +91,10 @@ const Header: React.FC<Props> = ({ heading }) => {
       deleteSession(sessionId)
         .then((response: any) => {
           if (response.data["success"]) {
-            setOpen(false);
-            setUser(null);
             sessionStorage.removeItem("sessionId");
             sessionStorage.removeItem("user");
+            setUser(null);
+            window.location.href = "/";
           }
         })
         .catch((error) => console.error(error));

@@ -24,15 +24,13 @@ import "./search.scss";
 const Search = () => {
   const [mediaType, setMediaType] = useState(null);
   const [suggestions, setSuggestions] = useState<any[]>([]);
+
   const [searchParams, setSearchParams] = useSearchParams();
   const params = new URLSearchParams(searchParams);
   const [searchTerm, setSearchTerm] = useState(params.get("query"));
-
+  const type = params.get("type") || "multi";
   const navigate = useNavigate();
 
-  const showOptions = window.location.pathname !== config.searchResults.path;
-  const type = params.get("type") || "multi";
-  const query = params.get("query");
   const options = [
     { value: "multi", label: "All" },
     { value: "tv", label: "TV" },
@@ -145,8 +143,6 @@ const Search = () => {
             value={searchTerm || ""}
             onChange={(e) => {
               setSearchTerm(e.currentTarget.value);
-              // console.log("onchange");
-              // updateQuery("query", e.target.value);
             }}
           />
           {!!searchTerm?.length && (

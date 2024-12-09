@@ -6,7 +6,7 @@ import { MemoryRouter } from "react-router-dom";
 // Components
 import Search from "../index";
 
-describe("Latest Releases component", () => {
+describe("Search component", () => {
   describe("Component rendering", () => {
     beforeEach(() => {
       render(

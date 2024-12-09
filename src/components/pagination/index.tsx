@@ -22,7 +22,7 @@ interface Props {
 
 const PaginationComponent: React.FC<Props> = ({ count, onChangePage, page }) => {
   const screenSize = useScreenSize();
-  const isTablet = screenSize.width <= 1024;
+  const isTablet = screenSize.width <= 768;
 
   return (
     <>
