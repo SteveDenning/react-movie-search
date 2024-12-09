@@ -11,6 +11,7 @@ import { config } from "../../config/routes";
 import Button from "../../components/button";
 import Select from "../../components/select";
 import TopResults from "../../components/suggestions";
+import VoiceInput from "../../components/voice-input";
 
 // MUI
 import { Fade } from "@mui/material";
@@ -145,6 +146,7 @@ const Search = () => {
               setSearchTerm(e.currentTarget.value);
             }}
           />
+          <VoiceInput />
           {!!searchTerm?.length && (
             <Button
               variant="icon"
