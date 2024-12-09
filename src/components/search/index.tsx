@@ -8,9 +8,9 @@ import { getAllMediaFromSearch } from "../../utils/get-resources";
 import { config } from "../../config/routes";
 
 // Components
-import TopResults from "../suggestions";
 import Button from "../../components/button";
 import Select from "../../components/select";
+import TopResults from "../../components/suggestions";
 
 // MUI
 import { Fade } from "@mui/material";
@@ -91,13 +91,13 @@ const Search = () => {
   };
 
   const handleSetMedia = (value: string) => {
-    return options.find((option) => option.value === value);
+    if (type) {
+      return options.find((option) => option.value === value);
+    }
   };
 
   useEffect(() => {
-    if (type) {
-      setMediaType(handleSetMedia(type));
-    }
+    setMediaType(handleSetMedia(type));
   }, [type]);
 
   return (
