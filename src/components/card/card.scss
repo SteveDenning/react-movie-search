@@ -53,19 +53,16 @@
         }
       }
     }
-
-    p {
-      margin: 0;
-    }
   }
 
   &__title {
     color: $white;
   }
 
-  &__date {
-    color: #ccc;
+  &__info {
+    color: $light-grey;
     font-size: 18px;
+    margin: 0 0 10px;
   }
 
   // Variants

@@ -57,7 +57,7 @@ const SearchResults = () => {
     if (!query) {
       setResources([]);
     }
-  }, [type, query]);
+  }, [type, query, page]);
 
   useEffect(() => {
     handleSearchInput();

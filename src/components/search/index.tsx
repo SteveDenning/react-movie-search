@@ -15,7 +15,7 @@ import Select from "../../components/select";
 // MUI
 import { Fade } from "@mui/material";
 
-// Icons
+// MUI Icons
 import ClearIcon from "@mui/icons-material/Clear";
 
 // Styles
