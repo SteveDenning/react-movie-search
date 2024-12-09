@@ -12,7 +12,7 @@ import TvIcon from "@mui/icons-material/Tv";
 import TheatersIcon from "@mui/icons-material/Theaters";
 
 interface Props {
-  options: object[];
+  options: any[];
   type: string;
 }
 
