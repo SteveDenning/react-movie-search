@@ -24,6 +24,7 @@ const SearchResults = () => {
 
   const params = new URLSearchParams(searchParams);
   const type = params.get("type") || "multi";
+  const query = params.get("query") || null;
   const location = useLocation();
 
   const handlePageChange = (event, value) => {
@@ -54,16 +55,11 @@ const SearchResults = () => {
   };
 
   useEffect(() => {
-    if (!location.search) {
-      setResources([]);
-    } else {
-      handleSearchInput();
-    }
-  }, [location.search]);
+    handleSearchInput();
+  }, [type, query]);
 
   useEffect(() => {
     handleSearchInput();
-
     return () => {
       setResources([]);
       sessionStorage.removeItem("query");

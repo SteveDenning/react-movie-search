@@ -45,11 +45,7 @@
     &:first-child,
     &:last-child {
       button {
-        padding: 5px;
-
-        @include breakpoint($xlarge) {
-          padding: 8px 16px;
-        }
+        padding: 0;
       }
     }
   }

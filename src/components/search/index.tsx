@@ -8,7 +8,7 @@ import { getAllMediaFromSearch } from "../../utils/get-resources";
 import { config } from "../../config/routes";
 
 // Components
-import AutoSuggestOptions from "../suggestions";
+import TopResults from "../suggestions";
 import Button from "../../components/button";
 import Select from "../../components/select";
 
@@ -25,11 +25,12 @@ const Search = () => {
   const [mediaType, setMediaType] = useState(null);
   const [suggestions, setSuggestions] = useState<any[]>([]);
   const [searchParams, setSearchParams] = useSearchParams();
+  const params = new URLSearchParams(searchParams);
+  const [searchTerm, setSearchTerm] = useState(params.get("query"));
 
   const navigate = useNavigate();
 
   const showOptions = window.location.pathname !== config.searchResults.path;
-  const params = new URLSearchParams(searchParams);
   const type = params.get("type") || "multi";
   const query = params.get("query");
   const options = [
@@ -45,13 +46,14 @@ const Search = () => {
   };
 
   const handleSubmit = () => {
-    if (suggestions.length) {
-      updateQuery("query", query);
+    if (searchTerm.length) {
+      updateQuery("query", searchTerm);
       updateQuery("type", type);
+      setSuggestions([]);
       navigate(
         {
           pathname: `${config.searchResults.path}`,
-          search: `?query=${query}&type=${type}`,
+          search: `?query=${searchTerm}&type=${type}`,
         },
         { replace: window.location.pathname !== config.searchResults.path },
       );
@@ -60,7 +62,7 @@ const Search = () => {
 
   const handleSuggestions = (event: any) => {
     if (event.target.value.length > 2) {
-      getAllMediaFromSearch(`${type}?query=${query}`)
+      getAllMediaFromSearch(`${type}?query=${event.target.value}`)
         .then((response: any) => {
           setSuggestions(response.data.results.slice(0, 10));
         })
@@ -71,6 +73,7 @@ const Search = () => {
   };
 
   const clear = () => {
+    setSearchTerm(null);
     setSuggestions([]);
     setSearchParams({});
     removeQueryParam("query");
@@ -113,7 +116,7 @@ const Search = () => {
         placeholder="All"
         searchable={false}
         defaultValue={"multi"}
-        isDisabled={!!suggestions.length}
+        isDisabled={!!suggestions.length && !!searchTerm?.length}
       />
       <div className="search__options">
         <form
@@ -139,12 +142,14 @@ const Search = () => {
             className="search__form-input"
             type="text"
             placeholder="Search TMDB"
-            value={query || ""}
+            value={searchTerm || ""}
             onChange={(e) => {
-              updateQuery("query", e.target.value);
+              setSearchTerm(e.currentTarget.value);
+              // console.log("onchange");
+              // updateQuery("query", e.target.value);
             }}
           />
-          {!!query && (
+          {!!searchTerm?.length && (
             <Button
               variant="icon"
               className="search__form-clear"
@@ -155,10 +160,10 @@ const Search = () => {
             </Button>
           )}
         </form>
-        <Fade in={!!suggestions.length && !!query}>
+        <Fade in={!!searchTerm?.length}>
           <div>
-            {!!suggestions.length && showOptions && (
-              <AutoSuggestOptions
+            {!!suggestions.length && (
+              <TopResults
                 type={type}
                 options={suggestions}
               />
