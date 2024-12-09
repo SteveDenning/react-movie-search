@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // Components
 import Button from "../../components/button";
@@ -9,10 +9,10 @@ import MicNoneIcon from "@mui/icons-material/MicNone";
 import MicIcon from "@mui/icons-material/Mic";
 
 interface Props {
-  setInputText?: (prev) => void;
+  updateSearchTerm?: (text: any) => void;
 }
 
-const VoiceInput: React.FC<Props> = () => {
+const VoiceInput: React.FC<Props> = ({ updateSearchTerm }) => {
   const [inputText, setInputText] = useState(""); // Final text
   const [liveText, setLiveText] = useState(""); // Live (interim) text
   const [isListening, setIsListening] = useState(false);
@@ -53,12 +53,15 @@ const VoiceInput: React.FC<Props> = () => {
       setIsListening(false);
       setTimeout(() => {
         setOpen(false);
-        setInputText("");
-      }, 3000);
+      }, 1000);
     };
 
     recognition.start();
   };
+
+  useEffect(() => {
+    updateSearchTerm(inputText);
+  }, [inputText]);
 
   return (
     <>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 // Utils
@@ -31,6 +31,7 @@ const Search = () => {
   const [searchTerm, setSearchTerm] = useState(params.get("query"));
   const type = params.get("type") || "multi";
   const navigate = useNavigate();
+  const inputRef = useRef(null);
 
   const options = [
     { value: "multi", label: "All" },
@@ -97,6 +98,11 @@ const Search = () => {
     }
   };
 
+  const updateSearchTerm = (e) => {
+    inputRef.current.focus();
+    setSearchTerm(e);
+  };
+
   useEffect(() => {
     setMediaType(handleSetMedia(type));
   }, [type]);
@@ -145,8 +151,8 @@ const Search = () => {
             onChange={(e) => {
               setSearchTerm(e.currentTarget.value);
             }}
+            ref={inputRef}
           />
-          <VoiceInput />
           {!!searchTerm?.length && (
             <Button
               variant="icon"
@@ -158,6 +164,7 @@ const Search = () => {
             </Button>
           )}
         </form>
+        <VoiceInput updateSearchTerm={updateSearchTerm} />
         <Fade in={!!searchTerm?.length}>
           <div>
             {!!suggestions.length && (
