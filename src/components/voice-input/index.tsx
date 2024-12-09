@@ -19,28 +19,31 @@ const VoiceInput: React.FC<Props> = ({ updateSearchTerm }) => {
   const [open, setOpen] = useState(false);
 
   const startListening = () => {
-    setOpen(true);
     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-    recognition.lang = "en-US"; // Set language
-    recognition.interimResults = true; // Enable live (interim) results
+    recognition.lang = "en-US";
+    recognition.interimResults = true;
     recognition.maxAlternatives = 1;
 
     recognition.onstart = () => {
+      setOpen(true);
+      setInputText("");
       setIsListening(true);
     };
 
     recognition.onresult = (event) => {
       let interimTranscript = "";
-      for (let i = event.resultIndex; i < event.results.length; i++) {
-        const transcript = event.results[i][0].transcript;
-        if (event.results[i].isFinal) {
-          // Finalized text
-          setInputText((prev) => prev + transcript);
-        } else {
-          // Interim text
-          interimTranscript += transcript;
-        }
-      }
+
+      Array.from(event.results)
+        .slice(event.resultIndex)
+        .forEach((result) => {
+          const transcript = result[0].transcript;
+          if (result.isFinal) {
+            setInputText((prev) => prev + transcript);
+          } else {
+            interimTranscript += transcript;
+          }
+        });
+
       setLiveText(interimTranscript);
     };
 
