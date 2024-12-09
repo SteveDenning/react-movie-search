@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { useSearchParams } from "react-router-dom";
 
 // Utils
@@ -8,8 +7,8 @@ import { getAllMediaFromSearch } from "../../utils/get-resources";
 // MUI
 import { Container } from "@mui/material";
 
-// Views
-import Resources from "../../views/resources";
+// Components
+import Resources from "../../components/resources";
 
 // Styles
 import "./search-results.scss";
@@ -22,9 +21,9 @@ const SearchResults = () => {
   const [count, setCount] = useState<number>(0);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const type = window.location.pathname.split("/")[2];
   const params = new URLSearchParams(searchParams);
-  const location = useLocation();
+  const type = params.get("type") || "multi";
+  const query = params.get("query") || null;
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -54,16 +53,14 @@ const SearchResults = () => {
   };
 
   useEffect(() => {
-    if (!location.search) {
+    handleSearchInput();
+    if (!query) {
       setResources([]);
-    } else {
-      handleSearchInput();
     }
-  }, [location.search]);
+  }, [type, query, page]);
 
   useEffect(() => {
     handleSearchInput();
-
     return () => {
       setResources([]);
       sessionStorage.removeItem("query");
@@ -72,7 +69,7 @@ const SearchResults = () => {
 
   return (
     <Container>
-      {resources.length && (
+      {resources.length ? (
         <Resources
           resources={resources}
           page={page}
@@ -80,6 +77,10 @@ const SearchResults = () => {
           count={count}
           loading={loading}
         />
+      ) : (
+        <div className="search-results__no-results">
+          <h2 className="search-results__no-results-title">Let&#39;s try another search</h2>
+        </div>
       )}
       {error && (
         <p

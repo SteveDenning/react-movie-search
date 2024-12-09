@@ -2,25 +2,38 @@
 
 // Modal styles
 .modal {
+  font-family: Gothic, Arial, sans-serif;
   .MuiModal-backdrop {
     background: rgba($black, 0.6);
   }
 
+  &__body {
+    padding: 40px 16px;
+
+    @include breakpoint($medium) {
+      padding: 32px;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+
   &__inner {
-    font-family: Arial, Helvetica, sans-serif; // TODO - update font family
     background-color: $grey;
     border-radius: 0 20px;
-    overflow: hidden;
     color: $white;
     left: 50%;
-    max-height: calc(100% - 32px);
+    max-height: 700px;
     max-width: calc(100% - 32px);
+    overflow-y: auto;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
     width: 100%;
 
     @include breakpoint($medium) {
+      max-height: 900px;
       max-width: 744px;
     }
   }
@@ -28,8 +41,8 @@
   &__close {
     background: $primary-color;
     position: absolute;
-    right: 10px;
-    top: 10px;
+    right: 5px;
+    top: 5px;
     z-index: 1;
 
     svg.MuiSvgIcon-root {
@@ -57,21 +70,12 @@
     margin: 0;
   }
 
-  &__body {
-    padding: 32px;
-
-    img {
-      width: 100%;
-    }
-  }
-
   &__footer {
     border-top: 1px solid $primary-color;
     padding: 1rem;
   }
 
   p {
-    line-height: 32px;
     margin: 0 0 1rem;
 
     &:last-child {

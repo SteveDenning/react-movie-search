@@ -4,8 +4,8 @@ import { useSearchParams } from "react-router-dom";
 // Utils
 import { getMedia } from "../../utils/get-resources";
 
-// Views
-import Resources from "../../views/resources";
+// Components
+import Resources from "../../components/resources";
 
 // MUI
 import { Container } from "@mui/material";
@@ -18,12 +18,15 @@ const MediaListing = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const params = new URLSearchParams(searchParams);
-  const type = window.location.pathname.split("/")[3];
-  const pathName = `${window.location.pathname.split("/")[2]}/${type}${location.search}`;
+  const request = `${window.location.pathname.split("/")[2]}/${window.location.pathname.split("/")[3]}${location.search}`;
 
   const handlePageChange = (event, value) => {
     setPage(value);
     updateQuery("page", value);
+  };
+
+  const setMediaType = () => {
+    updateQuery("type", window.location.pathname.split("/")[2]);
   };
 
   const updateQuery = (key, value) => {
@@ -34,7 +37,7 @@ const MediaListing = () => {
   const fetchLatestRelease = () => {
     if (location.search) {
       setLoading(true);
-      getMedia(pathName)
+      getMedia(request)
         .then((response: any) => {
           setResources(response.data.results);
           setCount(Math.ceil(response.data["total_pages"]));
@@ -49,6 +52,7 @@ const MediaListing = () => {
 
   useEffect(() => {
     fetchLatestRelease();
+    setMediaType();
   }, []);
 
   useEffect(() => {

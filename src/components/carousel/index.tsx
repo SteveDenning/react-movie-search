@@ -15,8 +15,8 @@ interface Props {
   banner?: boolean;
   infinite?: boolean;
   media?: string;
-  resources: any;
-  responsiveOptions?: any;
+  resources: object[];
+  responsiveOptions?: object;
   variant?: string;
 }
 

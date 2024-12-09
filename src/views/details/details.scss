@@ -3,11 +3,12 @@
 // Details View Styles
 
 .details-view {
+  // Important rules to override inline styling
   background-position: center !important;
   background-size: cover !important;
   padding: 20px 0;
 
-  @include breakpoint($small) {
+  @include breakpoint($medium) {
     min-height: calc(100vh - 145px);
   }
 
@@ -53,7 +54,7 @@
   }
 
   &__profile {
-    @include breakpoint($small) {
+    @include breakpoint($medium) {
       display: flex;
     }
   }
@@ -61,7 +62,7 @@
   &__profile-image {
     margin-bottom: 30px;
 
-    @include breakpoint($small) {
+    @include breakpoint($medium) {
       margin-bottom: 0;
       margin-right: 20px;
     }

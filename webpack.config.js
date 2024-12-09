@@ -23,7 +23,7 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: ["*", ".ts", ".tsx", ".html", ".js", ".jsx", ".sass", ".jpg", ".png", ".gif", ".svg", ".css", ".json"],
+    extensions: ["*", ".ts", ".tsx", ".html", ".js", ".jsx", ".sass", ".jpg", ".jpeg", ".png", ".gif", ".svg", ".css", ".json"],
   },
   devServer: {
     static: {

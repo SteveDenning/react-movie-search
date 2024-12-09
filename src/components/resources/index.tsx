@@ -13,7 +13,7 @@ import { Fade, Grid } from "@mui/material";
 import "./resources.scss";
 
 interface Props {
-  resources: any;
+  resources: object[];
   handlePageChange?: (event: React.ChangeEvent<any>, value: number) => void;
   count: number;
   page: number;
@@ -21,6 +21,9 @@ interface Props {
 }
 
 const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, loading }) => {
+  const params = new URLSearchParams(window.location.search);
+  const type = params.get("type");
+
   useEffect(() => {
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
   }, [page]);
@@ -41,7 +44,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
             columns={20}
           >
             {resources.map((item: any, i: number) => {
-              const path = item["media_type"] ? item["media_type"] : window.location.pathname.split("/")[2];
+              const path = item["media_type"] ? item["media_type"] : type;
 
               return (
                 <Grid

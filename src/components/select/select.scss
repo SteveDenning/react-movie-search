@@ -8,10 +8,11 @@
       box-shadow: none;
       border: 0;
       cursor: pointer;
-      min-width: 100px;
+      min-width: 60px;
 
       @include breakpoint($xlarge) {
         min-height: 41px;
+        min-width: 85px;
       }
     }
 
@@ -19,12 +20,21 @@
       color: $primary-color;
     }
 
-    &__indicator {
-      padding: 0 10px 0 0;
+    &__indicators {
+      display: none;
+
+      @include breakpoint($xlarge) {
+        display: flex;
+        min-height: 41px;
+      }
 
       svg {
         fill: $primary-color;
       }
+    }
+
+    &__indicator {
+      padding: 8px 5px;
     }
 
     &__label {
@@ -41,6 +51,11 @@
 
     &__single-value {
       color: $primary-color;
+      font-size: 16px;
+    }
+
+    &__value-container {
+      padding: 2px 0 2px 8px;
     }
 
     &__menu {

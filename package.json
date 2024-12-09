@@ -10,7 +10,8 @@
     "test:circle": "node --experimental-vm-modules node_modules/jest/bin/jest.js --maxWorkers=2",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "build:deploy": "webpack --mode production && firebase deploy"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",
@@ -53,6 +54,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^15.0.6",
     "@testing-library/user-event": "^13.5.0",
+    "@types/dom-speech-recognition": "^0.0.4",
     "@types/node": "^16.18.113",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
