@@ -36,9 +36,15 @@
     }
 
     @include breakpoint($xlarge) {
-      right: 20px;
-      top: 10px;
+      right: 40px;
+      top: 8px;
     }
+  }
+
+  .voice-input {
+    position: absolute;
+    top: 8px;
+    right: 10px;
   }
 
   &__form-input {
