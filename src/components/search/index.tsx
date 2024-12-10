@@ -24,12 +24,14 @@ import "./search.scss";
 
 const Search = () => {
   const [mediaType, setMediaType] = useState(null);
+  const [isVoiceInput, setIsVoiceInput] = useState<boolean>(false);
   const [suggestions, setSuggestions] = useState<any[]>([]);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const params = new URLSearchParams(searchParams);
   const [searchTerm, setSearchTerm] = useState(params.get("query"));
   const type = params.get("type") || "multi";
+
   const navigate = useNavigate();
   const inputRef = useRef(null);
 
@@ -78,10 +80,12 @@ const Search = () => {
     setSearchParams({});
     removeQueryParam("query");
     removeQueryParam("type");
+    inputRef.current.focus();
   };
 
   const removeQueryParam = (key) => {
     params.delete(key);
+
     navigate({
       pathname: location.pathname,
       search: params.toString(),
@@ -99,9 +103,17 @@ const Search = () => {
   };
 
   const updateSearchTerm = (e) => {
+    setIsVoiceInput(true);
     inputRef.current.focus();
     setSearchTerm(e);
   };
+
+  useEffect(() => {
+    if (searchTerm && isVoiceInput) {
+      handleSubmit();
+      setIsVoiceInput(false);
+    }
+  }, [searchTerm]);
 
   useEffect(() => {
     setMediaType(handleSetMedia(type));

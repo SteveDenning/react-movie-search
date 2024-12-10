@@ -63,7 +63,9 @@ const VoiceInput: React.FC<Props> = ({ updateSearchTerm }) => {
   };
 
   useEffect(() => {
-    updateSearchTerm(finalText);
+    if (finalText) {
+      updateSearchTerm(finalText);
+    }
   }, [finalText]);
 
   return (
