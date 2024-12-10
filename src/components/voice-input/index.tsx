@@ -13,10 +13,10 @@ interface Props {
 }
 
 const VoiceInput: React.FC<Props> = ({ updateSearchTerm }) => {
-  const [inputText, setInputText] = useState(""); // Final text
-  const [liveText, setLiveText] = useState(""); // Live (interim) text
-  const [isListening, setIsListening] = useState(false);
-  const [open, setOpen] = useState(false);
+  const [finalText, setFinalText] = useState<string>("");
+  const [liveText, setLiveText] = useState<string>("");
+  const [isListening, setIsListening] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const startListening = () => {
     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
@@ -26,7 +26,7 @@ const VoiceInput: React.FC<Props> = ({ updateSearchTerm }) => {
 
     recognition.onstart = () => {
       setOpen(true);
-      setInputText("");
+      setFinalText("");
       setIsListening(true);
     };
 
@@ -38,7 +38,7 @@ const VoiceInput: React.FC<Props> = ({ updateSearchTerm }) => {
         .forEach((result) => {
           const transcript = result[0].transcript;
           if (result.isFinal) {
-            setInputText((prev) => prev + transcript);
+            setFinalText((prev) => prev + transcript);
           } else {
             interimTranscript += transcript;
           }
@@ -63,8 +63,8 @@ const VoiceInput: React.FC<Props> = ({ updateSearchTerm }) => {
   };
 
   useEffect(() => {
-    updateSearchTerm(inputText);
-  }, [inputText]);
+    updateSearchTerm(finalText);
+  }, [finalText]);
 
   return (
     <>
@@ -83,7 +83,7 @@ const VoiceInput: React.FC<Props> = ({ updateSearchTerm }) => {
       >
         <div style={{ textAlign: "center" }}>
           <MicIcon sx={{ fontSize: 100 }} />
-          <h2>{liveText || inputText}</h2>
+          <h2>{liveText || finalText}</h2>
         </div>
       </Modal>
     </>
