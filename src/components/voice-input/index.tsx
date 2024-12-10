@@ -9,7 +9,7 @@ import MicNoneIcon from "@mui/icons-material/MicNone";
 import MicIcon from "@mui/icons-material/Mic";
 
 // Styles
-import "./voice-input.scss";
+// import "./voice-input.scss";
 
 interface Props {
   setValue?: (text: any) => void;
