@@ -19,6 +19,7 @@ const meta: Meta<typeof Template> = {
     },
   },
 };
+
 export default meta;
 
 type Story = StoryObj<typeof Template>;
