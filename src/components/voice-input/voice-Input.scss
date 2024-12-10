@@ -1,6 +1,14 @@
 @import "../../styles/dependencies";
 
 // Voice Input styles
-.voice-Input {
-  position: relative;
+.voice-input {
+  &__modal {
+    text-align: center;
+
+    svg {
+      fill: $primary-color;
+      font-size: 100px;
+      padding: 10px;
+    }
+  }
 }

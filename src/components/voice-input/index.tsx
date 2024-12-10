@@ -8,11 +8,14 @@ import Modal from "../../components/modal";
 import MicNoneIcon from "@mui/icons-material/MicNone";
 import MicIcon from "@mui/icons-material/Mic";
 
+// Styles
+import "./voice-input.scss";
+
 interface Props {
-  updateSearchTerm?: (text: any) => void;
+  setValue?: (text: any) => void;
 }
 
-const VoiceInput: React.FC<Props> = ({ updateSearchTerm }) => {
+const VoiceInput: React.FC<Props> = ({ setValue }) => {
   const [finalText, setFinalText] = useState<string>("");
   const [liveText, setLiveText] = useState<string>("");
   const [isListening, setIsListening] = useState<boolean>(false);
@@ -56,7 +59,7 @@ const VoiceInput: React.FC<Props> = ({ updateSearchTerm }) => {
       setIsListening(false);
       setTimeout(() => {
         setOpen(false);
-      }, 1000);
+      }, 100);
     };
 
     recognition.start();
@@ -64,7 +67,7 @@ const VoiceInput: React.FC<Props> = ({ updateSearchTerm }) => {
 
   useEffect(() => {
     if (finalText) {
-      updateSearchTerm(finalText);
+      setValue(finalText);
     }
   }, [finalText]);
 
@@ -83,9 +86,9 @@ const VoiceInput: React.FC<Props> = ({ updateSearchTerm }) => {
         open={open}
         handleClose={() => setOpen(false)}
       >
-        <div style={{ textAlign: "center" }}>
-          <MicIcon sx={{ fontSize: 100 }} />
-          <h2>{liveText || finalText}</h2>
+        <div className="voice-input__modal">
+          <MicIcon className="voice-input__modal-icon" />
+          <h2 className="voice-input__modal-text">{liveText || finalText}</h2>
         </div>
       </Modal>
     </>

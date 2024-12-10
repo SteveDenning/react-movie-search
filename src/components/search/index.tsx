@@ -102,10 +102,10 @@ const Search = () => {
     }
   };
 
-  const updateSearchTerm = (e) => {
+  const updateSearchTerm = (value: string) => {
     setIsVoiceInput(true);
     inputRef.current.focus();
-    setSearchTerm(e);
+    setSearchTerm(value);
   };
 
   useEffect(() => {
@@ -176,7 +176,7 @@ const Search = () => {
             </Button>
           )}
         </form>
-        <VoiceInput updateSearchTerm={updateSearchTerm} />
+        <VoiceInput setValue={updateSearchTerm} />
         <Fade in={!!searchTerm?.length}>
           <div>
             {!!suggestions.length && (

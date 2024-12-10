@@ -7,9 +7,9 @@ import VoiceInput from "../index";
 
 describe("VoiceInput component", () => {
   describe("Component rendering", () => {
-    const updateSearchTerm = jest.fn();
+    const setValue = jest.fn();
 
-    beforeEach(() => render(<VoiceInput updateSearchTerm={updateSearchTerm} />));
+    beforeEach(() => render(<VoiceInput setValue={setValue} />));
 
     it("Should render a Voice Input", () => {
       expect(screen.getByTestId("voice-input")).toBeInTheDocument();

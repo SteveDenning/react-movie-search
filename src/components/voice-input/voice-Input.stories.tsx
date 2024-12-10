@@ -11,7 +11,13 @@ const meta: Meta<typeof Template> = {
   title: "Components/Voice Input",
   component: Template,
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    setValue: {
+      control: false,
+      type: { name: "function", required: true },
+      description: "Function to set the value of the input",
+    },
+  },
 };
 export default meta;
 
