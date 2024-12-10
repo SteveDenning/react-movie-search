@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
 // Utils
@@ -11,6 +11,7 @@ import { config } from "../../config/routes";
 import Button from "../../components/button";
 import Select from "../../components/select";
 import TopResults from "../../components/suggestions";
+import VoiceInput from "../../components/voice-input";
 
 // MUI
 import { Fade } from "@mui/material";
@@ -23,13 +24,16 @@ import "./search.scss";
 
 const Search = () => {
   const [mediaType, setMediaType] = useState(null);
+  const [isVoiceInput, setIsVoiceInput] = useState<boolean>(false);
   const [suggestions, setSuggestions] = useState<any[]>([]);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const params = new URLSearchParams(searchParams);
   const [searchTerm, setSearchTerm] = useState(params.get("query"));
   const type = params.get("type") || "multi";
+
   const navigate = useNavigate();
+  const inputRef = useRef(null);
 
   const options = [
     { value: "multi", label: "All" },
@@ -76,10 +80,12 @@ const Search = () => {
     setSearchParams({});
     removeQueryParam("query");
     removeQueryParam("type");
+    inputRef.current.focus();
   };
 
   const removeQueryParam = (key) => {
     params.delete(key);
+
     navigate({
       pathname: location.pathname,
       search: params.toString(),
@@ -95,6 +101,19 @@ const Search = () => {
       return options.find((option) => option.value === value);
     }
   };
+
+  const updateSearchTerm = (value: string) => {
+    setIsVoiceInput(true);
+    inputRef.current.focus();
+    setSearchTerm(value);
+  };
+
+  useEffect(() => {
+    if (searchTerm && isVoiceInput) {
+      handleSubmit();
+      setIsVoiceInput(false);
+    }
+  }, [searchTerm]);
 
   useEffect(() => {
     setMediaType(handleSetMedia(type));
@@ -144,6 +163,7 @@ const Search = () => {
             onChange={(e) => {
               setSearchTerm(e.currentTarget.value);
             }}
+            ref={inputRef}
           />
           {!!searchTerm?.length && (
             <Button
@@ -156,6 +176,7 @@ const Search = () => {
             </Button>
           )}
         </form>
+        <VoiceInput setValue={updateSearchTerm} />
         <Fade in={!!searchTerm?.length}>
           <div>
             {!!suggestions.length && (
