@@ -28,6 +28,10 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
   }, [page]);
 
+  if (!resources.length) {
+    return false;
+  }
+
   return (
     <div
       className="resources"
