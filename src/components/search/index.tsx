@@ -158,7 +158,7 @@ const Search = () => {
             id="search"
             className="search__form-input"
             type="text"
-            placeholder="Search TMDB"
+            placeholder="Search"
             value={searchTerm || ""}
             onChange={(e) => {
               setSearchTerm(e.currentTarget.value);
