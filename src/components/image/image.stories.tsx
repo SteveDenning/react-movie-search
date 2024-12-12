@@ -14,7 +14,7 @@ const meta: Meta<typeof Template> = {
   argTypes: {
     resource: {
       control: "object",
-      type: { name: "string", required: false },
+      type: { name: "string", required: true },
       description: "Resource data to display image and attributes",
     },
     size: {

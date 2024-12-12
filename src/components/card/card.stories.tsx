@@ -11,7 +11,18 @@ const meta: Meta<typeof Template> = {
   title: "Components/Card",
   component: Template,
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    resource: {
+      control: "object",
+      type: { name: "string", required: true },
+      description: "Resource data to display the card",
+    },
+    onClick: {
+      control: false,
+      type: { name: "function", required: false },
+      description: "Function to be called when the card is clicked",
+    },
+  },
 };
 export default meta;
 

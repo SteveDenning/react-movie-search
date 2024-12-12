@@ -39,6 +39,11 @@ const meta: Meta<typeof Template> = {
       type: { name: "string", required: false },
       description: "Applies a color class to the button",
     },
+    onClick: {
+      control: false,
+      type: { name: "function", required: false },
+      description: "Function to be called when the button is clicked",
+    },
   },
 };
 export default meta;

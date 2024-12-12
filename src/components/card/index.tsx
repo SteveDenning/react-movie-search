@@ -10,13 +10,13 @@ import "./card.scss";
 interface Props {
   resource: any;
   onClick?: () => void;
-  variant?: string;
+  variant?: "banner" | "resource";
 }
 
 const Card: React.FC<Props> = ({ resource, onClick, variant }) => {
   // Class definitions
   const baseClass = "card";
-  const variantClass = variant ? `${baseClass}--${variant}` : "";
+  const variantClass = `card--${variant}`;
   const classes = [baseClass, variantClass].filter(Boolean).join(" ");
 
   return (
@@ -29,8 +29,14 @@ const Card: React.FC<Props> = ({ resource, onClick, variant }) => {
         <button
           className="card__content"
           onClick={onClick}
+          data-testid="card-content"
         >
-          <h3 className="card__title">{resource?.name || resource?.title}</h3>
+          <h3
+            className="card__title"
+            data-testid="card-title"
+          >
+            {resource?.name || resource?.title}
+          </h3>
           {resource?.["first_air_date"] && <p className="card__info">{moment(resource?.["first_air_date"]).format("YYYY")}</p>}
           {resource?.["release_date"] && <p className="card__info">{moment(resource?.["release_date"]).format("YYYY")}</p>}
           {resource?.["known_for_department"] && <p className="card__info">{resource["known_for_department"]}</p>}
