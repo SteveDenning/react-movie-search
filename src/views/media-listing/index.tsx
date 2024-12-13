@@ -17,6 +17,7 @@ const MediaListing = () => {
   const [count, setCount] = useState<number>(0);
   const [searchParams, setSearchParams] = useSearchParams();
 
+  console.log("window.location.pathname", window.location.pathname);
   const params = new URLSearchParams(searchParams);
   const request = `${window.location.pathname.split("/")[2]}/${window.location.pathname.split("/")[3]}${location.search}`;
 

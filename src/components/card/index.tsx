@@ -37,7 +37,14 @@ const Card: React.FC<Props> = ({ resource, onClick, variant }) => {
           >
             {resource?.name || resource?.title}
           </h3>
-          {resource?.["first_air_date"] && <p className="card__info">{moment(resource?.["first_air_date"]).format("YYYY")}</p>}
+          {resource?.["first_air_date"] && (
+            <p
+              className="card__info"
+              data-testid="first-air-date"
+            >
+              {moment(resource?.["first_air_date"]).format("YYYY")}
+            </p>
+          )}
           {resource?.["release_date"] && <p className="card__info">{moment(resource?.["release_date"]).format("YYYY")}</p>}
           {resource?.["known_for_department"] && <p className="card__info">{resource["known_for_department"]}</p>}
           <p className="card__info">{resource?.character}</p>
