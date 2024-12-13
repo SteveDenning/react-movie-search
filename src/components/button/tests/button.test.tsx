@@ -34,7 +34,7 @@ describe("Button component", () => {
       expect(screen.getByTestId("button")).toHaveClass("button--blue");
     });
 
-    it("Should render a button with the text ", () => {
+    it("Should render a button with the text Click me", () => {
       expect(screen.getByText("Click me")).toBeInTheDocument();
     });
 

@@ -13,12 +13,12 @@ import "./image.scss";
 interface Props {
   id: any;
   resource: any;
-  size?: "xsmall" | "small" | "medium" | "large";
+  size?: "xsmall" | "small" | "medium" | "large" | "fill";
   variant?: "banner" | "scale";
   onClick?: () => void;
 }
 
-const Image: React.FC<Props> = ({ resource, size, variant, onClick }) => {
+const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick }) => {
   const isPerson = Object.prototype.hasOwnProperty.call(resource, "gender");
   const screenSize = useScreenSize();
   const isMobile = screenSize.width <= 480;

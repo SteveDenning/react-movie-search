@@ -7,7 +7,7 @@ import { getMediaByID, getVideos } from "../../utils/get-resources";
 
 // Components
 import Button from "../../components/button";
-import Image from "../../components/image";
+import ImageModal from "../../components/image-modal";
 import MediaCarousel from "../../views/media-carousel";
 import Modal from "../../components/modal";
 import Video from "../../components/video";
@@ -115,6 +115,7 @@ const DetailsView = () => {
                   <Video
                     youTubeKey={videoKey}
                     playing
+                    responsive
                   />
                 </div>
               )}
@@ -122,11 +123,7 @@ const DetailsView = () => {
                 <div className="details-view__profile">
                   {resource["profile_path"] && (
                     <div className="details-view__profile-image">
-                      <Image
-                        id={resource.id}
-                        resource={resource}
-                        size="large"
-                      />
+                      <ImageModal resource={resource} />
                     </div>
                   )}
                   <div>

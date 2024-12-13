@@ -16,7 +16,7 @@ interface Props {
 const Card: React.FC<Props> = ({ resource, onClick, variant }) => {
   // Class definitions
   const baseClass = "card";
-  const variantClass = `card--${variant}`;
+  const variantClass = variant ? `card--${variant}` : "";
   const classes = [baseClass, variantClass].filter(Boolean).join(" ");
 
   return (
