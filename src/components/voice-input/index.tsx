@@ -22,13 +22,13 @@ const VoiceInput: React.FC<Props> = ({ setValue }) => {
   const [open, setOpen] = useState<boolean>(false);
 
   const startListening = () => {
+    setOpen(true);
     const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
     recognition.lang = "en-US";
     recognition.interimResults = true;
     recognition.maxAlternatives = 1;
 
     recognition.onstart = () => {
-      setOpen(true);
       setFinalText("");
       setIsListening(true);
     };

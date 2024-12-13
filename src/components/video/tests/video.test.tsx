@@ -9,7 +9,12 @@ import Video from "../index";
 describe("Video component", () => {
   xdescribe("Component rendering", () => {
     beforeEach(() => {
-      render(<Video youTubeKey="" />);
+      render(
+        <Video
+          youTubeKey="z0B0dG44DLc"
+          responsive
+        />,
+      );
     });
 
     it("Should render an video", async () => {

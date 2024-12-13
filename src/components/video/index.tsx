@@ -8,8 +8,8 @@ interface Props {
   playing?: boolean;
 }
 
-const Video: React.FC<Props> = ({ responsive = true, youTubeKey, playing }) => {
-  const trailerUrl = `https://www.youtube.com/watch?v=${youTubeKey}`;
+const Video: React.FC<Props> = ({ responsive, youTubeKey, playing }) => {
+  const videoUrl = `https://www.youtube.com/watch?v=${youTubeKey}`;
 
   // Class Definitions
   const baseClass = "video";
@@ -24,7 +24,7 @@ const Video: React.FC<Props> = ({ responsive = true, youTubeKey, playing }) => {
       <ReactPlayer
         className="video__player"
         muted={true}
-        url={trailerUrl}
+        url={videoUrl}
         width={responsive ? "100%" : "auto"}
         height="100%"
         controls={true}

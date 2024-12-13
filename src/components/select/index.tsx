@@ -36,6 +36,7 @@ const SelectComponent: React.FC<Props> = ({ onChange, label, id, value, options,
         {label}
       </label>
       <Select
+        data-testid="select-element"
         inputId={id}
         classNamePrefix="select"
         value={value || ""}
