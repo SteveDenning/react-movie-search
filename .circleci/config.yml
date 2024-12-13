@@ -3,14 +3,22 @@
 version: 2.1
 orbs:
   node: circleci/node@5
+  browser-tools: circleci/browser-tools@1.2.3
+
 jobs:
   test:
     # Install node dependencies and run tests
     executor: node/default
     steps:
       - checkout
+      - browser-tools/install-browser-tools
       - node/install-packages:
           pkg-manager: npm
+      - run:
+          name: "Run Jest and Collect Coverage Reports"
+          command: jest --collectCoverage=true
+      - store_artifacts:
+          path: coverage
       - run:
           name: Run tests
           command: npm run test:circle
