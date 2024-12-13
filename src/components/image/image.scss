@@ -16,7 +16,11 @@
     width: 100%;
   }
 
-  // Variants
+  &--mobile {
+    width: 100%;
+  }
+
+  // Sizes
   &--xsmall {
     width: 40px;
   }
@@ -33,10 +37,11 @@
     width: 250px;
   }
 
-  &--mobile {
+  &--fill {
     width: 100%;
   }
 
+  // Variants
   &--banner {
     pointer-events: none;
   }

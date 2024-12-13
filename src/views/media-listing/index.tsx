@@ -36,7 +36,6 @@ const MediaListing = () => {
 
   const fetchLatestRelease = () => {
     if (location.search) {
-      console.log("FIRED", location.search);
       setLoading(true);
       getMedia(request)
         .then((response: any) => {

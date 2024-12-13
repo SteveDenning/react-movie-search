@@ -12,6 +12,15 @@ describe("Resources component", () => {
   describe("Component rendering", () => {
     const handlePageChange = jest.fn();
 
+    beforeAll(() => {
+      Object.defineProperty(window, "location", {
+        value: {
+          href: "/details/movie/100",
+        },
+        writable: true,
+      });
+    });
+
     beforeEach(() =>
       render(
         <Resources

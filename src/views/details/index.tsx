@@ -123,6 +123,7 @@ const DetailsView = () => {
                   {resource["profile_path"] && (
                     <div className="details-view__profile-image">
                       <Image
+                        id={resource.id}
                         resource={resource}
                         size="large"
                       />

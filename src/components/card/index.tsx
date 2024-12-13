@@ -24,7 +24,10 @@ const Card: React.FC<Props> = ({ resource, onClick, variant }) => {
       className={classes}
       data-testid="card"
     >
-      <Image resource={resource} />
+      <Image
+        resource={resource}
+        id={resource.id}
+      />
       <div className="card__overlay">
         <button
           className="card__content"

@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 // Utils
 import useScreenSize from "../../utils/use-screen-size";
-
-// Components
-import Modal from "../../components/modal";
 
 // Assets
 import mediaPlaceholder from "../../assets/images/default-placeholder.png";
@@ -14,16 +11,17 @@ import avatarPlaceholder from "../../assets/images/avatar-placeholder.png";
 import "./image.scss";
 
 interface Props {
-  id?: string;
+  id: any;
   resource: any;
   size?: "xsmall" | "small" | "medium" | "large";
-  variant?: string;
+  variant?: "banner" | "scale";
+  onClick?: () => void;
 }
 
-const Image: React.FC<Props> = ({ resource, size, variant }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
+const Image: React.FC<Props> = ({ resource, size, variant, onClick }) => {
   const isPerson = Object.prototype.hasOwnProperty.call(resource, "gender");
+  const screenSize = useScreenSize();
+  const isMobile = screenSize.width <= 480;
 
   const getPlaceholder = () => {
     if (isPerson) {
@@ -31,9 +29,6 @@ const Image: React.FC<Props> = ({ resource, size, variant }) => {
     }
     return mediaPlaceholder;
   };
-
-  const screenSize = useScreenSize();
-  const isMobile = screenSize.width <= 480;
 
   // Class Definitions
   const baseClass = "image";
@@ -46,31 +41,17 @@ const Image: React.FC<Props> = ({ resource, size, variant }) => {
     ? `https://image.tmdb.org/t/p/original/${variant === "banner" ? resource["backdrop_path"] : imageSrc}`
     : getPlaceholder();
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
   return (
     <div
       className={classes}
       data-testid="image"
     >
       <img
+        data-testid="image-element"
         src={imagePath}
         alt={resource["profile_path"] ? `Actor - ${resource.name}` : ""}
-        onClick={() => setIsOpen(true)}
+        onClick={onClick}
       />
-      <Modal
-        id={resource.id}
-        open={isOpen}
-        handleClose={handleClose}
-        variant={["image"]}
-      >
-        <img
-          src={imagePath}
-          alt={resource["profile_path"] ? `Actor - ${resource.name}` : ""}
-        />
-      </Modal>
     </div>
   );
 };
