@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 // Utils
-import { getMedia } from "../../utils/get-resources";
+import { getMedia } from "../../services/getMedia";
 
 // Components
 import Carousel from "../../components/carousel";
@@ -53,9 +53,9 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
 
   const fetchLatestRelease = () => {
     setLoading(true);
-    getMedia(path)
+    getMedia()
       .then((response: any) => {
-        setResources(response.data.results);
+        setResources(response.results);
         setLoading(false);
       })
       .catch((error) => {
@@ -71,23 +71,25 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
 
   return (
     <>
-      <div
-        data-testid="banner-carousel"
-        className="banner-carousel"
-      >
-        <Fade in={!loading}>
-          <div className="banner-carousel__inner">
-            <Carousel
-              resources={resources}
-              media={media}
-              responsiveOptions={responsiveOptions}
-              autoPlay={true}
-              autoPlaySpeed={5000}
-              infinite
-              banner
-            />
-          </div>
-        </Fade>
+      <div className="banner-carousel">
+        {resources.length && (
+          <Fade in={!loading}>
+            <div
+              className="banner-carousel__inner "
+              data-testid="banner-carousel"
+            >
+              <Carousel
+                resources={resources}
+                media={media}
+                responsiveOptions={responsiveOptions}
+                autoPlay={true}
+                autoPlaySpeed={5000}
+                infinite
+                banner
+              />
+            </div>
+          </Fade>
+        )}
       </div>
       {error && (
         <p
