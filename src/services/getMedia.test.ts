@@ -12,7 +12,7 @@ it("should return a successful response if the GET request was successful", asyn
 
   axios.get = jest.fn().mockResolvedValue(mockResponse);
 
-  const peopleData = await getMedia();
+  const peopleData = await getMedia("movie/upcoming");
 
   expect(mockResponse.data).toEqual(peopleData);
 });

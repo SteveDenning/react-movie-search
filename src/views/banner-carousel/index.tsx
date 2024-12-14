@@ -53,7 +53,7 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
 
   const fetchLatestRelease = () => {
     setLoading(true);
-    getMedia()
+    getMedia(path)
       .then((response: any) => {
         setResources(response.results);
         setLoading(false);
