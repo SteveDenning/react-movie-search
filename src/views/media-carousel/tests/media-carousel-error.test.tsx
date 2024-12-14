@@ -1,6 +1,7 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { render, waitFor, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
 // Components
 import MediaCarousel from "../index";
@@ -10,7 +11,6 @@ import { getMedia } from "../../../services/getMedia";
 
 // Variables
 import { variables } from "./config";
-import { MemoryRouter } from "react-router-dom";
 
 // Mock
 jest.mock("../../../services/getMedia");

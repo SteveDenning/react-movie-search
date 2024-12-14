@@ -40,7 +40,7 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
         setLoading(false);
       })
       .catch((error) => {
-        // console.error(error);
+        console.error(error);
         setError(true);
         setLoading(false);
       });
@@ -52,39 +52,40 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
 
   return (
     <>
-      <Fade in={!!resources.length}>
-        <div>
-          {resources.length && (
-            <div>
-              <div
-                className="media-carousel__header"
-                data-testid="media-carousel"
+      {resources.length && (
+        <Fade in={!!resources.length}>
+          <div
+            data-testid="media-carousel"
+            className="media-carousel"
+          >
+            <div
+              className="media-carousel__header"
+              data-testid="media-carousel-header"
+            >
+              <h2
+                className="text-glow"
+                data-testid="media-carousel-label"
               >
-                <h2
-                  className="text-glow"
-                  data-testid="media-carousel-label"
+                {label}
+              </h2>
+              {buttonText && (
+                <Button
+                  onClick={() => (window.location.href = `/media-listing/${pathName}?page=1`)}
+                  variant="heading"
                 >
-                  {label}
-                </h2>
-                {buttonText && (
-                  <Button
-                    onClick={() => (window.location.href = `/media-listing/${pathName}?page=1`)}
-                    variant="heading"
-                  >
-                    <span className="media-carousel__link-text text-glow">{buttonText}</span>
-                    <ArrowForwardIosIcon />
-                  </Button>
-                )}
-              </div>
-              <Carousel
-                media={media}
-                resources={resources}
-                responsiveOptions={responsiveOptions}
-              />
+                  <span className="media-carousel__link-text text-glow">{buttonText}</span>
+                  <ArrowForwardIosIcon />
+                </Button>
+              )}
             </div>
-          )}
-        </div>
-      </Fade>
+            <Carousel
+              media={media}
+              resources={resources}
+              responsiveOptions={responsiveOptions}
+            />
+          </div>
+        </Fade>
+      )}
       {error && (
         <p
           className="error"

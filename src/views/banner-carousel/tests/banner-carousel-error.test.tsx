@@ -14,7 +14,7 @@ import { variables } from "./config";
 // Mock
 jest.mock("../../../services/getMedia");
 
-describe("Banner carousel component", () => {
+describe("Banner carousel component (error handling)", () => {
   describe("Component rendering (error state)", () => {
     it("Should render the Banner Carousel", async () => {
       (getMedia as jest.Mock).mockRejectedValue(variables.error);
