@@ -55,7 +55,7 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
     setLoading(true);
     getMedia(path)
       .then((response: any) => {
-        setResources(response.results);
+        setResources(response.data.results);
         setLoading(false);
       })
       .catch((error) => {

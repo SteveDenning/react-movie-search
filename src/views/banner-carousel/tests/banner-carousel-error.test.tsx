@@ -15,9 +15,9 @@ import { variables } from "./config";
 jest.mock("../../../services/getMedia");
 
 describe("Banner carousel component", () => {
-  describe("Component rendering", () => {
+  describe("Component rendering (error state)", () => {
     it("Should render the Banner Carousel", async () => {
-      (getMedia as jest.Mock).mockResolvedValue(variables.media);
+      (getMedia as jest.Mock).mockRejectedValue(variables.error);
 
       render(
         <BannerCarousel
@@ -26,8 +26,7 @@ describe("Banner carousel component", () => {
         />,
       );
 
-      await waitFor(() => expect(screen.getByTestId("banner-carousel")).toBeInTheDocument());
-      await waitFor(() => expect(getMedia).toHaveBeenCalledTimes(1));
+      await waitFor(() => expect(screen.getByTestId("banner-carousel-error")).toBeInTheDocument());
     });
   });
 });

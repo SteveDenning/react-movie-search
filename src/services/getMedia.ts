@@ -16,5 +16,5 @@ export const getMedia = async (path: string): Promise<any> => {
   const url = `${apiUrl}/${path}?page=1&language=en-US`;
   const response: AxiosResponse<any> = await await axios.get(url, headers);
 
-  return response.data;
+  return response;
 };
