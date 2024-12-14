@@ -95,13 +95,14 @@ const Carousel: React.FC<Props> = ({ autoPlay = false, autoPlaySpeed, banner, in
               {banner ? (
                 <>
                   <Image
+                    id={item.id}
                     resource={item}
                     variant="banner"
                   />
                   <div className="carousel__banner-content">
                     <div className="carousel__banner-poster">
                       <Image
-                        id={item.id}
+                        id={`${item.id}-${item.title || item.name}`}
                         resource={item}
                       />
                     </div>

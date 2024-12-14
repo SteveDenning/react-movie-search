@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-// Utils
-import { getMedia } from "../../utils/get-resources";
+// Services
+import { getMedia } from "../../services/getMedia";
 
 // Components
 import Button from "../../components/button";
@@ -52,34 +52,40 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
 
   return (
     <>
-      <Fade in={!!resources.length}>
-        <div
-          data-testid="media-carousel"
-          className="media-carousel"
-        >
-          {resources.length && (
-            <>
-              <div className="media-carousel__header">
-                <h2 className="text-glow">{label}</h2>
-                {buttonText && (
-                  <Button
-                    onClick={() => (window.location.href = `/media-listing/${pathName}?page=1`)}
-                    variant="heading"
-                  >
-                    <span className="media-carousel__link-text text-glow">{buttonText}</span>
-                    <ArrowForwardIosIcon />
-                  </Button>
-                )}
-              </div>
-              <Carousel
-                media={media}
-                resources={resources}
-                responsiveOptions={responsiveOptions}
-              />
-            </>
-          )}
-        </div>
-      </Fade>
+      {resources.length && (
+        <Fade in={!!resources.length}>
+          <div
+            data-testid="media-carousel"
+            className="media-carousel"
+          >
+            <div
+              className="media-carousel__header"
+              data-testid="media-carousel-header"
+            >
+              <h2
+                className="text-glow"
+                data-testid="media-carousel-label"
+              >
+                {label}
+              </h2>
+              {buttonText && (
+                <Button
+                  onClick={() => (window.location.href = `/media-listing/${pathName}?page=1`)}
+                  variant="heading"
+                >
+                  <span className="media-carousel__link-text text-glow">{buttonText}</span>
+                  <ArrowForwardIosIcon />
+                </Button>
+              )}
+            </div>
+            <Carousel
+              media={media}
+              resources={resources}
+              responsiveOptions={responsiveOptions}
+            />
+          </div>
+        </Fade>
+      )}
       {error && (
         <p
           className="error"

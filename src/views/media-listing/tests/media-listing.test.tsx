@@ -7,6 +7,16 @@ import { screen, render } from "@testing-library/react";
 import MediaListing from "../index";
 
 describe("Media Listing component", () => {
+  beforeAll(() => {
+    Object.defineProperty(window, "location", {
+      value: {
+        pathname: "/media-listing/movie/now_playing",
+        search: "?page=1&type=movie",
+      },
+      writable: true,
+    });
+  });
+
   describe("Component rendering", () => {
     beforeEach(() => {
       render(

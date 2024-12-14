@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-// Utils
-import { getMedia } from "../../utils/get-resources";
+// Services
+import { getMedia } from "../../services/getMedia";
 
 // Components
 import Resources from "../../components/resources";

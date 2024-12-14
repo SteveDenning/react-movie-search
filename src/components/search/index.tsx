@@ -42,7 +42,7 @@ const Search = () => {
     { value: "person", label: "Actor" },
   ];
 
-  const updateQuery = (key, value) => {
+  const updateQuery = (key: string, value: string) => {
     params.set(key, value);
     setSearchParams(params);
   };
@@ -83,7 +83,7 @@ const Search = () => {
     inputRef.current.focus();
   };
 
-  const removeQueryParam = (key) => {
+  const removeQueryParam = (key: string) => {
     params.delete(key);
 
     navigate({
@@ -137,17 +137,12 @@ const Search = () => {
       />
       <div className="search__options">
         <form
+          data-testid="search-form"
           autoComplete="off"
           className="search__form"
-          onChange={(e) => {
-            handleSuggestions(e);
-          }}
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit();
-          }}
         >
           <label
+            data-testid="search-form-label"
             htmlFor="search"
             aria-labelledby="search"
             className="sr-only"
@@ -156,22 +151,33 @@ const Search = () => {
           </label>
           <input
             id="search"
+            data-testid="search-form-input"
             className="search__form-input"
             type="text"
             placeholder="Search"
             value={searchTerm || ""}
             onChange={(e) => {
+              handleSuggestions(e);
               setSearchTerm(e.currentTarget.value);
             }}
             ref={inputRef}
           />
+          <Button
+            className="sr-only"
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Submit
+          </Button>
           {!!searchTerm?.length && (
             <Button
+              data-testid="search-form-clear"
               variant="icon"
               className="search__form-clear"
               type="reset"
               onClick={clear}
             >
+              <span className="sr-only">Reset</span>
               <ClearIcon />
             </Button>
           )}
