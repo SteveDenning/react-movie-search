@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
-// Utils
-import { getMedia } from "../../utils/get-resources";
+// Services
+import { getMedia } from "../../services/getMedia";
 
 // Components
 import Button from "../../components/button";
@@ -40,7 +40,7 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
         setLoading(false);
       })
       .catch((error) => {
-        console.error(error);
+        // console.error(error);
         setError(true);
         setLoading(false);
       });
@@ -53,14 +53,19 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
   return (
     <>
       <Fade in={!!resources.length}>
-        <div
-          data-testid="media-carousel"
-          className="media-carousel"
-        >
+        <div>
           {resources.length && (
-            <>
-              <div className="media-carousel__header">
-                <h2 className="text-glow">{label}</h2>
+            <div>
+              <div
+                className="media-carousel__header"
+                data-testid="media-carousel"
+              >
+                <h2
+                  className="text-glow"
+                  data-testid="media-carousel-label"
+                >
+                  {label}
+                </h2>
                 {buttonText && (
                   <Button
                     onClick={() => (window.location.href = `/media-listing/${pathName}?page=1`)}
@@ -76,7 +81,7 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
                 resources={resources}
                 responsiveOptions={responsiveOptions}
               />
-            </>
+            </div>
           )}
         </div>
       </Fade>

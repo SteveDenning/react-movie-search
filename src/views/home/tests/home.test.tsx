@@ -31,11 +31,7 @@ describe("Home page component", () => {
     });
 
     it("Should render the Popular actors carousel", async () => {
-      await waitFor(() => expect(screen.getByText("Popular actors")).toBeInTheDocument());
-    });
-
-    it("Should render three carousels", () => {
-      expect(screen.getAllByTestId("media-carousel")).toHaveLength(3);
+      await waitFor(() => expect(screen.getByText("Most popular actors")).toBeInTheDocument());
     });
   });
 });

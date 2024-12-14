@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-// Utils
+// Services
 import { getMedia } from "../../services/getMedia";
 
 // Components

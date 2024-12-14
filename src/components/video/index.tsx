@@ -23,6 +23,7 @@ const Video: React.FC<Props> = ({ responsive, youTubeKey, playing }) => {
     >
       <ReactPlayer
         className="video__player"
+        data-testid="video-player"
         muted={true}
         url={videoUrl}
         width={responsive ? "100%" : "auto"}

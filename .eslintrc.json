@@ -18,7 +18,8 @@
     "no-global-assign": ["off"],
     "react/display-name": ["off"],
     "prefer-const": ["off"],
-    "@typescript-eslint/no-var-requires": "off"
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/ban-ts-comment": "warn"
   },
   "ignorePatterns": [],
   "settings": {
