@@ -30,7 +30,7 @@ const DetailsView = () => {
 
   const programmeId = window.location.pathname.split("/")[3] as string;
   const type = window.location.pathname.split("/")[2];
-  const backgroundImage = backDrop ? `url(https://image.tmdb.org/t/p/original${backDrop})` : "";
+  const backgroundImage = backDrop ? `url(${process.env.REACT_APP_TMDB_IMAGE_PATH}/${backDrop})` : "";
   const isMedia = type == "tv" || "movie";
   const isPerson = type == "person";
   const MediaCarouselLabel = isPerson ? "Known for" : "Top Cast";
@@ -188,7 +188,7 @@ const DetailsView = () => {
                           {resource.networks.map((network: any, i: number) => (
                             <li key={network.id + i}>
                               <img
-                                src={`${process.env.REACT_APP_TMDB_PATH}/t/p/original/${network["logo_path"]}`}
+                                src={`${process.env.REACT_APP_TMDB_ROOT}/t/p/original/${network["logo_path"]}`}
                                 alt=""
                                 style={{ width: "100px", background: "#ccc", padding: "10px", marginRight: "10px", borderRadius: "10px" }}
                               />
