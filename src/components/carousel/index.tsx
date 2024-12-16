@@ -17,10 +17,9 @@ interface Props {
   media?: string;
   resources: any[];
   responsiveOptions?: object;
-  variant?: string;
 }
 
-const Carousel: React.FC<Props> = ({ autoPlay = false, autoPlaySpeed, banner, infinite, media = "movie", resources, responsiveOptions, variant }) => {
+const Carousel: React.FC<Props> = ({ autoPlay = false, autoPlaySpeed, banner, infinite, media = "movie", resources, responsiveOptions }) => {
   const responsive = {
     desktop: {
       breakpoint: {
@@ -70,14 +69,9 @@ const Carousel: React.FC<Props> = ({ autoPlay = false, autoPlaySpeed, banner, in
     swipeable: true,
   };
 
-  // Class Definitions
-  const baseClass = "carousel";
-  const variantClass = variant ? `carousel--${variant}` : "";
-  const classes = [baseClass, variantClass].filter(Boolean).join(" ");
-
   return (
     <div
-      className={classes}
+      className="carousel"
       data-testid="carousel"
     >
       <ReactCarousel

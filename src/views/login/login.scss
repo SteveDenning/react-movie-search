@@ -1,0 +1,26 @@
+@import "../../styles/dependencies";
+
+// Log in styles
+
+.login {
+  svg {
+    cursor: pointer;
+    font-size: 25px;
+
+    @include breakpoint($medium) {
+      font-size: 35px;
+    }
+  }
+
+  &__user {
+    background-color: $primary-color;
+    border-radius: 50%;
+    color: $black;
+    padding: 5px;
+  }
+
+  &__avatar {
+    border-radius: 50%;
+    width: 40px;
+  }
+}

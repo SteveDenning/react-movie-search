@@ -32,4 +32,11 @@ export const Default: Story = {
     </Container>
   ),
 };
-Default.args = {};
+Default.args = {
+  resource: {
+    id: 1,
+    title: "Title",
+    poster_path: "https://image.tmdb.org/t/p/original/4dztY5QDPjiWj8e8YnenPV4J6SI.png",
+    backdrop_path: "https://image.tmdb.org/t/p/original/4dztY5QDPjiWj8e8YnenPV4J6SI.png",
+  },
+};

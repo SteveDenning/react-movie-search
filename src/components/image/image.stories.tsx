@@ -53,6 +53,18 @@ Default.args = {
   size: "small",
 };
 
+export const Scale: Story = {
+  render: (args) => (
+    <Container style={{ width: "200px" }}>
+      <Image {...args} />
+    </Container>
+  ),
+};
+Scale.args = {
+  resource: "Lorem ipsum",
+  variant: "scale",
+};
+
 export const Banner: Story = {
   render: (args) => (
     <Container>
@@ -63,16 +75,4 @@ export const Banner: Story = {
 Banner.args = {
   resource: "Lorem ipsum",
   variant: "banner",
-};
-
-export const Scale: Story = {
-  render: (args) => (
-    <Container>
-      <Image {...args} />
-    </Container>
-  ),
-};
-Scale.args = {
-  resource: "Lorem ipsum",
-  variant: "scale",
 };
