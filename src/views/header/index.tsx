@@ -7,12 +7,12 @@ import { getRequestToken, createSessionWithLogin, deleteSession, getAccountDetai
 // Components
 import Search from "../../components/search";
 import Button from "../../components/button";
+import Login from "../../views/login";
 
 // MUI
 import { Box, Container, Drawer, Typography } from "@mui/material";
 
 // Icons
-import Person3OutlinedIcon from "@mui/icons-material/Person3Outlined";
 import TheatersIcon from "@mui/icons-material/Theaters";
 
 // Styles
@@ -39,6 +39,7 @@ const Header: React.FC<Props> = ({ heading }) => {
   const [searchParams, setSearchParams] = useSearchParams(window.location.search);
 
   const params = new URLSearchParams(searchParams);
+  const token = params.get("request_token");
   const sessionId = sessionStorage.getItem("sessionId");
   const environment = process.env.NODE_ENV;
   const redirectTo = environment === "development" ? "http://localhost:3000/" : "https://sd-react-movie-search.web.app/";
@@ -75,7 +76,7 @@ const Header: React.FC<Props> = ({ heading }) => {
     }
   };
 
-  const handleAccountDetails = (sessionId) => {
+  const handleAccountDetails = (sessionId: string) => {
     getAccountDetails(sessionId)
       .then((response: any) => {
         if (response.data["name"]) {
@@ -101,13 +102,13 @@ const Header: React.FC<Props> = ({ heading }) => {
     }
   };
 
-  const toggleDrawer = (newOpen: boolean) => () => {
-    setOpen(newOpen);
+  const toggleDrawer = (state: boolean) => {
+    setOpen(state);
   };
 
   useEffect(() => {
     getSessionWithToken();
-  }, [params.get("request_token")]);
+  }, [token]);
 
   return (
     <header>
@@ -137,29 +138,17 @@ const Header: React.FC<Props> = ({ heading }) => {
             </Typography>
             <Search />
           </div>
-          <Button
-            variant="icon"
-            onClick={toggleDrawer(true)}
-            className="header__login"
-          >
-            <span className="sr-only">User Profile</span>
-            {user?.avatar?.tmdb?.avatar_path ? (
-              <img
-                className="header__avatar"
-                src={`https://image.tmdb.org/t/p/original/${user.avatar.tmdb.avatar_path}`}
-                alt={user.name}
-              />
-            ) : user?.name ? (
-              <span className="header__user">{user.name.match(/\b(\w)/g).join("")}</span>
-            ) : (
-              <Person3OutlinedIcon />
-            )}
-          </Button>
+          <Login
+            onClick={() => {
+              toggleDrawer(true);
+            }}
+            user={user}
+          />
         </div>
         {/* TODO - move to navigation component */}
         <Drawer
           open={open}
-          onClose={toggleDrawer(false)}
+          onClose={() => toggleDrawer(false)}
           anchor="right"
           PaperProps={{
             sx: {

@@ -38,7 +38,7 @@ const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick }) =
   const classes = [baseClass, sizeClass, mobileClass, variantClass].filter(Boolean).join(" ");
   const imageSrc = resource["poster_path"] || resource["profile_path"] || resource["backdrop_path"];
   const imagePath = imageSrc
-    ? `https://image.tmdb.org/t/p/original/${variant === "banner" ? resource["backdrop_path"] : imageSrc}`
+    ? `${process.env.REACT_APP_TMDB_IMAGE_PATH}/${variant === "banner" ? resource["backdrop_path"] : imageSrc}`
     : getPlaceholder();
 
   return (
