@@ -36,7 +36,7 @@ const Login: React.FC<Props> = ({ onClick, user }) => {
       {user?.avatar?.tmdb?.avatar_path ? (
         <img
           className="login__avatar"
-          src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${user.avatar.tmdb.avatar_path}`}
+          src={`https://image.tmdb.org/t/p/original/${user.avatar.tmdb.avatar_path}`}
           alt={user.name}
           data-testid="login-avatar"
         />
