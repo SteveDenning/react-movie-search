@@ -17,10 +17,10 @@ interface Props {
   onClick?: () => void;
   variant?: "banner" | "resource";
   handleFavorite?: (isFavorite: boolean) => void;
-  favorite?: boolean;
+  favourite?: boolean;
 }
 
-const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite, favorite }) => {
+const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite, favourite }) => {
   const user = JSON.parse(sessionStorage.getItem("user") || null);
 
   // Class definitions
@@ -61,14 +61,14 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite, fav
           {resource?.["known_for_department"] && <p className="card__info">{resource["known_for_department"]}</p>}
           <p className="card__info">{resource?.character}</p>
         </div>
-        {user && favorite && (
+        {user && favourite && (
           <Button
-            className="card__favorite"
+            className="card__favourite"
             color="red"
             variant="icon"
-            onClick={() => handleFavorite(resource?.favorite)}
+            onClick={() => handleFavorite(resource?.favourite)}
           >
-            {resource?.favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+            {resource?.favourite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </Button>
         )}
       </div>

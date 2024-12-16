@@ -12,8 +12,8 @@ const headers = {
   },
 };
 
-export const addFavorite = async (userId: string, body): Promise<any> => {
-  const url = `${apiUrl}/account/${userId}/favorite`;
+export const addFavourite = async (userId: string, body): Promise<any> => {
+  const url = `${apiUrl}/account/${userId}/favourite`;
 
   const response: AxiosResponse<any> = await await axios.post(url, body, { ...headers, method: "POST" });
 

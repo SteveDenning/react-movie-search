@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 // Utils
 import { getRequestToken, createSessionWithLogin, deleteSession, getAccountDetails } from "../../utils/get-resources";
@@ -17,6 +17,9 @@ import TheatersIcon from "@mui/icons-material/Theaters";
 
 // Styles
 import "./header.scss";
+
+// Config
+import { config } from "../../config/routes";
 
 interface Props {
   heading: string;
@@ -38,6 +41,7 @@ const Header: React.FC<Props> = ({ heading }) => {
   const [user, setUser] = useState<UserType>(JSON.parse(sessionStorage.getItem("user")));
   const [searchParams, setSearchParams] = useSearchParams(window.location.search);
 
+  const navigate = useNavigate();
   const params = new URLSearchParams(searchParams);
   const token = params.get("request_token");
   const sessionId = sessionStorage.getItem("sessionId");
@@ -161,10 +165,20 @@ const Header: React.FC<Props> = ({ heading }) => {
             {sessionId && (
               <ul style={{ margin: "0", padding: "20px" }}>
                 <li>
-                  <a href="">TODO - Profile page</a>
+                  <Button
+                    variant="link"
+                    onClick={() => navigate(config.profile.path)}
+                  >
+                    Profile
+                  </Button>
                 </li>
                 <li>
-                  <a href="">TODO - Lists</a>
+                  <Button
+                    variant="link"
+                    onClick={() => navigate(config.favourites.path)}
+                  >
+                    Favourites
+                  </Button>
                 </li>
               </ul>
             )}

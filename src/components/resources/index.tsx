@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 // Services
-import { addFavorite } from "../../services/addFavorite";
 import { getFavorites } from "../../services/getFavorites";
+import { addFavourite } from "../../services/addFavorite";
 
 // Components
 import Card from "../../components/card";
@@ -31,17 +31,17 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
 
   /////////////////////////////
 
-  const [favorites, setFavorites] = useState([]);
+  const [favourites, setFavorites] = useState([]);
   const [items, setItems] = useState([]);
 
   const handleFavorite = (id: string, event) => {
     const body = {
       media_type: type,
       media_id: id,
-      favorite: !event,
+      favourite: !event,
     };
 
-    addFavorite(user.id, body)
+    addFavourite(user.id, body)
       .then((response) => {
         console.log(response);
         getFavoritesList();
@@ -63,15 +63,15 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
 
   useEffect(() => {
     const updatedArray = resources.map((item1) => {
-      const match = favorites.find((item2) => item2.id === item1.id);
-      return match ? { ...item1, favorite: true } : item1;
+      const match = favourites.find((item2) => item2.id === item1.id);
+      return match ? { ...item1, favourite: true } : item1;
     });
 
     setItems(updatedArray);
-  }, [favorites]);
+  }, [favourites]);
 
   useEffect(() => {
-    if (user) {
+    if (user && type !== "person") {
       getFavoritesList();
     } else {
       setItems(resources);
@@ -114,7 +114,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
                     onClick={() => (window.location.href = `/details/${path}/${item.id}`)}
                     variant="resource"
                     handleFavorite={(event) => handleFavorite(item.id, event)}
-                    favorite
+                    favourite={type !== "person"}
                   />
                 </Grid>
               );

@@ -62,6 +62,7 @@ const MediaListing = () => {
 
   return (
     <Container data-testid="media-listing">
+      <h1>Latest {window.location.pathname.split("/")[2]} releases</h1>
       <Resources
         resources={resources}
         page={page}
