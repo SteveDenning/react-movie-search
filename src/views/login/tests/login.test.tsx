@@ -64,6 +64,10 @@ describe("Login In component", () => {
     it("Should display the users initials if no avatar is present", () => {
       expect(screen.getByTestId("login-user-initials")).toBeInTheDocument();
     });
+
+    it("Should display SD as the initials", () => {
+      expect(screen.getByTestId("login-user-initials")).toHaveTextContent("SD");
+    });
   });
 
   describe("Component rendering (logged out)", () => {

@@ -39,6 +39,7 @@ const Header: React.FC<Props> = ({ heading }) => {
   const [searchParams, setSearchParams] = useSearchParams(window.location.search);
 
   const params = new URLSearchParams(searchParams);
+  const token = params.get("request_token");
   const sessionId = sessionStorage.getItem("sessionId");
   const environment = process.env.NODE_ENV;
   const redirectTo = environment === "development" ? "http://localhost:3000/" : "https://sd-react-movie-search.web.app/";
@@ -75,7 +76,7 @@ const Header: React.FC<Props> = ({ heading }) => {
     }
   };
 
-  const handleAccountDetails = (sessionId) => {
+  const handleAccountDetails = (sessionId: string) => {
     getAccountDetails(sessionId)
       .then((response: any) => {
         if (response.data["name"]) {
@@ -107,7 +108,7 @@ const Header: React.FC<Props> = ({ heading }) => {
 
   useEffect(() => {
     getSessionWithToken();
-  }, [params.get("request_token")]);
+  }, [token]);
 
   return (
     <header>
@@ -138,7 +139,9 @@ const Header: React.FC<Props> = ({ heading }) => {
             <Search />
           </div>
           <Login
-            onClick={toggleDrawer}
+            onClick={() => {
+              toggleDrawer(true);
+            }}
             user={user}
           />
         </div>

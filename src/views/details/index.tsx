@@ -30,7 +30,7 @@ const DetailsView = () => {
 
   const programmeId = window.location.pathname.split("/")[3] as string;
   const type = window.location.pathname.split("/")[2];
-  const backgroundImage = backDrop ? `url(${process.env.REACT_APP_TMDB_PATH}/t/p/original/${backDrop})` : "";
+  const backgroundImage = backDrop ? `url(https://image.tmdb.org/t/p/original${backDrop})` : "";
   const isMedia = type == "tv" || "movie";
   const isPerson = type == "person";
   const MediaCarouselLabel = isPerson ? "Known for" : "Top Cast";
