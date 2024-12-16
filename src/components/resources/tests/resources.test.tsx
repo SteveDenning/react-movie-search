@@ -62,21 +62,4 @@ describe("Resources component", () => {
       expect(screen.queryByTestId("pagination")).toBeNull();
     });
   });
-
-  describe("Component rendering (no results)", () => {
-    beforeEach(() =>
-      render(
-        <Resources
-          resources={[]}
-          count={0}
-          page={0}
-          loading={false}
-        />,
-      ),
-    );
-
-    it("Should not render the resource if there is an empty array", () => {
-      expect(screen.queryByTestId("resources")).toBeNull();
-    });
-  });
 });

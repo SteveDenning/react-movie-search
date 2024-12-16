@@ -38,9 +38,15 @@ const Login: React.FC<Props> = ({ onClick, user }) => {
           className="login__avatar"
           src={`https://image.tmdb.org/t/p/original/${user.avatar.tmdb.avatar_path}`}
           alt={user.name}
+          data-testid="login-avatar"
         />
       ) : user?.name ? (
-        <span className="login__user">{user.name.match(/\b(\w)/g).join("")}</span>
+        <span
+          className="login__user-initials"
+          data-testid="login-user-initials"
+        >
+          {user.name.match(/\b(\w)/g).join("")}
+        </span>
       ) : (
         <Person3OutlinedIcon />
       )}
