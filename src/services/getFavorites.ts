@@ -1,4 +1,5 @@
 import axios, { AxiosResponse } from "axios";
+import pluralize from "pluralize";
 
 const apiUrl = "https://api.themoviedb.org/3";
 const authorization =
@@ -11,11 +12,10 @@ const headers = {
     Authorization: authorization,
   },
 };
-// TODO - set type
 export const getFavorites = async (userId: string, type: string): Promise<any> => {
-  const url = `${apiUrl}/account/${userId}/favorite/movies?language=en-US&page=1&sort_by=created_at.asc`;
-
-  const response: AxiosResponse<any> = await await axios.get(url, headers);
-
-  return response;
+  if (userId && type) {
+    const url = `${apiUrl}/account/${userId}/favorite/${type === "movie" ? pluralize(type) : type}?language=en-US&page=1&sort_by=created_at.asc`;
+    const response: AxiosResponse<any> = await await axios.get(url, headers);
+    return response;
+  }
 };

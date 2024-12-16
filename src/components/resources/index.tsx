@@ -71,7 +71,11 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
   }, [favorites]);
 
   useEffect(() => {
-    getFavoritesList();
+    if (user) {
+      getFavoritesList();
+    } else {
+      setItems(resources);
+    }
   }, [resources]);
 
   useEffect(() => {
