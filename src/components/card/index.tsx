@@ -2,7 +2,12 @@ import React from "react";
 import moment from "moment";
 
 // Components
+import Button from "../../components/button";
 import Image from "../../components/image";
+
+// MUI Icons
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 // Styles
 import "./card.scss";
@@ -11,9 +16,13 @@ interface Props {
   resource: any;
   onClick?: () => void;
   variant?: "banner" | "resource";
+  handleFavorite?: (isFavorite: boolean) => void;
+  favorite?: boolean;
 }
 
-const Card: React.FC<Props> = ({ resource, onClick, variant }) => {
+const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite, favorite }) => {
+  const user = JSON.parse(sessionStorage.getItem("user") || null);
+
   // Class definitions
   const baseClass = "card";
   const variantClass = variant ? `card--${variant}` : "";
@@ -29,7 +38,7 @@ const Card: React.FC<Props> = ({ resource, onClick, variant }) => {
         id={resource.id}
       />
       <div className="card__overlay">
-        <button
+        <div
           className="card__content"
           onClick={onClick}
           data-testid="card-content"
@@ -51,7 +60,17 @@ const Card: React.FC<Props> = ({ resource, onClick, variant }) => {
           {resource?.["release_date"] && <p className="card__info">{moment(resource?.["release_date"]).format("YYYY")}</p>}
           {resource?.["known_for_department"] && <p className="card__info">{resource["known_for_department"]}</p>}
           <p className="card__info">{resource?.character}</p>
-        </button>
+        </div>
+        {user && favorite && (
+          <Button
+            className="card__favorite"
+            color="red"
+            variant="icon"
+            onClick={() => handleFavorite(resource?.favorite)}
+          >
+            {resource?.favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          </Button>
+        )}
       </div>
     </div>
   );

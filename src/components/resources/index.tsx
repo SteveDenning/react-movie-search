@@ -1,4 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
+// Services
+import { addFavorite } from "../../services/addFavorite";
+import { getFavorites } from "../../services/getFavorites";
 
 // Components
 import Card from "../../components/card";
@@ -23,6 +27,52 @@ interface Props {
 const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, loading }) => {
   const params = new URLSearchParams(window.location.search);
   const type = params.get("type");
+  const user = JSON.parse(sessionStorage.getItem("user") || null);
+
+  /////////////////////////////
+
+  const [favorites, setFavorites] = useState([]);
+  const [items, setItems] = useState([]);
+
+  const handleFavorite = (id: string, event) => {
+    const body = {
+      media_type: type,
+      media_id: id,
+      favorite: !event,
+    };
+
+    addFavorite(user.id, body)
+      .then((response) => {
+        console.log(response);
+        getFavoritesList();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getFavoritesList = () => {
+    getFavorites(user.id, type)
+      .then((response) => {
+        setFavorites(response.data.results);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    const updatedArray = resources.map((item1) => {
+      const match = favorites.find((item2) => item2.id === item1.id);
+      return match ? { ...item1, favorite: true } : item1;
+    });
+
+    setItems(updatedArray);
+  }, [favorites]);
+
+  useEffect(() => {
+    getFavoritesList();
+  }, [resources]);
 
   useEffect(() => {
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
@@ -33,7 +83,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
       className="resources"
       data-testid="resources"
     >
-      <Fade in={!!resources?.length}>
+      <Fade in={!!items?.length}>
         <div className="resources__inner">
           <Grid
             aria-label="Results"
@@ -43,7 +93,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
             component="ul"
             columns={20}
           >
-            {resources.map((item: any, i: number) => {
+            {items.map((item: any, i: number) => {
               const path = item["media_type"] ? item["media_type"] : type;
 
               return (
@@ -59,6 +109,8 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
                     resource={item}
                     onClick={() => (window.location.href = `/details/${path}/${item.id}`)}
                     variant="resource"
+                    handleFavorite={(event) => handleFavorite(item.id, event)}
+                    favorite
                   />
                 </Grid>
               );

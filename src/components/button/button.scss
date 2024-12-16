@@ -55,7 +55,6 @@
 
   // Filled variants
   &--filled {
-    // Size variants
     &.button--small {
       font-size: 14px;
       line-height: 20px;
@@ -197,6 +196,17 @@
       @include hover {
         svg {
           fill: $lilac;
+        }
+      }
+    }
+    &.button--red {
+      svg {
+        fill: $red;
+      }
+
+      @include hover {
+        svg {
+          fill: $red;
         }
       }
     }
