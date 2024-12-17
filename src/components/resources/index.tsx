@@ -25,14 +25,15 @@ interface Props {
 }
 
 const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, loading }) => {
+  const [favourites, setFavourites] = useState([]);
+  const [items, setItems] = useState([]);
+
   const params = new URLSearchParams(window.location.search);
   const type = params.get("type");
   const user = JSON.parse(sessionStorage.getItem("user") || null);
-
-  /////////////////////////////
-
-  const [favourites, setFavourites] = useState([]);
-  const [items, setItems] = useState([]);
+  const isTv = type === "tv";
+  const isMovie = type === "movie";
+  const hasFavourite = isTv || isMovie;
 
   const handleFavorite = (id: string, isFavourite: boolean) => {
     const body = {
@@ -60,25 +61,34 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
       });
   };
 
+  const handleAddFavourite = () => {
+    const updatedArray = resources.map((resource) => {
+      const isFavourite = favourites.find((favourite) => favourite.id === resource.id);
+      return isFavourite ? { ...resource, favourite: true } : resource;
+    });
+    setItems(updatedArray);
+  };
+
+  const updateResources = () => {
+    if (user) {
+      if (hasFavourite) {
+        getFavouritesList();
+      }
+    } else {
+      setItems(resources);
+    }
+  };
+
   const handleOnClick = (item: any, path: string) => {
     window.location.href = `/details/${path}/${item.id}`;
   };
 
   useEffect(() => {
-    const updatedArray = resources.map((resource) => {
-      const match = favourites.find((favourite) => favourite.id === resource.id);
-      return match ? { ...resource, favourite: true } : resource;
-    });
-
-    setItems(updatedArray);
+    handleAddFavourite();
   }, [favourites]);
 
   useEffect(() => {
-    if (user && type !== "person") {
-      getFavouritesList();
-    } else {
-      setItems(resources);
-    }
+    updateResources();
   }, [resources]);
 
   useEffect(() => {
@@ -117,7 +127,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
                     onClick={() => handleOnClick(item, path)}
                     variant="resource"
                     handleFavorite={(event) => handleFavorite(item.id, event)}
-                    favourite={type !== "person"}
+                    favourite={hasFavourite}
                   />
                 </Grid>
               );

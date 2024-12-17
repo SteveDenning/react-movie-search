@@ -63,8 +63,6 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite, fav
         </div>
         {user && favourite && (
           <Button
-            className="card__favourite"
-            color="red"
             variant="icon"
             onClick={() => handleFavorite(resource?.favourite)}
           >

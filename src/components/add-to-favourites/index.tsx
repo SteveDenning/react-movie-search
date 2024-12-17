@@ -16,7 +16,7 @@ import "./add-to-favourites.scss";
 
 interface Props {
   resource: any;
-  variant?: "card" | undefined;
+  variant?: string;
 }
 
 const AddToFavourites: React.FC<Props> = ({ resource, variant }) => {
@@ -28,7 +28,7 @@ const AddToFavourites: React.FC<Props> = ({ resource, variant }) => {
 
   // Class definitions
   const baseClass = "add-to-favourites";
-  const variantClass = variant ? `button--${variant}` : "";
+  const variantClass = variant ? `add-to-favourites--${variant}` : "";
   const classes = [baseClass, variantClass].filter(Boolean).join(" ");
 
   const handleFavorite = () => {
@@ -70,9 +70,8 @@ const AddToFavourites: React.FC<Props> = ({ resource, variant }) => {
         <Button
           className={classes}
           testId="add-to-favourites"
-          color="red"
           variant="icon"
-          onClick={() => handleFavorite()}
+          onClick={handleFavorite}
         >
           {isFavourite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
         </Button>

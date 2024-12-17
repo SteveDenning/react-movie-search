@@ -30,7 +30,7 @@ const SearchResults = () => {
     updateQuery("page", value);
   };
 
-  const handleSearchInput = () => {
+  const handleGetResults = () => {
     if (window.location.search) {
       setLoading(true);
       getAllMediaFromSearch(`${type}${window.location.search}`)
@@ -53,14 +53,18 @@ const SearchResults = () => {
   };
 
   useEffect(() => {
-    handleSearchInput();
+    handleGetResults();
     if (!query) {
       setResources([]);
     }
   }, [type, query, page]);
 
   useEffect(() => {
-    handleSearchInput();
+    updateQuery("page", 1);
+  }, [type]);
+
+  useEffect(() => {
+    handleGetResults();
     return () => {
       setResources([]);
       sessionStorage.removeItem("query");
