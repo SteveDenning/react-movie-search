@@ -14,6 +14,7 @@ const Favourites: React.FC<Props> = () => {
       data-testid="favourites"
     >
       <h1>Favourites</h1>
+      <p>Add tabs for TV and Films</p>
     </div>
   );
 };

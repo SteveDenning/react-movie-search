@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 // Services
-import { getFavorites } from "../../services/getFavorites";
-import { addFavourite } from "../../services/addFavorite";
+import { addFavourite } from "../../services/addFavourite";
+import { getFavourites } from "../../services/getFavourites";
 
 // Components
 import Card from "../../components/card";
@@ -31,40 +31,43 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
 
   /////////////////////////////
 
-  const [favourites, setFavorites] = useState([]);
+  const [favourites, setFavourites] = useState([]);
   const [items, setItems] = useState([]);
 
-  const handleFavorite = (id: string, event) => {
+  const handleFavorite = (id: string, isFavourite: boolean) => {
     const body = {
       media_type: type,
       media_id: id,
-      favourite: !event,
+      favorite: !isFavourite,
     };
 
     addFavourite(user.id, body)
-      .then((response) => {
-        console.log(response);
-        getFavoritesList();
+      .then(() => {
+        getFavouritesList();
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const getFavoritesList = () => {
-    getFavorites(user.id, type)
+  const getFavouritesList = () => {
+    getFavourites(user.id, type)
       .then((response) => {
-        setFavorites(response.data.results);
+        setFavourites(response.data.results);
       })
       .catch((error) => {
         console.log(error);
       });
+  };
+
+  const handleOnClick = (item: any, path: string) => {
+    window.location.href = `/details/${path}/${item.id}`;
   };
 
   useEffect(() => {
-    const updatedArray = resources.map((item1) => {
-      const match = favourites.find((item2) => item2.id === item1.id);
-      return match ? { ...item1, favourite: true } : item1;
+    const updatedArray = resources.map((resource) => {
+      const match = favourites.find((favourite) => favourite.id === resource.id);
+      return match ? { ...resource, favourite: true } : resource;
     });
 
     setItems(updatedArray);
@@ -72,7 +75,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
 
   useEffect(() => {
     if (user && type !== "person") {
-      getFavoritesList();
+      getFavouritesList();
     } else {
       setItems(resources);
     }
@@ -111,7 +114,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
                 >
                   <Card
                     resource={item}
-                    onClick={() => (window.location.href = `/details/${path}/${item.id}`)}
+                    onClick={() => handleOnClick(item, path)}
                     variant="resource"
                     handleFavorite={(event) => handleFavorite(item.id, event)}
                     favourite={type !== "person"}

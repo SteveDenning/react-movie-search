@@ -157,7 +157,7 @@ const Header: React.FC<Props> = ({ heading }) => {
           PaperProps={{
             sx: {
               width: 300,
-              bgcolor: "#555",
+              bgcolor: "#000",
             },
           }}
         >
