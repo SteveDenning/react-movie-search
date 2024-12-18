@@ -9,8 +9,6 @@ import Card from "../../components/card";
 import Pagination from "../../components/pagination";
 
 // MUI
-import Backdrop from "@mui/material/Backdrop";
-import CircularProgress from "@mui/material/CircularProgress";
 import { Fade, Grid } from "@mui/material";
 
 // Styles
@@ -24,7 +22,7 @@ interface Props {
   loading: boolean;
 }
 
-const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, loading }) => {
+const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }) => {
   const [favourites, setFavourites] = useState([]);
   const [items, setItems] = useState([]);
 

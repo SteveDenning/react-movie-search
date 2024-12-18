@@ -13,9 +13,8 @@ describe("Tabs component", () => {
       render(
         <Tabs
           tabs={[
-            { label: "Draft", value: "DRAFT", payload: { status: "DRAFT" } },
-            { label: "Published", value: "PUBLISHED", payload: { status: "PUBLISHED" } },
-            { label: "Closed", value: "COMPLETED", payload: { status: "COMPLETED" } },
+            { label: "TV", value: "tv" },
+            { label: "Movies", value: "movies" },
           ]}
           onClick={handleTabChange}
         />,
@@ -27,14 +26,13 @@ describe("Tabs component", () => {
     });
 
     it("Should render all tabs", () => {
-      expect(screen.getByRole("button", { name: "Draft selected" })).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: "Published unselected" })).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: "Closed unselected" })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "TV selected" })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Movies unselected" })).toBeInTheDocument();
     });
 
     it("Should allow a user to select a tab", () => {
-      fireEvent.click(screen.getByRole("button", { name: "Published unselected" }));
-      expect(handleTabChange).toHaveBeenCalledWith({ label: "Published", value: "PUBLISHED", payload: { status: "PUBLISHED" } });
+      fireEvent.click(screen.getByRole("button", { name: "Movies unselected" }));
+      expect(handleTabChange).toHaveBeenCalledWith({ label: "Movies", value: "movies" });
     });
   });
 
@@ -45,12 +43,11 @@ describe("Tabs component", () => {
       render(
         <Tabs
           tabs={[
-            { label: "Draft", value: "DRAFT", payload: { status: "DRAFT" } },
-            { label: "Published", value: "PUBLISHED", payload: { status: "PUBLISHED" } },
-            { label: "Closed", value: "COMPLETED", payload: { status: "COMPLETED" } },
+            { label: "TV", value: "tv" },
+            { label: "Movies", value: "movies" },
           ]}
           onClick={handleTabChange}
-          initialSelection="COMPLETED"
+          initialSelection="movies"
           variant="test"
           className="test-class"
         />,
@@ -66,9 +63,8 @@ describe("Tabs component", () => {
     });
 
     it("Should pre-select the correct button", () => {
-      expect(screen.getByRole("button", { name: "Draft unselected" })).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: "Published unselected" })).toBeInTheDocument();
-      expect(screen.getByRole("button", { name: "Closed selected" })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "TV unselected" })).toBeInTheDocument();
+      expect(screen.getByRole("button", { name: "Movies selected" })).toBeInTheDocument();
     });
   });
 });

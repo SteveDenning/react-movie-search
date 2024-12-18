@@ -9,10 +9,13 @@
 
   .panel {
     background: rgba($color: $primary-color, $alpha: 0.2);
+    border-radius: 0 20px;
     margin-bottom: 10px;
     padding: 10px;
 
     &__image {
+      border-radius: 0 20px;
+      overflow: hidden;
       max-width: 100%;
       margin-bottom: 20px;
     }

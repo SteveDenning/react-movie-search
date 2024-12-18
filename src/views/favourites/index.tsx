@@ -25,7 +25,10 @@ interface Props {
 const Favourites: React.FC<Props> = () => {
   const [favouriteMovies, setFavouriteMovies] = useState<any>([]);
   const [favouriteTv, setFavouriteTv] = useState<any>([]);
-  const [selectedTab, setSelectedTab] = useState({ label: "Movies", value: "movies" });
+  const [selectedTab, setSelectedTab] = useState("movies");
+
+  const movies = selectedTab === "movies";
+  const tv = selectedTab === "tv";
 
   const user = JSON.parse(sessionStorage.getItem("user") || null);
   const updateSearchParam = useUpdateSearchParams();
@@ -70,7 +73,7 @@ const Favourites: React.FC<Props> = () => {
 
   const handleTabChange = (tab: { label: string; value: string }) => {
     updateSearchParam("type", tab.value);
-    setSelectedTab(tab);
+    setSelectedTab(tab.value);
   };
   return (
     <Container>
@@ -85,10 +88,11 @@ const Favourites: React.FC<Props> = () => {
               { label: "TV", value: "tv" },
             ]}
             onClick={handleTabChange}
+            initialSelection="movies"
           />
           <div className="favourites__inner">
-            {selectedTab.value === "tv" && (
-              <Fade in={selectedTab.value === "tv"}>
+            {selectedTab === "tv" && (
+              <Fade in={selectedTab === "tv"}>
                 <div>
                   <List
                     items={favouriteTv}
@@ -97,9 +101,9 @@ const Favourites: React.FC<Props> = () => {
                 </div>
               </Fade>
             )}
-            <Fade in={selectedTab.value === "movies"}>
+            <Fade in={selectedTab === "movies"}>
               <div>
-                {selectedTab.value === "movies" && (
+                {selectedTab === "movies" && (
                   <List
                     items={favouriteMovies}
                     handleDelete={(item) => handleDelete("movies", item)}
