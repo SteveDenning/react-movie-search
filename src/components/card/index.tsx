@@ -27,6 +27,7 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite, fav
   const baseClass = "card";
   const variantClass = variant ? `card--${variant}` : "";
   const classes = [baseClass, variantClass].filter(Boolean).join(" ");
+  const isPerson = Object.prototype.hasOwnProperty.call(resource, "gender");
 
   return (
     <div
@@ -61,10 +62,10 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite, fav
           {resource?.["known_for_department"] && <p className="card__info">{resource["known_for_department"]}</p>}
           <p className="card__info">{resource?.character}</p>
         </div>
-        {user && favourite && (
+        {user && !isPerson && favourite && (
           <Button
             variant="icon"
-            onClick={() => handleFavorite(resource?.favourite)}
+            onClick={() => handleFavorite(resource)}
           >
             {resource?.favourite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </Button>

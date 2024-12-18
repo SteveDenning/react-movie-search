@@ -29,29 +29,37 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
   const [items, setItems] = useState([]);
 
   const params = new URLSearchParams(window.location.search);
-  const type = params.get("type");
+  const type = params.get("type") || window.location.pathname.split("/")[2];
   const user = JSON.parse(sessionStorage.getItem("user") || null);
-  const isTv = type === "tv";
-  const isMovie = type === "movie";
-  const hasFavourite = isTv || isMovie;
+  const isMulti = type === "multi";
+  const isPerson = type === "person";
 
-  const handleFavorite = (id: string, isFavourite: boolean) => {
+  const handleFavorite = (resource: any) => {
+    let type;
+    if (Object.prototype.hasOwnProperty.call(resource, "media_type")) {
+      type = resource.media_type;
+    } else if (Object.prototype.hasOwnProperty.call(resource, "name")) {
+      type = "tv";
+    } else {
+      type = "movie";
+    }
+
     const body = {
       media_type: type,
-      media_id: id,
-      favorite: !isFavourite,
+      media_id: resource.id,
+      favorite: !resource?.favourite,
     };
 
     addFavourite(user.id, body)
       .then(() => {
-        getFavouritesList();
+        getFavouritesList(type);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const getFavouritesList = () => {
+  const getFavouritesList = (type?) => {
     getFavourites(user.id, type)
       .then((response) => {
         setFavourites(response.data.results);
@@ -69,10 +77,13 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
     setItems(updatedArray);
   };
 
+  // Need to simplify this
   const updateResources = () => {
     if (user) {
-      if (hasFavourite) {
-        getFavouritesList();
+      if (!isPerson && !isMulti) {
+        getFavouritesList(type);
+      } else {
+        setItems(resources);
       }
     } else {
       setItems(resources);
@@ -126,8 +137,8 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
                     resource={item}
                     onClick={() => handleOnClick(item, path)}
                     variant="resource"
-                    handleFavorite={(event) => handleFavorite(item.id, event)}
-                    favourite={hasFavourite}
+                    handleFavorite={(event) => handleFavorite(event)}
+                    favourite
                   />
                 </Grid>
               );
@@ -144,9 +155,6 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page, 
           )}
         </div>
       </Fade>
-      <Backdrop open={!!loading}>
-        <CircularProgress color="primary" />
-      </Backdrop>
     </div>
   );
 };

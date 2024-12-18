@@ -16,6 +16,8 @@ describe("Resources component", () => {
     beforeAll(() => {
       Object.defineProperty(window, "location", {
         value: {
+          pathname: "/media-listing/movie/now_playing",
+          search: "?page=1&type=movie",
           href: "/details/movie/100",
         },
         writable: true,

@@ -25,10 +25,6 @@ const MediaListing = () => {
     updateQuery("page", value);
   };
 
-  const setMediaType = () => {
-    updateQuery("type", window.location.pathname.split("/")[2]);
-  };
-
   const updateQuery = (key, value) => {
     params.set(key, value);
     setSearchParams(params);
@@ -52,13 +48,12 @@ const MediaListing = () => {
 
   useEffect(() => {
     fetchLatestRelease();
-    setMediaType();
   }, []);
 
   useEffect(() => {
     fetchLatestRelease();
     setPage(Number(params.get("page")));
-  }, [location.search]);
+  }, [page]);
 
   return (
     <Container data-testid="media-listing">
