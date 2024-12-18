@@ -10,7 +10,7 @@ import { variables } from "./config";
 
 let mockStorage = {};
 
-describe("Add to component", () => {
+describe("Add to favourites component", () => {
   beforeAll(() => {
     global.Storage.prototype.setItem = jest.fn((key, value) => {
       mockStorage[key] = value;
