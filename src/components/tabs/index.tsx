@@ -48,10 +48,10 @@ const Tabs: React.FC<Props> = ({ variant, className, tabs, onClick, initialSelec
 
         return (
           <Button
-            className="tabs__button"
-            variant={!isSelected ? "outlined" : undefined}
+            className={`tabs__button${isSelected ? " tabs__button--selected" : ""}`}
             onClick={(event) => handleClick(event, tab)}
             key={index}
+            variant="plain"
           >
             {tab.label}
 

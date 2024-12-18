@@ -256,11 +256,17 @@
       }
     }
   }
+
   &--null {
     background: none;
     justify-content: flex-start;
     padding: 0;
     width: 100%;
+  }
+
+  &--plain {
+    background: none;
+    padding: 0;
   }
 
   &--imdb {
