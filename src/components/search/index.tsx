@@ -31,6 +31,7 @@ const Search = () => {
   const params = new URLSearchParams(searchParams);
   const [searchTerm, setSearchTerm] = useState(params.get("query"));
   const type = params.get("type") || "multi";
+  const isSearchResultsPage = window.location.pathname === config.searchResults.path;
 
   const navigate = useNavigate();
   const inputRef = useRef(null);
@@ -57,7 +58,7 @@ const Search = () => {
           pathname: `${config.searchResults.path}`,
           search: `?query=${searchTerm}&type=${type}`,
         },
-        { replace: window.location.pathname !== config.searchResults.path },
+        { replace: !isSearchResultsPage },
       );
     }
   };
@@ -93,7 +94,10 @@ const Search = () => {
   };
 
   const handleMediaTypeChange = (event: any) => {
-    updateQuery("type", event.value);
+    setMediaType(event);
+    if (isSearchResultsPage) {
+      updateQuery("type", event.value);
+    }
   };
 
   const handleSetMedia = (value: string) => {

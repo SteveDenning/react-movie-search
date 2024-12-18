@@ -30,10 +30,8 @@ const SearchResults = () => {
     updateQuery("page", value);
   };
 
-  // TODO - Fix pagination and filtering by type
-
   const handleGetResults = () => {
-    if (window.location.search) {
+    if (query) {
       setLoading(true);
       getAllMediaFromSearch(`${type}${window.location.search}`)
         .then((response: any) => {
