@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
+import pluralize from "pluralize";
+
+// Utils
+import useUpdateSearchParams from "../../utils/use-search-params";
 
 // Services
-// import { addFavourite } from "../../services/addFavourite";
 import { getFavourites } from "../../services/getFavourites";
-
-// MUI Icons
-// import TvIcon from "@mui/icons-material/Tv";
-// import TheatersIcon from "@mui/icons-material/Theaters";
+import { addFavourite } from "../../services/addFavourite";
 
 // MUI Components
 import { Container, Fade } from "@mui/material";
@@ -23,29 +23,37 @@ interface Props {
 }
 
 const Favourites: React.FC<Props> = () => {
-  const [movies, setMovies] = useState<any>([]);
+  const [favouriteMovies, setFavouriteMovies] = useState<any>([]);
   const [favouriteTv, setFavouriteTv] = useState<any>([]);
+  const [selectedTab, setSelectedTab] = useState({ label: "Movies", value: "movies" });
 
-  // const params = new URLSearchParams(window.location.search);
-  // const type = params.get("type");
   const user = JSON.parse(sessionStorage.getItem("user") || null);
+  const updateSearchParam = useUpdateSearchParams();
 
-  const getFavouriteMovies = () => {
-    getFavourites(user.id, "movies")
+  const getFavouritesList = (type: string) => {
+    getFavourites(user.id, type)
       .then((response) => {
-        console.log(response);
-        setMovies(response.data.results);
+        if (type === "movies") {
+          setFavouriteMovies(response.data.results);
+        } else {
+          setFavouriteTv(response.data.results);
+        }
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const getFavouriteTv = () => {
-    getFavourites(user.id, "tv")
-      .then((response) => {
-        console.log(response);
-        setFavouriteTv(response.data.results);
+  const handleDelete = (type: string, id: string) => {
+    const body = {
+      media_type: pluralize.singular(type),
+      media_id: id,
+      favorite: false,
+    };
+
+    addFavourite(user.id, body)
+      .then(() => {
+        getFavouritesList(type);
       })
       .catch((error) => {
         console.log(error);
@@ -54,14 +62,14 @@ const Favourites: React.FC<Props> = () => {
 
   useEffect(() => {
     if (user) {
-      getFavouriteMovies();
-      getFavouriteTv();
+      getFavouritesList("movies");
+      getFavouritesList("tv");
+      updateSearchParam("type", "movies");
     }
   }, []);
 
-  const [selectedTab, setSelectedTab] = useState({ label: "Movies", value: "movies" });
-
   const handleTabChange = (tab: { label: string; value: string }) => {
+    updateSearchParam("type", tab.value);
     setSelectedTab(tab);
   };
   return (
@@ -79,11 +87,25 @@ const Favourites: React.FC<Props> = () => {
             onClick={handleTabChange}
           />
           <div className="favourites__inner">
-            <Fade in={selectedTab.value === "tv"}>
-              <div>{selectedTab.value === "tv" && <List items={favouriteTv} />}</div>
-            </Fade>
+            {selectedTab.value === "tv" && (
+              <Fade in={selectedTab.value === "tv"}>
+                <div>
+                  <List
+                    items={favouriteTv}
+                    handleDelete={(item) => handleDelete("tv", item)}
+                  />
+                </div>
+              </Fade>
+            )}
             <Fade in={selectedTab.value === "movies"}>
-              <div>{selectedTab.value === "movies" && <List items={movies} />}</div>
+              <div>
+                {selectedTab.value === "movies" && (
+                  <List
+                    items={favouriteMovies}
+                    handleDelete={(item) => handleDelete("movies", item)}
+                  />
+                )}
+              </div>
             </Fade>
           </div>
         </div>

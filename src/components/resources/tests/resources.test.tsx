@@ -1,6 +1,7 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { screen, render, fireEvent, waitFor } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
 // Variables
 import { variables } from "./config";
@@ -23,12 +24,15 @@ describe("Resources component", () => {
 
     beforeEach(() =>
       render(
-        <Resources
-          resources={variables.movies.results}
-          count={20}
-          page={1}
-          loading={false}
-        />,
+        <MemoryRouter>
+          <Resources
+            resources={variables.movies.results}
+            count={20}
+            page={1}
+            loading={false}
+          />
+          ,
+        </MemoryRouter>,
       ),
     );
 
@@ -49,12 +53,15 @@ describe("Resources component", () => {
   describe("Component rendering (single page of results)", () => {
     beforeEach(() =>
       render(
-        <Resources
-          resources={variables.movies.results}
-          count={1}
-          page={1}
-          loading={false}
-        />,
+        <MemoryRouter>
+          <Resources
+            resources={variables.movies.results}
+            count={1}
+            page={1}
+            loading={false}
+          />
+          ,
+        </MemoryRouter>,
       ),
     );
 

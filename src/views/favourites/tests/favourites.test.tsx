@@ -1,6 +1,7 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { screen, render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
 // Components
 import Favourites from "../index";
@@ -31,7 +32,11 @@ describe("Favourites component", () => {
         user: JSON.stringify(variables.user),
       };
 
-      render(<Favourites />);
+      render(
+        <MemoryRouter>
+          <Favourites />
+        </MemoryRouter>,
+      );
     });
 
     it("Should render favourites", () => {
