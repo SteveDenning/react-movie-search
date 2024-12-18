@@ -32,7 +32,6 @@ const List: React.FC<Props> = ({ items, handleDelete }) => {
                 <Image
                   id={item.id}
                   resource={item}
-                  size="small"
                   link
                 />
               </div>
