@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Styles
 import "./list.scss";
@@ -6,6 +6,7 @@ import "./list.scss";
 // Components
 import Button from "../../components/button";
 import Image from "../../components/image";
+import Modal from "../../components/modal";
 
 // MUI Icons
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -16,6 +17,12 @@ interface Props {
 }
 
 const List: React.FC<Props> = ({ items, handleDelete }) => {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
+
   return (
     <ul
       className="list"
@@ -37,8 +44,33 @@ const List: React.FC<Props> = ({ items, handleDelete }) => {
               </div>
               <div className="panel__content">
                 <h3>{item.title || item.name}</h3>
-                <p>{item.overview}</p>
-                <p>{item.vote_average.toFixed(1)}</p>
+                {item?.overview.length > 400 ? (
+                  <>
+                    <p>
+                      {item.overview.slice(0, 400)}.....{" "}
+                      <Button
+                        onClick={() => setIsOpen(true)}
+                        variant="link"
+                      >
+                        More
+                      </Button>
+                    </p>
+
+                    <Modal
+                      id={item.id}
+                      open={isOpen}
+                      handleClose={handleClose}
+                    >
+                      <h3>{item.title || item.name}</h3>
+                      <p>{item.overview}</p>
+                    </Modal>
+                  </>
+                ) : (
+                  <>
+                    <p>{item.overview}</p>
+                  </>
+                )}
+                <p>Popularity vote: {item.vote_average.toFixed(1)}</p>
               </div>
               <div className="panel__actions">
                 <Button

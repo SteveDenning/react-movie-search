@@ -9,7 +9,14 @@
     margin: 60px 0;
   }
 
-  &__no-results-title {
+  &__header {
+    background-color: rgba($color: $black, $alpha: 0.2);
+    border-radius: 0 20px;
+    padding: 20px;
+  }
+
+  &__no-results-title,
+  &__header span {
     color: $primary-color;
   }
 }

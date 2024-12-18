@@ -19,6 +19,7 @@ const SearchResults = () => {
   const [resources, setResources] = useState<any[]>([]);
   const [page, setPage] = useState<number>(1);
   const [count, setCount] = useState<number>(0);
+  const [totalResults, setTotalResults] = useState<number>(0);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const params = new URLSearchParams(searchParams);
@@ -37,6 +38,7 @@ const SearchResults = () => {
         .then((response: any) => {
           setResources(response.data.results);
           setCount(response.data["total_pages"]);
+          setTotalResults(response.data["total_results"]);
           setLoading(false);
         })
         .catch((error) => {
@@ -72,29 +74,34 @@ const SearchResults = () => {
   }, []);
 
   return (
-    <Container>
-      {resources.length ? (
-        <Resources
-          resources={resources}
-          page={page}
-          handlePageChange={handlePageChange}
-          count={count}
-          loading={loading}
-        />
-      ) : (
-        <div className="search-results__no-results">
-          <h2 className="search-results__no-results-title">Let&#39;s try another search</h2>
-        </div>
-      )}
-      {error && (
-        <p
-          className="error"
-          data-testid="search-results-error"
-        >
-          There was a problem getting the results - please try again later
-        </p>
-      )}
-    </Container>
+    <div className="search-results">
+      <Container>
+        <h2 className="search-results__header">
+          Displaying <span>{totalResults} </span> results for: <span>{query} </span>
+        </h2>
+        {resources.length ? (
+          <Resources
+            resources={resources}
+            page={page}
+            handlePageChange={handlePageChange}
+            count={count}
+            loading={loading}
+          />
+        ) : (
+          <div className="search-results__no-results">
+            <h2 className="search-results__no-results-title">Let&#39;s try another search</h2>
+          </div>
+        )}
+        {error && (
+          <p
+            className="error"
+            data-testid="search-results-error"
+          >
+            There was a problem getting the results - please try again later
+          </p>
+        )}
+      </Container>
+    </div>
   );
 };
 

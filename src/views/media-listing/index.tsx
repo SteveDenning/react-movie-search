@@ -10,6 +10,9 @@ import Resources from "../../components/resources";
 // MUI
 import { Container } from "@mui/material";
 
+// Styles
+import "./media-listing.scss";
+
 const MediaListing = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [resources, setResources] = useState<any>([]);
@@ -56,16 +59,21 @@ const MediaListing = () => {
   }, [page]);
 
   return (
-    <Container data-testid="media-listing">
-      <h1>Latest {window.location.pathname.split("/")[2]} releases</h1>
-      <Resources
-        resources={resources}
-        page={page}
-        handlePageChange={handlePageChange}
-        count={count}
-        loading={loading}
-      />
-    </Container>
+    <div
+      className="media-listing"
+      data-testid="media-listing"
+    >
+      <Container>
+        <h2 className="media-listing__header">{window.location.pathname.split("/")[2]}</h2>
+        <Resources
+          resources={resources}
+          page={page}
+          handlePageChange={handlePageChange}
+          count={count}
+          loading={loading}
+        />
+      </Container>
+    </div>
   );
 };
 
