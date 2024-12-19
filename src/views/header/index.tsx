@@ -7,16 +7,21 @@ import { getRequestToken, createSessionWithLogin, deleteSession, getAccountDetai
 // Components
 import Search from "../../components/search";
 import Button from "../../components/button";
+import List from "../../components/list";
 import Login from "../../views/login";
 
 // MUI
 import { Box, Container, Drawer, Typography } from "@mui/material";
 
-// Icons
+// MUI Icons
 import TheatersIcon from "@mui/icons-material/Theaters";
+import ClearIcon from "@mui/icons-material/Clear";
 
 // Styles
 import "./header.scss";
+
+// Config
+import { config } from "../../config/routes";
 
 interface Props {
   heading: string;
@@ -43,6 +48,12 @@ const Header: React.FC<Props> = ({ heading }) => {
   const sessionId = sessionStorage.getItem("sessionId");
   const environment = process.env.NODE_ENV;
   const redirectTo = environment === "development" ? "http://localhost:3000/" : "https://sd-react-movie-search.web.app/";
+
+  const navOptions = [
+    { label: "Home", path: "/" },
+    { label: "Favourites", path: config.favourites.path },
+    { label: "Profile", path: config.profile.path },
+  ];
 
   const handleGetRequestToken = () => {
     getRequestToken()
@@ -147,26 +158,33 @@ const Header: React.FC<Props> = ({ heading }) => {
         </div>
         {/* TODO - move to navigation component */}
         <Drawer
+          className="navigation"
           open={open}
           onClose={() => toggleDrawer(false)}
           anchor="right"
           PaperProps={{
             sx: {
               width: 300,
-              bgcolor: "#555",
+              bgcolor: "#000",
             },
           }}
         >
-          <Box sx={{ mt: 5, mx: 2.5 }}>
+          <Box sx={{ mt: 2, mx: 2.5 }}>
+            <div style={{ display: "flex", justifyContent: "end" }}>
+              <Button
+                variant="icon"
+                onClick={() => {
+                  toggleDrawer(false);
+                }}
+              >
+                <ClearIcon />
+              </Button>
+            </div>
             {sessionId && (
-              <ul style={{ margin: "0", padding: "20px" }}>
-                <li>
-                  <a href="">TODO - Profile page</a>
-                </li>
-                <li>
-                  <a href="">TODO - Lists</a>
-                </li>
-              </ul>
+              <List
+                items={navOptions}
+                variant="link"
+              />
             )}
             <div style={{ display: "flex", justifyContent: "center" }}>
               <Button

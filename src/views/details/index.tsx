@@ -4,8 +4,10 @@ import moment from "moment";
 
 // Utils
 import { getMediaByID, getVideos } from "../../utils/get-resources";
+import useUpdateSearchParams from "../../utils/use-search-params";
 
 // Components
+import AddToFavourites from "../../components/add-to-favourites";
 import Button from "../../components/button";
 import ImageModal from "../../components/image-modal";
 import MediaCarousel from "../../views/media-carousel";
@@ -27,6 +29,7 @@ const DetailsView = () => {
   const [videoKey, setVideoKey] = useState<string>("");
 
   const navigate = useNavigate();
+  const updateSearchParam = useUpdateSearchParams();
 
   const programmeId = window.location.pathname.split("/")[3] as string;
   const type = window.location.pathname.split("/")[2];
@@ -92,6 +95,7 @@ const DetailsView = () => {
 
   useEffect(() => {
     getMedia();
+    updateSearchParam("type", type);
   }, [programmeId]);
 
   return (
@@ -131,6 +135,7 @@ const DetailsView = () => {
                       <h2 className="details-view__title">
                         {resource.name || resource.title}{" "}
                         {isMedia && resource?.["release_date"] && <span>({moment(resource?.["release_date"]).format("YYYY")})</span>}
+                        <AddToFavourites resource={resource} />
                       </h2>
                       {resource.birthday && <p>{moment().diff(resource.birthday, "years")} years old</p>}
                       {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}

@@ -6,7 +6,7 @@ import DefaultLayout from "../layout/default";
 // Views
 import SearchResults from "../views/search-results";
 
-const PageNotFound = () => {
+const SearchResultsPage = () => {
   return (
     <DefaultLayout heading="Search Results">
       <SearchResults />
@@ -14,4 +14,4 @@ const PageNotFound = () => {
   );
 };
 
-export default PageNotFound;
+export default SearchResultsPage;

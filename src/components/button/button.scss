@@ -55,7 +55,6 @@
 
   // Filled variants
   &--filled {
-    // Size variants
     &.button--small {
       font-size: 14px;
       line-height: 20px;
@@ -116,8 +115,7 @@
   &--outlined {
     background: none;
     border-style: solid;
-    border-width: 4px;
-    padding: 12px 24px;
+    border-width: 2px;
 
     // Size variants
     &.button--small {
@@ -200,6 +198,17 @@
         }
       }
     }
+    &.button--red {
+      svg {
+        fill: $red;
+      }
+
+      @include hover {
+        svg {
+          fill: $red;
+        }
+      }
+    }
   }
 
   &--heading {
@@ -247,11 +256,17 @@
       }
     }
   }
+
   &--null {
     background: none;
     justify-content: flex-start;
     padding: 0;
     width: 100%;
+  }
+
+  &--plain {
+    background: none;
+    padding: 0;
   }
 
   &--imdb {

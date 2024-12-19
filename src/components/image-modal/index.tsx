@@ -18,13 +18,12 @@ const ImageModal: React.FC<Props> = ({ resource }) => {
     setIsOpen(false);
   };
 
-  const renderImage = (size) => {
+  const renderImage = () => {
     if (resource) {
       return (
         <Image
           id={resource.id}
           resource={resource}
-          size={size}
           onClick={() => setIsOpen(true)}
         />
       );
@@ -36,14 +35,14 @@ const ImageModal: React.FC<Props> = ({ resource }) => {
       className="image-modal"
       data-testid="image-modal"
     >
-      {renderImage("large")}
+      {renderImage()}
       <Modal
         id={resource.id}
         open={isOpen}
         handleClose={handleClose}
         variant={["image"]}
       >
-        {renderImage("fill")}
+        {renderImage()}
       </Modal>
     </div>
   );

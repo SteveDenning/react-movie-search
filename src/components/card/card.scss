@@ -65,6 +65,15 @@
     margin: 0 0 10px;
   }
 
+  .button--icon {
+    background-color: rgba($color: $black, $alpha: 0.2);
+    border-radius: 50%;
+    left: 5px;
+    padding: 5px;
+    position: absolute;
+    top: 5px;
+  }
+
   // Variants
   &--banner {
     border-radius: 0;
