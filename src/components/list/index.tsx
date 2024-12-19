@@ -4,12 +4,9 @@ import { useNavigate } from "react-router-dom";
 // Styles
 import "./list.scss";
 
-// Config
-import { config } from "../../config/routes";
-
 // Components
-import Panel from "./list-items/list-panel";
 import Button from "../../components/button";
+import Panel from "./list-items/list-panel";
 
 interface Props {
   items: any[];
@@ -20,9 +17,15 @@ interface Props {
 
 const List: React.FC<Props> = ({ items, handleDelete, variant, children }) => {
   const navigate = useNavigate();
+
+  // Class Definitions
+  const baseClass = "list";
+  const variantClass = variant ? `list--${variant}` : "";
+  const classes = [baseClass, variantClass].filter(Boolean).join(" ");
+
   return (
     <ul
-      className="list"
+      className={classes}
       data-testid="list"
     >
       {items.map((item) => {

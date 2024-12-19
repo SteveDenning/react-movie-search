@@ -21,15 +21,15 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
   };
 
   return (
-    <div className="list__panel">
-      <div className="list__panel-image">
+    <>
+      <div className="list__item-image">
         <Image
           id={item.id}
           resource={item}
           link
         />
       </div>
-      <div className="list__panel-content">
+      <div className="list__item-content">
         <h3>{item.title || item.name}</h3>
         {item?.overview.length > 400 ? (
           <>
@@ -59,7 +59,7 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
         )}
         <p>Popularity vote: {item.vote_average.toFixed(1)}</p>
       </div>
-      <div className="list__panel-actions">
+      <div className="list__item-actions">
         <Button
           variant="icon"
           onClick={() => handleDelete(item.id)}
@@ -67,7 +67,7 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
           <DeleteIcon />
         </Button>
       </div>
-    </div>
+    </>
   );
 };
 

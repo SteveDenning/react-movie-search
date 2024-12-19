@@ -7,48 +7,64 @@
   padding: 0;
   margin: 0;
 
-  &__panel {
-    background: rgba($color: $primary-color, $alpha: 0.2);
-    border-radius: 0 20px;
-    display: flex;
+  &__item {
     margin-bottom: 10px;
-    padding: 10px;
   }
 
-  &__panel-image {
-    border-radius: 0 20px;
-    overflow: hidden;
-    max-width: 100%;
-    margin-bottom: 20px;
-  }
-
-  &__panel-actions {
-    display: flex;
-    margin-left: auto;
-    justify-content: center;
-
-    svg {
-      font-size: 50px;
+  &--link {
+    .list {
+      &__item {
+        margin-bottom: 30px;
+      }
     }
   }
 
-  @include breakpoint($medium) {
-    &__panel {
-      display: flex;
-    }
+  // Variant
+  &--list-panel {
+    .list {
+      &__item {
+        background: rgba($color: $primary-color, $alpha: 0.2);
+        border-radius: 0 20px;
+        margin-bottom: 20px;
+        padding: 10px;
+      }
 
-    &__panel-image {
-      max-width: 100px;
-      margin-right: 20px;
-      margin-bottom: 0;
-    }
+      &__item-image {
+        border-radius: 0 20px;
+        overflow: hidden;
+        max-width: 100%;
+        margin-bottom: 20px;
+      }
 
-    &__panel-actions {
-      display: flex;
-      margin-left: auto;
+      &__item-actions {
+        display: flex;
+        margin-left: auto;
+        justify-content: center;
 
-      svg {
-        font-size: 50px;
+        svg {
+          font-size: 50px;
+        }
+      }
+
+      @include breakpoint($medium) {
+        &__item {
+          display: flex;
+        }
+
+        &__item-image {
+          max-width: 100px;
+          margin-right: 20px;
+          margin-bottom: 0;
+        }
+
+        &__item-actions {
+          display: flex;
+          margin-left: auto;
+
+          svg {
+            font-size: 50px;
+          }
+        }
       }
     }
   }

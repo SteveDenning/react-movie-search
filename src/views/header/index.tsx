@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 
 // Utils
 import { getRequestToken, createSessionWithLogin, deleteSession, getAccountDetails } from "../../utils/get-resources";
@@ -13,8 +13,9 @@ import Login from "../../views/login";
 // MUI
 import { Box, Container, Drawer, Typography } from "@mui/material";
 
-// Icons
+// MUI Icons
 import TheatersIcon from "@mui/icons-material/Theaters";
+import ClearIcon from "@mui/icons-material/Clear";
 
 // Styles
 import "./header.scss";
@@ -167,7 +168,17 @@ const Header: React.FC<Props> = ({ heading }) => {
             },
           }}
         >
-          <Box sx={{ mt: 5, mx: 2.5 }}>
+          <Box sx={{ mt: 2, mx: 2.5 }}>
+            <div style={{ display: "flex", justifyContent: "end" }}>
+              <Button
+                variant="icon"
+                onClick={() => {
+                  toggleDrawer(false);
+                }}
+              >
+                <ClearIcon />
+              </Button>
+            </div>
             {sessionId && (
               <List
                 items={navOptions}
