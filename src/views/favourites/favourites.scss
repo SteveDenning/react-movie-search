@@ -1,0 +1,20 @@
+@import "../../styles/dependencies";
+
+// Favourites styles
+.favourites {
+  margin: 20px 0;
+
+  &__inner {
+    padding: 20px 0;
+  }
+
+  @include breakpoint($medium) {
+    &__inner {
+      padding: 50px 0;
+    }
+  }
+
+  .button {
+    margin: 0 10px;
+  }
+}
