@@ -7,45 +7,48 @@
   padding: 0;
   margin: 0;
 
-  .panel {
+  &__panel {
     background: rgba($color: $primary-color, $alpha: 0.2);
     border-radius: 0 20px;
+    display: flex;
     margin-bottom: 10px;
     padding: 10px;
+  }
 
-    &__image {
-      border-radius: 0 20px;
-      overflow: hidden;
-      max-width: 100%;
-      margin-bottom: 20px;
+  &__panel-image {
+    border-radius: 0 20px;
+    overflow: hidden;
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  &__panel-actions {
+    display: flex;
+    margin-left: auto;
+    justify-content: center;
+
+    svg {
+      font-size: 50px;
+    }
+  }
+
+  @include breakpoint($medium) {
+    &__panel {
+      display: flex;
     }
 
-    &__actions {
+    &__panel-image {
+      max-width: 100px;
+      margin-right: 20px;
+      margin-bottom: 0;
+    }
+
+    &__panel-actions {
       display: flex;
       margin-left: auto;
-      justify-content: center;
 
       svg {
         font-size: 50px;
-      }
-    }
-
-    @include breakpoint($medium) {
-      display: flex;
-
-      &__image {
-        max-width: 100px;
-        margin-right: 20px;
-        margin-bottom: 0;
-      }
-
-      &__actions {
-        display: flex;
-        margin-left: auto;
-
-        svg {
-          font-size: 50px;
-        }
       }
     }
   }

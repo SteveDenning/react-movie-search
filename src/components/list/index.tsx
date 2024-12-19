@@ -1,28 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 
 // Styles
 import "./list.scss";
 
-// Components
-import Button from "../../components/button";
-import Image from "../../components/image";
-import Modal from "../../components/modal";
+// Config
+import { config } from "../../config/routes";
 
-// MUI Icons
-import DeleteIcon from "@mui/icons-material/Delete";
+// Components
+import Panel from "./list-items/list-panel";
+import Button from "../../components/button";
 
 interface Props {
   items: any[];
   handleDelete?: (id: string) => void;
+  variant?: "list-panel" | "link" | undefined;
+  children?: React.ReactNode;
 }
 
-const List: React.FC<Props> = ({ items, handleDelete }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
+const List: React.FC<Props> = ({ items, handleDelete, variant, children }) => {
+  const navigate = useNavigate();
   return (
     <ul
       className="list"
@@ -33,54 +30,23 @@ const List: React.FC<Props> = ({ items, handleDelete }) => {
           <li
             key={item.id}
             className="list__item"
+            data-testid="list-item"
           >
-            <div className="panel">
-              <div className="panel__image">
-                <Image
-                  id={item.id}
-                  resource={item}
-                  link
-                />
-              </div>
-              <div className="panel__content">
-                <h3>{item.title || item.name}</h3>
-                {item?.overview.length > 400 ? (
-                  <>
-                    <p>
-                      {item.overview.slice(0, 400)}.....{" "}
-                      <Button
-                        onClick={() => setIsOpen(true)}
-                        variant="link"
-                      >
-                        More
-                      </Button>
-                    </p>
-
-                    <Modal
-                      id={item.id}
-                      open={isOpen}
-                      handleClose={handleClose}
-                    >
-                      <h3>{item.title || item.name}</h3>
-                      <p>{item.overview}</p>
-                    </Modal>
-                  </>
-                ) : (
-                  <>
-                    <p>{item.overview}</p>
-                  </>
-                )}
-                <p>Popularity vote: {item.vote_average.toFixed(1)}</p>
-              </div>
-              <div className="panel__actions">
-                <Button
-                  variant="icon"
-                  onClick={() => handleDelete(item.id)}
-                >
-                  <DeleteIcon />
-                </Button>
-              </div>
-            </div>
+            {variant === "list-panel" ? (
+              <Panel
+                item={item}
+                handleDelete={handleDelete}
+              />
+            ) : variant === "link" ? (
+              <Button
+                variant="link"
+                onClick={() => navigate(item.path)}
+              >
+                {item.label}
+              </Button>
+            ) : (
+              children
+            )}
           </li>
         );
       })}

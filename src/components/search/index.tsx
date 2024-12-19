@@ -49,7 +49,8 @@ const Search = () => {
   };
 
   const handleSubmit = () => {
-    if (searchTerm.length) {
+    if (searchTerm?.length) {
+      console.log("searchTerm", searchTerm);
       updateQuery("query", searchTerm);
       updateQuery("type", type);
       setSuggestions([]);

@@ -7,6 +7,7 @@ import { getRequestToken, createSessionWithLogin, deleteSession, getAccountDetai
 // Components
 import Search from "../../components/search";
 import Button from "../../components/button";
+import List from "../../components/list";
 import Login from "../../views/login";
 
 // MUI
@@ -41,12 +42,17 @@ const Header: React.FC<Props> = ({ heading }) => {
   const [user, setUser] = useState<UserType>(JSON.parse(sessionStorage.getItem("user")));
   const [searchParams, setSearchParams] = useSearchParams(window.location.search);
 
-  const navigate = useNavigate();
   const params = new URLSearchParams(searchParams);
   const token = params.get("request_token");
   const sessionId = sessionStorage.getItem("sessionId");
   const environment = process.env.NODE_ENV;
   const redirectTo = environment === "development" ? "http://localhost:3000/" : "https://sd-react-movie-search.web.app/";
+
+  const navOptions = [
+    { label: "Home", path: "/" },
+    { label: "Favourites", path: config.favourites.path },
+    { label: "Profile", path: config.profile.path },
+  ];
 
   const handleGetRequestToken = () => {
     getRequestToken()
@@ -163,24 +169,10 @@ const Header: React.FC<Props> = ({ heading }) => {
         >
           <Box sx={{ mt: 5, mx: 2.5 }}>
             {sessionId && (
-              <ul style={{ margin: "0", padding: "20px" }}>
-                <li>
-                  <Button
-                    variant="link"
-                    onClick={() => navigate(config.profile.path)}
-                  >
-                    Profile
-                  </Button>
-                </li>
-                <li>
-                  <Button
-                    variant="link"
-                    onClick={() => navigate(config.favourites.path)}
-                  >
-                    Favourites
-                  </Button>
-                </li>
-              </ul>
+              <List
+                items={navOptions}
+                variant="link"
+              />
             )}
             <div style={{ display: "flex", justifyContent: "center" }}>
               <Button

@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import { getAllMediaFromSearch } from "../../utils/get-resources";
 
 // MUI
-import { Container } from "@mui/material";
+import { Container, Backdrop, CircularProgress } from "@mui/material";
 
 // Components
 import Resources from "../../components/resources";
@@ -34,6 +34,7 @@ const SearchResults = () => {
   const handleGetResults = () => {
     if (query) {
       setLoading(true);
+      setResources([]);
       getAllMediaFromSearch(`${type}${window.location.search}`)
         .then((response: any) => {
           setResources(response.data.results);
@@ -88,9 +89,11 @@ const SearchResults = () => {
             loading={loading}
           />
         ) : (
-          <div className="search-results__no-results">
-            <h2 className="search-results__no-results-title">Let&#39;s try another search</h2>
-          </div>
+          !loading && (
+            <div className="search-results__no-results">
+              <h2 className="search-results__no-results-title">Let&#39;s try another search</h2>
+            </div>
+          )
         )}
         {error && (
           <p
@@ -101,6 +104,10 @@ const SearchResults = () => {
           </p>
         )}
       </Container>
+
+      <Backdrop open={loading}>
+        <CircularProgress variant="indeterminate" />
+      </Backdrop>
     </div>
   );
 };

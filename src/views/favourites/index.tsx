@@ -95,6 +95,7 @@ const Favourites: React.FC<Props> = () => {
               <Fade in={selectedTab === "tv"}>
                 <div>
                   <List
+                    variant="list-panel"
                     items={favouriteTv}
                     handleDelete={(item) => handleDelete("tv", item)}
                   />
@@ -105,6 +106,7 @@ const Favourites: React.FC<Props> = () => {
               <div>
                 {selectedTab === "movies" && (
                   <List
+                    variant="list-panel"
                     items={favouriteMovies}
                     handleDelete={(item) => handleDelete("movies", item)}
                   />
