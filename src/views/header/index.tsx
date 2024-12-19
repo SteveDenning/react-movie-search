@@ -158,6 +158,7 @@ const Header: React.FC<Props> = ({ heading }) => {
         </div>
         {/* TODO - move to navigation component */}
         <Drawer
+          className="navigation"
           open={open}
           onClose={() => toggleDrawer(false)}
           anchor="right"

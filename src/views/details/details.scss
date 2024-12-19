@@ -63,6 +63,7 @@
     margin-bottom: 30px;
 
     @include breakpoint($medium) {
+      max-width: 300px;
       margin-bottom: 0;
       margin-right: 20px;
     }
