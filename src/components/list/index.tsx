@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 // Styles
 import "./list.scss";
@@ -10,14 +9,11 @@ import Panel from "./list-items/list-panel";
 
 interface Props {
   items: any[];
-  handleDelete?: (id: string) => void;
+  onClick?: (id?: string) => void;
   variant?: "list-panel" | "link" | undefined;
-  children?: React.ReactNode;
 }
 
-const List: React.FC<Props> = ({ items, handleDelete, variant, children }) => {
-  const navigate = useNavigate();
-
+const List: React.FC<Props> = ({ items, onClick, variant }) => {
   // Class Definitions
   const baseClass = "list";
   const variantClass = variant ? `list--${variant}` : "";
@@ -28,27 +24,27 @@ const List: React.FC<Props> = ({ items, handleDelete, variant, children }) => {
       className={classes}
       data-testid="list"
     >
-      {items.map((item) => {
+      {items.map((item, index: number) => {
         return (
           <li
-            key={item.id}
+            key={index}
             className="list__item"
             data-testid="list-item"
           >
             {variant === "list-panel" ? (
               <Panel
                 item={item}
-                handleDelete={handleDelete}
+                handleDelete={onClick}
               />
             ) : variant === "link" ? (
               <Button
                 variant="link"
-                onClick={() => navigate(item.path)}
+                onClick={() => (window.location.href = item.path)}
               >
                 {item.label}
               </Button>
             ) : (
-              children
+              <span className="list__content">{item.label}</span>
             )}
           </li>
         );

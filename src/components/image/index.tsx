@@ -10,7 +10,6 @@ import avatarPlaceholder from "../../assets/images/avatar-placeholder.png";
 
 // Styles
 import "./image.scss";
-import { useNavigate } from "react-router-dom";
 
 interface Props {
   id: any;
@@ -28,11 +27,9 @@ const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick, lin
   const params = new URLSearchParams(window.location.search);
   const type = params.get("type") || "multi";
 
-  const navigate = useNavigate();
-
   const handleOnClick = () => {
     if (link) {
-      navigate(`/details/${pluralize.singular(type)}/${resource.id}`);
+      window.location.href = `/details/${pluralize.singular(type)}/${resource.id}`;
     } else {
       onClick();
     }

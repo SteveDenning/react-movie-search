@@ -51,6 +51,7 @@ export const Default: Story = {
 Default.args = {
   resource: "Lorem ipsum",
   size: "small",
+  onClick: () => alert("clicked"),
 };
 
 export const Scale: Story = {
@@ -63,6 +64,7 @@ export const Scale: Story = {
 Scale.args = {
   resource: "Lorem ipsum",
   variant: "scale",
+  onClick: () => alert("clicked"),
 };
 
 export const Banner: Story = {
@@ -75,4 +77,5 @@ export const Banner: Story = {
 Banner.args = {
   resource: "Lorem ipsum",
   variant: "banner",
+  onClick: () => alert("clicked"),
 };

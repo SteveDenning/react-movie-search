@@ -9,12 +9,15 @@
 
   &__item {
     margin-bottom: 10px;
+    color: $primary-color;
   }
 
   &--link {
+    margin-top: 20px;
+
     .list {
       &__item {
-        margin-bottom: 30px;
+        margin-bottom: 20px;
       }
     }
   }

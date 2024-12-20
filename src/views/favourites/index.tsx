@@ -27,9 +27,6 @@ const Favourites: React.FC<Props> = () => {
   const [favouriteTv, setFavouriteTv] = useState<any>([]);
   const [selectedTab, setSelectedTab] = useState("movies");
 
-  const movies = selectedTab === "movies";
-  const tv = selectedTab === "tv";
-
   const user = JSON.parse(sessionStorage.getItem("user") || null);
   const updateSearchParam = useUpdateSearchParams();
 
@@ -63,6 +60,11 @@ const Favourites: React.FC<Props> = () => {
       });
   };
 
+  const handleTabChange = (tab: { label: string; value: string }) => {
+    updateSearchParam("type", tab.value);
+    setSelectedTab(tab.value);
+  };
+
   useEffect(() => {
     if (user) {
       getFavouritesList("movies");
@@ -71,10 +73,24 @@ const Favourites: React.FC<Props> = () => {
     }
   }, []);
 
-  const handleTabChange = (tab: { label: string; value: string }) => {
-    updateSearchParam("type", tab.value);
-    setSelectedTab(tab.value);
+  const renderTab = (resource: any, type: string) => {
+    return (
+      <Fade in={selectedTab === type}>
+        <div>
+          {resource.length ? (
+            <List
+              variant="list-panel"
+              items={resource}
+              onClick={(item) => handleDelete(type, item)}
+            />
+          ) : (
+            <h3>Add something, you magnificent waffle!</h3>
+          )}
+        </div>
+      </Fade>
+    );
   };
+
   return (
     <Container>
       {user ? (
@@ -91,28 +107,8 @@ const Favourites: React.FC<Props> = () => {
             initialSelection="movies"
           />
           <div className="favourites__inner">
-            {selectedTab === "tv" && (
-              <Fade in={selectedTab === "tv"}>
-                <div>
-                  <List
-                    variant="list-panel"
-                    items={favouriteTv}
-                    handleDelete={(item) => handleDelete("tv", item)}
-                  />
-                </div>
-              </Fade>
-            )}
-            <Fade in={selectedTab === "movies"}>
-              <div>
-                {selectedTab === "movies" && (
-                  <List
-                    variant="list-panel"
-                    items={favouriteMovies}
-                    handleDelete={(item) => handleDelete("movies", item)}
-                  />
-                )}
-              </div>
-            </Fade>
+            {selectedTab === "movies" && renderTab(favouriteMovies, "movies")}
+            {selectedTab === "tv" && renderTab(favouriteTv, "tv")}
           </div>
         </div>
       ) : (

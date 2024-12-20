@@ -28,7 +28,9 @@ const ImageModal = (args: any) => <Template {...args} />;
 export const Default: Story = {
   render: (args) => (
     <Container>
-      <ImageModal {...args} />
+      <div style={{ width: "200px" }}>
+        <ImageModal {...args} />
+      </div>
     </Container>
   ),
 };

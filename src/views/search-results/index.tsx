@@ -77,9 +77,11 @@ const SearchResults = () => {
   return (
     <div className="search-results">
       <Container>
-        <h2 className="search-results__header">
-          Displaying <span>{totalResults} </span> results for: <span>{query} </span>
-        </h2>
+        {query && (
+          <h2 className="search-results__header">
+            Displaying <span>{totalResults} </span> results for: <span>{query} </span>
+          </h2>
+        )}
         {resources.length ? (
           <Resources
             resources={resources}
