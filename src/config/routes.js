@@ -21,9 +21,9 @@ export const config = {
     name: "Search Results",
     path: "/search-results",
   },
-  favourites: {
+  favorites: {
     name: "Favourites",
-    path: "/favourites",
+    path: "/favorites",
   },
   profile: {
     name: "Profile",

@@ -8,7 +8,7 @@ import Template from "./index";
 import { Container } from "@mui/material";
 
 const meta: Meta<typeof Template> = {
-  title: "Views/Favourites",
+  title: "Views/Favorites",
   component: Template,
   tags: ["autodocs"],
   argTypes: {},
@@ -17,12 +17,12 @@ export default meta;
 
 type Story = StoryObj<typeof Template>;
 
-const Favourites = (args: any) => <Template {...args} />;
+const Favorites = (args: any) => <Template {...args} />;
 
 export const Default: Story = {
   render: (args) => (
     <Container>
-      <Favourites {...args} />
+      <Favorites {...args} />
     </Container>
   ),
 };

@@ -2,7 +2,7 @@ import React from "react";
 import moment from "moment";
 
 // Components
-import AddToFavourites from "../../components/add-to-favourites";
+import AddToFavorites from "../../components/add-to-favorites";
 import Image from "../../components/image";
 
 // Styles
@@ -13,7 +13,7 @@ interface Props {
   onClick?: () => void;
   variant?: "banner" | "resource";
   handleFavorite?: (resource: any) => void;
-  favourite?: boolean;
+  favorite?: boolean;
 }
 
 const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) => {
@@ -59,9 +59,9 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
           <p className="card__info">{resource?.character}</p>
         </div>
         {user && !isPerson && (
-          <AddToFavourites
+          <AddToFavorites
             handleFavorite={() => handleFavorite(resource)}
-            isFavourite={resource?.favourite}
+            isFavorite={resource?.favorite}
           />
         )}
       </div>

@@ -3,15 +3,15 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 // Services
-import { getFavourites } from "../../services/getFavourites";
-import { addFavourite } from "../../services/addFavourite";
+import { getFavorites } from "../../services/getFavorites";
+import { addFavorite } from "../../services/addFavorite";
 
 // Utils
 import { getMediaByID, getVideos } from "../../utils/get-resources";
 import useUpdateSearchParams from "../../utils/use-search-params";
 
 // Components
-import AddToFavourites from "../../components/add-to-favourites";
+import AddToFavorites from "../../components/add-to-favorites";
 import Button from "../../components/button";
 import ImageModal from "../../components/image-modal";
 import MediaCarousel from "../../views/media-carousel";
@@ -31,7 +31,7 @@ const DetailsView = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [resource, setResource] = useState<any>({});
   const [videoKey, setVideoKey] = useState<string>("");
-  const [isFavourite, setIsFavourite] = useState<boolean>(false);
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const updateSearchParam = useUpdateSearchParams();
@@ -91,12 +91,12 @@ const DetailsView = () => {
     }
   };
 
-  const getFavouritesList = () => {
+  const getFavoritesList = () => {
     if (user && !isPerson) {
-      getFavourites(user.id, type)
+      getFavorites(user.id, type)
         .then((response) => {
-          const isFavourite = response?.data.results.find((favourite) => favourite.id === resource.id);
-          setIsFavourite(isFavourite);
+          const isFavorite = response?.data.results.find((favorite) => favorite.id === resource.id);
+          setIsFavorite(isFavorite);
         })
         .catch((error) => {
           console.log(error);
@@ -108,12 +108,12 @@ const DetailsView = () => {
     const body = {
       media_type: type,
       media_id: resource.id,
-      favorite: !isFavourite,
+      favorite: !isFavorite,
     };
 
-    addFavourite(user.id, body)
+    addFavorite(user.id, body)
       .then(() => {
-        getFavouritesList();
+        getFavoritesList();
       })
       .catch((error) => {
         console.log(error);
@@ -126,7 +126,7 @@ const DetailsView = () => {
 
   useEffect(() => {
     fetchVideos(programmeId, type);
-    getFavouritesList();
+    getFavoritesList();
   }, [resource]);
 
   useEffect(() => {
@@ -172,9 +172,9 @@ const DetailsView = () => {
                         {resource.name || resource.title}{" "}
                         {isMedia && resource?.["release_date"] && <span>({moment(resource?.["release_date"]).format("YYYY")})</span>}
                         {user && type !== "person" && (
-                          <AddToFavourites
+                          <AddToFavorites
                             handleFavorite={handleFavorite}
-                            isFavourite={isFavourite}
+                            isFavorite={isFavorite}
                           />
                         )}
                       </h2>

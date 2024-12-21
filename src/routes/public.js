@@ -9,7 +9,7 @@ import DetailsPage from "../pages/details";
 import MediaListingPage from "../pages/media-listing";
 import PageNotFound from "../pages/page-not-found";
 import SearchResultsPage from "../pages/search-results";
-import FavouritesPage from "../pages/favourites";
+import FavoritesPage from "../pages/favorites";
 import ProfilePage from "../pages/profile";
 
 const routes = {
@@ -35,8 +35,8 @@ const routes = {
         element: <MediaListingPage />,
       },
       {
-        path: `${config.favourites.path}`,
-        element: <FavouritesPage />,
+        path: `${config.favorites.path}`,
+        element: <FavoritesPage />,
       },
       {
         path: `${config.profile.path}`,

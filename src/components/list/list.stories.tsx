@@ -51,7 +51,7 @@ export const Default: Story = {
 Default.args = {
   items: [
     { label: "Home", path: "/" },
-    { label: "Favourites", path: "/favourites" },
+    { label: "Favorites", path: "/favorites" },
     { label: "Profile", path: "/profiles" },
   ],
 };
@@ -70,7 +70,7 @@ export const Link: Story = {
 Link.args = {
   items: [
     { label: "Home", path: "/" },
-    { label: "Favourites", path: "/favourites" },
+    { label: "Favorites", path: "/favorites" },
     { label: "Profile", path: "/profiles" },
   ],
   variant: "link",

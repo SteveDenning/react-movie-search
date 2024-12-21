@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 
 // Services
-import { addFavourite } from "../../services/addFavourite";
-import { getFavourites } from "../../services/getFavourites";
+import { addFavorite } from "../../services/addFavorite";
+import { getFavorites } from "../../services/getFavorites";
 
 // Components
 import Card from "../../components/card";
@@ -23,7 +23,7 @@ interface Props {
 }
 
 const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }) => {
-  const [favourites, setFavourites] = useState([]);
+  const [favorites, setFavorites] = useState([]);
   const [items, setItems] = useState([]);
 
   const params = new URLSearchParams(window.location.search);
@@ -45,32 +45,32 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
     const body = {
       media_type: type,
       media_id: resource.id,
-      favorite: !resource?.favourite,
+      favorite: !resource?.favorite,
     };
 
-    addFavourite(user.id, body)
+    addFavorite(user.id, body)
       .then(() => {
-        getFavouritesList(type);
+        getFavoritesList(type);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const getFavouritesList = (type?) => {
-    getFavourites(user.id, type)
+  const getFavoritesList = (type?) => {
+    getFavorites(user.id, type)
       .then((response) => {
-        setFavourites(response.data.results);
+        setFavorites(response.data.results);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const handleAddFavourite = () => {
+  const handleAddFavorite = () => {
     const updatedArray = resources.map((resource) => {
-      const isFavourite = favourites.find((favourite) => favourite.id === resource.id);
-      return isFavourite ? { ...resource, favourite: true } : resource;
+      const isFavorite = favorites.find((favorite) => favorite.id === resource.id);
+      return isFavorite ? { ...resource, favorite: true } : resource;
     });
     setItems(updatedArray);
   };
@@ -79,7 +79,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
   const updateResources = () => {
     if (user) {
       if (!isPerson && !isMulti) {
-        getFavouritesList(type);
+        getFavoritesList(type);
       } else {
         setItems(resources);
       }
@@ -93,8 +93,8 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
   };
 
   useEffect(() => {
-    handleAddFavourite();
-  }, [favourites]);
+    handleAddFavorite();
+  }, [favorites]);
 
   useEffect(() => {
     updateResources();
@@ -136,7 +136,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
                     onClick={() => handleOnClick(item, path)}
                     variant="resource"
                     handleFavorite={(event) => handleFavorite(event)}
-                    favourite
+                    favorite
                   />
                 </Grid>
               );

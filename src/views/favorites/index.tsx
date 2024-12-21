@@ -5,8 +5,8 @@ import pluralize from "pluralize";
 import useUpdateSearchParams from "../../utils/use-search-params";
 
 // Services
-import { getFavourites } from "../../services/getFavourites";
-import { addFavourite } from "../../services/addFavourite";
+import { getFavorites } from "../../services/getFavorites";
+import { addFavorite } from "../../services/addFavorite";
 
 // MUI Components
 import { Container, Fade } from "@mui/material";
@@ -16,27 +16,27 @@ import List from "../../components/list";
 import Tabs from "../../components/tabs";
 
 // Styles
-import "./favourites.scss";
+import "./favorites.scss";
 
 interface Props {
   children?: React.ReactNode;
 }
 
-const Favourites: React.FC<Props> = () => {
-  const [favouriteMovies, setFavouriteMovies] = useState<any>([]);
-  const [favouriteTv, setFavouriteTv] = useState<any>([]);
+const Favorites: React.FC<Props> = () => {
+  const [favoriteMovies, setFavoriteMovies] = useState<any>([]);
+  const [favoriteTv, setFavoriteTv] = useState<any>([]);
   const [selectedTab, setSelectedTab] = useState("movies");
 
   const user = JSON.parse(sessionStorage.getItem("user") || null);
   const updateSearchParam = useUpdateSearchParams();
 
-  const getFavouritesList = (type: string) => {
-    getFavourites(user.id, type)
+  const getFavoritesList = (type: string) => {
+    getFavorites(user.id, type)
       .then((response) => {
         if (type === "movies") {
-          setFavouriteMovies(response.data.results);
+          setFavoriteMovies(response.data.results);
         } else {
-          setFavouriteTv(response.data.results);
+          setFavoriteTv(response.data.results);
         }
       })
       .catch((error) => {
@@ -51,9 +51,9 @@ const Favourites: React.FC<Props> = () => {
       favorite: false,
     };
 
-    addFavourite(user.id, body)
+    addFavorite(user.id, body)
       .then(() => {
-        getFavouritesList(type);
+        getFavoritesList(type);
       })
       .catch((error) => {
         console.log(error);
@@ -67,8 +67,8 @@ const Favourites: React.FC<Props> = () => {
 
   useEffect(() => {
     if (user) {
-      getFavouritesList("movies");
-      getFavouritesList("tv");
+      getFavoritesList("movies");
+      getFavoritesList("tv");
       updateSearchParam("type", "movies");
     }
   }, []);
@@ -95,8 +95,8 @@ const Favourites: React.FC<Props> = () => {
     <Container>
       {user ? (
         <div
-          className="favourites"
-          data-testid="favourites"
+          className="favorites"
+          data-testid="favorites"
         >
           <Tabs
             tabs={[
@@ -106,16 +106,16 @@ const Favourites: React.FC<Props> = () => {
             onClick={handleTabChange}
             initialSelection="movies"
           />
-          <div className="favourites__inner">
-            {selectedTab === "movies" && renderTab(favouriteMovies, "movies")}
-            {selectedTab === "tv" && renderTab(favouriteTv, "tv")}
+          <div className="favorites__inner">
+            {selectedTab === "movies" && renderTab(favoriteMovies, "movies")}
+            {selectedTab === "tv" && renderTab(favoriteTv, "tv")}
           </div>
         </div>
       ) : (
-        <h2 style={{ textAlign: "center", marginTop: "2rem" }}>You need to be logged in to see your favourites. Log in (TODO - Login)</h2>
+        <h2 style={{ textAlign: "center", marginTop: "2rem" }}>You need to be logged in to see your favorites. Log in (TODO - Login)</h2>
       )}
     </Container>
   );
 };
 
-export default Favourites;
+export default Favorites;

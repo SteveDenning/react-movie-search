@@ -3,39 +3,39 @@ import "@testing-library/jest-dom";
 import { screen, render } from "@testing-library/react";
 
 // Components
-import AddToFavourites from "../index";
+import AddToFavorites from "../index";
 
-describe("Add to favourites component", () => {
+describe("Add to favorites component", () => {
   const handleFavorite = jest.fn();
 
   describe("Component rendering", () => {
     beforeEach(() => {
       render(
-        <AddToFavourites
-          isFavourite={false}
+        <AddToFavorites
+          isFavorite={false}
           handleFavorite={handleFavorite}
         />,
       );
     });
 
-    it("Should render a Add To Favourites", () => {
-      expect(screen.getByTestId("add-to-favourites")).toBeInTheDocument();
+    it("Should render a Add To Favorites", () => {
+      expect(screen.getByTestId("add-to-favorites")).toBeInTheDocument();
       expect(screen.getByTestId("FavoriteBorderIcon")).toBeInTheDocument();
     });
   });
 
-  describe("Component rendering (is favourite)", () => {
+  describe("Component rendering (is favorite)", () => {
     beforeEach(() => {
       render(
-        <AddToFavourites
-          isFavourite
+        <AddToFavorites
+          isFavorite
           handleFavorite={handleFavorite}
         />,
       );
     });
 
-    it("Should render a Add To Favourites", () => {
-      expect(screen.queryByTestId("add-to-favourites")).toBeInTheDocument();
+    it("Should render a Add To Favorites", () => {
+      expect(screen.queryByTestId("add-to-favorites")).toBeInTheDocument();
       expect(screen.queryByTestId("FavoriteIcon")).toBeInTheDocument();
     });
   });

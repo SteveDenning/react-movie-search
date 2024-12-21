@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 // Services
-import { getFavourites } from "../../services/getFavourites";
+import { getFavorites } from "../../services/getFavorites";
 import { getMedia } from "../../services/getMedia";
-import { addFavourite } from "../../services/addFavourite";
+import { addFavorite } from "../../services/addFavorite";
 
 // Components
 import Button from "../../components/button";
@@ -34,7 +34,7 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
   const [items, setItems] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
-  const [favourites, setFavourites] = useState<any>([]);
+  const [favorites, setFavorites] = useState<any>([]);
 
   const user = JSON.parse(sessionStorage.getItem("user") || null);
 
@@ -65,22 +65,22 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
     const body = {
       media_type: type,
       media_id: resource.id,
-      favorite: !resource?.favourite,
+      favorite: !resource?.favorite,
     };
 
-    addFavourite(user.id, body)
+    addFavorite(user.id, body)
       .then(() => {
-        getFavouritesList();
+        getFavoritesList();
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const getFavouritesList = () => {
-    getFavourites(user.id, media)
+  const getFavoritesList = () => {
+    getFavorites(user.id, media)
       .then((response) => {
-        setFavourites(response.data.results);
+        setFavorites(response.data.results);
       })
       .catch((error) => {
         console.log(error);
@@ -91,25 +91,25 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
     updateResources();
   }, [resources]);
 
-  const handleAddFavourite = () => {
+  const handleAddFavorite = () => {
     const updatedArray = resources.map((resource) => {
-      const isFavourite = favourites.find((favourite) => favourite.id === resource.id);
-      return isFavourite ? { ...resource, favourite: true } : resource;
+      const isFavorite = favorites.find((favorite) => favorite.id === resource.id);
+      return isFavorite ? { ...resource, favorite: true } : resource;
     });
     setItems(updatedArray);
   };
 
   const updateResources = () => {
     if (user && media !== "person") {
-      getFavouritesList();
+      getFavoritesList();
     } else {
       setItems(resources);
     }
   };
 
   useEffect(() => {
-    handleAddFavourite();
-  }, [favourites]);
+    handleAddFavorite();
+  }, [favorites]);
 
   useEffect(() => {
     fetchMediaForCarousel();

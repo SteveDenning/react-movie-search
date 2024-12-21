@@ -122,7 +122,7 @@ export const variables = {
 
   navOptions: [
     { label: "Home", path: "/" },
-    { label: "Favourites", path: "/favourites" },
+    { label: "Favorites", path: "/favorites" },
     { label: "Profile", path: "/profiles" },
   ],
 };

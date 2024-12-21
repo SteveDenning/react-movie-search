@@ -4,6 +4,12 @@ import { useSearchParams } from "react-router-dom";
 // Utils
 import { getRequestToken, createSessionWithLogin, deleteSession, getAccountDetails } from "../../utils/get-resources";
 
+// Config
+import { config } from "../../config/routes";
+
+// Types
+import { UserType } from "../../models/types";
+
 // Components
 import Search from "../../components/search";
 import Button from "../../components/button";
@@ -20,22 +26,8 @@ import ClearIcon from "@mui/icons-material/Clear";
 // Styles
 import "./header.scss";
 
-// Config
-import { config } from "../../config/routes";
-
 interface Props {
   heading: string;
-}
-
-interface UserType {
-  avatar: {
-    tmdb: {
-      avatar_path: string;
-    };
-  };
-  id: string;
-  name: string;
-  username: string;
 }
 
 const Header: React.FC<Props> = ({ heading }) => {
@@ -50,9 +42,9 @@ const Header: React.FC<Props> = ({ heading }) => {
   const redirectTo = environment === "development" ? "http://localhost:3000/" : "https://sd-react-movie-search.web.app/";
 
   const navOptions = [
-    { label: "Home", path: "/" },
-    { label: "Favourites", path: config.favourites.path },
-    { label: "Profile", path: config.profile.path },
+    { label: config.home.name, path: config.home.path },
+    { label: config.favorites.name, path: config.favorites.path },
+    { label: config.profile.name, path: config.profile.path },
   ];
 
   const handleGetRequestToken = () => {

@@ -4,14 +4,14 @@ import { screen, render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 // Components
-import Favourites from "../index";
+import Favorites from "../index";
 
 // Variables
 import { variables } from "./config";
 
 let mockStorage = {};
 
-describe("Favourites component", () => {
+describe("Favorites component", () => {
   beforeAll(() => {
     global.Storage.prototype.setItem = jest.fn((key, value) => {
       mockStorage[key] = value;
@@ -34,13 +34,13 @@ describe("Favourites component", () => {
 
       render(
         <MemoryRouter>
-          <Favourites />
+          <Favorites />
         </MemoryRouter>,
       );
     });
 
-    it("Should render favourites", () => {
-      expect(screen.getByTestId("favourites")).toBeInTheDocument();
+    it("Should render favorites", () => {
+      expect(screen.getByTestId("favorites")).toBeInTheDocument();
     });
   });
 });
