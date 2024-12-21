@@ -1,7 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { screen, render, fireEvent } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
 
 // Variables
 import { variables } from "./config";
@@ -15,13 +14,11 @@ describe("Card component", () => {
 
     beforeEach(() =>
       render(
-        <MemoryRouter>
-          <Card
-            resource={variables.data}
-            onClick={handleClick}
-            variant="banner"
-          />
-        </MemoryRouter>,
+        <Card
+          resource={variables.data}
+          onClick={handleClick}
+          variant="banner"
+        />,
       ),
     );
 

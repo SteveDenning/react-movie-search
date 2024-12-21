@@ -1,7 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { screen, render, fireEvent } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
 
 // Components
 import Image from "../index";
@@ -12,16 +11,13 @@ describe("Image component", () => {
 
     beforeEach(() => {
       render(
-        <MemoryRouter>
-          <Image
-            resource={{ src: "mock-image-url.jpg", alt: "Lorem ipsum", id: 1 }}
-            id="1"
-            variant="banner"
-            size="small"
-            onClick={handleClick}
-          />
-          ,
-        </MemoryRouter>,
+        <Image
+          resource={{ src: "mock-image-url.jpg", alt: "Lorem ipsum", id: 1 }}
+          id="1"
+          variant="banner"
+          size="small"
+          onClick={handleClick}
+        />,
       );
     });
 
@@ -53,14 +49,11 @@ describe("Image component", () => {
 
     beforeEach(() => {
       render(
-        <MemoryRouter>
-          <Image
-            resource={{ src: "mock-image-url.jpg", alt: "Lorem ipsum", id: 1 }}
-            id="1"
-            onClick={handleClick}
-          />
-          ,
-        </MemoryRouter>,
+        <Image
+          resource={{ src: "mock-image-url.jpg", alt: "Lorem ipsum", id: 1 }}
+          id="1"
+          onClick={handleClick}
+        />,
       );
     });
 

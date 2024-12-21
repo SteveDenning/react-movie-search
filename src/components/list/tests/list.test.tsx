@@ -1,7 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { screen, render } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
 
 // Components
 import List from "../index";
@@ -11,13 +10,7 @@ import { variables } from "./config";
 
 describe("list component", () => {
   describe("Component rendering", () => {
-    beforeEach(() =>
-      render(
-        <MemoryRouter>
-          <List items={variables.navOptions} />
-        </MemoryRouter>,
-      ),
-    );
+    beforeEach(() => render(<List items={variables.navOptions} />));
 
     it("Should render a list", () => {
       expect(screen.getByTestId("list")).toBeInTheDocument();
@@ -31,12 +24,10 @@ describe("list component", () => {
   describe("Component rendering (links)", () => {
     beforeEach(() =>
       render(
-        <MemoryRouter>
-          <List
-            items={variables.navOptions}
-            variant="link"
-          />
-        </MemoryRouter>,
+        <List
+          items={variables.navOptions}
+          variant="link"
+        />,
       ),
     );
 
@@ -52,12 +43,10 @@ describe("list component", () => {
   describe("Component rendering (list panel)", () => {
     beforeEach(() =>
       render(
-        <MemoryRouter>
-          <List
-            items={variables.panelItems}
-            variant="list-panel"
-          />
-        </MemoryRouter>,
+        <List
+          items={variables.panelItems}
+          variant="list-panel"
+        />,
       ),
     );
 

@@ -18,7 +18,7 @@ describe("Add to favorites component", () => {
       );
     });
 
-    it("Should render a Add To Favorites", () => {
+    it("Should render an Add To Favorites button", () => {
       expect(screen.getByTestId("add-to-favorites")).toBeInTheDocument();
       expect(screen.getByTestId("FavoriteBorderIcon")).toBeInTheDocument();
     });

@@ -12,7 +12,7 @@ interface Props {
   resource: any;
   onClick?: () => void;
   variant?: "banner" | "resource";
-  handleFavorite?: (resource: any) => void;
+  handleFavorite?: (isFavorite: boolean) => void;
   favorite?: boolean;
 }
 

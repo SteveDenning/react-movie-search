@@ -1,6 +1,5 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import { MemoryRouter } from "react-router-dom";
 
 // Components
 import Template from "./index";
@@ -40,11 +39,9 @@ const List = (args: any) => <Template {...args} />;
 export const Default: Story = {
   render: (args) => (
     <Container>
-      <MemoryRouter>
-        <div style={{ background: "#2e0e72", padding: "50px 20px" }}>
-          <List {...args} />
-        </div>
-      </MemoryRouter>
+      <div style={{ background: "#2e0e72", padding: "50px 20px" }}>
+        <List {...args} />
+      </div>
     </Container>
   ),
 };
@@ -59,11 +56,9 @@ Default.args = {
 export const Link: Story = {
   render: (args) => (
     <Container>
-      <MemoryRouter>
-        <div style={{ background: "#2e0e72", padding: "50px 20px" }}>
-          <List {...args} />
-        </div>
-      </MemoryRouter>
+      <div style={{ background: "#2e0e72", padding: "50px 20px" }}>
+        <List {...args} />
+      </div>
     </Container>
   ),
 };
@@ -79,11 +74,9 @@ Link.args = {
 export const Panel: Story = {
   render: (args) => (
     <Container>
-      <MemoryRouter>
-        <div style={{ background: "#2e0e72", padding: "50px 20px" }}>
-          <List {...args} />
-        </div>
-      </MemoryRouter>
+      <div style={{ background: "#2e0e72", padding: "50px 20px" }}>
+        <List {...args} />
+      </div>
     </Container>
   ),
 };

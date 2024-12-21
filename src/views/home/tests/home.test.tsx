@@ -1,7 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { screen, render, waitFor } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
 
 // Components
 import Home from "../index";
@@ -11,11 +10,7 @@ import Home from "../index";
 describe("Home page component", () => {
   describe("Component rendering", () => {
     beforeEach(() => {
-      render(
-        <MemoryRouter>
-          <Home />
-        </MemoryRouter>,
-      );
+      render(<Home />);
     });
 
     it("Should render the home view", () => {
