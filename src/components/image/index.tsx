@@ -1,4 +1,5 @@
 import React from "react";
+import pluralize from "pluralize";
 
 // Utils
 import useScreenSize from "../../utils/use-screen-size";
@@ -16,12 +17,23 @@ interface Props {
   size?: "xsmall" | "small" | "medium" | "large" | "fill";
   variant?: "banner" | "scale";
   onClick?: () => void;
+  link?: boolean;
 }
 
-const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick }) => {
+const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick, link }) => {
   const isPerson = Object.prototype.hasOwnProperty.call(resource, "gender");
   const screenSize = useScreenSize();
   const isMobile = screenSize.width <= 480;
+  const params = new URLSearchParams(window.location.search);
+  const type = params.get("type") || "multi";
+
+  const handleOnClick = () => {
+    if (link) {
+      window.location.href = `/details/${pluralize.singular(type)}/${resource.id}`;
+    } else {
+      onClick();
+    }
+  };
 
   const getPlaceholder = () => {
     if (isPerson) {
@@ -50,7 +62,7 @@ const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick }) =
         data-testid="image-element"
         src={imagePath}
         alt={resource["profile_path"] ? `Actor - ${resource.name}` : ""}
-        onClick={onClick}
+        onClick={handleOnClick}
       />
     </div>
   );

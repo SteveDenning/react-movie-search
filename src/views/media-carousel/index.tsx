@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 // Services
+import { getFavorites } from "../../services/getFavorites";
 import { getMedia } from "../../services/getMedia";
+import { addFavorite } from "../../services/addFavorite";
 
 // Components
 import Button from "../../components/button";
@@ -24,13 +26,17 @@ interface Props {
   responsiveOptions?: object;
   buttonText?: string;
   dataResource?: "cast" | "results";
-  media?: string;
+  media?: "tv" | "movies" | "person" | "movie";
 }
 
 const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, buttonText, dataResource = "results", media }) => {
   const [resources, setResources] = useState<any>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
+  const [items, setItems] = useState<any>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [error, setError] = useState<boolean>(false);
+  const [favorites, setFavorites] = useState<any>([]);
+
+  const user = JSON.parse(sessionStorage.getItem("user") || null);
 
   const fetchMediaForCarousel = () => {
     setLoading(true);
@@ -46,14 +52,73 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
       });
   };
 
+  const handleFavorite = (resource: any) => {
+    let type;
+    if (Object.prototype.hasOwnProperty.call(resource, "media_type")) {
+      type = resource.media_type;
+    } else if (Object.prototype.hasOwnProperty.call(resource, "name")) {
+      type = "tv";
+    } else {
+      type = "movie";
+    }
+
+    const body = {
+      media_type: type,
+      media_id: resource.id,
+      favorite: !resource?.favorite,
+    };
+
+    addFavorite(user.id, body)
+      .then(() => {
+        getFavoritesList();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  const getFavoritesList = () => {
+    getFavorites(user.id, media)
+      .then((response) => {
+        setFavorites(response.data.results);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
+    updateResources();
+  }, [resources]);
+
+  const handleAddFavorite = () => {
+    const updatedArray = resources.map((resource) => {
+      const isFavorite = favorites.find((favorite) => favorite.id === resource.id);
+      return isFavorite ? { ...resource, favorite: true } : resource;
+    });
+    setItems(updatedArray);
+  };
+
+  const updateResources = () => {
+    if (user && media !== "person") {
+      getFavoritesList();
+    } else {
+      setItems(resources);
+    }
+  };
+
+  useEffect(() => {
+    handleAddFavorite();
+  }, [favorites]);
+
   useEffect(() => {
     fetchMediaForCarousel();
   }, []);
 
   return (
     <>
-      {resources.length && (
-        <Fade in={!!resources.length}>
+      {items.length && (
+        <Fade in={!!items.length}>
           <div
             data-testid="media-carousel"
             className="media-carousel"
@@ -80,8 +145,9 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
             </div>
             <Carousel
               media={media}
-              resources={resources}
+              resources={items}
               responsiveOptions={responsiveOptions}
+              handleFavorite={handleFavorite}
             />
           </div>
         </Fade>

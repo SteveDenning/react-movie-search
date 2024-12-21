@@ -33,4 +33,6 @@ export const Default: Story = {
     </Container>
   ),
 };
-Default.args = {};
+Default.args = {
+  setValue: (value: string) => alert(value),
+};

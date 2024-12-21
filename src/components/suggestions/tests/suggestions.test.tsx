@@ -1,6 +1,7 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { screen, render } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 
 // Components
 import Suggestions from "../index";
@@ -12,10 +13,12 @@ describe("Suggestions component", () => {
   describe("Component rendering", () => {
     beforeEach(() =>
       render(
-        <Suggestions
-          options={variables.options}
-          type="person"
-        />,
+        <MemoryRouter>
+          <Suggestions
+            options={variables.options}
+            type="person"
+          />
+        </MemoryRouter>,
       ),
     );
 

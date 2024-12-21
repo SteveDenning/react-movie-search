@@ -4,33 +4,30 @@ import { useSearchParams } from "react-router-dom";
 // Utils
 import { getRequestToken, createSessionWithLogin, deleteSession, getAccountDetails } from "../../utils/get-resources";
 
+// Config
+import { config } from "../../config/routes";
+
+// Types
+import { UserType } from "../../models/types";
+
 // Components
 import Search from "../../components/search";
 import Button from "../../components/button";
+import List from "../../components/list";
 import Login from "../../views/login";
 
 // MUI
 import { Box, Container, Drawer, Typography } from "@mui/material";
 
-// Icons
+// MUI Icons
 import TheatersIcon from "@mui/icons-material/Theaters";
+import ClearIcon from "@mui/icons-material/Clear";
 
 // Styles
 import "./header.scss";
 
 interface Props {
   heading: string;
-}
-
-interface UserType {
-  avatar: {
-    tmdb: {
-      avatar_path: string;
-    };
-  };
-  id: string;
-  name: string;
-  username: string;
 }
 
 const Header: React.FC<Props> = ({ heading }) => {
@@ -43,6 +40,12 @@ const Header: React.FC<Props> = ({ heading }) => {
   const sessionId = sessionStorage.getItem("sessionId");
   const environment = process.env.NODE_ENV;
   const redirectTo = environment === "development" ? "http://localhost:3000/" : "https://sd-react-movie-search.web.app/";
+
+  const navOptions = [
+    { label: config.home.name, path: config.home.path },
+    { label: config.favorites.name, path: config.favorites.path },
+    { label: config.profile.name, path: config.profile.path },
+  ];
 
   const handleGetRequestToken = () => {
     getRequestToken()
@@ -147,26 +150,33 @@ const Header: React.FC<Props> = ({ heading }) => {
         </div>
         {/* TODO - move to navigation component */}
         <Drawer
+          className="navigation"
           open={open}
           onClose={() => toggleDrawer(false)}
           anchor="right"
           PaperProps={{
             sx: {
-              width: 300,
-              bgcolor: "#555",
+              width: 200,
+              bgcolor: "#000",
             },
           }}
         >
-          <Box sx={{ mt: 5, mx: 2.5 }}>
+          <Box sx={{ mt: 2, mx: 2.5 }}>
+            <div style={{ display: "flex", justifyContent: "end" }}>
+              <Button
+                variant="icon"
+                onClick={() => {
+                  toggleDrawer(false);
+                }}
+              >
+                <ClearIcon />
+              </Button>
+            </div>
             {sessionId && (
-              <ul style={{ margin: "0", padding: "20px" }}>
-                <li>
-                  <a href="">TODO - Profile page</a>
-                </li>
-                <li>
-                  <a href="">TODO - Lists</a>
-                </li>
-              </ul>
+              <List
+                items={navOptions}
+                variant="link"
+              />
             )}
             <div style={{ display: "flex", justifyContent: "center" }}>
               <Button

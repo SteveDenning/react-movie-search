@@ -2,10 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
+// Services
+import { getFavorites } from "../../services/getFavorites";
+import { addFavorite } from "../../services/addFavorite";
+
 // Utils
 import { getMediaByID, getVideos } from "../../utils/get-resources";
+import useUpdateSearchParams from "../../utils/use-search-params";
 
 // Components
+import AddToFavorites from "../../components/add-to-favorites";
 import Button from "../../components/button";
 import ImageModal from "../../components/image-modal";
 import MediaCarousel from "../../views/media-carousel";
@@ -25,9 +31,12 @@ const DetailsView = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [resource, setResource] = useState<any>({});
   const [videoKey, setVideoKey] = useState<string>("");
+  const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   const navigate = useNavigate();
+  const updateSearchParam = useUpdateSearchParams();
 
+  const user = JSON.parse(sessionStorage.getItem("user") || null);
   const programmeId = window.location.pathname.split("/")[3] as string;
   const type = window.location.pathname.split("/")[2];
   const backgroundImage = backDrop ? `url(https://image.tmdb.org/t/p/original/${backDrop})` : "";
@@ -82,16 +91,47 @@ const DetailsView = () => {
     }
   };
 
+  const getFavoritesList = () => {
+    if (user && !isPerson) {
+      getFavorites(user.id, type)
+        .then((response) => {
+          const isFavorite = response?.data.results.find((favorite) => favorite.id === resource.id);
+          setIsFavorite(isFavorite);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
+
+  const handleFavorite = () => {
+    const body = {
+      media_type: type,
+      media_id: resource.id,
+      favorite: !isFavorite,
+    };
+
+    addFavorite(user.id, body)
+      .then(() => {
+        getFavoritesList();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   const handleClose = () => {
     setIsOpen(false);
   };
 
   useEffect(() => {
     fetchVideos(programmeId, type);
+    getFavoritesList();
   }, [resource]);
 
   useEffect(() => {
     getMedia();
+    updateSearchParam("type", type);
   }, [programmeId]);
 
   return (
@@ -131,6 +171,12 @@ const DetailsView = () => {
                       <h2 className="details-view__title">
                         {resource.name || resource.title}{" "}
                         {isMedia && resource?.["release_date"] && <span>({moment(resource?.["release_date"]).format("YYYY")})</span>}
+                        {user && type !== "person" && (
+                          <AddToFavorites
+                            handleFavorite={handleFavorite}
+                            isFavorite={isFavorite}
+                          />
+                        )}
                       </h2>
                       {resource.birthday && <p>{moment().diff(resource.birthday, "years")} years old</p>}
                       {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}

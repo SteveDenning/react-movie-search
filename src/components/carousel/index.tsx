@@ -17,9 +17,19 @@ interface Props {
   media?: string;
   resources: any[];
   responsiveOptions?: object;
+  handleFavorite?: (isFavorite: boolean) => void;
 }
 
-const Carousel: React.FC<Props> = ({ autoPlay = false, autoPlaySpeed, banner, infinite, media = "movie", resources, responsiveOptions }) => {
+const Carousel: React.FC<Props> = ({
+  autoPlay = false,
+  autoPlaySpeed,
+  banner,
+  infinite,
+  media = "movie",
+  resources,
+  responsiveOptions,
+  handleFavorite,
+}) => {
   const responsive = {
     desktop: {
       breakpoint: {
@@ -115,6 +125,7 @@ const Carousel: React.FC<Props> = ({ autoPlay = false, autoPlaySpeed, banner, in
                 <Card
                   resource={item}
                   onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
+                  handleFavorite={handleFavorite}
                 />
               )}
             </div>

@@ -10,6 +10,9 @@ import Resources from "../../components/resources";
 // MUI
 import { Container } from "@mui/material";
 
+// Styles
+import "./media-listing.scss";
+
 const MediaListing = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [resources, setResources] = useState<any>([]);
@@ -23,10 +26,6 @@ const MediaListing = () => {
   const handlePageChange = (event, value) => {
     setPage(value);
     updateQuery("page", value);
-  };
-
-  const setMediaType = () => {
-    updateQuery("type", window.location.pathname.split("/")[2]);
   };
 
   const updateQuery = (key, value) => {
@@ -52,24 +51,30 @@ const MediaListing = () => {
 
   useEffect(() => {
     fetchLatestRelease();
-    setMediaType();
   }, []);
 
   useEffect(() => {
     fetchLatestRelease();
     setPage(Number(params.get("page")));
-  }, [location.search]);
+  }, [page]);
 
   return (
-    <Container data-testid="media-listing">
-      <Resources
-        resources={resources}
-        page={page}
-        handlePageChange={handlePageChange}
-        count={count}
-        loading={loading}
-      />
-    </Container>
+    <div
+      className="media-listing"
+      data-testid="media-listing"
+    >
+      <Container>
+        {/* TODO - update to more descriptive text */}
+        <h2 className="media-listing__header">{window.location.pathname.split("/")[2]}</h2>
+        <Resources
+          resources={resources}
+          page={page}
+          handlePageChange={handlePageChange}
+          count={count}
+          loading={loading}
+        />
+      </Container>
+    </div>
   );
 };
 

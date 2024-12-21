@@ -12,7 +12,7 @@ const meta: Meta<typeof Template> = {
     resources: {
       control: "text",
       type: { name: "string", required: true },
-      description: "YouTube key for selected video",
+      description: "Array of items to display in the carousel",
     },
   },
 };

@@ -9,6 +9,8 @@ import DetailsPage from "../pages/details";
 import MediaListingPage from "../pages/media-listing";
 import PageNotFound from "../pages/page-not-found";
 import SearchResultsPage from "../pages/search-results";
+import FavoritesPage from "../pages/favorites";
+import ProfilePage from "../pages/profile";
 
 const routes = {
   createRoutes: () => {
@@ -31,6 +33,14 @@ const routes = {
       {
         path: `${config.mediaListing.path}/:type/:media`,
         element: <MediaListingPage />,
+      },
+      {
+        path: `${config.favorites.path}`,
+        element: <FavoritesPage />,
+      },
+      {
+        path: `${config.profile.path}`,
+        element: <ProfilePage />,
       },
     );
 

@@ -21,4 +21,12 @@ export const config = {
     name: "Search Results",
     path: "/search-results",
   },
+  favorites: {
+    name: "Favourites",
+    path: "/favorites",
+  },
+  profile: {
+    name: "Profile",
+    path: "/profile",
+  },
 };
