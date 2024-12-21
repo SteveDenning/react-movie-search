@@ -11,6 +11,8 @@ import { variables } from "./config";
 let mockStorage = {};
 
 describe("Add to favourites component", () => {
+  const handleFavorite = jest.fn();
+
   beforeAll(() => {
     global.Storage.prototype.setItem = jest.fn((key, value) => {
       mockStorage[key] = value;
@@ -31,7 +33,12 @@ describe("Add to favourites component", () => {
         user: JSON.stringify(variables.user),
       };
 
-      render(<AddToFavourites resource={variables.data} />);
+      render(
+        <AddToFavourites
+          isFavourite
+          handleFavorite={handleFavorite}
+        />,
+      );
     });
 
     it("Should render a Add To Favourites", () => {
@@ -45,11 +52,16 @@ describe("Add to favourites component", () => {
         user: null,
       };
 
-      render(<AddToFavourites resource={variables.data} />);
+      render(
+        <AddToFavourites
+          isFavourite={false}
+          handleFavorite={handleFavorite}
+        />,
+      );
     });
 
     it("Should render a Add To Favourites", () => {
-      expect(screen.queryByTestId("add-to-favourites")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("add-to-favourites")).toBeInTheDocument();
     });
   });
 });

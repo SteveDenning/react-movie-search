@@ -2,12 +2,8 @@ import React from "react";
 import moment from "moment";
 
 // Components
-import Button from "../../components/button";
+import AddToFavourites from "../../components/add-to-favourites";
 import Image from "../../components/image";
-
-// MUI Icons
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 
 // Styles
 import "./card.scss";
@@ -16,11 +12,11 @@ interface Props {
   resource: any;
   onClick?: () => void;
   variant?: "banner" | "resource";
-  handleFavorite?: (isFavorite: boolean) => void;
+  handleFavorite?: (resource: any) => void;
   favourite?: boolean;
 }
 
-const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite, favourite }) => {
+const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) => {
   const user = JSON.parse(sessionStorage.getItem("user") || null);
 
   // Class definitions
@@ -62,13 +58,11 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite, fav
           {resource?.["known_for_department"] && <p className="card__info">{resource["known_for_department"]}</p>}
           <p className="card__info">{resource?.character}</p>
         </div>
-        {user && !isPerson && favourite && (
-          <Button
-            variant="icon"
-            onClick={() => handleFavorite(resource)}
-          >
-            {resource?.favourite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
-          </Button>
+        {user && !isPerson && (
+          <AddToFavourites
+            handleFavorite={() => handleFavorite(resource)}
+            isFavourite={resource?.favourite}
+          />
         )}
       </div>
     </div>

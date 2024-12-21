@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
+// Services
+import { getFavourites } from "../../services/getFavourites";
+import { addFavourite } from "../../services/addFavourite";
+
 // Utils
 import { getMediaByID, getVideos } from "../../utils/get-resources";
 import useUpdateSearchParams from "../../utils/use-search-params";
@@ -27,10 +31,12 @@ const DetailsView = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [resource, setResource] = useState<any>({});
   const [videoKey, setVideoKey] = useState<string>("");
+  const [isFavourite, setIsFavourite] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const updateSearchParam = useUpdateSearchParams();
 
+  const user = JSON.parse(sessionStorage.getItem("user") || null);
   const programmeId = window.location.pathname.split("/")[3] as string;
   const type = window.location.pathname.split("/")[2];
   const backgroundImage = backDrop ? `url(${process.env.REACT_APP_TMDB_IMAGE_PATH}/${backDrop})` : "";
@@ -85,12 +91,42 @@ const DetailsView = () => {
     }
   };
 
+  const getFavouritesList = () => {
+    if (user && !isPerson) {
+      getFavourites(user.id, type)
+        .then((response) => {
+          const isFavourite = response?.data.results.find((favourite) => favourite.id === resource.id);
+          setIsFavourite(isFavourite);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  const handleFavorite = () => {
+    const body = {
+      media_type: type,
+      media_id: resource.id,
+      favorite: !isFavourite,
+    };
+
+    addFavourite(user.id, body)
+      .then(() => {
+        getFavouritesList();
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const handleClose = () => {
     setIsOpen(false);
   };
 
   useEffect(() => {
     fetchVideos(programmeId, type);
+    getFavouritesList();
   }, [resource]);
 
   useEffect(() => {
@@ -135,7 +171,12 @@ const DetailsView = () => {
                       <h2 className="details-view__title">
                         {resource.name || resource.title}{" "}
                         {isMedia && resource?.["release_date"] && <span>({moment(resource?.["release_date"]).format("YYYY")})</span>}
-                        <AddToFavourites resource={resource} />
+                        {user && type !== "person" && (
+                          <AddToFavourites
+                            handleFavorite={handleFavorite}
+                            isFavourite={isFavourite}
+                          />
+                        )}
                       </h2>
                       {resource.birthday && <p>{moment().diff(resource.birthday, "years")} years old</p>}
                       {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
