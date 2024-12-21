@@ -41,6 +41,27 @@ describe("Favorites component", () => {
 
     it("Should render favorites", () => {
       expect(screen.getByTestId("favorites")).toBeInTheDocument();
+      expect(screen.getByTestId("tabs")).toBeInTheDocument();
+    });
+  });
+
+  describe("Component rendering (no added favourites)", () => {
+    beforeEach(() => {
+      mockStorage = {
+        user: JSON.stringify(variables.user),
+      };
+
+      render(
+        <MemoryRouter>
+          <Favorites />
+        </MemoryRouter>,
+      );
+    });
+
+    it("Should render a message when no favourites have been added", () => {
+      expect(screen.queryByTestId("list")).toBeNull();
+      expect(screen.getByTestId("favorites-empty-message")).toBeInTheDocument();
+      expect(screen.getByText("You currently have no favourite movies")).toBeInTheDocument();
     });
   });
 });

@@ -41,7 +41,6 @@ const Tabs: React.FC<Props> = ({ variant, className, tabs, onClick, initialSelec
     <section
       className={classes}
       data-testid="tabs"
-      aria-label="Tabs"
     >
       {tabs.map((tab: { label: string; value: string; payload: any }, index: number) => {
         const isSelected = selected === tab.value;

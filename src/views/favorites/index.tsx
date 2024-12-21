@@ -84,7 +84,12 @@ const Favorites: React.FC<Props> = () => {
               onClick={(item) => handleDelete(type, item)}
             />
           ) : (
-            <h3>Add something, you magnificent waffle!</h3>
+            <h3
+              className="favorites__empty-message"
+              data-testid="favorites-empty-message"
+            >
+              You currently have no favourite {type}
+            </h3>
           )}
         </div>
       </Fade>

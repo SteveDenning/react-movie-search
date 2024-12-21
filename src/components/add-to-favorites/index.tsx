@@ -16,14 +16,21 @@ interface Props {
 }
 
 const AddToFavorites: React.FC<Props> = ({ isFavorite, handleFavorite }) => {
+  const [favorite, setFavorite] = React.useState(isFavorite);
+
+  const handleFavoriteClick = (favorite) => {
+    setFavorite(!favorite);
+    handleFavorite(!favorite);
+  };
+
   return (
     <Button
       className="add-to-favorites"
       testId="add-to-favorites"
       variant="icon"
-      onClick={() => handleFavorite(isFavorite)}
+      onClick={() => handleFavoriteClick(favorite)}
     >
-      {isFavorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+      {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
     </Button>
   );
 };
