@@ -32,6 +32,7 @@ export const Default: Story = {
   render: (args) => <Video {...args} />,
 };
 Default.args = {
-  youTubeKey: "y1M-nGQblmw",
+  youTubeKey: "hwS5HIPb5mM",
   playing: false,
+  responsive: true,
 };

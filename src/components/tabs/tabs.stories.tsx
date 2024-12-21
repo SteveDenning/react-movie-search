@@ -54,7 +54,11 @@ const Tabs = (args: any) => (
 );
 
 export const Default: Story = {
-  render: (args) => <Tabs {...args} />,
+  render: (args) => (
+    <div style={{ background: "#000", padding: "50px" }}>
+      <Tabs {...args} />
+    </div>
+  ),
 };
 Default.args = {
   tabs: [
