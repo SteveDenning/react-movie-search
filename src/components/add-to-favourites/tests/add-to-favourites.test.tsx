@@ -5,53 +5,11 @@ import { screen, render } from "@testing-library/react";
 // Components
 import AddToFavourites from "../index";
 
-// Variables
-import { variables } from "./config";
-
-let mockStorage = {};
-
 describe("Add to favourites component", () => {
   const handleFavorite = jest.fn();
 
-  beforeAll(() => {
-    global.Storage.prototype.setItem = jest.fn((key, value) => {
-      mockStorage[key] = value;
-    });
-    global.Storage.prototype.getItem = jest.fn((key) => mockStorage[key]);
-  });
-
-  afterAll(() => {
-    // @ts-ignore
-    global.Storage.prototype.setItem.mockReset();
-    // @ts-ignore
-    global.Storage.prototype.getItem.mockReset();
-  });
-
-  describe("Component rendering (logged in)", () => {
+  describe("Component rendering", () => {
     beforeEach(() => {
-      mockStorage = {
-        user: JSON.stringify(variables.user),
-      };
-
-      render(
-        <AddToFavourites
-          isFavourite
-          handleFavorite={handleFavorite}
-        />,
-      );
-    });
-
-    it("Should render a Add To Favourites", () => {
-      expect(screen.getByTestId("add-to-favourites")).toBeInTheDocument();
-    });
-  });
-
-  describe("Component rendering (logged out)", () => {
-    beforeEach(() => {
-      mockStorage = {
-        user: null,
-      };
-
       render(
         <AddToFavourites
           isFavourite={false}
@@ -61,7 +19,24 @@ describe("Add to favourites component", () => {
     });
 
     it("Should render a Add To Favourites", () => {
+      expect(screen.getByTestId("add-to-favourites")).toBeInTheDocument();
+      expect(screen.getByTestId("FavoriteBorderIcon")).toBeInTheDocument();
+    });
+  });
+
+  describe("Component rendering (is favourite)", () => {
+    beforeEach(() => {
+      render(
+        <AddToFavourites
+          isFavourite
+          handleFavorite={handleFavorite}
+        />,
+      );
+    });
+
+    it("Should render a Add To Favourites", () => {
       expect(screen.queryByTestId("add-to-favourites")).toBeInTheDocument();
+      expect(screen.queryByTestId("FavoriteIcon")).toBeInTheDocument();
     });
   });
 });

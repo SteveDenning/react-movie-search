@@ -27,20 +27,18 @@ export const Default: Story = {
   ),
 };
 Default.args = {
-  resource: {
-    id: 912649,
-  },
+  isFavourite: false,
+  handleFavorite: (isFavourite) => alert(isFavourite),
 };
 
-Default.loaders = [
-  () => {
-    window.sessionStorage.setItem(
-      "user",
-      JSON.stringify({
-        id: 21576164,
-        username: "SteveD1972",
-      }),
-    );
-    window.sessionStorage.setItem("type", "movie");
-  },
-];
+export const Favourite: Story = {
+  render: (args) => (
+    <Container>
+      <AddToFavourites {...args} />
+    </Container>
+  ),
+};
+Favourite.args = {
+  isFavourite: true,
+  handleFavorite: (isFavourite) => alert(isFavourite),
+};
