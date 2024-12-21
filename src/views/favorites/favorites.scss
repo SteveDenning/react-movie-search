@@ -9,10 +9,10 @@
   }
 
   &__empty-message {
+    color: $primary-color;
     display: flex;
     justify-content: center;
     padding: 20px;
-    color: $primary-color;
   }
 
   @include breakpoint($medium) {

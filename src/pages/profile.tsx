@@ -10,7 +10,7 @@ const ProfilePage = () => {
   return (
     <DefaultLayout
       hasSearch
-      heading="The Movie Seeker: React App for All Things Cinema"
+      heading="Profile"
     >
       <Profile />
     </DefaultLayout>

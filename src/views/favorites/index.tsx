@@ -40,7 +40,7 @@ const Favorites: React.FC<Props> = () => {
         }
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -56,7 +56,7 @@ const Favorites: React.FC<Props> = () => {
         getFavoritesList(type);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 

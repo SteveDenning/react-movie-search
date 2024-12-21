@@ -99,7 +99,7 @@ const DetailsView = () => {
           setIsFavorite(isFavorite);
         })
         .catch((error) => {
-          console.log(error);
+          console.error(error);
         });
     }
   };
@@ -116,7 +116,7 @@ const DetailsView = () => {
         getFavoritesList();
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 

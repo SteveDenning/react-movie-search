@@ -53,7 +53,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
         getFavoritesList(type);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -63,7 +63,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
         setFavorites(response.data.results);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 

@@ -47,6 +47,8 @@ const SearchResults = () => {
           setLoading(false);
           setError(true);
         });
+    } else {
+      setResources([]);
     }
   };
 
@@ -57,9 +59,6 @@ const SearchResults = () => {
 
   useEffect(() => {
     handleGetResults();
-    if (!query) {
-      setResources([]);
-    }
   }, [type, query, page]);
 
   useEffect(() => {
@@ -68,8 +67,8 @@ const SearchResults = () => {
 
   useEffect(() => {
     handleGetResults();
+
     return () => {
-      setResources([]);
       sessionStorage.removeItem("query");
     };
   }, []);

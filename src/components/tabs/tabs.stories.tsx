@@ -67,5 +67,5 @@ Default.args = {
     { label: "Tab 3", payload: "tab-03" },
     { label: "Tab 4", payload: "tab-04" },
   ],
-  onClick: () => console.log("CLICK"),
+  onClick: () => null,
 };

@@ -73,7 +73,7 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
         getFavoritesList();
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -83,7 +83,7 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
         setFavorites(response.data.results);
       })
       .catch((error) => {
-        console.log(error);
+        console.error(error);
       });
   };
 

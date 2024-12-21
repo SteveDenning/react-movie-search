@@ -64,6 +64,7 @@ const MediaListing = () => {
       data-testid="media-listing"
     >
       <Container>
+        {/* TODO - update to more descriptive text */}
         <h2 className="media-listing__header">{window.location.pathname.split("/")[2]}</h2>
         <Resources
           resources={resources}
