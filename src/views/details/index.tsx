@@ -171,7 +171,7 @@ const DetailsView = () => {
                       <h2 className="details-view__title">
                         {resource.name || resource.title}{" "}
                         {isMedia && resource?.["release_date"] && <span>({moment(resource?.["release_date"]).format("YYYY")})</span>}
-                        {user && type !== "person" && (
+                        {type !== "person" && (
                           <AddToFavorites
                             handleFavorite={handleFavorite}
                             isFavorite={isFavorite}

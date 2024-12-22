@@ -30,7 +30,7 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
         />
       </div>
       <div className="list__item-content">
-        <h3>{item.title || item.name}</h3>
+        <h2>{item.title || item.name}</h2>
         {item?.overview.length > 400 ? (
           <>
             <p>

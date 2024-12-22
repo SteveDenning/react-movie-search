@@ -3,8 +3,17 @@
 // Modal styles
 .modal {
   font-family: Gothic, Arial, sans-serif;
+  left: 1rem;
+  right: 1rem;
+
+  &.MuiModal-root {
+    left: 1rem;
+    right: 1rem;
+  }
+
   .MuiModal-backdrop {
-    background: rgba($black, 0.6);
+    background: rgba($black, 0.75);
+    backdrop-filter: blur(5px);
   }
 
   &__body {
@@ -23,6 +32,7 @@
   &__inner {
     background-color: $grey;
     border-radius: 0 20px;
+    border: 1px solid rgba($primary-color, 0.5);
     color: $white;
     left: 50%;
     max-height: 700px;

@@ -8,16 +8,18 @@ import Template from "./index";
 import { Container } from "@mui/material";
 
 const meta: Meta<typeof Template> = {
-  title: "Components/Favorites Button",
+  title: "Components/Add To Favorites Button",
   component: Template,
   tags: ["autodocs"],
   argTypes: {
     isFavorite: {
       control: "boolean",
+      type: { name: "boolean", required: true },
+      description: "Handles display of the favourite icon",
     },
     handleFavorite: {
       control: false,
-      type: { name: "function", required: false },
+      type: { name: "function", required: true },
       description: "Function to be called to trigger the favorite action",
     },
   },
@@ -37,5 +39,5 @@ export const Default: Story = {
 };
 Default.args = {
   isFavorite: false,
-  handleFavorite: (isFavorite) => alert(isFavorite),
+  handleFavorite: () => null,
 };
