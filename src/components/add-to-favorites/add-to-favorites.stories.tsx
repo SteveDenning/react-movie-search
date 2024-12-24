@@ -37,7 +37,39 @@ export const Default: Story = {
     </Container>
   ),
 };
+
 Default.args = {
   isFavorite: false,
   handleFavorite: () => null,
 };
+
+Default.loaders = [
+  () => {
+    window.sessionStorage.setItem(
+      "user",
+      JSON.stringify({
+        id: 21576164,
+        username: "SteveD1972",
+      }),
+    );
+  },
+];
+
+export const Guest: Story = {
+  render: (args) => (
+    <Container>
+      <AddToFavorites {...args} />
+    </Container>
+  ),
+};
+
+Guest.args = {
+  isFavorite: false,
+  handleFavorite: () => null,
+};
+
+Guest.loaders = [
+  () => {
+    window.sessionStorage.setItem("user", null);
+  },
+];

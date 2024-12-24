@@ -47,7 +47,7 @@ const AddToFavorites: React.FC<Props> = ({ isFavorite, handleFavorite }) => {
         open={open}
         handleClose={() => setOpen(false)}
       >
-        <p>Please log in to add to your favourites</p>
+        <p className="add-to-favorites__login-message">Please log in to add to your favourites</p>
       </Modal>
     </>
   );
