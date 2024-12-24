@@ -69,9 +69,7 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
     };
 
     addFavorite(user.id, body)
-      .then(() => {
-        getFavoritesList();
-      })
+      .then()
       .catch((error) => {
         console.error(error);
       });

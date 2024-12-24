@@ -14,11 +14,8 @@ interface Props {
 }
 
 const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -36,7 +33,7 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
             <p>
               {item.overview.slice(0, 400)}.....{" "}
               <Button
-                onClick={() => setIsOpen(true)}
+                onClick={() => setIsModalOpen(true)}
                 variant="link"
               >
                 More
@@ -45,8 +42,10 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
 
             <Modal
               id={item.id}
-              open={isOpen}
-              handleClose={handleClose}
+              open={isModalOpen}
+              handleClose={() => {
+                setIsModalOpen(false);
+              }}
             >
               <h3>{item.title || item.name}</h3>
               <p>{item.overview}</p>
@@ -62,11 +61,38 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
       <div className="list__item-actions">
         <Button
           variant="icon"
-          onClick={() => handleDelete(item.id)}
+          onClick={() => setIsRemoveModalOpen(true)}
         >
           <DeleteIcon />
         </Button>
       </div>
+
+      <Modal
+        id={`${item.id}-${item.title || item.name}`}
+        open={isRemoveModalOpen}
+        handleClose={() => {
+          setIsRemoveModalOpen(false);
+        }}
+        variant={["small"]}
+      >
+        <h3>Remove {item.title || item.name} from your favourites?</h3>
+
+        <div className="modal__action-buttons">
+          <Button
+            onClick={() => {
+              setIsRemoveModalOpen(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={() => handleDelete(item.id)}
+            color="red"
+          >
+            Remove
+          </Button>
+        </div>
+      </Modal>
     </>
   );
 };

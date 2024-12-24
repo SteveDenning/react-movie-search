@@ -17,11 +17,7 @@
   }
 
   &__body {
-    padding: 40px 16px;
-
-    @include breakpoint($medium) {
-      padding: 32px;
-    }
+    padding: 20px;
 
     img {
       cursor: auto;
@@ -84,6 +80,16 @@
   &__footer {
     border-top: 1px solid $primary-color;
     padding: 1rem;
+  }
+
+  &__action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+
+    .button {
+      margin-left: 20px;
+    }
   }
 
   p {
