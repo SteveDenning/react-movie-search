@@ -76,7 +76,7 @@ describe("Add to favorites component", () => {
       fireEvent.click(screen.getByTestId("add-to-favorites"));
       await waitFor(() => expect(screen.queryByTestId("modal")).toBeInTheDocument());
 
-      fireEvent.click(screen.getByTestId("button"));
+      fireEvent.click(screen.getByTestId("modal-close-button"));
       await waitFor(() => expect(screen.queryByTestId("modal")).toBeNull());
     });
   });

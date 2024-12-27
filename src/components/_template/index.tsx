@@ -1,21 +1,24 @@
 import React from "react";
 
 // Styles
-import "./template.scss";
+import "./test.scss";
 
 interface Props {
   children?: React.ReactNode;
+  onClick: () => void;
+  resource?: any;
 }
 
-const Template: React.FC<Props> = ({ children }) => {
+const Test: React.FC<Props> = ({ children, onClick }) => {
   return (
     <div
-      className="template"
-      data-testid="template"
+      className="test"
+      data-testid="test"
+      onClick={onClick}
     >
       {children}
     </div>
   );
 };
 
-export default Template;
+export default Test;

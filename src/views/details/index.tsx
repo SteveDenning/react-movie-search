@@ -15,7 +15,7 @@ import AddToFavorites from "../../components/add-to-favorites";
 import Button from "../../components/button";
 import ImageModal from "../../components/image-modal";
 import MediaCarousel from "../../views/media-carousel";
-import Modal from "../../components/modal";
+import Overview from "../../components/overview";
 import Video from "../../components/video";
 
 // MUI
@@ -28,7 +28,6 @@ const DetailsView = () => {
   const [backDrop, setBackDrop] = useState<string>("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [resource, setResource] = useState<any>({});
   const [videoKey, setVideoKey] = useState<string>("");
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
@@ -44,6 +43,7 @@ const DetailsView = () => {
   const isPerson = type == "person";
   const MediaCarouselLabel = isPerson ? "Known for" : "Top Cast";
   const pathName = `${type}/${programmeId}/credits?language=en-US`;
+  const text = resource?.overview || resource?.biography || null;
 
   const personOptions = {
     desktop: {
@@ -120,10 +120,6 @@ const DetailsView = () => {
       });
   };
 
-  const handleClose = () => {
-    setIsOpen(false);
-  };
-
   useEffect(() => {
     fetchVideos(programmeId, type);
     getFavoritesList();
@@ -182,32 +178,12 @@ const DetailsView = () => {
                       {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
                       {resource["known_for_department"] && <p>Known for: {resource["known_for_department"]}</p>}
                     </div>
-                    {(resource?.overview?.length || resource?.biography?.length) > 400 ? (
-                      <>
-                        <p>
-                          {(resource.overview || resource.biography).slice(0, 400)}.....{" "}
-                          <Button
-                            onClick={() => setIsOpen(true)}
-                            variant="link"
-                          >
-                            More
-                          </Button>
-                        </p>
-
-                        <Modal
-                          id={resource.id}
-                          open={isOpen}
-                          handleClose={handleClose}
-                        >
-                          <p>{resource.overview || resource.biography}</p>
-                        </Modal>
-                      </>
-                    ) : (
-                      <>
-                        <p>{resource.overview || resource.biography}</p>
-                      </>
+                    {text && (
+                      <Overview
+                        resource={resource}
+                        text={text}
+                      />
                     )}
-
                     {!!resource.genres?.length && (
                       <>
                         <ul>

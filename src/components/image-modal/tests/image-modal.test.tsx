@@ -23,7 +23,7 @@ describe("Image Modal component", () => {
 
     it("Should allow the user to close the modal when the button is clicked", async () => {
       fireEvent.click(screen.getByTestId("image-element"));
-      fireEvent.click(screen.getByTestId("button"));
+      fireEvent.click(screen.getByTestId("modal-close-button"));
       await waitFor(() => {
         expect(screen.queryByTestId("modal")).toBeNull();
       });

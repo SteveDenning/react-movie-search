@@ -33,7 +33,9 @@ const AddToFavorites = (args: any) => <Template {...args} />;
 export const Default: Story = {
   render: (args) => (
     <Container>
-      <AddToFavorites {...args} />
+      <div style={{ background: "#2e0e72", padding: "50px 20px", display: "flex", justifyContent: "center" }}>
+        <AddToFavorites {...args} />
+      </div>
     </Container>
   ),
 };
@@ -58,7 +60,9 @@ Default.loaders = [
 export const Guest: Story = {
   render: (args) => (
     <Container>
-      <AddToFavorites {...args} />
+      <div style={{ background: "#2e0e72", padding: "50px 20px", display: "flex", justifyContent: "center" }}>
+        <AddToFavorites {...args} />
+      </div>
     </Container>
   ),
 };

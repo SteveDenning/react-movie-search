@@ -15,40 +15,40 @@ h6 {
 
 h1 {
   font-size: 28px;
-  line-height: 48px;
+  line-height: 42px;
 }
 
 h2 {
   font-size: 22px;
-  line-height: 28px;
+  line-height: 33px;
 }
 
 h3 {
   font-size: 20px;
-  line-height: 20px;
+  line-height: 30px;
 }
 
 h4,
 h5,
 h6 {
   font-size: 18px;
-  line-height: 28px;
+  line-height: 24px;
 }
 
 @include breakpoint($large) {
   h1 {
     font-size: 34px;
-    line-height: 48px;
+    line-height: 41px;
   }
 
   h2 {
     font-size: 28px;
-    line-height: 28px;
+    line-height: 42px;
   }
 
   h3 {
     font-size: 24px;
-    line-height: 24px;
+    line-height: 36px;
   }
 }
 

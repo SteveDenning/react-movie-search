@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Button from "../../button";
 import Image from "../../image";
 import Modal from "../../modal";
+import Overview from "../../overview";
 
 // MUI Icons
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -14,8 +15,8 @@ interface Props {
 }
 
 const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isRemoveModalOpen, setIsRemoveModalOpen] = useState<boolean>(false);
+  const text = item?.overview;
 
   return (
     <>
@@ -28,34 +29,10 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
       </div>
       <div className="list__item-content">
         <h2>{item.title || item.name}</h2>
-        {item?.overview.length > 400 ? (
-          <>
-            <p>
-              {item.overview.slice(0, 400)}.....{" "}
-              <Button
-                onClick={() => setIsModalOpen(true)}
-                variant="link"
-              >
-                More
-              </Button>
-            </p>
-
-            <Modal
-              id={item.id}
-              open={isModalOpen}
-              handleClose={() => {
-                setIsModalOpen(false);
-              }}
-            >
-              <h3>{item.title || item.name}</h3>
-              <p>{item.overview}</p>
-            </Modal>
-          </>
-        ) : (
-          <>
-            <p>{item.overview}</p>
-          </>
-        )}
+        <Overview
+          resource={item}
+          text={text}
+        />
         <p>Popularity vote: {item.vote_average.toFixed(1)}</p>
       </div>
       <div className="list__item-actions">
@@ -68,14 +45,14 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
       </div>
 
       <Modal
-        id={`${item.id}-${item.title || item.name}`}
+        id={item.id}
         open={isRemoveModalOpen}
         handleClose={() => {
           setIsRemoveModalOpen(false);
         }}
         variant={["small"]}
       >
-        <h3>Remove {item.title || item.name} from your favourites?</h3>
+        <h3>Are you sure you want to remove {item.title || item.name}?</h3>
 
         <div className="modal__action-buttons">
           <Button
@@ -86,7 +63,10 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
             Cancel
           </Button>
           <Button
-            onClick={() => handleDelete(item.id)}
+            onClick={() => {
+              handleDelete(item.id);
+              setIsRemoveModalOpen(false);
+            }}
             color="red"
           >
             Remove
