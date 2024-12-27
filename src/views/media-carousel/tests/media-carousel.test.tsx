@@ -13,7 +13,7 @@ import { getMedia } from "../../../services/get-media";
 import { variables } from "./config";
 
 // Mock
-jest.mock("../../../services/getMedia");
+jest.mock("../../../services/get-media");
 describe("Media carousel component", () => {
   describe("Component rendering", () => {
     it("Should render the Media Carousel", async () => {
