@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 // Services
-import { getFavorites } from "../../services/getFavorites";
-import { addFavorite } from "../../services/addFavorite";
+import { getFavorites } from "../../services/get-favorites";
+import { addFavorite } from "../../services/add-favorite";
 
 // Utils
 import { getMediaByID, getVideos } from "../../utils/get-resources";

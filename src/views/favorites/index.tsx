@@ -5,8 +5,8 @@ import pluralize from "pluralize";
 import useUpdateSearchParams from "../../utils/use-search-params";
 
 // Services
-import { getFavorites } from "../../services/getFavorites";
-import { addFavorite } from "../../services/addFavorite";
+import { getFavorites } from "../../services/get-favorites";
+import { addFavorite } from "../../services/add-favorite";
 
 // MUI Components
 import { Container, Fade } from "@mui/material";

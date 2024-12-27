@@ -11,7 +11,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 interface Props {
   item: any;
-  handleDelete?: (id: string) => void;
+  handleDelete: (id: string) => void;
 }
 
 const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {

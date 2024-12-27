@@ -7,7 +7,7 @@ import { MemoryRouter } from "react-router-dom";
 import MediaCarousel from "../index";
 
 // Services
-import { getMedia } from "../../../services/getMedia";
+import { getMedia } from "../../../services/get-media";
 
 // Variables
 import { variables } from "./config";
