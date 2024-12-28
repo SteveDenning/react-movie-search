@@ -29,9 +29,7 @@ const VoiceInput = (args: any) => <Template {...args} />;
 export const Default: Story = {
   render: (args) => (
     <Container>
-      <div style={{ background: "#2e0e72", padding: "50px 20px", display: "flex", justifyContent: "center" }}>
-        <VoiceInput {...args} />
-      </div>
+      <VoiceInput {...args} />
     </Container>
   ),
 };

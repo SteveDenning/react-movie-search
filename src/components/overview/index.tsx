@@ -4,9 +4,6 @@ import React, { useState } from "react";
 import Button from "../../components/button";
 import Modal from "../../components/modal";
 
-// Styles
-import "./overview.scss";
-
 interface Props {
   resource?: any;
   text: string;

@@ -15,7 +15,7 @@ interface Props {
 }
 
 const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
-  const [isRemoveModalOpen, setIsRemoveModalOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const text = item?.overview;
 
   return (
@@ -29,16 +29,18 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
       </div>
       <div className="list__item-content">
         <h2>{item.title || item.name}</h2>
-        <Overview
-          resource={item}
-          text={text}
-        />
+        {text && (
+          <Overview
+            resource={item}
+            text={text}
+          />
+        )}
         <p>Popularity vote: {item.vote_average.toFixed(1)}</p>
       </div>
       <div className="list__item-actions">
         <Button
           variant="icon"
-          onClick={() => setIsRemoveModalOpen(true)}
+          onClick={() => setIsOpen(true)}
         >
           <DeleteIcon />
         </Button>
@@ -46,9 +48,9 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
 
       <Modal
         id={item.id}
-        open={isRemoveModalOpen}
+        open={isOpen}
         handleClose={() => {
-          setIsRemoveModalOpen(false);
+          setIsOpen(false);
         }}
         variant={["small"]}
       >
@@ -57,7 +59,7 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
         <div className="modal__action-buttons">
           <Button
             onClick={() => {
-              setIsRemoveModalOpen(false);
+              setIsOpen(false);
             }}
           >
             Cancel
@@ -65,7 +67,7 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
           <Button
             onClick={() => {
               handleDelete(item.id);
-              setIsRemoveModalOpen(false);
+              setIsOpen(false);
             }}
             color="red"
           >
