@@ -37,11 +37,11 @@ describe("Modal component", () => {
     });
 
     it("Should render a button to close the modal", () => {
-      expect(screen.getByTestId("button")).toBeInTheDocument();
+      expect(screen.getByTestId("modal-close-button")).toBeInTheDocument();
     });
 
     it("Should close the modal by running the handleClose function", () => {
-      fireEvent.click(screen.getByTestId("button"));
+      fireEvent.click(screen.getByTestId("modal-close-button"));
       expect(handleClose).toHaveBeenCalled();
     });
   });

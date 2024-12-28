@@ -2,7 +2,7 @@
 
 export const config = {
   home: {
-    name: "home",
+    name: "Home",
     path: "/",
   },
   details: {

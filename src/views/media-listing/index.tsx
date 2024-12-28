@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 // Services
-import { getMedia } from "../../services/getMedia";
+import { getMedia } from "../../services/get-media";
 
 // Components
 import Resources from "../../components/resources";

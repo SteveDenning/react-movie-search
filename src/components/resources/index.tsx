@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 
 // Services
-import { addFavorite } from "../../services/addFavorite";
-import { getFavorites } from "../../services/getFavorites";
+import { addFavorite } from "../../services/add-favorite";
+import { getFavorites } from "../../services/get-favorites";
 
 // Components
 import Card from "../../components/card";
 import Pagination from "../../components/pagination";
 
 // MUI
-import { Fade, Grid } from "@mui/material";
+import { Fade, Grid, Backdrop, CircularProgress } from "@mui/material";
 
 // Styles
 import "./resources.scss";
@@ -49,15 +49,14 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
     };
 
     addFavorite(user.id, body)
-      .then(() => {
-        getFavoritesList(type);
-      })
+      .then()
       .catch((error) => {
         console.error(error);
       });
   };
 
   const getFavoritesList = (type?) => {
+    setItems([]);
     getFavorites(user.id, type)
       .then((response) => {
         setFavorites(response.data.results);
@@ -153,6 +152,9 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
           )}
         </div>
       </Fade>
+      <Backdrop open={!items?.length}>
+        <CircularProgress color="primary" />
+      </Backdrop>
     </div>
   );
 };

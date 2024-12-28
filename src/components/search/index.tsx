@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import pluralize from "pluralize";
 
 // Utils
 import { getAllMediaFromSearch } from "../../utils/get-resources";
+import useScreenSize from "../../utils/use-screen-size";
 
 // Config
 import { config } from "../../config/routes";
@@ -30,9 +32,11 @@ const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const params = new URLSearchParams(searchParams);
   const [searchTerm, setSearchTerm] = useState(params.get("query"));
-  const type = params.get("type") || "multi";
+  const type = pluralize.singular(params.get("type") || "multi");
   const isSearchResultsPage = window.location.pathname === config.searchResults.path;
 
+  const screenSize = useScreenSize();
+  const isTablet = screenSize.width <= 1024;
   const navigate = useNavigate();
   const inputRef = useRef(null);
 
@@ -108,7 +112,9 @@ const Search = () => {
 
   const updateSearchTerm = (value: string) => {
     setIsVoiceInput(true);
-    inputRef.current.focus();
+    if (!isTablet) {
+      inputRef.current.focus();
+    }
     setSearchTerm(value);
   };
 

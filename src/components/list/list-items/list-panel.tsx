@@ -4,21 +4,19 @@ import React, { useState } from "react";
 import Button from "../../button";
 import Image from "../../image";
 import Modal from "../../modal";
+import Overview from "../../overview";
 
 // MUI Icons
 import DeleteIcon from "@mui/icons-material/Delete";
 
 interface Props {
   item: any;
-  handleDelete?: (id: string) => void;
+  handleDelete: (id: string) => void;
 }
 
 const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const handleClose = () => {
-    setIsOpen(false);
-  };
+  const text = item?.overview;
 
   return (
     <>
@@ -30,43 +28,53 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
         />
       </div>
       <div className="list__item-content">
-        <h3>{item.title || item.name}</h3>
-        {item?.overview.length > 400 ? (
-          <>
-            <p>
-              {item.overview.slice(0, 400)}.....{" "}
-              <Button
-                onClick={() => setIsOpen(true)}
-                variant="link"
-              >
-                More
-              </Button>
-            </p>
-
-            <Modal
-              id={item.id}
-              open={isOpen}
-              handleClose={handleClose}
-            >
-              <h3>{item.title || item.name}</h3>
-              <p>{item.overview}</p>
-            </Modal>
-          </>
-        ) : (
-          <>
-            <p>{item.overview}</p>
-          </>
+        <h2>{item.title || item.name}</h2>
+        {text && (
+          <Overview
+            resource={item}
+            text={text}
+          />
         )}
         <p>Popularity vote: {item.vote_average.toFixed(1)}</p>
       </div>
       <div className="list__item-actions">
         <Button
           variant="icon"
-          onClick={() => handleDelete(item.id)}
+          onClick={() => setIsOpen(true)}
         >
           <DeleteIcon />
         </Button>
       </div>
+
+      <Modal
+        id={item.id}
+        open={isOpen}
+        handleClose={() => {
+          setIsOpen(false);
+        }}
+        variant={["small"]}
+      >
+        <h3>Are you sure you want to remove {item.title || item.name}?</h3>
+
+        <div className="modal__action-buttons">
+          <Button
+            onClick={() => {
+              setIsOpen(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              handleDelete(item.id);
+              setIsOpen(false);
+            }}
+            color="red"
+          >
+            Remove
+          </Button>
+        </div>
+      </Modal>
     </>
   );
 };

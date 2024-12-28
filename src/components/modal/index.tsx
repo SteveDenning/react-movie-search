@@ -63,6 +63,7 @@ const Modal: React.FC<Props> = ({ variant, className, id, open, handleClose, tit
               variant="icon"
               className="modal__close"
               onClick={handleClose}
+              testId="modal-close-button"
             >
               <ClearIcon sx={{ color: "#fff" }} />
             </Button>

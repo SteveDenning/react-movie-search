@@ -12,6 +12,7 @@
     color: $primary-color;
   }
 
+  // Variant
   &--link {
     margin-top: 20px;
 
@@ -22,7 +23,6 @@
     }
   }
 
-  // Variant
   &--list-panel {
     .list {
       &__item {

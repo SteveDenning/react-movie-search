@@ -3,16 +3,19 @@
 // Modal styles
 .modal {
   font-family: Gothic, Arial, sans-serif;
+
+  &.MuiModal-root {
+    left: 1rem;
+    right: 1rem;
+  }
+
   .MuiModal-backdrop {
-    background: rgba($black, 0.6);
+    background: rgba($black, 0.75);
+    backdrop-filter: blur(5px);
   }
 
   &__body {
-    padding: 40px 16px;
-
-    @include breakpoint($medium) {
-      padding: 32px;
-    }
+    padding: 30px;
 
     img {
       cursor: auto;
@@ -23,6 +26,7 @@
   &__inner {
     background-color: $grey;
     border-radius: 0 20px;
+    border: 1px solid rgba($primary-color, 0.5);
     color: $white;
     left: 50%;
     max-height: 700px;
@@ -74,6 +78,16 @@
   &__footer {
     border-top: 1px solid $primary-color;
     padding: 1rem;
+  }
+
+  &__action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+
+    .button {
+      margin-left: 20px;
+    }
   }
 
   p {

@@ -3,20 +3,22 @@ import "@testing-library/jest-dom";
 import { screen, render } from "@testing-library/react";
 
 // Components
-import Template from "../index";
+import Test from "../index";
 
-describe("template component", () => {
+describe("Test component", () => {
   describe("Component rendering", () => {
+    const onClick = jest.fn();
+
     beforeEach(() =>
       render(
-        <Template>
+        <Test onClick={onClick}>
           <p>Lorem Ipsom</p>
-        </Template>,
+        </Test>,
       ),
     );
 
     it("Should render a template", () => {
-      expect(screen.getByTestId("template")).toBeInTheDocument();
+      expect(screen.getByTestId("test")).toBeInTheDocument();
     });
   });
 });
