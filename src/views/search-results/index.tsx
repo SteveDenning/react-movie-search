@@ -35,7 +35,7 @@ const SearchResults = () => {
     if (query) {
       setLoading(true);
       setResources([]);
-      getAllMediaFromSearch(`${type}${window.location.search}`)
+      getAllMediaFromSearch(`${type}${window.location.search}&page=${page}`)
         .then((response: any) => {
           setResources(response.data.results);
           setCount(response.data["total_pages"]);
@@ -62,6 +62,7 @@ const SearchResults = () => {
   }, [type, query, page]);
 
   useEffect(() => {
+    setPage(1);
     updateQuery("page", 1);
   }, [type]);
 
