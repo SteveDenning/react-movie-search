@@ -26,9 +26,9 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
   const [favorites, setFavorites] = useState([]);
   const [items, setItems] = useState([]);
 
-  const params = new URLSearchParams(window.location.search);
-  const type = params.get("type") || window.location.pathname.split("/")[2];
   const user = JSON.parse(sessionStorage.getItem("user") || null);
+  const params = new URLSearchParams(window.location.search);
+  const type = params.get("filterByType") || window.location.pathname.split("/")[2];
   const isMulti = type === "multi";
   const isPerson = type === "person";
 

@@ -6,7 +6,7 @@
   margin-bottom: 40px;
 
   &__header {
-    background: $background-opacity-color;
+    background: rgba($color: $black, $alpha: 0.7);
     border-radius: 0 20px;
     display: flex;
     margin-bottom: 10px;

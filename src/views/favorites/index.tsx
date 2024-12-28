@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import pluralize from "pluralize";
 
-// Utils
-import useUpdateSearchParams from "../../utils/use-search-params";
-
 // Services
 import { getFavorites } from "../../services/get-favorites";
 import { addFavorite } from "../../services/add-favorite";
@@ -28,7 +25,6 @@ const Favorites: React.FC<Props> = () => {
   const [selectedTab, setSelectedTab] = useState("movies");
 
   const user = JSON.parse(sessionStorage.getItem("user") || null);
-  const updateSearchParam = useUpdateSearchParams();
 
   const getFavoritesList = (type: string) => {
     getFavorites(user.id, type)
@@ -61,7 +57,6 @@ const Favorites: React.FC<Props> = () => {
   };
 
   const handleTabChange = (tab: { label: string; value: string }) => {
-    updateSearchParam("type", tab.value);
     setSelectedTab(tab.value);
   };
 
@@ -69,7 +64,6 @@ const Favorites: React.FC<Props> = () => {
     if (user) {
       getFavoritesList("movies");
       getFavoritesList("tv");
-      updateSearchParam("type", "movies");
     }
   }, []);
 

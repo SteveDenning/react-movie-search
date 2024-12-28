@@ -32,7 +32,7 @@ const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const params = new URLSearchParams(searchParams);
   const [searchTerm, setSearchTerm] = useState(params.get("query"));
-  const type = pluralize.singular(params.get("type") || "multi");
+  const type = pluralize.singular(params.get("filterByType") || "multi");
   const isSearchResultsPage = window.location.pathname === config.searchResults.path;
 
   const screenSize = useScreenSize();
@@ -53,14 +53,14 @@ const Search = () => {
   };
 
   const handleSubmit = () => {
-    if (searchTerm?.length) {
+    if (searchTerm) {
       updateQuery("query", searchTerm);
-      updateQuery("type", type);
+      updateQuery("filterByType", mediaType.value);
       setSuggestions([]);
       navigate(
         {
           pathname: `${config.searchResults.path}`,
-          search: `?query=${searchTerm}&type=${type}`,
+          search: `?query=${searchTerm}&filterByType=${mediaType.value}`,
         },
         { replace: !isSearchResultsPage },
       );
@@ -69,7 +69,7 @@ const Search = () => {
 
   const handleSuggestions = (event: any) => {
     if (event.target.value.length > 2) {
-      getAllMediaFromSearch(`${type}?query=${event.target.value}`)
+      getAllMediaFromSearch(`${mediaType.value}?query=${event.target.value}`)
         .then((response: any) => {
           setSuggestions(response.data.results.slice(0, 10));
         })
@@ -84,7 +84,7 @@ const Search = () => {
     setSuggestions([]);
     setSearchParams({});
     removeQueryParam("query");
-    removeQueryParam("type");
+    removeQueryParam("filterByType");
     inputRef.current.focus();
   };
 
@@ -100,7 +100,7 @@ const Search = () => {
   const handleMediaTypeChange = (event: any) => {
     setMediaType(event);
     if (isSearchResultsPage) {
-      updateQuery("type", event.value);
+      updateQuery("filterByType", event.value);
     }
   };
 
@@ -197,7 +197,7 @@ const Search = () => {
           <div>
             {!!suggestions.length && (
               <TopResults
-                type={type}
+                type={mediaType.value}
                 options={suggestions}
               />
             )}
