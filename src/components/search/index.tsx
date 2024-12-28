@@ -53,14 +53,14 @@ const Search = () => {
   };
 
   const handleSubmit = () => {
-    if (searchTerm?.length) {
+    if (searchTerm) {
       updateQuery("query", searchTerm);
       updateQuery("type", type);
       setSuggestions([]);
       navigate(
         {
           pathname: `${config.searchResults.path}`,
-          search: `?query=${searchTerm}&type=${type}`,
+          search: `?query=${searchTerm}&type=${mediaType.value}`,
         },
         { replace: !isSearchResultsPage },
       );
@@ -69,7 +69,7 @@ const Search = () => {
 
   const handleSuggestions = (event: any) => {
     if (event.target.value.length > 2) {
-      getAllMediaFromSearch(`${type}?query=${event.target.value}`)
+      getAllMediaFromSearch(`${mediaType.value}?query=${event.target.value}`)
         .then((response: any) => {
           setSuggestions(response.data.results.slice(0, 10));
         })
@@ -197,7 +197,7 @@ const Search = () => {
           <div>
             {!!suggestions.length && (
               <TopResults
-                type={type}
+                type={mediaType.value}
                 options={suggestions}
               />
             )}
