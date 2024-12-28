@@ -32,7 +32,7 @@ const Search = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const params = new URLSearchParams(searchParams);
   const [searchTerm, setSearchTerm] = useState(params.get("query"));
-  const type = pluralize.singular(params.get("type") || "multi");
+  const type = pluralize.singular(params.get("filterByType") || "multi");
   const isSearchResultsPage = window.location.pathname === config.searchResults.path;
 
   const screenSize = useScreenSize();
@@ -55,12 +55,12 @@ const Search = () => {
   const handleSubmit = () => {
     if (searchTerm) {
       updateQuery("query", searchTerm);
-      updateQuery("type", type);
+      updateQuery("filterByType", mediaType.value);
       setSuggestions([]);
       navigate(
         {
           pathname: `${config.searchResults.path}`,
-          search: `?query=${searchTerm}&type=${mediaType.value}`,
+          search: `?query=${searchTerm}&filterByType=${mediaType.value}`,
         },
         { replace: !isSearchResultsPage },
       );
@@ -84,7 +84,7 @@ const Search = () => {
     setSuggestions([]);
     setSearchParams({});
     removeQueryParam("query");
-    removeQueryParam("type");
+    removeQueryParam("filterByType");
     inputRef.current.focus();
   };
 
@@ -100,7 +100,7 @@ const Search = () => {
   const handleMediaTypeChange = (event: any) => {
     setMediaType(event);
     if (isSearchResultsPage) {
-      updateQuery("type", event.value);
+      updateQuery("filterByType", event.value);
     }
   };
 

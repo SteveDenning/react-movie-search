@@ -23,7 +23,7 @@ const SearchResults = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const params = new URLSearchParams(searchParams);
-  const type = params.get("type") || "multi";
+  const type = params.get("filterByType") || "multi";
   const query = params.get("query") || null;
 
   const handlePageChange = (event, value) => {
