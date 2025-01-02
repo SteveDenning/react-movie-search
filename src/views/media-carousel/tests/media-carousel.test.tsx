@@ -14,6 +14,7 @@ import { variables } from "./config";
 
 // Mock
 jest.mock("../../../services/media");
+
 describe("Media carousel component", () => {
   describe("Component rendering", () => {
     it("Should render the Media Carousel", async () => {
@@ -35,8 +36,8 @@ describe("Media carousel component", () => {
         </MemoryRouter>,
       );
 
-      await waitFor(() => expect(screen.getByTestId("media-carousel")).toBeInTheDocument());
       await waitFor(() => expect(getMedia).toHaveBeenCalledTimes(1));
+      await waitFor(() => expect(screen.getByTestId("media-carousel")).toBeInTheDocument());
       await waitFor(() => expect(screen.getByTestId("media-carousel-label")).toHaveTextContent("TV Releases"));
       await waitFor(() => expect(screen.getByText("View all")).toBeInTheDocument());
 

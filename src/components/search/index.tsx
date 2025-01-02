@@ -3,23 +3,25 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import pluralize from "pluralize";
 
 // Utils
-import { getAllMediaFromSearch } from "../../services/search";
 import useScreenSize from "../../utils/use-screen-size";
+
+// Services
+import { getAllMediaFromSearch } from "../../services/search";
 
 // Config
 import { config } from "../../config/routes";
-
-// Components
-import Button from "../../components/button";
-import Select from "../../components/select";
-import TopResults from "../../components/suggestions";
-import VoiceInput from "../../components/voice-input";
 
 // MUI
 import { Fade } from "@mui/material";
 
 // MUI Icons
 import ClearIcon from "@mui/icons-material/Clear";
+
+// Components
+import Button from "../../components/button";
+import Select from "../../components/select";
+import TopResults from "../../components/suggestions";
+import VoiceInput from "../../components/voice-input";
 
 // Styles
 import "./search.scss";
