@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 // Services
-import { getMedia } from "../../services/get-media";
+import { getMedia } from "../../services/media";
 
 // Components
 import Carousel from "../../components/carousel";

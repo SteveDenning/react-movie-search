@@ -3,7 +3,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import pluralize from "pluralize";
 
 // Utils
-import { getAllMediaFromSearch } from "../../utils/get-resources";
+import { getAllMediaFromSearch } from "../../services/search";
 import useScreenSize from "../../utils/use-screen-size";
 
 // Config

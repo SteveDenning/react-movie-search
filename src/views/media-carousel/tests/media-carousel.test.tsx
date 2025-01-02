@@ -7,13 +7,13 @@ import { MemoryRouter } from "react-router-dom";
 import MediaCarousel from "../index";
 
 // Services
-import { getMedia } from "../../../services/get-media";
+import { getMedia } from "../../../services/media";
 
 // Variables
 import { variables } from "./config";
 
 // Mock
-jest.mock("../../../services/get-media");
+jest.mock("../../../services/media");
 describe("Media carousel component", () => {
   describe("Component rendering", () => {
     it("Should render the Media Carousel", async () => {

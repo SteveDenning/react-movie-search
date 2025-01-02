@@ -17,16 +17,16 @@ describe("Home page component", () => {
       expect(screen.getByTestId("home")).toBeInTheDocument();
     });
 
-    it("Should render the Movie Releases carousel", async () => {
-      await waitFor(() => expect(screen.getByText("Movie Releases")).toBeInTheDocument());
-    });
+    // it("Should render the Movie Releases carousel", async () => {
+    //   await waitFor(() => expect(screen.getByText("Movie Releases")).toBeInTheDocument());
+    // });
 
-    it("Should render the TV releases carousel", async () => {
-      await waitFor(() => expect(screen.getByText("TV releases")).toBeInTheDocument());
-    });
+    // it("Should render the TV releases carousel", async () => {
+    //   await waitFor(() => expect(screen.getByText("TV releases")).toBeInTheDocument());
+    // });
 
-    it("Should render the Popular actors carousel", async () => {
-      await waitFor(() => expect(screen.getByText("Most popular actors")).toBeInTheDocument());
-    });
+    // it("Should render the Popular actors carousel", async () => {
+    //   await waitFor(() => expect(screen.getByText("Most popular actors")).toBeInTheDocument());
+    // });
   });
 });

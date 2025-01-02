@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 // Services
 import { updateFavorite } from "../../services/favorites";
 import { getFavorites } from "../../services/favorites";
-import { getMedia } from "../../services/get-media";
+import { getMedia } from "../../services/media";
 
 // Components
 import Button from "../../components/button";

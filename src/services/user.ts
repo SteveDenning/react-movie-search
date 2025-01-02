@@ -1,15 +1,7 @@
 import axios, { AxiosResponse } from "axios";
 
-const authorization =
-  "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MmZlNTY4YjRjYjgzN2I5NjhiOTQ2ZmI1MmU5YWZlMSIsIm5iZiI6MTcyOTkzODAyNS43NzY1MzEsInN1YiI6IjY3MTBkYmQ3MWI5MTJhZGQyZWRiZDU5OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.x2CmY6K8b55TaEp_d4BzsxlLZfQLdbb8PuqRdEcdYwQ";
-
-const headers = {
-  method: "GET",
-  headers: {
-    accept: "application/json",
-    Authorization: authorization,
-  },
-};
+// Headers
+import { headers } from "./headers";
 
 export const getRequestToken = async (): Promise<any> => {
   const url = `${process.env.REACT_APP_TMDB_ROOT}/authentication/token/new`;
