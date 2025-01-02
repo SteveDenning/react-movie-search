@@ -12,19 +12,6 @@ const headers = {
   },
 };
 
-export const getMedia = (pathName: string) =>
-  new Promise((resolve, reject) => {
-    const url = `${apiUrl}/${pathName}?page=1&language=en-US`;
-    axios
-      .get(url, headers)
-      .then((response) => {
-        resolve(response);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-
 export const getAllMediaFromSearch = (queryString: string) =>
   new Promise((resolve, reject) => {
     const url = `${apiUrl}/search/${queryString}&language=en-US`;
@@ -56,66 +43,6 @@ export const getMediaByID = (id: string, type: string) =>
 export const getVideos = (id: string, type: string) =>
   new Promise((resolve, reject) => {
     const url = `${apiUrl}/${type}/${id}/videos?language=en-US`;
-    axios
-      .get(url, headers)
-      .then((response) => {
-        resolve(response);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-
-// Account requests
-// **********************************************************************
-export const getRequestToken = () =>
-  new Promise((resolve, reject) => {
-    const url = "https://api.themoviedb.org/3/authentication/token/new";
-    axios
-      .get(url, headers)
-      .then((response) => {
-        resolve(response);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-
-export const createSessionWithLogin = (body) =>
-  new Promise((resolve, reject) => {
-    const url = "https://api.themoviedb.org/3/authentication/session/new";
-    axios
-      .post(url, body, { ...headers, method: "POST" })
-      .then((response) => {
-        resolve(response);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-
-export const deleteSession = (sessionId) =>
-  new Promise((resolve, reject) => {
-    const url = "https://api.themoviedb.org/3/authentication/session";
-    axios
-      .delete(url, {
-        ...headers,
-        method: "DELETE",
-        data: {
-          session_id: sessionId,
-        },
-      })
-      .then((response) => {
-        resolve(response);
-      })
-      .catch((error) => {
-        reject(error);
-      });
-  });
-
-export const getAccountDetails = (sessionId: string) =>
-  new Promise((resolve, reject) => {
-    const url = `https://api.themoviedb.org/3/account?session_id=${sessionId}`;
     axios
       .get(url, headers)
       .then((response) => {

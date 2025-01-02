@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 // Utils
-import { getRequestToken, createSessionWithLogin, deleteSession, getAccountDetails } from "../../utils/get-resources";
+import { getRequestToken, createSessionWithLogin, deleteSession, getAccountDetails } from "../../services/user";
 
 // Config
 import { config } from "../../config/routes";
