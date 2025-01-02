@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 // Components
 import Button from "../button";
@@ -17,8 +17,8 @@ interface Props {
 }
 
 const AddToFavorites: React.FC<Props> = ({ isFavorite, handleFavorite }) => {
-  const [favorite, setFavorite] = React.useState(isFavorite);
-  const [open, setOpen] = React.useState(false);
+  const [favorite, setFavorite] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   const user = JSON.parse(sessionStorage.getItem("user") || null);
 
@@ -30,6 +30,10 @@ const AddToFavorites: React.FC<Props> = ({ isFavorite, handleFavorite }) => {
     setFavorite(!favorite);
     handleFavorite(!favorite);
   };
+
+  useEffect(() => {
+    setFavorite(isFavorite);
+  }, [isFavorite]);
 
   return (
     <>

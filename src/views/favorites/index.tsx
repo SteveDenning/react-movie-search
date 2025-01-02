@@ -62,16 +62,23 @@ const Favorites: React.FC<Props> = () => {
   };
 
   const handleTabChange = (tab: { label: string; value: string }) => {
-    updateSearchParam("type", tab.value);
+    sessionStorage.setItem("selectedTab", tab.value);
     setSelectedTab(tab.value);
   };
 
   useEffect(() => {
     if (user) {
-      updateSearchParam("type", "movies");
+      sessionStorage.setItem("selectedTab", "movies");
       getFavoritesList("movies");
       getFavoritesList("tv");
     }
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      console.log("fired");
+      sessionStorage.removeItem("selectedTab");
+    };
   }, []);
 
   const renderTab = (resource: any, type: string) => {

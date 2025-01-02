@@ -34,7 +34,6 @@ const DetailsView = () => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
 
   const navigate = useNavigate();
-  const updateSearchParam = useUpdateSearchParams();
 
   const user = JSON.parse(sessionStorage.getItem("user") || null);
   const programmeId = window.location.pathname.split("/")[3] as string;
@@ -64,7 +63,8 @@ const DetailsView = () => {
         .then((response: any) => {
           setResource(response.data);
           setBackDrop(response.data.backdrop_path);
-          setLoading(false);
+          getFavoritesList();
+          fetchVideos(programmeId, type);
         })
         .catch((error) => {
           console.error(error);
@@ -96,7 +96,9 @@ const DetailsView = () => {
     if (user && !isPerson) {
       getFavorites(user.id, type)
         .then((response) => {
-          const isFavorite = response?.data.results.find((favorite) => favorite.id === resource.id);
+          const favorites = response?.data.results;
+          const isFavorite = !!favorites.find((favorite) => favorite.id == programmeId);
+
           setIsFavorite(isFavorite);
         })
         .catch((error) => {
@@ -122,14 +124,8 @@ const DetailsView = () => {
   };
 
   useEffect(() => {
-    fetchVideos(programmeId, type);
-    getFavoritesList();
-  }, [resource]);
-
-  useEffect(() => {
     getMedia();
-    updateSearchParam("type", type);
-  }, [programmeId]);
+  }, []);
 
   return (
     <>
