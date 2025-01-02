@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 // Services
-import { getFavorites } from "../../services/get-favorites";
+import { addFavorite } from "../../services/favorites";
+import { getFavorites } from "../../services/favorites";
 import { getMedia } from "../../services/get-media";
-import { addFavorite } from "../../services/add-favorite";
 
 // Components
 import Button from "../../components/button";
