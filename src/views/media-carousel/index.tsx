@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 
 // Services
-import { getFavorites } from "../../services/get-favorites";
-import { getMedia } from "../../services/get-media";
-import { addFavorite } from "../../services/add-favorite";
+import { updateFavorite } from "../../services/favorites";
+import { getFavorites } from "../../services/favorites";
+import { getMedia } from "../../services/media";
 
 // Components
 import Button from "../../components/button";
@@ -68,7 +68,7 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
       favorite: !resource?.favorite,
     };
 
-    addFavorite(user.id, body)
+    updateFavorite(user.id, body)
       .then()
       .catch((error) => {
         console.error(error);

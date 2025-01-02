@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 // Utils
-import { getAllMediaFromSearch } from "../../utils/get-resources";
+import { getAllMediaFromSearch } from "../../services/search";
 
 // MUI
 import { Container, Backdrop, CircularProgress } from "@mui/material";

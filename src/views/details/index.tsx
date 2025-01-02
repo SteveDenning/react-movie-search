@@ -3,11 +3,12 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 // Services
-import { getFavorites } from "../../services/get-favorites";
-import { addFavorite } from "../../services/add-favorite";
+import { getFavorites } from "../../services/favorites";
+import { getMediaByID } from "../../services/media";
+import { updateFavorite } from "../../services/favorites";
+import { getVideos } from "../../services/videos";
 
 // Utils
-import { getMediaByID, getVideos } from "../../utils/get-resources";
 import useUpdateSearchParams from "../../utils/use-search-params";
 
 // Components
@@ -38,7 +39,7 @@ const DetailsView = () => {
   const user = JSON.parse(sessionStorage.getItem("user") || null);
   const programmeId = window.location.pathname.split("/")[3] as string;
   const type = window.location.pathname.split("/")[2];
-  const backgroundImage = backDrop ? `url(https://image.tmdb.org/t/p/original/${backDrop})` : "";
+  const backgroundImage = backDrop ? `url(${process.env.REACT_APP_TMDB_IMAGE_PATH}/${backDrop})` : "";
   const isMedia = type == "tv" || "movie";
   const isPerson = type == "person";
   const MediaCarouselLabel = isPerson ? "Known for" : "Top Cast";
@@ -111,7 +112,7 @@ const DetailsView = () => {
       favorite: !isFavorite,
     };
 
-    addFavorite(user.id, body)
+    updateFavorite(user.id, body)
       .then(() => {
         getFavoritesList();
       })

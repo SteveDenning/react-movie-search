@@ -6,13 +6,13 @@ import { render, waitFor, screen } from "@testing-library/react";
 import BannerCarousel from "../index";
 
 // Services
-import { getMedia } from "../../../services/get-media";
+import { getMedia } from "../../../services/media";
 
 // Variables
 import { variables } from "./config";
 
 // Mock
-jest.mock("../../../services/get-media");
+jest.mock("../../../services/media");
 
 describe("Banner carousel component (error handling)", () => {
   describe("Component rendering (error state)", () => {
