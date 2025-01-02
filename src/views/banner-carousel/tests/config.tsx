@@ -83,31 +83,7 @@ export const variables = {
   error: {
     message: "Network Error",
     name: "AxiosError",
-    config: {
-      transitional: {
-        silentJSONParsing: true,
-        forcedJSONParsing: true,
-        clarifyTimeoutError: false,
-      },
-      transformRequest: [null],
-      transformResponse: [null],
-      timeout: 0,
-      xsrfCookieName: "XSRF-TOKEN",
-      xsrfHeaderName: "X-XSRF-TOKEN",
-      maxContentLength: -1,
-      maxBodyLength: -1,
-      env: {
-        FormData: null,
-      },
-      headers: {
-        Accept: "application/json",
-        Authorization:
-          "Bearer deyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MmZlNTY4YjRjYjgzN2I5NjhiOTQ2ZmI1MmU5YWZlMSIsIm5iZiI6MTcyOTkzODAyNS43NzY1MzEsInN1YiI6IjY3MTBkYmQ3MWI5MTJhZGQyZWRiZDU5OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.x2CmY6K8b55TaEp_d4BzsxlLZfQLdbb8PuqRdEcdYwQ",
-      },
-      method: "get",
-      url: "https://api.themoviedb.org//movie/upcoming?page=1&language=en-US",
-    },
-    code: "ERR_NETWORK",
+    code: 404,
     status: null,
   },
 };

@@ -96,7 +96,7 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
           className="error"
           data-testid="banner-carousel-error"
         >
-          There was a problem the banner - please try again later
+          There was a problem with the banner - please try again later
         </p>
       )}
       <Backdrop open={loading}>
