@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 // Services
-import { addFavorite } from "../../services/favorites";
+import { updateFavorite } from "../../services/favorites";
 import { getFavorites } from "../../services/favorites";
 
 // Components
@@ -48,7 +48,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
       favorite: !resource?.favorite,
     };
 
-    addFavorite(user.id, body)
+    updateFavorite(user.id, body)
       .then()
       .catch((error) => {
         console.error(error);

@@ -20,7 +20,7 @@ export const getFavorites = async (userId: string, type: string): Promise<any> =
   }
 };
 
-export const addFavorite = async (userId: string, body): Promise<any> => {
+export const updateFavorite = async (userId: string, body): Promise<any> => {
   const url = `${apiUrl}/account/${userId}/favorite`;
   const response: AxiosResponse<any> = await await axios.post(url, body, { ...headers, method: "POST" });
 

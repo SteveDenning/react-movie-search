@@ -4,7 +4,7 @@ import moment from "moment";
 
 // Services
 import { getFavorites } from "../../services/favorites";
-import { addFavorite } from "../../services/favorites";
+import { updateFavorite } from "../../services/favorites";
 
 // Utils
 import { getMediaByID, getVideos } from "../../utils/get-resources";
@@ -111,7 +111,7 @@ const DetailsView = () => {
       favorite: !isFavorite,
     };
 
-    addFavorite(user.id, body)
+    updateFavorite(user.id, body)
       .then(() => {
         getFavoritesList();
       })

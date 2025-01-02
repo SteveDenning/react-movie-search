@@ -6,7 +6,7 @@ import useUpdateSearchParams from "../../utils/use-search-params";
 
 // Services
 import { getFavorites } from "../../services/favorites";
-import { addFavorite } from "../../services/favorites";
+import { updateFavorite } from "../../services/favorites";
 
 // MUI Components
 import { Container, Fade } from "@mui/material";
@@ -52,7 +52,7 @@ const Favorites: React.FC<Props> = () => {
       favorite: false,
     };
 
-    addFavorite(user.id, body)
+    updateFavorite(user.id, body)
       .then(() => {
         getFavoritesList(type);
       })
