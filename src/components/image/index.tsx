@@ -2,6 +2,7 @@ import React from "react";
 
 // Utils
 import useScreenSize from "../../utils/use-screen-size";
+import useDefineMediaType from "../../utils/use-define-media-type";
 
 // Assets
 import mediaPlaceholder from "../../assets/images/default-placeholder.png";
@@ -19,7 +20,8 @@ interface Props {
 }
 
 const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick }) => {
-  const isPerson = Object.prototype.hasOwnProperty.call(resource, "gender");
+  const mediaType = useDefineMediaType(resource);
+  const isPerson = mediaType === "person";
   const screenSize = useScreenSize();
   const isMobile = screenSize.width <= 480;
 

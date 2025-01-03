@@ -27,17 +27,19 @@ const Favorites: React.FC<Props> = () => {
   const user = JSON.parse(sessionStorage.getItem("user") || null);
 
   const getFavoritesList = (type: string) => {
-    getFavorites(user.id, type)
-      .then((response) => {
-        if (type === "movies") {
-          setFavoriteMovies(response.data.results);
-        } else {
-          setFavoriteTv(response.data.results);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    if (user) {
+      getFavorites(user.id, type)
+        .then((response) => {
+          if (type === "movies") {
+            setFavoriteMovies(response.data.results);
+          } else {
+            setFavoriteTv(response.data.results);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
 
   const handleDelete = (type: string, id: string) => {
@@ -57,23 +59,12 @@ const Favorites: React.FC<Props> = () => {
   };
 
   const handleTabChange = (tab: { label: string; value: string }) => {
-    sessionStorage.setItem("selectedTab", tab.value);
     setSelectedTab(tab.value);
   };
 
   useEffect(() => {
-    if (user) {
-      sessionStorage.setItem("selectedTab", "movies");
-      getFavoritesList("movies");
-      getFavoritesList("tv");
-    }
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      console.log("fired");
-      sessionStorage.removeItem("selectedTab");
-    };
+    getFavoritesList("movies");
+    getFavoritesList("tv");
   }, []);
 
   const renderTab = (resource: any, type: string) => {

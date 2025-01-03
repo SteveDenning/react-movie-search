@@ -37,6 +37,10 @@
         overflow: hidden;
         max-width: 100%;
         margin-bottom: 20px;
+
+        img {
+          cursor: pointer;
+        }
       }
 
       &__item-actions {

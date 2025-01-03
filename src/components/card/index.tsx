@@ -8,6 +8,9 @@ import Image from "../../components/image";
 // Styles
 import "./card.scss";
 
+// Utils
+import useDefineMediaType from "../../utils/use-define-media-type";
+
 interface Props {
   resource: any;
   onClick?: () => void;
@@ -18,12 +21,12 @@ interface Props {
 
 const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) => {
   const user = JSON.parse(sessionStorage.getItem("user") || null);
+  const mediaType = useDefineMediaType(resource);
 
   // Class definitions
   const baseClass = "card";
   const variantClass = variant ? `card--${variant}` : "";
   const classes = [baseClass, variantClass].filter(Boolean).join(" ");
-  const isPerson = Object.prototype.hasOwnProperty.call(resource, "gender");
 
   return (
     <div
@@ -58,7 +61,7 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
           {resource?.["known_for_department"] && <p className="card__info">{resource["known_for_department"]}</p>}
           <p className="card__info">{resource?.character}</p>
         </div>
-        {user && !isPerson && (
+        {user && mediaType !== "person" && (
           <AddToFavorites
             handleFavorite={() => handleFavorite(resource)}
             isFavorite={resource?.favorite}

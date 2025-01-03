@@ -67,5 +67,6 @@ Default.args = {
     { label: "Tab 3", payload: "tab-03" },
     { label: "Tab 4", payload: "tab-04" },
   ],
-  onClick: () => null,
+  onClick: () => {},
+  initialSelection: "Tab 2",
 };
