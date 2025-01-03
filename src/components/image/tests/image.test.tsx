@@ -34,11 +34,11 @@ describe("Image component", () => {
     });
 
     it("Should have a image source of '/image-source", () => {
-      expect(screen.getByTestId("image-element")).toHaveAttribute("src", "mock-image-url.jpg");
+      expect(screen.getByTestId("image")).toHaveAttribute("src", "mock-image-url.jpg");
     });
 
     it("Should allow the user to click the card content", () => {
-      fireEvent.click(screen.getByTestId("image-element"));
+      fireEvent.click(screen.getByTestId("image"));
       expect(handleClick).toHaveBeenCalled();
     });
   });

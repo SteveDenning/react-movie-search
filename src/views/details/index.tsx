@@ -8,14 +8,12 @@ import { getMediaByID } from "../../services/media";
 import { updateFavorite } from "../../services/favorites";
 import { getVideos } from "../../services/videos";
 
-// Utils
-import useUpdateSearchParams from "../../utils/use-search-params";
-
 // Components
 import AddToFavorites from "../../components/add-to-favorites";
 import Button from "../../components/button";
-import ImageModal from "../../components/image-modal";
+import Image from "../../components/image";
 import MediaCarousel from "../../views/media-carousel";
+import Modal from "../../components/modal";
 import Overview from "../../components/overview";
 import Video from "../../components/video";
 
@@ -32,6 +30,7 @@ const DetailsView = () => {
   const [resource, setResource] = useState<any>({});
   const [videoKey, setVideoKey] = useState<string>("");
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -123,6 +122,18 @@ const DetailsView = () => {
       });
   };
 
+  const renderImage = () => {
+    if (resource) {
+      return (
+        <Image
+          id={resource.id}
+          resource={resource}
+          onClick={() => setIsOpen(true)}
+        />
+      );
+    }
+  };
+
   useEffect(() => {
     getMedia();
   }, []);
@@ -154,11 +165,7 @@ const DetailsView = () => {
               )}
               <div className="details-view__content">
                 <div className="details-view__profile">
-                  {resource["profile_path"] && (
-                    <div className="details-view__profile-image">
-                      <ImageModal resource={resource} />
-                    </div>
-                  )}
+                  {resource["profile_path"] && <div className="details-view__profile-image">{renderImage()}</div>}
                   <div>
                     <div className="details-view__profile-details">
                       <h2 className="details-view__title">
@@ -245,11 +252,19 @@ const DetailsView = () => {
       {error && (
         <p
           className="error"
-          data-testid="banner-carousel-error"
+          data-testid="details-view-error"
         >
           There was a problem getting the detail - please try again later
         </p>
       )}
+      <Modal
+        id={resource.id}
+        open={isOpen}
+        handleClose={() => setIsOpen(false)}
+        variant={["image"]}
+      >
+        {renderImage()}
+      </Modal>
       <Backdrop open={loading}>
         <CircularProgress color="primary" />
       </Backdrop>

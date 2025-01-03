@@ -58,6 +58,10 @@
       width: 100%;
     }
 
+    .image {
+      cursor: pointer;
+    }
+
     @include breakpoint($medium) {
       display: flex;
     }

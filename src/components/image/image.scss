@@ -6,19 +6,8 @@
   align-items: center;
   display: flex;
   height: 100%;
+  object-fit: cover;
   width: auto;
-
-  img {
-    cursor: pointer;
-    height: 100%;
-    object-fit: cover;
-    transition: scale 0.2s ease, border 0.2s ease;
-    width: 100%;
-  }
-
-  &--mobile {
-    width: 100%;
-  }
 
   // Sizes
   &--xsmall {
@@ -41,16 +30,12 @@
     width: 100%;
   }
 
+  &--mobile {
+    width: 100%;
+  }
+
   // Variants
   &--banner {
     pointer-events: none;
-  }
-
-  &--scale {
-    img {
-      @include hover {
-        scale: 1.02;
-      }
-    }
   }
 }
