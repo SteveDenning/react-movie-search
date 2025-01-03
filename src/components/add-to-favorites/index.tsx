@@ -12,7 +12,7 @@ import "./add-to-favorites.scss";
 
 interface Props {
   isFavorite: boolean;
-  handleFavorite: (isFavorite) => void;
+  handleFavorite: (boolean) => void;
 }
 
 const AddToFavorites: React.FC<Props> = ({ isFavorite, handleFavorite }) => {
