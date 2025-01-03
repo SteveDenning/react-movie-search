@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import pluralize from "pluralize";
 
-// Utils
-import useUpdateSearchParams from "../../utils/use-search-params";
-
 // Services
 import { getFavorites } from "../../services/favorites";
 import { updateFavorite } from "../../services/favorites";
@@ -29,20 +26,20 @@ const Favorites: React.FC<Props> = () => {
 
   const user = JSON.parse(sessionStorage.getItem("user") || null);
 
-  const updateSearchParam = useUpdateSearchParams();
-
   const getFavoritesList = (type: string) => {
-    getFavorites(user.id, type)
-      .then((response) => {
-        if (type === "movies") {
-          setFavoriteMovies(response.data.results);
-        } else {
-          setFavoriteTv(response.data.results);
-        }
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    if (user) {
+      getFavorites(user.id, type)
+        .then((response) => {
+          if (type === "movies") {
+            setFavoriteMovies(response.data.results);
+          } else {
+            setFavoriteTv(response.data.results);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
 
   const handleDelete = (type: string, id: string) => {
@@ -62,16 +59,12 @@ const Favorites: React.FC<Props> = () => {
   };
 
   const handleTabChange = (tab: { label: string; value: string }) => {
-    updateSearchParam("type", tab.value);
     setSelectedTab(tab.value);
   };
 
   useEffect(() => {
-    if (user) {
-      updateSearchParam("type", "movies");
-      getFavoritesList("movies");
-      getFavoritesList("tv");
-    }
+    getFavoritesList("movies");
+    getFavoritesList("tv");
   }, []);
 
   const renderTab = (resource: any, type: string) => {

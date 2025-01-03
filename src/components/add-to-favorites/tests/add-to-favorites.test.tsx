@@ -51,33 +51,4 @@ describe("Add to favorites component", () => {
       await waitFor(() => expect(screen.queryByTestId("FavoriteIcon")).toBeInTheDocument());
     });
   });
-
-  describe("Component rendering (logged out)", () => {
-    beforeEach(() => {
-      mockStorage = {
-        user: null,
-      };
-
-      render(
-        <AddToFavorites
-          isFavorite={false}
-          handleFavorite={handleFavorite}
-        />,
-      );
-    });
-
-    it("Should display a message to ask the user to log in", async () => {
-      fireEvent.click(screen.getByTestId("add-to-favorites"));
-      await waitFor(() => expect(screen.queryByTestId("modal")).toBeInTheDocument());
-      await waitFor(() => expect(screen.getByText("Please log in to add to your favourites")).toBeInTheDocument());
-    });
-
-    it("Should let the user close the modal", async () => {
-      fireEvent.click(screen.getByTestId("add-to-favorites"));
-      await waitFor(() => expect(screen.queryByTestId("modal")).toBeInTheDocument());
-
-      fireEvent.click(screen.getByTestId("modal-close-button"));
-      await waitFor(() => expect(screen.queryByTestId("modal")).toBeNull());
-    });
-  });
 });

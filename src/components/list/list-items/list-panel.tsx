@@ -8,6 +8,7 @@ import Overview from "../../overview";
 
 // MUI Icons
 import DeleteIcon from "@mui/icons-material/Delete";
+import useDefineMediaType from "../../../utils/use-define-media-type";
 
 interface Props {
   item: any;
@@ -17,6 +18,7 @@ interface Props {
 const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const text = item?.overview;
+  const mediaType = useDefineMediaType(item);
 
   return (
     <>
@@ -24,7 +26,7 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
         <Image
           id={item.id}
           resource={item}
-          link
+          onClick={() => window.location.replace(`/details/${mediaType}/${item.id}`)}
         />
       </div>
       <div className="list__item-content">

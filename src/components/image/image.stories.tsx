@@ -53,29 +53,3 @@ Default.args = {
   size: "small",
   onClick: () => alert("clicked"),
 };
-
-export const Scale: Story = {
-  render: (args) => (
-    <Container style={{ width: "200px" }}>
-      <Image {...args} />
-    </Container>
-  ),
-};
-Scale.args = {
-  resource: "Lorem ipsum",
-  variant: "scale",
-  onClick: () => alert("clicked"),
-};
-
-export const Banner: Story = {
-  render: (args) => (
-    <Container>
-      <Image {...args} />
-    </Container>
-  ),
-};
-Banner.args = {
-  resource: "Lorem ipsum",
-  variant: "banner",
-  onClick: () => alert("clicked"),
-};

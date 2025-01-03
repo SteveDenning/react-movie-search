@@ -8,14 +8,12 @@ import { getMediaByID } from "../../services/media";
 import { updateFavorite } from "../../services/favorites";
 import { getVideos } from "../../services/videos";
 
-// Utils
-import useUpdateSearchParams from "../../utils/use-search-params";
-
 // Components
 import AddToFavorites from "../../components/add-to-favorites";
 import Button from "../../components/button";
-import ImageModal from "../../components/image-modal";
+import Image from "../../components/image";
 import MediaCarousel from "../../views/media-carousel";
+import Modal from "../../components/modal";
 import Overview from "../../components/overview";
 import Video from "../../components/video";
 
@@ -32,9 +30,9 @@ const DetailsView = () => {
   const [resource, setResource] = useState<any>({});
   const [videoKey, setVideoKey] = useState<string>("");
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
-  const updateSearchParam = useUpdateSearchParams();
 
   const user = JSON.parse(sessionStorage.getItem("user") || null);
   const programmeId = window.location.pathname.split("/")[3] as string;
@@ -64,7 +62,8 @@ const DetailsView = () => {
         .then((response: any) => {
           setResource(response.data);
           setBackDrop(response.data.backdrop_path);
-          setLoading(false);
+          getFavoritesList();
+          fetchVideos(programmeId, type);
         })
         .catch((error) => {
           console.error(error);
@@ -96,7 +95,9 @@ const DetailsView = () => {
     if (user && !isPerson) {
       getFavorites(user.id, type)
         .then((response) => {
-          const isFavorite = response?.data.results.find((favorite) => favorite.id === resource.id);
+          const favorites = response?.data.results;
+          const isFavorite = !!favorites.find((favorite) => favorite.id == programmeId);
+
           setIsFavorite(isFavorite);
         })
         .catch((error) => {
@@ -121,15 +122,21 @@ const DetailsView = () => {
       });
   };
 
-  useEffect(() => {
-    fetchVideos(programmeId, type);
-    getFavoritesList();
-  }, [resource]);
+  const renderImage = () => {
+    if (resource) {
+      return (
+        <Image
+          id={resource.id}
+          resource={resource}
+          onClick={() => setIsOpen(true)}
+        />
+      );
+    }
+  };
 
   useEffect(() => {
     getMedia();
-    updateSearchParam("type", type);
-  }, [programmeId]);
+  }, []);
 
   return (
     <>
@@ -158,17 +165,13 @@ const DetailsView = () => {
               )}
               <div className="details-view__content">
                 <div className="details-view__profile">
-                  {resource["profile_path"] && (
-                    <div className="details-view__profile-image">
-                      <ImageModal resource={resource} />
-                    </div>
-                  )}
+                  {resource["profile_path"] && <div className="details-view__profile-image">{renderImage()}</div>}
                   <div>
                     <div className="details-view__profile-details">
                       <h2 className="details-view__title">
                         {resource.name || resource.title}{" "}
                         {isMedia && resource?.["release_date"] && <span>({moment(resource?.["release_date"]).format("YYYY")})</span>}
-                        {type !== "person" && (
+                        {user && type !== "person" && (
                           <AddToFavorites
                             handleFavorite={handleFavorite}
                             isFavorite={isFavorite}
@@ -249,11 +252,19 @@ const DetailsView = () => {
       {error && (
         <p
           className="error"
-          data-testid="banner-carousel-error"
+          data-testid="details-view-error"
         >
           There was a problem getting the detail - please try again later
         </p>
       )}
+      <Modal
+        id={resource.id}
+        open={isOpen}
+        handleClose={() => setIsOpen(false)}
+        variant={["image"]}
+      >
+        {renderImage()}
+      </Modal>
       <Backdrop open={loading}>
         <CircularProgress color="primary" />
       </Backdrop>
