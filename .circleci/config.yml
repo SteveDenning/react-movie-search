@@ -40,6 +40,7 @@ jobs:
             - v1-dependencies-
 
       - run: npm install
+      - run: npm run build-storybook
       - run: npx chromatic --project-token=chpt_dc5fcafc84fd12b
       - save_cache:
           name: Save NPM cache
