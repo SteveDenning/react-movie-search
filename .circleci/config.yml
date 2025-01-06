@@ -40,7 +40,7 @@ jobs:
             - v1-dependencies-
 
       - run: npm install
-      - run: npx chromatic
+      - run: npx chromatic --project-token=chpt_dc5fcafc84fd12b
       - save_cache:
           name: Save NPM cache
           paths:
