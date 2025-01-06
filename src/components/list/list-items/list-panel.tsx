@@ -56,7 +56,10 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
         }}
         variant={["small"]}
       >
-        <h3>Are you sure you want to remove {item.title || item.name}?</h3>
+        <h3 style={{ textAlign: "center" }}>
+          Are you sure you want to remove <br />
+          {item.title || item.name}?
+        </h3>
 
         <div className="modal__action-buttons">
           <Button
