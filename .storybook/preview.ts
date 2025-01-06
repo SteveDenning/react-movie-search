@@ -16,7 +16,7 @@ const preview: Preview = {
         // Custom values
         { name: "Purple", value: "#4a027e" },
       ],
-      default: "Purple",
+      default: "Dark",
     },
   },
 };
