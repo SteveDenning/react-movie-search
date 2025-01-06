@@ -37,7 +37,7 @@ const VoiceInput: React.FC<Props> = ({ setValue }) => {
       let interimTranscript = "";
 
       Array.from(event.results)
-        .slice(event.resultIndex)
+        ?.slice(event.resultIndex)
         .forEach((result) => {
           const transcript = result[0].transcript;
           if (result.isFinal) {

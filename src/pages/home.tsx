@@ -4,15 +4,55 @@ import React from "react";
 import DefaultLayout from "../layout/default";
 
 // Views
-import UserHomePage from "../views/home";
+import BannerCarousel from "./../views/banner-carousel";
+import MediaCarousel from "./../views/media-carousel";
+
+// MUI
+import { Container } from "@mui/material";
 
 const HomePage = () => {
+  const personOptions = {
+    desktop: {
+      breakpoint: {
+        max: 3000,
+        min: 1024,
+      },
+      items: 7,
+      slidesToSlide: 7,
+    },
+  };
+
   return (
     <DefaultLayout
       hasSearch
       heading="The Movie Seeker: React App for All Things Cinema"
     >
-      <UserHomePage />
+      <BannerCarousel
+        media="movie"
+        path="movie/upcoming"
+      />
+      <Container>
+        <MediaCarousel
+          buttonText="View all"
+          label="Movie Releases"
+          pathName="movie/now_playing"
+          media="movie"
+        />
+        <MediaCarousel
+          buttonText="View all"
+          label="TV releases"
+          pathName="tv/popular"
+          media="tv"
+        />
+
+        <MediaCarousel
+          buttonText="View all"
+          label="Most popular actors"
+          pathName="person/popular"
+          responsiveOptions={personOptions}
+          media="person"
+        />
+      </Container>
     </DefaultLayout>
   );
 };

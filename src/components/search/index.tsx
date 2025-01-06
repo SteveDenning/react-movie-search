@@ -73,7 +73,8 @@ const Search = () => {
     if (event.target.value.length > 2) {
       getAllMediaFromSearch(`${mediaType.value}?query=${event.target.value}`)
         .then((response: any) => {
-          setSuggestions(response.data.results.slice(0, 10));
+          const suggestions = response.data.results?.slice(0, 10);
+          setSuggestions(suggestions);
         })
         .catch((error) => {
           console.error(error);
