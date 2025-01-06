@@ -11,10 +11,10 @@ import { config } from "../../config/routes";
 import { UserType } from "../../models/types";
 
 // Components
-import Search from "../../components/search";
 import Button from "../../components/button";
 import List from "../../components/list";
 import Login from "../../views/login";
+import Search from "../../views/search";
 
 // MUI
 import { Box, Container, Drawer, Typography } from "@mui/material";
@@ -44,7 +44,7 @@ const Header: React.FC<Props> = ({ heading }) => {
   const navOptions = [
     { label: config.home.name, path: config.home.path },
     { label: config.favorites.name, path: config.favorites.path },
-    { label: config.profile.name, path: config.profile.path },
+    // { label: config.profile.name, path: config.profile.path },
   ];
 
   const handleGetRequestToken = () => {

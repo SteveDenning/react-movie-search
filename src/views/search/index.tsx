@@ -62,7 +62,7 @@ const Search = () => {
       navigate(
         {
           pathname: `${config.searchResults.path}`,
-          search: `?query=${searchTerm}&filterByType=${mediaType.value}`,
+          search: `?query=${encodeURIComponent(searchTerm)}&filterByType=${mediaType.value}`,
         },
         { replace: !isSearchResultsPage },
       );
