@@ -1,16 +1,8 @@
 # This config was automatically generated from your source code
 # Stacks detected: deps:node:.
 version: 2.1
-
-executors:
-  chromatic-ui-testing:
-    docker:
-      - image: cimg/node:20.12.2
-    working_directory: ~/repo
-
 orbs:
   node: circleci/node@5
-
 jobs:
   test:
     # Install node dependencies and run tests
@@ -29,24 +21,6 @@ jobs:
             npm run build
       - store_artifacts:
           path: coverage
-
-  chromatic:
-    executor: chromatic-ui-testing
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-
-      - run: npm install
-      - run: npm run build-storybook
-      - run: npx chromatic --project-token=chpt_dc5fcafc84fd12b
-      - save_cache:
-          name: Save NPM cache
-          paths:
-            - ~/.npm
-          key: v1-dependencies-{{ checksum "package.json" }}
 
   build-and-deploy:
     # Build node project
@@ -73,11 +47,6 @@ jobs:
 workflows:
   test-branch:
     jobs:
-      - chromatic:
-          filters:
-            branches:
-              ignore:
-                - main
       - test:
           filters:
             branches:
