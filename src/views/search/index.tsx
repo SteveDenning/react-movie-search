@@ -70,7 +70,7 @@ const Search = () => {
   };
 
   const handleSuggestions = (event: any) => {
-    if (event.target.value.length > 2) {
+    if (event.target.value.length) {
       getAllMediaFromSearch(`${mediaType.value}?query=${event.target.value}`)
         .then((response: any) => {
           const suggestions = response.data.results?.slice(0, 10);
