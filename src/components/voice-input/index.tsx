@@ -36,18 +36,20 @@ const VoiceInput: React.FC<Props> = ({ setValue }) => {
     recognition.onresult = (event) => {
       let interimTranscript = "";
 
-      Array.from(event.results)
-        ?.slice(event.resultIndex)
-        .forEach((result) => {
-          const transcript = result[0].transcript;
-          if (result.isFinal) {
-            setFinalText((prev) => prev + transcript);
-          } else {
-            interimTranscript += transcript;
-          }
-        });
+      if (event) {
+        Array.from(event.results)
+          .slice(event.resultIndex)
+          .forEach((result) => {
+            const transcript = result[0].transcript;
+            if (result.isFinal) {
+              setFinalText((prev) => prev + transcript);
+            } else {
+              interimTranscript += transcript;
+            }
+          });
 
-      setLiveText(interimTranscript);
+        setLiveText(interimTranscript);
+      }
     };
 
     recognition.onerror = (event) => {

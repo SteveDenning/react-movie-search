@@ -254,7 +254,7 @@ const DetailsView = () => {
           className="error"
           data-testid="details-view-error"
         >
-          There was a problem getting the detail - please try again later
+          There was a problem getting the detail page - please try again later
         </p>
       )}
       <Modal
