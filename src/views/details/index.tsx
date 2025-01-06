@@ -26,7 +26,7 @@ import "./details.scss";
 const DetailsView = () => {
   const [backDrop, setBackDrop] = useState<string>("");
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [resource, setResource] = useState<any>({});
   const [videoKey, setVideoKey] = useState<string>("");
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
@@ -254,7 +254,7 @@ const DetailsView = () => {
           className="error"
           data-testid="details-view-error"
         >
-          There was a problem getting the detail - please try again later
+          There was a problem getting the detail page - please try again later
         </p>
       )}
       <Modal

@@ -26,4 +26,12 @@ export const Default: Story = {
     </Container>
   ),
 };
-Default.args = {};
+Default.args = {
+  resource: {
+    id: 1,
+    title: "Title",
+    name: "Name",
+  },
+  text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum felis id, tincidunt nunc. Cras sit amet tincidunt nunc. Integer nec libero nec libero vestibulum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum felis id, tincidunt nunc. Cras sit amet tincidunt nunc. Integer nec libero nec libero vestibulumfelis id, tincidunt nunc. Cras sit amet tincidunt nunc. Integer nec libero nec libero vestibulum",
+  limit: 400,
+};

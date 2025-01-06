@@ -14,7 +14,7 @@ import { Container } from "@mui/material";
 import "./media-listing.scss";
 
 const MediaListing = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [resources, setResources] = useState<any>([]);
   const [page, setPage] = useState<number>(1);
   const [count, setCount] = useState<number>(0);
