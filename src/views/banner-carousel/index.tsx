@@ -22,7 +22,7 @@ interface Props {
 const BannerCarousel: React.FC<Props> = ({ media, path }) => {
   const [resources, setResources] = useState<any>([]);
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
 
   const responsiveOptions = {
     desktop: {

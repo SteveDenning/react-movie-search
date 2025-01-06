@@ -26,7 +26,7 @@ import "./details.scss";
 const DetailsView = () => {
   const [backDrop, setBackDrop] = useState<string>("");
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [resource, setResource] = useState<any>({});
   const [videoKey, setVideoKey] = useState<string>("");
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
