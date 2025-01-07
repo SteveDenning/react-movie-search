@@ -39,9 +39,7 @@ const List = (args: any) => <Template {...args} />;
 export const Default: Story = {
   render: (args) => (
     <Container>
-      <div style={{ background: "#2e0e72", padding: "50px 20px" }}>
-        <List {...args} />
-      </div>
+      <List {...args} />
     </Container>
   ),
 };
@@ -56,9 +54,7 @@ Default.args = {
 export const Link: Story = {
   render: (args) => (
     <Container>
-      <div style={{ background: "#2e0e72", padding: "50px 20px" }}>
-        <List {...args} />
-      </div>
+      <List {...args} />
     </Container>
   ),
 };
@@ -74,9 +70,7 @@ Link.args = {
 export const Panel: Story = {
   render: (args) => (
     <Container>
-      <div style={{ background: "#2e0e72", padding: "50px 20px" }}>
-        <List {...args} />
-      </div>
+      <List {...args} />
     </Container>
   ),
 };

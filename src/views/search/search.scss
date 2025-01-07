@@ -43,13 +43,8 @@
 
   .voice-input {
     position: absolute;
-    top: 8px;
     right: 5px;
-
-    @include breakpoint($xlarge) {
-      right: 5px;
-      top: 8px;
-    }
+    top: 10px;
   }
 
   &__form-input {
