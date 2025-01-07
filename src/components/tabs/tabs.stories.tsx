@@ -54,18 +54,12 @@ const Tabs = (args: any) => (
 );
 
 export const Default: Story = {
-  render: (args) => (
-    <div style={{ background: "#000", padding: "50px" }}>
-      <Tabs {...args} />
-    </div>
-  ),
+  render: (args) => <Tabs {...args} />,
 };
 Default.args = {
   tabs: [
     { label: "Tab 1", payload: "tab-01" },
     { label: "Tab 2", payload: "tab-02" },
-    { label: "Tab 3", payload: "tab-03" },
-    { label: "Tab 4", payload: "tab-04" },
   ],
   onClick: () => {},
   initialSelection: "Tab 2",

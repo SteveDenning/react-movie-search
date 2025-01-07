@@ -38,9 +38,7 @@ const Pagination = (args: any) => <Template {...args} />;
 export const Default: Story = {
   render: (args) => (
     <Container>
-      <div style={{ background: "#253079" }}>
-        <Pagination {...args} />
-      </div>
+      <Pagination {...args} />
     </Container>
   ),
 };
