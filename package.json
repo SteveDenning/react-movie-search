@@ -12,7 +12,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "build:deploy": "webpack --mode production && firebase deploy",
-    "storybook:deploy": "storybook build && npx chromatic --project-token=chpt_dc5fcafc84fd12b"
+    "chromatic": "npx chromatic --project-token=chpt_dc5fcafc84fd12b",
+    "storybook:deploy": "storybook build && npm run chromatic"
   },
   "devDependencies": {
     "@babel/core": "^7.23.6",
