@@ -32,7 +32,7 @@ interface Props {
 const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, buttonText, dataResource = "results", media }) => {
   const [resources, setResources] = useState<any>([]);
   const [items, setItems] = useState<any>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   const [favorites, setFavorites] = useState<any>([]);
 

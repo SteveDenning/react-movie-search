@@ -14,7 +14,7 @@ import Resources from "../../components/resources";
 import "./search-results.scss";
 
 const SearchResults = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState(false);
   const [resources, setResources] = useState<any[]>([]);
   const [page, setPage] = useState<number>(1);
@@ -26,16 +26,10 @@ const SearchResults = () => {
   const type = params.get("filterByType") || "multi";
   const query = params.get("query") || null;
 
-  const handlePageChange = (event, value) => {
-    setPage(value);
-    updateQuery("page", value);
-  };
-
   const handleGetResults = () => {
     if (query) {
       setLoading(true);
-      setResources([]);
-      getAllMediaFromSearch(`${type}${window.location.search}&page=${page}`)
+      getAllMediaFromSearch(`${type}${window.location.search}`)
         .then((response: any) => {
           setResources(response.data.results);
           setCount(response.data["total_pages"]);
@@ -52,6 +46,11 @@ const SearchResults = () => {
     }
   };
 
+  const handlePageChange = (event, value) => {
+    setPage(value);
+    updateQuery("page", value);
+  };
+
   const updateQuery = (key, value) => {
     params.set(key, value);
     setSearchParams(params);
@@ -66,23 +65,15 @@ const SearchResults = () => {
     updateQuery("page", 1);
   }, [type]);
 
-  useEffect(() => {
-    handleGetResults();
-
-    return () => {
-      sessionStorage.removeItem("query");
-    };
-  }, []);
-
   return (
     <div className="search-results">
       <Container>
-        {query && (
+        {query && resources?.length && (
           <h2 className="search-results__header">
             Displaying <span>{totalResults} </span> results for: <span>{query} </span>
           </h2>
         )}
-        {resources.length ? (
+        {resources?.length ? (
           <Resources
             resources={resources}
             page={page}
@@ -91,11 +82,9 @@ const SearchResults = () => {
             loading={loading}
           />
         ) : (
-          !loading && (
-            <div className="search-results__no-results">
-              <h2 className="search-results__no-results-title">Let&#39;s try another search</h2>
-            </div>
-          )
+          <div className="search-results__no-results">
+            <h2 className="search-results__no-results-title">Let&#39;s try another search</h2>
+          </div>
         )}
         {error && (
           <p

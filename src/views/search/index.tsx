@@ -62,7 +62,7 @@ const Search = () => {
       navigate(
         {
           pathname: `${config.searchResults.path}`,
-          search: `?query=${searchTerm}&filterByType=${mediaType.value}`,
+          search: `?query=${encodeURIComponent(searchTerm)}&filterByType=${mediaType.value}`,
         },
         { replace: !isSearchResultsPage },
       );
@@ -70,10 +70,11 @@ const Search = () => {
   };
 
   const handleSuggestions = (event: any) => {
-    if (event.target.value.length > 2) {
+    if (event.target.value.length) {
       getAllMediaFromSearch(`${mediaType.value}?query=${event.target.value}`)
         .then((response: any) => {
-          setSuggestions(response.data.results.slice(0, 10));
+          const suggestions = response.data.results?.slice(0, 10);
+          setSuggestions(suggestions);
         })
         .catch((error) => {
           console.error(error);
