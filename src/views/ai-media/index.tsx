@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import pluralize from "pluralize";
 
 // Services
 import { getAllMediaFromSearch } from "../../services/search";
@@ -39,7 +40,9 @@ const AIMedia: React.FC<Props> = () => {
     setResponse(null);
   };
 
-  const prompt = `Give me a random list of 20 ${mediaType} that must have the following genres only: ${movieGenres}, these must be in an array of JSON objects called media, each object should have a name key with the name as the value`;
+  const prompt = `Give me a random list of 20 ${
+    mediaType === "movie" ? pluralize(mediaType) : "TV Shows"
+  } that must have the following genres only: ${movieGenres}, these must be in an array of JSON objects called media, each object should have a name key with the name as the value`;
 
   const isJSONFormat = (obj) => {
     try {
@@ -96,7 +99,7 @@ const AIMedia: React.FC<Props> = () => {
 
   const getGenresForMedia = (mediaType: string) => {
     getGenres(mediaType).then((response) => {
-      getFavoritesList("movie", response.data.genres);
+      getFavoritesList(mediaType, response.data.genres);
     });
   };
 
@@ -125,16 +128,6 @@ const AIMedia: React.FC<Props> = () => {
     getGenresForMedia("movie");
   }, []);
 
-  useEffect(() => {
-    console.log(!!movieGenres.length);
-  }, [movieGenres]);
-
-  // Get both tv and movie data for favourites
-
-  // Loop through get all genre id then map again the list of genres to get the genre string
-
-  // Loop through the genre string and get the media based on the genre
-
   return (
     <div
       className="ai-media"
@@ -147,7 +140,8 @@ const AIMedia: React.FC<Props> = () => {
             data-testid="media-carousel-label"
             style={{ marginBottom: "20px" }}
           >
-            Let AI generate a list of programmes for you based on genres from you favorite {mediaType}
+            Let AI generate a list of programmes for you based on genres from your favorite{" "}
+            {mediaType === "movie" ? pluralize(mediaType) : "TV Shows"}
           </h2>
           <p>{movieGenres}</p>
           <div className="ai-media__toggle-wrapper">
