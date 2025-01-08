@@ -1,0 +1,31 @@
+@import "../../styles/dependencies";
+
+// AI Loader styles
+
+.ai-loader {
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  span {
+    background: linear-gradient(113deg, $anakiwa 0%, $purple 50%, $anakiwa 100%);
+    border-radius: 0 10px;
+    color: #fff;
+    position: absolute;
+    animation: move-left-right 3s ease-in-out infinite;
+    width: 100px;
+    height: 20px;
+  }
+}
+
+@keyframes move-left-right {
+  100% {
+    width: 0;
+  }
+  50% {
+    width: 300px;
+  }
+  0% {
+    width: 0;
+  }
+}

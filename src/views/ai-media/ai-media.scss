@@ -1,0 +1,26 @@
+@import "../../styles/dependencies";
+
+// ai-media styles
+
+.ai-media {
+  position: relative;
+
+  &__list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  &__list-item {
+    border-radius: 0 15px;
+    padding: 10px 20px;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+
+    .button {
+      min-width: 200px;
+    }
+  }
+}
