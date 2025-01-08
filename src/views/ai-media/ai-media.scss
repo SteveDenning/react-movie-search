@@ -5,6 +5,20 @@
 .ai-media {
   position: relative;
 
+  &__toggle-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+    .button {
+      margin: 0 10px;
+
+      @include breakpoint($medium) {
+        min-width: 200px;
+      }
+    }
+  }
+
   &__list {
     list-style: none;
     display: flex;
@@ -22,5 +36,10 @@
     .button {
       min-width: 200px;
     }
+  }
+
+  &__error {
+    display: flex;
+    justify-content: center;
   }
 }
