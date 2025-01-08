@@ -44,7 +44,7 @@ const Header: React.FC<Props> = ({ heading }) => {
   const navOptions = [
     { label: config.home.name, path: config.home.path },
     { label: config.favorites.name, path: config.favorites.path },
-    // { label: config.profile.name, path: config.profile.path },
+    { label: config.profile.name, path: config.profile.path },
   ];
 
   const handleGetRequestToken = () => {
