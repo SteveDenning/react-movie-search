@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // Services
 import { getAllMediaFromSearch } from "../../services/search";
+import { getFavorites } from "../../services/favorites";
+import { getGenres } from "../../services/genres";
 import useOpenAI from "../../services/openai";
 
 // MUI Components
@@ -10,6 +12,7 @@ import { Container, Fade } from "@mui/material";
 // Components
 import AILoader from "../../components/ai-loader";
 import Button from "../../components/button";
+import Modal from "../../components/modal";
 
 // Styles
 import "./ai-media.scss";
@@ -22,15 +25,21 @@ const AIMedia: React.FC<Props> = () => {
   const [response, setResponse] = useState(null);
   const [generating, setGenerating] = useState<boolean>(false);
   const [loaded, setLoaded] = useState<boolean>(false);
-  const [mediaType, setMediaType] = useState("tv");
+  const [mediaType, setMediaType] = useState("movie");
   const [linkType, setLinkType] = useState("tv");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  // const [movieGenreIds, setMovieGenreIds] = useState([]);
+  const [movieGenres, setMovieGenres] = useState("");
+
+  const user = JSON.parse(sessionStorage.getItem("user") || null);
 
   const handleChange = (event, newAlignment: string) => {
     setMediaType(newAlignment);
+    setResponse(null);
   };
 
-  const genres = "Comedy";
-  const prompt = `Give me a random list of 20 ${mediaType} that must have the following genres. ${genres}, these must be in an array of JSON objects called media, each object should have a name key with the name as the value`;
+  const prompt = `Give me a random list of 20 ${mediaType} that must have the following genres only: ${movieGenres}, these must be in an array of JSON objects called media, each object should have a name key with the name as the value`;
 
   const isJSONFormat = (obj) => {
     try {
@@ -41,6 +50,10 @@ const AIMedia: React.FC<Props> = () => {
   };
 
   const getOpenAI = () => {
+    if (!movieGenres.length) {
+      setIsOpen(true);
+      return;
+    }
     setLoaded(false);
     setGenerating(true);
     setResponse(null);
@@ -73,13 +86,48 @@ const AIMedia: React.FC<Props> = () => {
         if (response.data.results[0].id) {
           window.location.href = `/details/${linkType}/${response.data.results[0].id}`;
         } else {
-          alert("No results found");
+          alert("TODO - No results found");
         }
       })
       .catch((error) => {
         console.error(error);
       });
   };
+
+  const getGenresForMedia = (mediaType: string) => {
+    getGenres(mediaType).then((response) => {
+      getFavoritesList("movie", response.data.genres);
+    });
+  };
+
+  const getGenresByName = (genreIds: number[], genres: any[]) => {
+    if (genres) {
+      const allGenres = genres.filter((genre) => genreIds.includes(genre.id));
+      const genreNames = allGenres.map((genre) => genre.name);
+      setMovieGenres(genreNames.join(", "));
+    }
+  };
+
+  const getFavoritesList = (type: string, genres) => {
+    if (user) {
+      getFavorites(user.id, type)
+        .then((response) => {
+          const allIds = response.data.results.flatMap((item) => item.genre_ids);
+          getGenresByName(allIds, genres);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  };
+
+  useEffect(() => {
+    getGenresForMedia("movie");
+  }, []);
+
+  useEffect(() => {
+    console.log(!!movieGenres.length);
+  }, [movieGenres]);
 
   // Get both tv and movie data for favourites
 
@@ -99,22 +147,23 @@ const AIMedia: React.FC<Props> = () => {
             data-testid="media-carousel-label"
             style={{ marginBottom: "20px" }}
           >
-            Let AI generate a list of programmes for you based on your favourite genres
+            Let AI generate a list of programmes for you based on genres from you favorite {mediaType}
           </h2>
+          <p>{movieGenres}</p>
           <div className="ai-media__toggle-wrapper">
-            <Button
-              onClick={(event) => handleChange(event, "tv")}
-              variant={mediaType === "tv" ? "filled" : "outlined"}
-              disabled={generating}
-            >
-              TV Shows
-            </Button>
             <Button
               onClick={(event) => handleChange(event, "movie")}
               variant={mediaType === "movie" ? "filled" : "outlined"}
               disabled={generating}
             >
               Movies
+            </Button>
+            <Button
+              onClick={(event) => handleChange(event, "tv")}
+              variant={mediaType === "tv" ? "filled" : "outlined"}
+              disabled={generating}
+            >
+              TV Shows
             </Button>
           </div>
         </div>
@@ -126,7 +175,7 @@ const AIMedia: React.FC<Props> = () => {
             <AILoader />
           ) : response?.media.length ? (
             <Fade
-              in={response?.media.length}
+              in={!!response?.media.length}
               timeout={1000}
             >
               <div>
@@ -146,13 +195,30 @@ const AIMedia: React.FC<Props> = () => {
             </Fade>
           ) : (
             loaded && (
-              <p className="ai-media__error">
-                Oops! Looks like I had a little AI brain freeze ❄️. I promise it’s not because I was binge-watching cat videos in the background... Or
-                was it? Let&#39;s try that again!
-              </p>
+              <>
+                {/* <p className="ai-media__error">
+                  Oops! Looks like I had a little AI brain freeze ❄️. I promise it’s not because I was binge-watching cat videos in the background...
+                  Or was it? Let&#39;s try that again!
+                </p> */}
+              </>
             )
           )}
         </div>
+        <Modal
+          id="ai-media-modal"
+          open={isOpen}
+          handleClose={() => {
+            setIsOpen(false);
+          }}
+          variant={["small"]}
+        >
+          <h3 style={{ textAlign: "center" }}>
+            You have no saves genres. Please start adding {mediaType} to use this service
+            <br />
+          </h3>
+
+          <div className="modal__action-buttons"></div>
+        </Modal>
       </Container>
     </div>
   );
