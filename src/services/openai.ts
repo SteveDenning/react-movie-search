@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 
-const useOpenAI = (content: string) => {
+const useOpenAI = (content: string, responseFormat = "json_object") => {
   const openai = new OpenAI({
     apiKey: process.env.REACT_APP_AI_API_KEY,
     dangerouslyAllowBrowser: true,
@@ -15,7 +15,8 @@ const useOpenAI = (content: string) => {
       },
       { role: "user", content: content },
     ],
-    response_format: { type: "json_object" },
+    // @ts-ignore
+    response_format: { type: responseFormat },
   });
 
   return completion;

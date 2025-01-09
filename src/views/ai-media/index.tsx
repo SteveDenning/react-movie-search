@@ -30,8 +30,8 @@ const AIMedia: React.FC<Props> = () => {
   const [linkType, setLinkType] = useState("tv");
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  // const [movieGenreIds, setMovieGenreIds] = useState([]);
   const [movieGenres, setMovieGenres] = useState("");
+  const [tvGenres, setTVGenres] = useState("");
 
   const user = JSON.parse(sessionStorage.getItem("user") || null);
 
@@ -42,9 +42,11 @@ const AIMedia: React.FC<Props> = () => {
 
   const prompt = `Give me a random list of 20 ${
     mediaType === "movie" ? pluralize(mediaType) : "TV Shows"
-  } that must have the following genres only: ${movieGenres}, these must be in an array of JSON objects called media, each object should have a name key with the name as the value`;
+  } that must have the following genres only: ${
+    mediaType === "movie" ? movieGenres : tvGenres
+  }, these must be in an array of JSON objects called media, each object should have a name key with the name as the value`;
 
-  const isJSONFormat = (obj) => {
+  const isJSONFormat = (obj: any) => {
     try {
       return JSON.parse(obj);
     } catch (e) {
@@ -103,11 +105,17 @@ const AIMedia: React.FC<Props> = () => {
     });
   };
 
-  const getGenresByName = (genreIds: number[], genres: any[]) => {
+  const getGenresByName = (genreIds: number[], genres: any[], type: string) => {
     if (genres) {
-      const allGenres = genres.filter((genre) => genreIds.includes(genre.id));
-      const genreNames = allGenres.map((genre) => genre.name);
-      setMovieGenres(genreNames.join(", "));
+      const allGenres = genres.filter((genre: { name: string; id: number }) => genreIds.includes(genre.id));
+      const genreNames = allGenres.map((genre: { name: string; id: number }) => genre.name);
+
+      console.log(genreNames);
+      if (type === "movie") {
+        setMovieGenres(genreNames.join(", "));
+      } else {
+        setTVGenres(genreNames.join(", "));
+      }
     }
   };
 
@@ -116,7 +124,7 @@ const AIMedia: React.FC<Props> = () => {
       getFavorites(user.id, type)
         .then((response) => {
           const allIds = response.data.results.flatMap((item) => item.genre_ids);
-          getGenresByName(allIds, genres);
+          getGenresByName(allIds, genres, type);
         })
         .catch((error) => {
           console.error(error);
@@ -126,6 +134,7 @@ const AIMedia: React.FC<Props> = () => {
 
   useEffect(() => {
     getGenresForMedia("movie");
+    getGenresForMedia("tv");
   }, []);
 
   return (
@@ -143,7 +152,7 @@ const AIMedia: React.FC<Props> = () => {
             Let AI generate a list of programmes for you based on genres from your favorite{" "}
             {mediaType === "movie" ? pluralize(mediaType) : "TV Shows"}
           </h2>
-          <p>{movieGenres}</p>
+          <p>{mediaType === "movie" ? movieGenres : tvGenres}</p>
           <div className="ai-media__toggle-wrapper">
             <Button
               onClick={(event) => handleChange(event, "movie")}
