@@ -18,14 +18,24 @@ const PageNotFound = () => {
         style={{
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundImage: `url(${backgroundImage})`,
         }}
       >
-        <Button href="/">Go back home</Button>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+            height: "60vh",
+          }}
+        >
+          <img
+            src={backgroundImage}
+            alt="Page not found"
+            style={{ marginBottom: "20px", width: "100%" }}
+          />
+          <Button href="/">Go back home</Button>
+        </div>
       </div>
     </DefaultLayout>
   );

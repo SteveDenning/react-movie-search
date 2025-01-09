@@ -9,11 +9,11 @@ import useOpenAI from "../../services/openai";
 
 // MUI Components
 import { Container, Fade } from "@mui/material";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 
 // Components
 import AILoader from "../../components/ai-loader";
 import Button from "../../components/button";
-import Modal from "../../components/modal";
 
 // Types
 import { ErrorType, GenreType } from "../../models/types";
@@ -28,10 +28,9 @@ interface Props {
 const AIMedia: React.FC<Props> = () => {
   const [response, setResponse] = useState(null);
   const [generating, setGenerating] = useState<boolean>(false);
-  const [loaded, setLoaded] = useState<boolean>(false);
+  // const [loaded, setLoaded] = useState<boolean>(false);
   const [mediaType, setMediaType] = useState<string>("movie");
   const [linkType, setLinkType] = useState<string>("tv");
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const [error, setError] = useState<ErrorType>(null);
   const [movieGenres, setMovieGenres] = useState<string>("");
   const [tvGenres, setTVGenres] = useState<string>("");
@@ -64,11 +63,6 @@ const AIMedia: React.FC<Props> = () => {
   };
 
   const getOpenAI = () => {
-    if (!genres.length) {
-      setIsOpen(true);
-      return;
-    }
-    setLoaded(false);
     setGenerating(true);
     setResponse(null);
     useOpenAI(prompt)
@@ -79,14 +73,12 @@ const AIMedia: React.FC<Props> = () => {
           setLinkType(mediaType);
           setResponse(resource);
           setGenerating(false);
-          setLoaded(true);
         }
       })
       .catch((error: ErrorType) => {
         console.error("Open AI::", error);
         setResponse(null);
         setGenerating(false);
-        setLoaded(true);
         setError(error);
       });
   };
@@ -148,13 +140,9 @@ const AIMedia: React.FC<Props> = () => {
     >
       <Container>
         <div style={{ textAlign: "center", background: "rgba(0,0,0,0.5)", padding: "20px", borderRadius: "10px", marginTop: "20px" }}>
-          <h2
-            className="text-glow"
-            data-testid="media-carousel-label"
-            style={{ marginBottom: "20px" }}
-          >
-            Let AI generate a list of programmes for you based on genres from your favorite{" "}
-            {mediaType === "movie" ? pluralize(mediaType) : "TV Shows"}
+          <h2 className="ai-media__header text-glow">
+            <AutoAwesomeIcon /> Let AI generate a list of programmes for you based on genres from your favorite
+            {mediaType === "movie" ? pluralize(mediaType) : "TV Shows"} <AutoAwesomeIcon />
           </h2>
           <p>{genres}</p>
           <div className="ai-media__toggle-wrapper">
@@ -174,42 +162,54 @@ const AIMedia: React.FC<Props> = () => {
             </Button>
           </div>
         </div>
-        <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+        <div className="ai-media__generate-action">
           {genres.length ? (
-            !generating && <Button onClick={getOpenAI}>Generate</Button>
+            !generating && (
+              <Button
+                onClick={getOpenAI}
+                className="glow button--icon-button"
+              >
+                <AutoAwesomeIcon /> Generate
+              </Button>
+            )
           ) : (
             <h3 style={{ textAlign: "center" }}>
-              You have no saved favourites for {mediaType === "movie" ? pluralize(mediaType) : "TV Shows"}
+              You have no saved favourites for {mediaType === "movie" ? pluralize(mediaType) : "TV Shows"}.
               <br />
-              Please add some to continue
+              To use this feature you must have at least one favourite in you list.
             </h3>
           )}
         </div>
-        <div style={{ marginTop: "60px" }}>
+        <div className="ai-media__list-wrapper">
           {generating ? (
             <AILoader />
-          ) : response?.media.length ? (
-            <Fade
-              in={!!response?.media.length}
-              timeout={1000}
-            >
-              <div>
-                <ul className="ai-media__list">
-                  {response?.media.map((item, i) => {
-                    return (
-                      <li
-                        key={i}
-                        className="ai-media__list-item"
-                      >
-                        <Button onClick={() => getMediaBySearchTerm(item.name, linkType)}> {item.name}</Button>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            </Fade>
           ) : (
-            loaded && <p>Ooops, sorry my AI brain has made a boo boo, please try again</p>
+            response?.media.length && (
+              <Fade
+                in={!!response?.media.length}
+                timeout={1000}
+              >
+                <div>
+                  <ul className="ai-media__list">
+                    {response?.media.map((item, i) => {
+                      return (
+                        <li
+                          key={i}
+                          className="ai-media__list-item"
+                        >
+                          <Button
+                            color="orange"
+                            onClick={() => getMediaBySearchTerm(item.name, linkType)}
+                          >
+                            {item.name}
+                          </Button>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              </Fade>
+            )
           )}
           {error && (
             <p
@@ -220,22 +220,6 @@ const AIMedia: React.FC<Props> = () => {
             </p>
           )}
         </div>
-        <Modal
-          id="ai-media-modal"
-          open={isOpen}
-          handleClose={() => {
-            setIsOpen(false);
-          }}
-          variant={["small"]}
-        >
-          <h3 style={{ textAlign: "center" }}>
-            You have no saved favourites for {mediaType === "movie" ? pluralize(mediaType) : "TV Shows"}
-            <br />
-            Please add some to continue
-          </h3>
-
-          <div className="modal__action-buttons"></div>
-        </Modal>
       </Container>
     </div>
   );

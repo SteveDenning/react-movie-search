@@ -9,6 +9,13 @@
   margin-bottom: 0;
 }
 
+.glow {
+  background: linear-gradient(to right, #6666ff, #ff3399, #6666ff);
+  // animation: glow 5s ease-in-out infinite;
+  background-size: 400% 100%;
+  margin-bottom: 0;
+}
+
 .fade-in {
   animation: fade-in 0.5s ease-in-out;
 }

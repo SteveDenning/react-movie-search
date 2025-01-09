@@ -35,18 +35,26 @@
     opacity: 0.5;
   }
 
-  &__start-icon,
-  &__end-icon {
+  &__content {
+    display: flex;
+
+    svg {
+      // margin-right: 15px;
+    }
+  }
+
+  &__start--start,
+  &__end--start {
     align-items: center;
     display: inline-flex;
     justify-content: center;
   }
 
-  &__start-icon {
+  &__start--start {
     margin-right: 8px;
   }
 
-  &__end-icon {
+  &__end--start {
     margin-left: 8px;
   }
 
@@ -92,12 +100,17 @@
       color: $white;
     }
 
+    &.button--orange {
+      @include filledColorVariant($white, $orange, $purple, 5%);
+      color: $white;
+    }
+
     &.button--purple {
       @include filledColorVariant($white, $purple, $orange, 5%);
       color: $white;
 
       svg,
-      svg.MuiSvgIcon-root {
+      svg.MuiSvg-start-root {
         fill: $white;
       }
     }
@@ -129,10 +142,10 @@
     @mixin outlinedColorVariant($color, $background, $fill, $transparency) {
       border-color: $background;
 
-      .button__start-icon,
-      .button__end-icon {
+      .button__start--start,
+      .button__end--start {
         svg,
-        svg.MuiSvgIcon-root {
+        svg.MuiSvg-start-root {
           fill: $background;
         }
       }
@@ -142,10 +155,10 @@
         border-color: $background;
         color: $color;
 
-        .button__start-icon,
-        .button__end-icon {
+        .button__start--start,
+        .button__end--start {
           svg,
-          svg.MuiSvgIcon-root {
+          svg.MuiSvg-start-root {
             fill: $fill;
           }
         }
@@ -156,6 +169,14 @@
         background-size: 100%;
         transition: background 0s;
       }
+    }
+
+    &.button--default {
+      @include outlinedColorVariant($black, $primary-color, $purple, 5%);
+    }
+
+    &.button--orange {
+      @include outlinedColorVariant($black, $orange, $purple, 5%);
     }
 
     &.button--blue {
@@ -172,9 +193,15 @@
       color: lighten($black, 30%);
 
       svg,
-      svg.MuiSvgIcon-root {
+      svg.MuiSvg-start-root {
         fill: lighten($black, 30%);
       }
+    }
+  }
+
+  &--icon-button {
+    svg {
+      margin-right: 10px;
     }
   }
 
@@ -255,6 +282,17 @@
         opacity: 1;
         width: 100%;
       }
+    }
+  }
+
+  &--icon-start {
+    background: none;
+    padding: 10px;
+    border-style: solid;
+    border-width: 2px;
+
+    span {
+      display: flex;
     }
   }
 
