@@ -39,9 +39,10 @@ const SearchResults = () => {
         .catch((error) => {
           console.error(error);
           setLoading(false);
-          setError(true);
+          setError(false);
         });
     } else {
+      setLoading(false);
       setResources([]);
     }
   };

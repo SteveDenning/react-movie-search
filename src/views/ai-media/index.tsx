@@ -15,6 +15,9 @@ import AILoader from "../../components/ai-loader";
 import Button from "../../components/button";
 import Modal from "../../components/modal";
 
+// Types
+import { ErrorType, GenreType } from "../../models/types";
+
 // Styles
 import "./ai-media.scss";
 
@@ -26,18 +29,24 @@ const AIMedia: React.FC<Props> = () => {
   const [response, setResponse] = useState(null);
   const [generating, setGenerating] = useState<boolean>(false);
   const [loaded, setLoaded] = useState<boolean>(false);
-  const [mediaType, setMediaType] = useState("movie");
-  const [linkType, setLinkType] = useState("tv");
+  const [mediaType, setMediaType] = useState<string>("movie");
+  const [linkType, setLinkType] = useState<string>("tv");
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const [movieGenres, setMovieGenres] = useState("");
-  const [tvGenres, setTVGenres] = useState("");
+  const [error, setError] = useState<ErrorType>(null);
+  const [movieGenres, setMovieGenres] = useState<string>("");
+  const [tvGenres, setTVGenres] = useState<string>("");
+  const [genres, setGenres] = useState<string>(" ");
 
   const user = JSON.parse(sessionStorage.getItem("user") || null);
+
+  if (!user) {
+    window.location.href = "/";
+  }
 
   const handleChange = (event, newAlignment: string) => {
     setMediaType(newAlignment);
     setResponse(null);
+    setGenres(newAlignment === "tv" ? tvGenres : movieGenres);
   };
 
   const prompt = `Give me a random list of 20 ${
@@ -55,7 +64,7 @@ const AIMedia: React.FC<Props> = () => {
   };
 
   const getOpenAI = () => {
-    if (!movieGenres.length) {
+    if (!genres.length) {
       setIsOpen(true);
       return;
     }
@@ -71,27 +80,22 @@ const AIMedia: React.FC<Props> = () => {
           setResponse(resource);
           setGenerating(false);
           setLoaded(true);
-        } else {
-          setResponse(null);
-          setGenerating(false);
-          setLoaded(true);
         }
       })
-      .catch((error) => {
+      .catch((error: ErrorType) => {
         console.error("Open AI::", error);
         setResponse(null);
         setGenerating(false);
         setLoaded(true);
+        setError(error);
       });
   };
 
-  const getMediaBySearchTerm = (query: string, linkType) => {
-    getAllMediaFromSearch(`${linkType}?query=${query}`)
+  const getMediaBySearchTerm = (query: string, mediaType: string) => {
+    getAllMediaFromSearch(`${mediaType}?query=${query}`)
       .then((response: any) => {
         if (response.data.results[0].id) {
-          window.location.href = `/details/${linkType}/${response.data.results[0].id}`;
-        } else {
-          alert("TODO - No results found");
+          window.location.href = `/details/${mediaType}/${response.data.results[0].id}`;
         }
       })
       .catch((error) => {
@@ -105,21 +109,21 @@ const AIMedia: React.FC<Props> = () => {
     });
   };
 
-  const getGenresByName = (genreIds: number[], genres: any[], type: string) => {
+  const getGenresByName = (genreIds: number[], genres: GenreType[], type: string) => {
     if (genres) {
-      const allGenres = genres.filter((genre: { name: string; id: number }) => genreIds.includes(genre.id));
-      const genreNames = allGenres.map((genre: { name: string; id: number }) => genre.name);
+      const allGenres = genres.filter((genre: GenreType) => genreIds.includes(genre.id));
+      const genreNames = allGenres.map((genre: GenreType) => genre.name).join(", ");
 
-      console.log(genreNames);
       if (type === "movie") {
-        setMovieGenres(genreNames.join(", "));
+        setMovieGenres(genreNames);
+        setGenres(genreNames);
       } else {
-        setTVGenres(genreNames.join(", "));
+        setTVGenres(genreNames);
       }
     }
   };
 
-  const getFavoritesList = (type: string, genres) => {
+  const getFavoritesList = (type: string, genres: GenreType[]) => {
     if (user) {
       getFavorites(user.id, type)
         .then((response) => {
@@ -152,7 +156,7 @@ const AIMedia: React.FC<Props> = () => {
             Let AI generate a list of programmes for you based on genres from your favorite{" "}
             {mediaType === "movie" ? pluralize(mediaType) : "TV Shows"}
           </h2>
-          <p>{mediaType === "movie" ? movieGenres : tvGenres}</p>
+          <p>{genres}</p>
           <div className="ai-media__toggle-wrapper">
             <Button
               onClick={(event) => handleChange(event, "movie")}
@@ -171,7 +175,15 @@ const AIMedia: React.FC<Props> = () => {
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
-          {!generating && <Button onClick={getOpenAI}>Generate</Button>}
+          {genres.length ? (
+            !generating && <Button onClick={getOpenAI}>Generate</Button>
+          ) : (
+            <h3 style={{ textAlign: "center" }}>
+              You have no saved favourites for {mediaType === "movie" ? pluralize(mediaType) : "TV Shows"}
+              <br />
+              Please add some to continue
+            </h3>
+          )}
         </div>
         <div style={{ marginTop: "60px" }}>
           {generating ? (
@@ -197,14 +209,15 @@ const AIMedia: React.FC<Props> = () => {
               </div>
             </Fade>
           ) : (
-            loaded && (
-              <>
-                {/* <p className="ai-media__error">
-                  Oops! Looks like I had a little AI brain freeze ❄️. I promise it’s not because I was binge-watching cat videos in the background...
-                  Or was it? Let&#39;s try that again!
-                </p> */}
-              </>
-            )
+            loaded && <p>Ooops, sorry my AI brain has made a boo boo, please try again</p>
+          )}
+          {error && (
+            <p
+              className="error"
+              data-testid="search-results-error"
+            >
+              There was a problem getting the results - please try again later
+            </p>
           )}
         </div>
         <Modal
@@ -216,8 +229,9 @@ const AIMedia: React.FC<Props> = () => {
           variant={["small"]}
         >
           <h3 style={{ textAlign: "center" }}>
-            You have no saves genres. Please start adding {mediaType} to use this service
+            You have no saved favourites for {mediaType === "movie" ? pluralize(mediaType) : "TV Shows"}
             <br />
+            Please add some to continue
           </h3>
 
           <div className="modal__action-buttons"></div>
