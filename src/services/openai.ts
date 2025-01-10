@@ -7,7 +7,7 @@ const useOpenAI = (content: string, responseFormat = "json_object") => {
   });
 
   const completion = openai.chat.completions.create({
-    model: "gpt-4-1106-preview",
+    model: "chatgpt-4o-latest",
     messages: [
       {
         role: "system",

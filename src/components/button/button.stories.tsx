@@ -35,7 +35,7 @@ const meta: Meta<typeof Template> = {
     },
     color: {
       control: "radio",
-      options: ["blue", "orange", "pink", "red", "purple"],
+      options: ["blue", "orange", "pink", "red", "purple", "lavender", "lilac"],
       type: { name: "string", required: false },
       description: "Applies a color class to the button",
     },

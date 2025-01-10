@@ -28,7 +28,6 @@ interface Props {
 const AIMedia: React.FC<Props> = () => {
   const [response, setResponse] = useState(null);
   const [generating, setGenerating] = useState<boolean>(false);
-  // const [loaded, setLoaded] = useState<boolean>(false);
   const [mediaType, setMediaType] = useState<string>("movie");
   const [linkType, setLinkType] = useState<string>("tv");
   const [error, setError] = useState<ErrorType>(null);
@@ -51,7 +50,7 @@ const AIMedia: React.FC<Props> = () => {
 
   const prompt = `Give me a random list of 20 ${mediaLabel} that must have the following genres only: ${
     mediaType === "movie" ? movieGenres : tvGenres
-  }, these must be in an array of JSON objects called media, each object should have a name key with the name as the value`;
+  }, they must be different each time and span over the last 20 years with one from each year and give me the year. These must be in an array of JSON objects called media, each object should have a name key with the name as the value`;
 
   const isJSONFormat = (obj: any) => {
     try {
@@ -137,29 +136,32 @@ const AIMedia: React.FC<Props> = () => {
       className="ai-media"
       data-testid="ai-media"
     >
-      <Container>
-        <div style={{ textAlign: "center", background: "rgba(0,0,0,0.5)", padding: "20px", borderRadius: "10px", marginTop: "20px" }}>
-          <h2 className="ai-media__header">
-            <AutoAwesomeIcon /> Let AI discover a list of {mediaLabel} based on genres from your favourites <AutoAwesomeIcon />
-          </h2>
-          <p>{genres}</p>
-          <div className="ai-media__toggle-wrapper">
-            <Button
-              onClick={(event) => handleChange(event, "movie")}
-              variant={mediaType === "movie" ? "filled" : "outlined"}
-              disabled={generating}
-            >
-              Movies
-            </Button>
-            <Button
-              onClick={(event) => handleChange(event, "tv")}
-              variant={mediaType === "tv" ? "filled" : "outlined"}
-              disabled={generating}
-            >
-              TV Shows
-            </Button>
-          </div>
+      <div
+        className="ai-media__header"
+        style={{ textAlign: "center", background: "rgba(0,0,0,0.5)", padding: "20px", borderRadius: "10px", marginTop: "20px" }}
+      >
+        <h2 className="ai-media__title">
+          <AutoAwesomeIcon /> Let AI discover a list of {mediaLabel} based on genres from your favourites <AutoAwesomeIcon />
+        </h2>
+        <p>{genres}</p>
+        <div className="ai-media__toggle-wrapper">
+          <Button
+            onClick={(event) => handleChange(event, "movie")}
+            variant={mediaType === "movie" ? "filled" : "outlined"}
+            disabled={generating}
+          >
+            Movies
+          </Button>
+          <Button
+            onClick={(event) => handleChange(event, "tv")}
+            variant={mediaType === "tv" ? "filled" : "outlined"}
+            disabled={generating}
+          >
+            TV Shows
+          </Button>
         </div>
+      </div>
+      <Container>
         <div className="ai-media__generate-action">
           {genres.length ? (
             !generating && (
@@ -172,10 +174,7 @@ const AIMedia: React.FC<Props> = () => {
             )
           ) : (
             <>
-              <h4
-                style={{ textAlign: "center" }}
-                className="fade-in"
-              >
+              <h4 className="ai-media__warning-message fade-in">
                 No favorite {mediaLabel}? Guess you&#39;re just winging it. Add at least one from{" "}
                 <Button
                   variant="link"
@@ -206,7 +205,7 @@ const AIMedia: React.FC<Props> = () => {
                           className="ai-media__list-item"
                         >
                           <Button
-                            color="lavender"
+                            color="lilac"
                             onClick={() => getMediaBySearchTerm(item.name, linkType)}
                           >
                             {item.name}

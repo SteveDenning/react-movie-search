@@ -11,7 +11,7 @@
 
 .glow {
   background: linear-gradient(to right, $blue, #ff3399, $blue);
-  // animation: glow 5s ease-in-out infinite;
+  animation: glow 5s ease-in-out infinite;
   background-size: 400% 100%;
   margin-bottom: 0;
 }
@@ -72,5 +72,17 @@
   }
   100% {
     fill: $blue;
+  }
+}
+
+@keyframes expand {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 300px;
+  }
+  100% {
+    width: 0;
   }
 }

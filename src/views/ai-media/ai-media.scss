@@ -3,9 +3,15 @@
 // ai-media styles
 
 .ai-media {
-  position: relative;
-
   &__header {
+    background: rgba($black, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  &__title {
     color: $primary-color;
 
     svg {
@@ -39,24 +45,29 @@
     }
   }
 
+  &__warning-message {
+    margin-top: 20px;
+  }
+
   &__list-wrapper {
     margin-top: 20px;
   }
 
   &__list {
-    list-style: none;
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    list-style: none;
+    justify-content: center;
   }
 
   &__list-item {
     border-radius: 0 15px;
-    margin: 10px;
     display: flex;
     justify-content: center;
+    margin: 10px;
 
     .button {
+      border: 2px solid $primary-color;
       width: 100%;
       white-space: normal;
     }

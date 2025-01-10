@@ -9,7 +9,7 @@ describe("AiLoader component", () => {
   describe("Component rendering", () => {
     beforeEach(() => render(<AILoader />));
 
-    it("Should render a template", () => {
+    it("Should render a loading animation", () => {
       expect(screen.getByTestId("ai-loader")).toBeInTheDocument();
     });
   });
