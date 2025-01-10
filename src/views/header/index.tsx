@@ -1,25 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-
-// Utils
-import { getRequestToken, createSessionWithLogin, deleteSession, getAccountDetails } from "../../services/user";
+import React, { useState } from "react";
 
 // Config
 import { config } from "../../config/routes";
 
-// Types
-import { UserType } from "../../models/types";
-
 // Components
 import Button from "../../components/button";
 import List from "../../components/list";
-import Login from "../../views/login";
+import Login from "../../components/login";
 import Search from "../../views/search";
 
 // MUI
-import { Box, Container, Drawer, Typography } from "@mui/material";
+import { Box, Container, Drawer } from "@mui/material";
 
 // MUI Icons
+import Person3OutlinedIcon from "@mui/icons-material/Person3Outlined";
 import TheatersIcon from "@mui/icons-material/Theaters";
 import ClearIcon from "@mui/icons-material/Clear";
 
@@ -32,14 +26,9 @@ interface Props {
 
 const Header: React.FC<Props> = ({ heading }) => {
   const [open, setOpen] = useState(false);
-  const [user, setUser] = useState<UserType>(JSON.parse(sessionStorage.getItem("user")));
-  const [searchParams, setSearchParams] = useSearchParams(window.location.search);
+  const user = JSON.parse(sessionStorage.getItem("user") || null);
 
-  const params = new URLSearchParams(searchParams);
-  const token = params.get("request_token");
   const sessionId = sessionStorage.getItem("sessionId");
-  const environment = process.env.NODE_ENV;
-  const redirectTo = environment === "development" ? "http://localhost:3000/" : "https://sd-react-movie-search.web.app/";
 
   const navOptions = [
     { label: config.home.name, path: config.home.path },
@@ -47,71 +36,9 @@ const Header: React.FC<Props> = ({ heading }) => {
     // { label: config.profile.name, path: config.profile.path },
   ];
 
-  const handleGetRequestToken = () => {
-    getRequestToken()
-      .then((response: any) => {
-        const requestToken = response.data["request_token"];
-
-        if (requestToken) {
-          window.location.href = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${redirectTo}`;
-        }
-      })
-      .catch((error) => console.error(error));
-  };
-
-  const getSessionWithToken = () => {
-    const requestToken = params.get("request_token");
-
-    if (requestToken) {
-      createSessionWithLogin({
-        request_token: requestToken,
-      })
-        .then((response: any) => {
-          const sessionID = response.data["session_id"];
-
-          if (sessionID) {
-            setSearchParams({});
-            sessionStorage.setItem("sessionId", sessionID);
-            handleAccountDetails(sessionID);
-          }
-        })
-        .catch((error) => console.error(error));
-    }
-  };
-
-  const handleAccountDetails = (sessionId: string) => {
-    getAccountDetails(sessionId)
-      .then((response: any) => {
-        if (response.data["name"]) {
-          setUser(response.data);
-          sessionStorage.setItem("user", JSON.stringify(response.data));
-        }
-      })
-      .catch((error) => console.error(error));
-  };
-
-  const handleDeleteSession = () => {
-    if (sessionId) {
-      deleteSession(sessionId)
-        .then((response: any) => {
-          if (response.data["success"]) {
-            sessionStorage.removeItem("sessionId");
-            sessionStorage.removeItem("user");
-            setUser(null);
-            window.location.href = "/";
-          }
-        })
-        .catch((error) => console.error(error));
-    }
-  };
-
   const toggleDrawer = (state: boolean) => {
     setOpen(state);
   };
-
-  useEffect(() => {
-    getSessionWithToken();
-  }, [token]);
 
   return (
     <header>
@@ -132,21 +59,28 @@ const Header: React.FC<Props> = ({ heading }) => {
             <TheatersIcon />
           </Button>
           <div className="header__inner">
-            <Typography
-              className="sr-only"
-              variant="h1"
-              sx={{ fontSize: 24, fontWeight: "200" }}
-            >
-              {heading}
-            </Typography>
+            <h1 className="sr-only">{heading}</h1>
             <Search />
           </div>
-          <Login
-            onClick={() => {
-              toggleDrawer(true);
-            }}
-            user={user}
-          />
+          <Button
+            className="header__user-icon"
+            variant="icon"
+            onClick={() => setOpen(true)}
+            testId="login"
+          >
+            <span className="sr-only">User Avatar</span>
+            {user?.avatar?.tmdb?.avatar_path ? (
+              <img
+                className="header__user-icon-avatar"
+                src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${user.avatar.tmdb.avatar_path}`}
+                alt={user.name}
+              />
+            ) : user?.name ? (
+              <span className="header__user-icon-initials">{user.name.match(/\b(\w)/g).join("")}</span>
+            ) : (
+              <Person3OutlinedIcon />
+            )}
+          </Button>
         </div>
         {/* TODO - move to navigation component */}
         <Drawer
@@ -178,16 +112,8 @@ const Header: React.FC<Props> = ({ heading }) => {
                 variant="link"
               />
             )}
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <Button
-                variant="link"
-                onClick={() => {
-                  sessionId ? handleDeleteSession() : handleGetRequestToken();
-                }}
-                color="red"
-              >
-                {sessionId ? "Log Out" : "Login"}
-              </Button>
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}>
+              <Login />
             </div>
           </Box>
         </Drawer>

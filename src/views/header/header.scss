@@ -12,15 +12,6 @@
     display: flex;
     justify-content: center;
     width: 100%;
-
-    h1 {
-      color: $white;
-      font-size: 20px;
-      font-weight: lighter;
-      margin: 0;
-      padding: 16px 0 17px;
-      text-transform: capitalize;
-    }
   }
 
   &__logo {
@@ -33,7 +24,32 @@
       }
     }
   }
+
+  &__user-icon {
+    svg {
+      cursor: pointer;
+      font-size: 25px;
+
+      @include breakpoint($medium) {
+        font-size: 35px;
+      }
+    }
+  }
+
+  &__user-icon-initials {
+    background-color: $primary-color;
+    border-radius: 50%;
+    color: $black;
+    padding: 5px;
+  }
+
+  &__user-icon-avatar {
+    border-radius: 50%;
+    width: 40px;
+  }
 }
+
+// Move to navigation when built
 .MuiPaper-elevation {
   border-left: 1px solid rgba($color: $primary-color, $alpha: 0.5);
 }
