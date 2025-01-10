@@ -36,6 +36,7 @@ const AIMedia: React.FC<Props> = () => {
   const [tvGenres, setTVGenres] = useState<string>("");
   const [genres, setGenres] = useState<string>(" ");
 
+  const mediaLabel = mediaType === "movie" ? pluralize(mediaType) : "TV Shows";
   const user = JSON.parse(sessionStorage.getItem("user") || null);
 
   if (!user) {
@@ -48,9 +49,7 @@ const AIMedia: React.FC<Props> = () => {
     setGenres(newAlignment === "tv" ? tvGenres : movieGenres);
   };
 
-  const prompt = `Give me a random list of 20 ${
-    mediaType === "movie" ? pluralize(mediaType) : "TV Shows"
-  } that must have the following genres only: ${
+  const prompt = `Give me a random list of 20 ${mediaLabel} that must have the following genres only: ${
     mediaType === "movie" ? movieGenres : tvGenres
   }, these must be in an array of JSON objects called media, each object should have a name key with the name as the value`;
 
@@ -140,9 +139,8 @@ const AIMedia: React.FC<Props> = () => {
     >
       <Container>
         <div style={{ textAlign: "center", background: "rgba(0,0,0,0.5)", padding: "20px", borderRadius: "10px", marginTop: "20px" }}>
-          <h2 className="ai-media__header text-glow">
-            <AutoAwesomeIcon /> Let AI generate a list of programmes for you based on genres from your favorite
-            {mediaType === "movie" ? pluralize(mediaType) : "TV Shows"} <AutoAwesomeIcon />
+          <h2 className="ai-media__header">
+            <AutoAwesomeIcon /> Let AI discover a list of {mediaLabel} based on genres from your favourites <AutoAwesomeIcon />
           </h2>
           <p>{genres}</p>
           <div className="ai-media__toggle-wrapper">
@@ -167,17 +165,27 @@ const AIMedia: React.FC<Props> = () => {
             !generating && (
               <Button
                 onClick={getOpenAI}
-                className="glow button--icon-button"
+                className="glow button--icon-button fade-in"
               >
                 <AutoAwesomeIcon /> Generate
               </Button>
             )
           ) : (
-            <h3 style={{ textAlign: "center" }}>
-              You have no saved favourites for {mediaType === "movie" ? pluralize(mediaType) : "TV Shows"}.
-              <br />
-              To use this feature you must have at least one favourite in you list.
-            </h3>
+            <>
+              <h4
+                style={{ textAlign: "center" }}
+                className="fade-in"
+              >
+                No favorite {mediaLabel}? Guess you&#39;re just winging it. Add at least one from{" "}
+                <Button
+                  variant="link"
+                  onClick={() => (window.location.href = `/media-listing/${mediaType}/popular?page=1`)}
+                >
+                  {mediaLabel}
+                </Button>{" "}
+                to unlock this feature!
+              </h4>
+            </>
           )}
         </div>
         <div className="ai-media__list-wrapper">

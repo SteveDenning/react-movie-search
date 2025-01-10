@@ -6,8 +6,10 @@
   position: relative;
 
   &__header {
+    color: $primary-color;
+
     svg {
-      fill: $primary-color;
+      animation: icon-glow 4s ease-in-out infinite;
     }
   }
 
@@ -15,6 +17,12 @@
     display: flex;
     justify-content: center;
     margin-top: 20px;
+
+    .button__content {
+      svg {
+        animation: icon-glow 4s ease-in-out infinite;
+      }
+    }
   }
 
   &__toggle-wrapper {

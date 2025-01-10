@@ -56,3 +56,21 @@
     opacity: 1;
   }
 }
+
+@keyframes icon-glow {
+  0% {
+    fill: $lilac;
+  }
+  25% {
+    fill: $pink;
+  }
+  50% {
+    fill: $primary-color;
+  }
+  75% {
+    fill: $pink;
+  }
+  100% {
+    fill: $lilac;
+  }
+}

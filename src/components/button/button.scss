@@ -95,18 +95,23 @@
       color: $white;
     }
 
-    &.button--red {
-      @include filledColorVariant($white, $red, $black, 5%);
-      color: $white;
-    }
-
     &.button--orange {
       @include filledColorVariant($white, $orange, $purple, 5%);
       color: $white;
     }
 
+    &.button--pink {
+      @include filledColorVariant($white, $pink, $purple, 5%);
+      color: $white;
+    }
+
+    &.button--red {
+      @include filledColorVariant($white, $red, $black, 5%);
+      color: $white;
+    }
+
     &.button--purple {
-      @include filledColorVariant($white, $purple, $orange, 5%);
+      @include filledColorVariant($black, $purple, $anakiwa, 5%);
       color: $white;
 
       svg,
@@ -175,16 +180,23 @@
       @include outlinedColorVariant($black, $primary-color, $purple, 5%);
     }
 
-    &.button--orange {
-      @include outlinedColorVariant($black, $orange, $purple, 5%);
-    }
-
     &.button--blue {
       @include outlinedColorVariant($white, $blue, $purple, 5%);
     }
 
+    &.button--orange {
+      @include outlinedColorVariant($white, $orange, $purple, 5%);
+    }
+
+    &.button--pink {
+      @include outlinedColorVariant($white, $pink, $purple, 5%);
+    }
+    &.button--red {
+      @include outlinedColorVariant($white, $red, $black, 5%);
+    }
+
     &.button--purple {
-      @include outlinedColorVariant($white, $purple, $lilac, 5%);
+      @include outlinedColorVariant($white, $purple, $anakiwa, 5%);
     }
 
     &:disabled {
