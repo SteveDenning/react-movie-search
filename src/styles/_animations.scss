@@ -1,16 +1,16 @@
 @import "./variables";
 
 .text-glow {
-  background: linear-gradient(to right, #6666ff, #0099ff, #ff3399, #6666ff);
+  background: linear-gradient(to right, $blue, $lilac, $pink, $lilac, $blue);
   background-clip: text;
   color: transparent;
-  animation: glow 5s ease-in-out infinite;
+  animation: glow 8s ease-in-out infinite;
   background-size: 400% 100%;
   margin-bottom: 0;
 }
 
 .glow {
-  background: linear-gradient(to right, #6666ff, #ff3399, #6666ff);
+  background: linear-gradient(to right, $blue, #ff3399, $blue);
   // animation: glow 5s ease-in-out infinite;
   background-size: 400% 100%;
   margin-bottom: 0;
@@ -59,18 +59,18 @@
 
 @keyframes icon-glow {
   0% {
-    fill: $lilac;
+    fill: $blue;
   }
   25% {
-    fill: $pink;
+    fill: $lilac;
   }
   50% {
-    fill: $primary-color;
-  }
-  75% {
     fill: $pink;
   }
-  100% {
+  75% {
     fill: $lilac;
+  }
+  100% {
+    fill: $blue;
   }
 }

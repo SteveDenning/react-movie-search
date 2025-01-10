@@ -110,6 +110,11 @@
       color: $white;
     }
 
+    &.button--lavender {
+      @include filledColorVariant($white, $lavender, $black, 5%);
+      color: $black;
+    }
+
     &.button--purple {
       @include filledColorVariant($black, $purple, $anakiwa, 5%);
       color: $white;
@@ -197,6 +202,10 @@
 
     &.button--purple {
       @include outlinedColorVariant($white, $purple, $anakiwa, 5%);
+    }
+
+    &.button--lavender {
+      @include outlinedColorVariant($white, $lavender, $anakiwa, 5%);
     }
 
     &:disabled {

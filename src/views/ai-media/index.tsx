@@ -206,7 +206,7 @@ const AIMedia: React.FC<Props> = () => {
                           className="ai-media__list-item"
                         >
                           <Button
-                            color="orange"
+                            color="lavender"
                             onClick={() => getMediaBySearchTerm(item.name, linkType)}
                           >
                             {item.name}
