@@ -32,20 +32,25 @@
   &:disabled {
     cursor: default;
     pointer-events: none;
+    opacity: 0.5;
   }
 
-  &__start-icon,
-  &__end-icon {
+  &__content {
+    display: flex;
+  }
+
+  &__start--start,
+  &__end--start {
     align-items: center;
     display: inline-flex;
     justify-content: center;
   }
 
-  &__start-icon {
+  &__start--icon {
     margin-right: 8px;
   }
 
-  &__end-icon {
+  &__end--icon {
     margin-left: 8px;
   }
 
@@ -86,13 +91,33 @@
       color: $white;
     }
 
+    &.button--orange {
+      @include filledColorVariant($white, $orange, $purple, 5%);
+      color: $white;
+    }
+
+    &.button--pink {
+      @include filledColorVariant($white, $pink, $purple, 5%);
+      color: $white;
+    }
+
     &.button--red {
       @include filledColorVariant($white, $red, $black, 5%);
       color: $white;
     }
 
+    &.button--lavender {
+      @include filledColorVariant($white, $lavender, $black, 5%);
+      color: $black;
+    }
+
+    &.button--lilac {
+      @include filledColorVariant($white, $lilac, $black, 5%);
+      color: $black;
+    }
+
     &.button--purple {
-      @include filledColorVariant($white, $purple, $orange, 5%);
+      @include filledColorVariant($black, $purple, $anakiwa, 5%);
       color: $white;
 
       svg,
@@ -157,12 +182,31 @@
       }
     }
 
+    &.button--default {
+      @include outlinedColorVariant($black, $primary-color, $purple, 5%);
+    }
+
     &.button--blue {
       @include outlinedColorVariant($white, $blue, $purple, 5%);
     }
 
+    &.button--orange {
+      @include outlinedColorVariant($white, $orange, $purple, 5%);
+    }
+
+    &.button--pink {
+      @include outlinedColorVariant($white, $pink, $purple, 5%);
+    }
+    &.button--red {
+      @include outlinedColorVariant($white, $red, $black, 5%);
+    }
+
     &.button--purple {
-      @include outlinedColorVariant($white, $purple, $lilac, 5%);
+      @include outlinedColorVariant($white, $purple, $anakiwa, 5%);
+    }
+
+    &.button--lavender {
+      @include outlinedColorVariant($white, $lavender, $anakiwa, 5%);
     }
 
     &:disabled {
@@ -174,6 +218,12 @@
       svg.MuiSvgIcon-root {
         fill: lighten($black, 30%);
       }
+    }
+  }
+
+  &--icon-button {
+    svg {
+      margin-right: 10px;
     }
   }
 
@@ -254,6 +304,17 @@
         opacity: 1;
         width: 100%;
       }
+    }
+  }
+
+  &--icon-start {
+    background: none;
+    border-style: solid;
+    border-width: 2px;
+    padding: 10px;
+
+    span {
+      display: flex;
     }
   }
 

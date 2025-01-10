@@ -8,3 +8,15 @@ export type UserType = {
   name: string;
   username: string;
 };
+
+export type GenreType = {
+  id: number;
+  name: string;
+};
+
+export type ErrorType = {
+  code: string;
+  message: string;
+  param: string;
+  type: string;
+};

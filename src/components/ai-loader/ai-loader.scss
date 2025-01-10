@@ -1,0 +1,18 @@
+@import "../../styles/dependencies";
+
+// AI Loader styles
+
+.ai-loader {
+  display: flex;
+  justify-content: center;
+  position: relative;
+
+  span {
+    animation: expand 3s ease-in-out infinite;
+    background: linear-gradient(113deg, $anakiwa 0%, $purple 50%, $anakiwa 100%);
+    border-radius: 0 10px;
+    height: 20px;
+    position: absolute;
+    width: 100px;
+  }
+}

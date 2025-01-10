@@ -5,6 +5,10 @@ export const config = {
     name: "Home",
     path: "/",
   },
+  aiMedia: {
+    name: "AI Media",
+    path: "/ai-media",
+  },
   details: {
     name: "Details",
     path: "/details",

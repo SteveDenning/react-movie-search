@@ -39,8 +39,10 @@ const List: React.FC<Props> = ({ items, onClick, variant }) => {
             ) : variant === "link" ? (
               <Button
                 variant="link"
+                className="button--icon-button"
                 onClick={() => (window.location.href = item.path)}
               >
+                {item.icon && item.icon}
                 {item.label}
               </Button>
             ) : (

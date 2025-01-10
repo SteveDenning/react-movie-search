@@ -1,12 +1,27 @@
 @import "./variables";
 
 .text-glow {
-  background: linear-gradient(to right, #6666ff, #0099ff, #ff3399, #6666ff);
+  background: linear-gradient(to right, $blue, $lilac, $pink, $lilac, $blue);
   background-clip: text;
   color: transparent;
+  animation: glow 8s ease-in-out infinite;
+  background-size: 400% 100%;
+  margin-bottom: 0;
+}
+
+.glow {
+  background: linear-gradient(to right, $blue, #ff3399, $blue);
   animation: glow 5s ease-in-out infinite;
   background-size: 400% 100%;
   margin-bottom: 0;
+}
+
+.fade-in {
+  animation: fade-in 0.5s ease-in-out;
+}
+
+.scale {
+  animation: scale 1s ease-in-out;
 }
 
 // Animations
@@ -30,5 +45,44 @@
   }
   100% {
     scale: 1;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes icon-glow {
+  0% {
+    fill: $blue;
+  }
+  25% {
+    fill: $lilac;
+  }
+  50% {
+    fill: $pink;
+  }
+  75% {
+    fill: $lilac;
+  }
+  100% {
+    fill: $blue;
+  }
+}
+
+@keyframes expand {
+  0% {
+    width: 0;
+  }
+  50% {
+    width: 300px;
+  }
+  100% {
+    width: 0;
   }
 }

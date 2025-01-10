@@ -20,8 +20,10 @@ import Search from "../../views/search";
 import { Box, Container, Drawer, Typography } from "@mui/material";
 
 // MUI Icons
-import TheatersIcon from "@mui/icons-material/Theaters";
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import ClearIcon from "@mui/icons-material/Clear";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import TheatersIcon from "@mui/icons-material/Theaters";
 
 // Styles
 import "./header.scss";
@@ -42,8 +44,9 @@ const Header: React.FC<Props> = ({ heading }) => {
   const redirectTo = environment === "development" ? "http://localhost:3000/" : "https://sd-react-movie-search.web.app/";
 
   const navOptions = [
-    { label: config.home.name, path: config.home.path },
-    { label: config.favorites.name, path: config.favorites.path },
+    { label: config.home.name, path: config.home.path, icon: <TheatersIcon /> },
+    { label: config.aiMedia.name, path: config.aiMedia.path, icon: <AutoAwesomeIcon /> },
+    { label: config.favorites.name, path: config.favorites.path, icon: <FavoriteIcon /> },
     // { label: config.profile.name, path: config.profile.path },
   ];
 
@@ -156,7 +159,7 @@ const Header: React.FC<Props> = ({ heading }) => {
           anchor="right"
           PaperProps={{
             sx: {
-              width: 200,
+              width: 300,
               bgcolor: "#000",
             },
           }}
@@ -178,7 +181,7 @@ const Header: React.FC<Props> = ({ heading }) => {
                 variant="link"
               />
             )}
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}>
               <Button
                 variant="link"
                 onClick={() => {

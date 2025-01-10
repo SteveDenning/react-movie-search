@@ -42,6 +42,7 @@ const SearchResults = () => {
           setError(true);
         });
     } else {
+      setLoading(false);
       setResources([]);
     }
   };

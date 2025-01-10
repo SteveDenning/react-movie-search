@@ -21,7 +21,7 @@ const DefaultLayout: React.FC<Props> = ({ children, heading }) => {
     <MUILayout>
       {/* SEO goes here */}
       <Header heading={heading} />
-      <main className="main-wrapper">{children}</main>
+      <main className="main-wrapper fade-in">{children}</main>
       <Footer />
     </MUILayout>
   );

@@ -194,8 +194,8 @@ const Search = () => {
               <ClearIcon />
             </Button>
           )}
+          <VoiceInput setValue={updateSearchTerm} />
         </form>
-        <VoiceInput setValue={updateSearchTerm} />
         <Fade in={!!searchTerm?.length}>
           <div>
             {!!suggestions.length && (

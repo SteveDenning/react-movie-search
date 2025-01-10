@@ -1,0 +1,84 @@
+@import "../../styles/dependencies";
+
+// ai-media styles
+
+.ai-media {
+  &__header {
+    background: rgba($black, 0.5);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  &__title {
+    color: $primary-color;
+
+    svg {
+      animation: icon-glow 4s ease-in-out infinite;
+    }
+  }
+
+  &__generate-action {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+    .button__content {
+      svg {
+        animation: icon-glow 4s ease-in-out infinite;
+      }
+    }
+  }
+
+  &__toggle-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+
+    .button {
+      margin: 0 10px;
+
+      @include breakpoint($medium) {
+        min-width: 200px;
+      }
+    }
+  }
+
+  &__warning-message {
+    margin-top: 20px;
+  }
+
+  &__list-wrapper {
+    margin-top: 20px;
+  }
+
+  &__list {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    justify-content: center;
+  }
+
+  &__list-item {
+    border-radius: 0 15px;
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+
+    .button {
+      border: 2px solid $primary-color;
+      width: 100%;
+      white-space: normal;
+    }
+
+    @include breakpoint($medium) {
+      margin: 20px;
+    }
+  }
+
+  &__error {
+    display: flex;
+    justify-content: center;
+  }
+}

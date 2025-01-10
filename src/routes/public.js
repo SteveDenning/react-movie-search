@@ -4,13 +4,14 @@ import React from "react";
 import { config } from "../config/routes";
 
 // Views
-import HomePage from "../pages/home";
+import APMediaPage from "../pages/ai-media";
 import DetailsPage from "../pages/details";
+import FavoritesPage from "../pages/favorites";
+import HomePage from "../pages/home";
 import MediaListingPage from "../pages/media-listing";
 import PageNotFound from "../pages/page-not-found";
-import SearchResultsPage from "../pages/search-results";
-import FavoritesPage from "../pages/favorites";
 import ProfilePage from "../pages/profile";
+import SearchResultsPage from "../pages/search-results";
 
 const routes = {
   createRoutes: () => {
@@ -23,24 +24,28 @@ const routes = {
         errorElement: <PageNotFound />,
       },
       {
-        path: `${config.searchResults.path}`,
-        element: <SearchResultsPage />,
+        path: `${config.aiMedia.path}`,
+        element: <APMediaPage />,
       },
       {
         path: `${config.details.path}/:type/:id`,
         element: <DetailsPage />,
       },
       {
-        path: `${config.mediaListing.path}/:type/:media`,
-        element: <MediaListingPage />,
-      },
-      {
         path: `${config.favorites.path}`,
         element: <FavoritesPage />,
       },
       {
+        path: `${config.mediaListing.path}/:type/:media`,
+        element: <MediaListingPage />,
+      },
+      {
         path: `${config.profile.path}`,
         element: <ProfilePage />,
+      },
+      {
+        path: `${config.searchResults.path}`,
+        element: <SearchResultsPage />,
       },
     );
 
