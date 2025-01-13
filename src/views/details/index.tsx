@@ -178,7 +178,12 @@ const DetailsView = () => {
                           />
                         )}
                       </h2>
-                      {resource.birthday && <p>{moment().diff(resource.birthday, "years")} years old</p>}
+                      {resource.birthday && (
+                        <p>
+                          {moment(resource.deathday ? resource.deathday : undefined).diff(resource.birthday, "years")} years old
+                          {resource.deathday && <span> (Deceased)</span>}
+                        </p>
+                      )}
                       {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
                       {resource["known_for_department"] && <p>Known for: {resource["known_for_department"]}</p>}
                     </div>
