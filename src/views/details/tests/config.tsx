@@ -1,4 +1,22 @@
 export const variables = {
+  person: {
+    data: {
+      adult: false,
+      also_known_as: ["Sir Sean Connery", "Thomas Sean Connery"],
+      biography: "Sir Thomas Sean Connery  description",
+      birthday: "1930-08-25",
+      deathday: "2020-10-31",
+      gender: 2,
+      homepage: "http://www.seanconnery.com/",
+      id: 738,
+      imdb_id: "nm0000125",
+      known_for_department: "Acting",
+      name: "Sean Connery",
+      place_of_birth: "Fountainbridge, Edinburgh, Scotland, UK",
+      popularity: 48.021,
+      profile_path: "/hbB676mW62gjsh0f51ICYE11niG.jpg",
+    },
+  },
   media: {
     data: {
       dates: {
@@ -80,6 +98,7 @@ export const variables = {
       total_results: 748,
     },
   },
+
   error: {
     message: "Network Error",
     name: "AxiosError",
