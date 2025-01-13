@@ -71,8 +71,8 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
 
   return (
     <>
-      <div className="banner-carousel">
-        {resources.length && (
+      {resources?.length && (
+        <div className="banner-carousel">
           <Fade in={!loading}>
             <div
               className="banner-carousel__inner "
@@ -89,8 +89,8 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
               />
             </div>
           </Fade>
-        )}
-      </div>
+        </div>
+      )}
       {error && (
         <p
           className="error"
