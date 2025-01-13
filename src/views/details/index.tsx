@@ -61,7 +61,7 @@ const DetailsView = () => {
       getMediaByID(programmeId, type)
         .then((response: any) => {
           setResource(response.data);
-          setBackDrop(response.data.backdrop_path);
+          setBackDrop(response.data?.backdrop_path);
           getFavoritesList();
           fetchVideos(programmeId, type);
         })
@@ -140,115 +140,125 @@ const DetailsView = () => {
 
   return (
     <>
-      <Fade in={!loading}>
-        <div
-          data-testid="details-view"
-          className="details-view"
-          style={{ backgroundImage: backgroundImage }}
-        >
-          <Container>
-            <div
-              className="details-view__inner"
-              data-testid="details-view-inner"
-            >
-              {!!videoKey && (
-                <div
-                  className="details-view__video"
-                  data-test-id="details-view-video"
-                >
-                  <Video
-                    youTubeKey={videoKey}
-                    playing
-                    responsive
-                  />
-                </div>
-              )}
-              <div className="details-view__content">
-                <div className="details-view__profile">
-                  {resource["profile_path"] && <div className="details-view__profile-image">{renderImage()}</div>}
-                  <div>
-                    <div className="details-view__profile-details">
-                      <h2 className="details-view__title">
-                        {resource.name || resource.title}{" "}
-                        {isMedia && resource?.["release_date"] && <span>({moment(resource?.["release_date"]).format("YYYY")})</span>}
-                        {user && type !== "person" && (
-                          <AddToFavorites
-                            handleFavorite={handleFavorite}
-                            isFavorite={isFavorite}
-                          />
+      {resource && (
+        <Fade in={!loading}>
+          <div
+            data-testid="details-view"
+            className="details-view"
+            style={{ backgroundImage: backgroundImage }}
+          >
+            <Container>
+              <div
+                className="details-view__inner"
+                data-testid="details-view-inner"
+              >
+                {!!videoKey && (
+                  <div
+                    className="details-view__video"
+                    data-test-id="details-view-video"
+                  >
+                    <Video
+                      youTubeKey={videoKey}
+                      playing
+                      responsive
+                    />
+                  </div>
+                )}
+                <div className="details-view__content">
+                  <div className="details-view__profile">
+                    {resource["profile_path"] && <div className="details-view__profile-image">{renderImage()}</div>}
+                    <div>
+                      <div className="details-view__profile-details">
+                        <h2
+                          className="details-view__title"
+                          data-testid="details-view-title"
+                        >
+                          {resource.name || resource.title}{" "}
+                          {isMedia && resource?.["release_date"] && <span>({moment(resource?.["release_date"]).format("YYYY")})</span>}
+                          {user && type !== "person" && (
+                            <AddToFavorites
+                              handleFavorite={handleFavorite}
+                              isFavorite={isFavorite}
+                            />
+                          )}
+                        </h2>
+                        {resource.birthday && (
+                          <p>
+                            {moment(resource.deathday ? resource.deathday : undefined).diff(resource.birthday, "years")} years old
+                            {resource.deathday && <span> (Deceased)</span>}
+                          </p>
                         )}
-                      </h2>
-                      {resource.birthday && <p>{moment().diff(resource.birthday, "years")} years old</p>}
-                      {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
-                      {resource["known_for_department"] && <p>Known for: {resource["known_for_department"]}</p>}
+                        {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
+                        {resource["known_for_department"] && <p>Known for: {resource["known_for_department"]}</p>}
+                      </div>
+                      {text && (
+                        <Overview
+                          resource={resource}
+                          text={text}
+                        />
+                      )}
+                      {!!resource.genres?.length && (
+                        <>
+                          <ul>
+                            {resource.genres.map((genre: any) => (
+                              <li
+                                className="genre-tag"
+                                key={genre.id + genre["name"]}
+                              >
+                                {genre["name"]}
+                                <span>|</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                      {resource.seasons?.length && (
+                        <>
+                          <p>Seasons: {resource.seasons?.length}</p>
+                        </>
+                      )}
+                      {resource.networks?.length && (
+                        <>
+                          <ul>
+                            {resource.networks.map((network: any, i: number) => (
+                              <li key={network.id + i}>
+                                <img
+                                  src={`${process.env.REACT_APP_TMDB_ROOT}/t/p/original/${network["logo_path"]}`}
+                                  alt=""
+                                  style={{ width: "100px", background: "#ccc", padding: "10px", marginRight: "10px", borderRadius: "10px" }}
+                                />
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                      {resource["imdb_id"] && (
+                        <Button
+                          target="_blank"
+                          variant="imdb"
+                          href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource["imdb_id"]}`}
+                        >
+                          IMDb
+                        </Button>
+                      )}
                     </div>
-                    {text && (
-                      <Overview
-                        resource={resource}
-                        text={text}
-                      />
-                    )}
-                    {!!resource.genres?.length && (
-                      <>
-                        <ul>
-                          {resource.genres.map((genre: any) => (
-                            <li
-                              className="genre-tag"
-                              key={genre.id + genre["name"]}
-                            >
-                              {genre["name"]}
-                              <span>|</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </>
-                    )}
-                    {resource.seasons?.length && (
-                      <>
-                        <p>Seasons: {resource.seasons?.length}</p>
-                      </>
-                    )}
-                    {resource.networks?.length && (
-                      <>
-                        <ul>
-                          {resource.networks.map((network: any, i: number) => (
-                            <li key={network.id + i}>
-                              <img
-                                src={`${process.env.REACT_APP_TMDB_ROOT}/t/p/original/${network["logo_path"]}`}
-                                alt=""
-                                style={{ width: "100px", background: "#ccc", padding: "10px", marginRight: "10px", borderRadius: "10px" }}
-                              />
-                            </li>
-                          ))}
-                        </ul>
-                      </>
-                    )}
-                    {resource["imdb_id"] && (
-                      <Button
-                        target="_blank"
-                        variant="imdb"
-                        href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource["imdb_id"]}`}
-                      >
-                        IMDb
-                      </Button>
-                    )}
+                  </div>
+                  <div className="details-view__back-button">
+                    <Button onClick={() => navigate(-1)}>Back</Button>
                   </div>
                 </div>
-                <div className="details-view__back-button">
-                  <Button onClick={() => navigate(-1)}>Back</Button>
-                </div>
               </div>
-            </div>
-            <MediaCarousel
-              label={MediaCarouselLabel}
-              pathName={pathName}
-              dataResource="cast"
-              responsiveOptions={personOptions}
-              media={type === "person" ? "movie" : "person"}
-            />
-          </Container>
-        </div>
-      </Fade>
+              <MediaCarousel
+                label={MediaCarouselLabel}
+                pathName={pathName}
+                dataResource="cast"
+                responsiveOptions={personOptions}
+                media={type === "person" ? "movie" : "person"}
+              />
+            </Container>
+          </div>
+        </Fade>
+      )}
       {error && (
         <p
           className="error"

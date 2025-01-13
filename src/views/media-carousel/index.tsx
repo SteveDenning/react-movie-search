@@ -115,7 +115,7 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
 
   return (
     <>
-      {items.length && (
+      {items?.length && (
         <Fade in={!!items.length}>
           <div
             data-testid="media-carousel"
