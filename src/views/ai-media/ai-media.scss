@@ -46,6 +46,22 @@
     }
   }
 
+  &__selected-genres {
+    text-align: center;
+  }
+
+  &__selected-genres-inner {
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    text-align: left;
+
+    @include breakpoint($medium) {
+      max-width: 500px;
+      min-width: 200px;
+    }
+  }
+
   &__warning-message {
     margin-top: 20px;
   }

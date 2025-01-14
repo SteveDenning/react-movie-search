@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+// Utils
+import useDefineMediaType from "../../../utils/use-define-media-type";
+
 // Components
 import Button from "../../button";
 import Image from "../../image";
@@ -8,7 +11,6 @@ import Overview from "../../overview";
 
 // MUI Icons
 import DeleteIcon from "@mui/icons-material/Delete";
-import useDefineMediaType from "../../../utils/use-define-media-type";
 
 interface Props {
   item: any;

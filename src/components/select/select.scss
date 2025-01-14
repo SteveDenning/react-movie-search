@@ -21,10 +21,7 @@
     }
 
     &__indicators {
-      display: none;
-
       @include breakpoint($xlarge) {
-        display: flex;
         min-height: 41px;
       }
 
@@ -49,9 +46,19 @@
       color: $primary-color;
     }
 
+    &__multi-value,
     &__single-value {
       color: $primary-color;
       font-size: 16px;
+    }
+
+    &__multi-value {
+      background: transparent;
+      border: 1px solid $primary-color;
+
+      &__label {
+        color: $primary-color;
+      }
     }
 
     &__value-container {

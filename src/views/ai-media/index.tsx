@@ -14,7 +14,11 @@ import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 // Components
 import AILoader from "../../components/ai-loader";
 import Button from "../../components/button";
+import Select from "../../components/select";
 import Tabs from "../../components/tabs";
+
+// Utils
+import useDefineMediaType from "../../utils/use-define-media-type";
 
 // Types
 import { ErrorType, GenreType } from "../../models/types";
@@ -34,9 +38,10 @@ const AIMedia: React.FC<Props> = () => {
   const [error, setError] = useState<ErrorType>(null);
   const [movieGenres, setMovieGenres] = useState<string>("");
   const [tvGenres, setTVGenres] = useState<string>("");
-  const [selectedGenres, setSelectedGenres] = useState<string>("horror");
+  const [selectedGenres, setSelectedGenres] = useState<string>(null);
   const [genres, setGenres] = useState<string>(" ");
   const [selectedTab, setSelectedTab] = useState("movies");
+  const [genreOptions, setGenreOptions] = useState([]);
 
   const mediaLabel = mediaType === "movie" ? pluralize(mediaType) : "TV Shows";
   const user = JSON.parse(sessionStorage.getItem("user") || null);
@@ -58,7 +63,7 @@ const AIMedia: React.FC<Props> = () => {
 
   const prompt = `Give me a random list of 20 ${
     handleMediaTypeLabel().label
-  } that must have the following genres only: ${genres}, they must be different each time and span over the last 20 years with one from each year and give me the year. These must be in an array of JSON objects called media, each object should have a name key with the name as the value`;
+  } that must be from these genres only ${genres}. They must be different each time and span over the last 20 years with one from each year and give me the year. These must be in an array of JSON objects called media, each object should have a name key with the name as the value`;
 
   const isJSONFormat = (obj: any) => {
     try {
@@ -89,9 +94,11 @@ const AIMedia: React.FC<Props> = () => {
       });
   };
 
-  const getMediaBySearchTerm = (query: string, mediaType: string) => {
-    getAllMediaFromSearch(`${mediaType}?query=${query}`)
+  const getMediaBySearchTerm = (query: string) => {
+    getAllMediaFromSearch(`${"multi"}?query=${query}`)
       .then((response: any) => {
+        const mediaType = useDefineMediaType(response.data.results[0]);
+
         if (response.data.results[0].id) {
           window.location.href = `/details/${mediaType}/${response.data.results[0].id}`;
         }
@@ -104,6 +111,11 @@ const AIMedia: React.FC<Props> = () => {
   const getGenresForMedia = (mediaType: string) => {
     getGenres(mediaType).then((response) => {
       getFavoritesList(mediaType, response.data.genres);
+      const mappedGenres = response.data.genres.map((genre: GenreType) => ({
+        label: genre.name,
+        value: genre.id,
+      }));
+      setGenreOptions(mappedGenres);
     });
   };
 
@@ -172,6 +184,12 @@ const AIMedia: React.FC<Props> = () => {
     getGenresForMedia("tv");
   }, []);
 
+  const handleMediaTypeChange = (event: any) => {
+    setSelectedGenres(event);
+    const genreNames = event.map((genre: { label: string; value: number }) => genre.label).join(", ");
+    setGenres(genreNames);
+  };
+
   return (
     <div
       className="ai-media"
@@ -189,7 +207,7 @@ const AIMedia: React.FC<Props> = () => {
             tabs={[
               { label: "Movies", value: "movies" },
               { label: "TV", value: "tv" },
-              { label: "Select Genres", value: "select" },
+              { label: "Genres", value: "select" },
             ]}
             onClick={(event) => handleChange(event)}
             initialSelection="movies"
@@ -199,11 +217,20 @@ const AIMedia: React.FC<Props> = () => {
       <Container>
         <div>
           {selectedTab === "select" ? (
-            <div className="ai-media__select-genres">
-              <div>
-                <p>Select Genres: {selectedGenres}</p>
-                {renderGenerateButton()}
+            <div className="ai-media__selected-genres">
+              <div className="ai-media__selected-genres-inner">
+                <Select
+                  id="genres"
+                  label="Select genres"
+                  value={selectedGenres}
+                  onChange={handleMediaTypeChange}
+                  options={genreOptions}
+                  searchable={false}
+                  isMulti
+                  animated
+                />
               </div>
+              {renderGenerateButton()}
             </div>
           ) : (
             <>
@@ -227,7 +254,6 @@ const AIMedia: React.FC<Props> = () => {
             </>
           )}
         </div>
-
         <div className="ai-media__list-wrapper">
           {generating ? (
             <AILoader />
@@ -244,7 +270,7 @@ const AIMedia: React.FC<Props> = () => {
                         >
                           <Button
                             color="lilac"
-                            onClick={() => getMediaBySearchTerm(item.name, linkType)}
+                            onClick={() => getMediaBySearchTerm(item.name)}
                           >
                             {item.name}
                           </Button>
