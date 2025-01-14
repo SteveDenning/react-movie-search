@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
 // Utils
-import useDefineMediaType from "../../../utils/use-define-media-type";
+import useDefineMediaType from "../../utils/use-define-media-type";
 
 // Components
-import Button from "../../button";
-import Image from "../../image";
-import Modal from "../../modal";
-import Overview from "../../overview";
+import Button from "../button";
+import Image from "../image";
+import Modal from "../modal";
+import Overview from "../overview";
 
 // MUI Icons
 import DeleteIcon from "@mui/icons-material/Delete";

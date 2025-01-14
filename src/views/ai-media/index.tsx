@@ -34,7 +34,6 @@ const AIMedia: React.FC<Props> = () => {
   const [response, setResponse] = useState(null);
   const [generating, setGenerating] = useState<boolean>(false);
   const [mediaType, setMediaType] = useState<string>("movie");
-  const [linkType, setLinkType] = useState<string>("tv");
   const [error, setError] = useState<ErrorType>(null);
   const [movieGenres, setMovieGenres] = useState<string>("");
   const [tvGenres, setTVGenres] = useState<string>("");
@@ -81,7 +80,6 @@ const AIMedia: React.FC<Props> = () => {
         const resource = isJSONFormat(response.choices[0]?.message?.content);
 
         if (resource) {
-          setLinkType(mediaType);
           setResponse(resource);
           setGenerating(false);
         }
@@ -164,13 +162,14 @@ const AIMedia: React.FC<Props> = () => {
     }
   };
 
-  const renderGenerateButton = () => {
+  const renderGenerateButton = (disabled: boolean) => {
     return (
       <>
         {!generating && (
           <Button
             onClick={getOpenAI}
             className="glow button--icon-button fade-in"
+            disabled={disabled}
           >
             <AutoAwesomeIcon /> Generate
           </Button>
@@ -230,14 +229,14 @@ const AIMedia: React.FC<Props> = () => {
                   animated
                 />
               </div>
-              {renderGenerateButton()}
+              {renderGenerateButton(!selectedGenres?.length)}
             </div>
           ) : (
             <>
               <p style={{ textAlign: "center" }}>{genres}</p>
               <div className="ai-media__generate-action">
                 {genres.length ? (
-                  !generating && renderGenerateButton()
+                  !generating && renderGenerateButton(false)
                 ) : (
                   <p className="ai-media__warning-message fade-in">
                     No favorite {mediaLabel}? Guess you&#39;re just winging it. Add at least one from{" "}

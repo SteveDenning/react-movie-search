@@ -4,8 +4,8 @@ import React from "react";
 import "./list.scss";
 
 // Components
-import Button from "../../components/button";
-import Panel from "./list-items/list-panel";
+import Button from "../button";
+import Panel from "../panel";
 
 interface Props {
   items: any[];
