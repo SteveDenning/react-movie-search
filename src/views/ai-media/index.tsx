@@ -18,6 +18,7 @@ import Select from "../../components/select";
 import Tabs from "../../components/tabs";
 
 // Utils
+import useCustomGenres from "../../utils/use-custom-genres";
 import useDefineMediaType from "../../utils/use-define-media-type";
 
 // Types
@@ -48,6 +49,8 @@ const AIMedia: React.FC<Props> = () => {
   if (!user) {
     window.location.href = "/";
   }
+
+  const customGenres = useCustomGenres();
 
   const handleMediaTypeLabel = () => {
     switch (mediaType) {
@@ -106,14 +109,21 @@ const AIMedia: React.FC<Props> = () => {
       });
   };
 
-  const getGenresForMedia = (mediaType: string) => {
+  const getGenreOptions = (mediaType: string) => {
     getGenres(mediaType).then((response) => {
       getFavoritesList(mediaType, response.data.genres);
+
       const mappedGenres = response.data.genres.map((genre: GenreType) => ({
         label: genre.name,
         value: genre.id,
       }));
-      setGenreOptions(mappedGenres);
+
+      if (mediaType === "movie") {
+        const updatedGenres = mappedGenres.concat(customGenres).sort((a, b) => {
+          return a.label < b.label ? -1 : a.label > b.label ? 1 : 0;
+        });
+        setGenreOptions(updatedGenres);
+      }
     });
   };
 
@@ -179,8 +189,8 @@ const AIMedia: React.FC<Props> = () => {
   };
 
   useEffect(() => {
-    getGenresForMedia("movie");
-    getGenresForMedia("tv");
+    getGenreOptions("movie");
+    getGenreOptions("tv");
   }, []);
 
   const handleMediaTypeChange = (event: any) => {
