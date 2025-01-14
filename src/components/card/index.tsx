@@ -2,8 +2,8 @@ import React from "react";
 import moment from "moment";
 
 // Components
-import AddToFavorites from "../../components/add-to-favorites";
-import Image from "../../components/image";
+import AddToFavorites from "../add-to-favorites";
+import Image from "../image";
 
 // Styles
 import "./card.scss";

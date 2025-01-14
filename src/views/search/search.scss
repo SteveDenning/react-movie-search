@@ -75,17 +75,36 @@
     }
   }
 
+  // Select overrides
   .select {
     border: 1px solid $mid-grey;
     border-right: 0;
     border-radius: 5px 0 0 5px;
 
     &__control {
-      border-radius: 4px 0 0 4px;
+      min-width: 55px;
+      min-height: 38px;
+
+      .select__value-container {
+        padding: 0 10px;
+      }
+
+      @include breakpoint($xlarge) {
+        min-height: 41px;
+        min-width: 85px;
+      }
     }
 
     .select__menu {
       top: 35px;
+    }
+
+    &__indicators {
+      display: none;
+
+      @include breakpoint($xlarge) {
+        display: inline-flex;
+      }
     }
 
     @include breakpoint($large) {

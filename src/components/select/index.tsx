@@ -1,6 +1,9 @@
 import React from "react";
 import Select from "react-select";
 
+// MUI Components
+import makeAnimated from "react-select/animated";
+
 // Styles
 import "./select.scss";
 
@@ -13,15 +16,32 @@ interface Props {
   className?: string;
   placeholder?: string;
   searchable?: boolean;
-  defaultValue?: string;
+  defaultValue?: any;
   labeled?: boolean;
   isDisabled?: boolean;
+  isMulti?: boolean;
+  animated?: boolean;
 }
 
-const SelectComponent: React.FC<Props> = ({ onChange, label, id, value, options, placeholder, searchable, defaultValue, labeled, isDisabled }) => {
+const SelectComponent: React.FC<Props> = ({
+  onChange,
+  label,
+  id,
+  value,
+  options,
+  placeholder,
+  searchable,
+  defaultValue,
+  labeled,
+  isDisabled,
+  isMulti,
+  animated,
+}) => {
   const handleSelectChange = (selection) => {
     onChange(selection);
   };
+
+  const animatedComponents = makeAnimated();
 
   return (
     <div
@@ -46,6 +66,8 @@ const SelectComponent: React.FC<Props> = ({ onChange, label, id, value, options,
         isSearchable={searchable}
         defaultValue={defaultValue}
         isDisabled={isDisabled}
+        isMulti={isMulti}
+        components={animated ? animatedComponents : undefined}
       />
     </div>
   );

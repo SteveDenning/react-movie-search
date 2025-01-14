@@ -9,7 +9,7 @@ const AILoader = () => {
       className="ai-loader"
       data-testid="ai-loader"
     >
-      <span></span>
+      <div className="ai-loader__balls"></div>
     </div>
   );
 };

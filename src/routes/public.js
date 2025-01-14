@@ -21,7 +21,7 @@ const routes = {
       {
         path: "/",
         element: <HomePage />,
-        errorElement: <PageNotFound />,
+        // errorElement: <PageNotFound />,
       },
       {
         path: `${config.aiMedia.path}`,

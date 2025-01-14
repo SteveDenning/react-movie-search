@@ -2,18 +2,16 @@
 
 // Select styles
 .select {
+  border: 1px solid $mid-grey;
+  border-radius: 5px;
+
   .select {
     &__control {
       background-color: $grey;
       box-shadow: none;
       border: 0;
       cursor: pointer;
-      min-width: 55px;
-
-      @include breakpoint($xlarge) {
-        min-height: 41px;
-        min-width: 85px;
-      }
+      min-height: 50px;
     }
 
     &__input {
@@ -21,10 +19,7 @@
     }
 
     &__indicators {
-      display: none;
-
       @include breakpoint($xlarge) {
-        display: flex;
         min-height: 41px;
       }
 
@@ -49,17 +44,34 @@
       color: $primary-color;
     }
 
+    &__multi-value,
     &__single-value {
       color: $primary-color;
       font-size: 16px;
     }
 
-    &__value-container {
-      padding: 2px 0 2px 5px;
+    &__multi-value {
+      background: transparent;
+      border: 1px solid $primary-color;
+      border-radius: 3px;
 
-      @include breakpoint($xlarge) {
-        padding: 2px 0 2px 10px;
+      &__label {
+        color: $primary-color;
       }
+
+      &__remove {
+        transition: background-color 0.3s ease, color 0.3s ease;
+        border-radius: 0 2px 2px 0;
+
+        @include hover {
+          background-color: $primary-color;
+          color: $black;
+        }
+      }
+    }
+
+    &__value-container {
+      padding: 10px;
     }
 
     &__menu {

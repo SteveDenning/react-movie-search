@@ -9,6 +9,7 @@
     flex-direction: column;
     justify-content: center;
     padding: 20px;
+    text-align: center;
   }
 
   &__title {
@@ -16,6 +17,7 @@
 
     svg {
       animation: icon-glow 4s ease-in-out infinite;
+      margin: 0 10px;
     }
   }
 
@@ -31,6 +33,10 @@
     }
   }
 
+  &__genres {
+    text-align: center;
+  }
+
   &__toggle-wrapper {
     display: flex;
     justify-content: center;
@@ -42,6 +48,22 @@
       @include breakpoint($medium) {
         min-width: 200px;
       }
+    }
+  }
+
+  &__selected-genres {
+    text-align: center;
+  }
+
+  &__selected-genres-inner {
+    display: flex;
+    flex-direction: column;
+    margin: 20px auto;
+    text-align: left;
+
+    @include breakpoint($medium) {
+      max-width: 500px;
+      min-width: 200px;
     }
   }
 

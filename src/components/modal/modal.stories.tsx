@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 
 // Components
 import Template from "./index";
-import Button from "../../components/button";
+import Button from "../button";
 
 const meta: Meta<typeof Template> = {
   title: "Components/Modal",
