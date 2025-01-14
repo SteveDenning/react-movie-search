@@ -2,9 +2,9 @@ import React from "react";
 import ReactCarousel from "react-multi-carousel";
 
 // Components
-import Button from "../../components/button";
-import Card from "../../components/card";
-import Image from "../../components/image";
+import Button from "../button";
+import Card from "../card";
+import Image from "../image";
 
 // Styles
 import "./carousel.scss";

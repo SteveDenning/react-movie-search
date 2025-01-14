@@ -5,8 +5,8 @@ import { updateFavorite } from "../../services/favorites";
 import { getFavorites } from "../../services/favorites";
 
 // Components
-import Card from "../../components/card";
-import Pagination from "../../components/pagination";
+import Card from "../card";
+import Pagination from "../pagination";
 
 // MUI
 import { Fade, Grid, Backdrop, CircularProgress } from "@mui/material";

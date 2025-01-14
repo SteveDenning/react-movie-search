@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 
 // Components
-import Button from "../../components/button";
-import Modal from "../../components/modal";
+import Button from "../button";
+import Modal from "../modal";
 
 interface Props {
   resource?: any;

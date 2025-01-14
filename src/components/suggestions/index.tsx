@@ -3,8 +3,8 @@ import moment from "moment";
 
 // Styles
 import "./suggestions.scss";
-import Button from "../../components/button";
-import Image from "../../components/image";
+import Button from "../button";
+import Image from "../image";
 
 // MUI Icons
 import PersonIcon from "@mui/icons-material/Person";
