@@ -13,7 +13,7 @@ describe("AIMedia component", () => {
     });
 
     it("Should render the AIMedia view", () => {
-      expect(screen.getByTestId("footer")).toBeInTheDocument();
+      expect(screen.getByTestId("ai-media")).toBeInTheDocument();
     });
   });
 });

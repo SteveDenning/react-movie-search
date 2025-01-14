@@ -243,7 +243,7 @@ const AIMedia: React.FC<Props> = () => {
             </div>
           ) : (
             <>
-              <p style={{ textAlign: "center" }}>{genres}</p>
+              <p className="ai-media__genres">{genres}</p>
               <div className="ai-media__generate-action">
                 {genres.length ? (
                   !generating && renderGenerateButton(false)

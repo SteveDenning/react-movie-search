@@ -7,31 +7,31 @@
   justify-content: center;
   position: relative;
   margin-top: 100px;
-}
 
-/* HTML: <div class="loader"></div> */
-.loader {
-  animation: rotation 1s infinite linear;
-  aspect-ratio: 1;
-  background-color: rgba($color: $lilac, $alpha: 0.3);
-  border-radius: 50%;
-  box-sizing: border-box;
-  display: grid;
-  transform-origin: 50% 70%;
-  width: 200px;
-}
-.loader:before,
-.loader:after {
-  animation: inherit;
-  animation-duration: 10s;
-  background-color: rgba($color: $lilac, $alpha: 0.3);
-  border-radius: 50%;
-  content: "";
-  grid-area: 1/1;
-  transform-origin: inherit;
-}
-.loader:after {
-  animation-duration: 5s;
-  background-color: rgba($color: $lilac, $alpha: 0.3);
-  --rotate: -1;
+  &__balls {
+    animation: rotation 1s infinite linear;
+    aspect-ratio: 1;
+    background-color: rgba($color: $lilac, $alpha: 0.3);
+    border-radius: 50%;
+    box-sizing: border-box;
+    display: grid;
+    transform-origin: 50% 70%;
+    width: 200px;
+
+    &:before,
+    &:after {
+      animation: inherit;
+      animation-duration: 10s;
+      background-color: rgba($color: $lilac, $alpha: 0.3);
+      border-radius: 50%;
+      content: "";
+      grid-area: 1/1;
+      transform-origin: inherit;
+    }
+    &:after {
+      animation-duration: 5s;
+      background-color: rgba($color: $lilac, $alpha: 0.3);
+      --rotate: -1;
+    }
+  }
 }
