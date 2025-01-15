@@ -35,9 +35,9 @@ const AIMedia: React.FC<Props> = () => {
   const [response, setResponse] = useState(null);
   const [generating, setGenerating] = useState<boolean>(false);
   const [mediaType, setMediaType] = useState<string>("movie");
-  const [error, setError] = useState<ErrorType>(null);
   const [movieGenres, setMovieGenres] = useState<string>("");
   const [tvGenres, setTVGenres] = useState<string>("");
+  const [error, setError] = useState<ErrorType>(null);
   const [selectedGenres, setSelectedGenres] = useState<string>(null);
   const [genres, setGenres] = useState<string>(" ");
   const [selectedTab, setSelectedTab] = useState("movies");
@@ -63,9 +63,11 @@ const AIMedia: React.FC<Props> = () => {
     }
   };
 
-  const prompt = `Give me a random list of 20 ${
+  const prompt1 = `Create a random list of 30 ${
     handleMediaTypeLabel().label
-  } that must be from these genres only ${genres}. They must be different each time and span over the last 20 years with one from each year and give me the year. These must be in an array of JSON objects called media, each object should have a name key with the name as the value`;
+  } , where each movie must include at least one genre from the array [${genres}]. Focus on the top three most popular genres from the array, prioritizing their frequency. The list should be ordered in descending order, starting with ${
+    handleMediaTypeLabel().label
+  }  from the most popular genre. Return the result as a JSON object with a key name called popular showing the top four most frequent genres and an array called media, where each object has a name key containing the movie name as its value. Ensure variety in the selection.`;
 
   const isJSONFormat = (obj: any) => {
     try {
@@ -78,7 +80,7 @@ const AIMedia: React.FC<Props> = () => {
   const getOpenAI = () => {
     setGenerating(true);
     setResponse(null);
-    useOpenAI(prompt)
+    useOpenAI(prompt1)
       .then((response) => {
         const resource = isJSONFormat(response.choices[0]?.message?.content);
 
@@ -127,16 +129,32 @@ const AIMedia: React.FC<Props> = () => {
     });
   };
 
+  const getFullListOfGenreNames = (genreIds: any[], genres) => {
+    let names = [];
+
+    genreIds.map((genre) => {
+      const genreName = genres.find((item: { id: number; name: string }) => item.id === genre)?.name;
+      if (genreName) {
+        names.push(genreName);
+      }
+    });
+
+    const updatedGenres = names.sort((a, b) => {
+      return a < b ? -1 : a > b ? 1 : 0;
+    });
+
+    return updatedGenres.join(", ");
+  };
+
   const getGenresByName = (genreIds: number[], genres: GenreType[], type: string) => {
     if (genres) {
-      const allGenres = genres.filter((genre: GenreType) => genreIds.includes(genre.id));
-      const genreNames = allGenres.map((genre: GenreType) => genre.name).join(", ");
+      const update = getFullListOfGenreNames(genreIds, genres);
 
       if (type === "movie") {
-        setGenres(genreNames);
-        setMovieGenres(genreNames);
+        setGenres(update);
+        setMovieGenres(update);
       } else {
-        setTVGenres(genreNames);
+        setTVGenres(update);
       }
     }
   };
@@ -146,6 +164,7 @@ const AIMedia: React.FC<Props> = () => {
       getFavorites(user.id, type)
         .then((response) => {
           const allIds = response.data.results.flatMap((item) => item.genre_ids);
+
           getGenresByName(allIds, genres, type);
         })
         .catch((error) => {
@@ -243,7 +262,9 @@ const AIMedia: React.FC<Props> = () => {
             </div>
           ) : (
             <>
-              <p className="ai-media__genres">{genres}</p>
+              <p className="ai-media__genres">{[...new Set(genres.split(" "))].join(" ")}</p>
+              <p className="ai-media__genres">ALL - {genres}</p>
+
               <div className="ai-media__generate-action">
                 {genres.length ? (
                   !generating && renderGenerateButton(false)
@@ -270,6 +291,7 @@ const AIMedia: React.FC<Props> = () => {
             response?.media.length && (
               <Fade in={!!response?.media.length}>
                 <div>
+                  {response?.popular && <p>Top four most popular genres: {response.popular.join(", ")}</p>}
                   <ul className="ai-media__list">
                     {response?.media.map((item, i) => {
                       return (
