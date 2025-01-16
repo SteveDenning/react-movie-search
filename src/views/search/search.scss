@@ -5,11 +5,11 @@
 .search {
   display: flex;
   justify-content: center;
-  margin: 5px 20px 10px;
+  margin: 0px 10px;
   width: calc(100% - 20px);
 
   @include breakpoint($xlarge) {
-    margin: 20px;
+    margin: 5px 20px;
     width: 700px;
   }
 
@@ -82,7 +82,7 @@
     border-radius: 5px 0 0 5px;
 
     &__control {
-      min-width: 55px;
+      min-width: 70px;
       min-height: 38px;
 
       .select__value-container {
@@ -91,7 +91,7 @@
 
       @include breakpoint($xlarge) {
         min-height: 41px;
-        min-width: 85px;
+        min-width: 100px;
       }
     }
 

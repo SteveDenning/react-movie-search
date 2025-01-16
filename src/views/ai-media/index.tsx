@@ -8,12 +8,15 @@ import { getGenres } from "../../services/genres";
 import useOpenAI from "../../services/openai";
 
 // MUI Components
-import { Container, Fade } from "@mui/material";
+import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
+
+// MUI Icons
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 
 // Components
 import AILoader from "../../components/ai-loader";
 import Button from "../../components/button";
+import Modal from "../../components/modal";
 import Select from "../../components/select";
 import Tabs from "../../components/tabs";
 
@@ -22,27 +25,27 @@ import useCustomGenres from "../../utils/use-custom-genres";
 import useDefineMediaType from "../../utils/use-define-media-type";
 
 // Types
-import { ErrorType, GenreType } from "../../models/types";
+import { ErrorType, GenreType, GenreOptionsType } from "../../models/types";
 
 // Styles
 import "./ai-media.scss";
 
-interface Props {
-  children?: React.ReactNode;
-}
-
-const AIMedia: React.FC<Props> = () => {
-  const [response, setResponse] = useState(null);
+const AIMedia = () => {
+  const [error, setError] = useState<ErrorType>(null);
   const [generating, setGenerating] = useState<boolean>(false);
+  const [genres, setGenres] = useState<string>(" ");
+  const [genreOptions, setGenreOptions] = useState<GenreOptionsType[]>([]);
+  const [loadingMessage, setLoadingMessage] = useState<boolean>(false);
   const [mediaType, setMediaType] = useState<string>("movie");
   const [movieGenres, setMovieGenres] = useState<string>("");
-  const [tvGenres, setTVGenres] = useState<string>("");
-  const [error, setError] = useState<ErrorType>(null);
+  const [open, setOpen] = useState<boolean>(false);
+  const [openModalMessage, setOpenModalMessage] = useState<string>("");
+  const [response, setResponse] = useState(null);
   const [selectedGenres, setSelectedGenres] = useState<string>(null);
-  const [genres, setGenres] = useState<string>(" ");
-  const [selectedTab, setSelectedTab] = useState("movies");
-  const [genreOptions, setGenreOptions] = useState([]);
+  const [tvGenres, setTVGenres] = useState<string>("");
+  const [selectedTab, setSelectedTab] = useState<string>("movies");
 
+  const customGenres = useCustomGenres();
   const mediaLabel = mediaType === "movie" ? pluralize(mediaType) : "TV Shows";
   const user = JSON.parse(sessionStorage.getItem("user") || null);
 
@@ -50,24 +53,21 @@ const AIMedia: React.FC<Props> = () => {
     window.location.href = "/";
   }
 
-  const customGenres = useCustomGenres();
-
+  // TODO rewrite this
   const handleMediaTypeLabel = () => {
     switch (mediaType) {
-      case "select":
+      case "multi":
         return { label: "Movies or TV shows", description: "Let AI discover a list of Movies and TV Shows based on selected genres" };
       case "tv":
-        return { label: "TV Shows", description: "Let AI discover a list of TV Shows based on genres from your favourites" };
+        return { label: "TV Shows", description: "Let AI discover a list of TV Shows based on the most popular genres from your favourites" };
       default:
-        return { label: "Movie", description: "Let AI discover a list of Movies based on genres from your favourites" };
+        return { label: "Movie", description: "Let AI discover a list of Movies based on the most popular genres from your favourites" };
     }
   };
 
-  const prompt1 = `Create a random list of 30 ${
-    handleMediaTypeLabel().label
-  } , where each movie must include at least one genre from the array [${genres}]. Focus on the top three most popular genres from the array, prioritizing their frequency. The list should be ordered in descending order, starting with ${
-    handleMediaTypeLabel().label
-  }  from the most popular genre. Return the result as a JSON object with a key name called popular showing the top four most frequent genres and an array called media, where each object has a name key containing the movie name as its value. Ensure variety in the selection.`;
+  const definedType = handleMediaTypeLabel();
+
+  const prompt = `Create a JSON list of 30 ${definedType.label}, each featuring at least two genres from ${genres}. If there are more than three popular genres, ensure the results include at least two of the top three most frequent genres. Prioritize the top three genres based on their frequency and order the ${definedType.label} by genre popularity. Return a JSON object with a popular key listing the top genres and a media array containing objects with a name key for each ${definedType.label} title. Ensure the ${definedType.label} are relatively popular and diverse.`;
 
   const isJSONFormat = (obj: any) => {
     try {
@@ -80,7 +80,7 @@ const AIMedia: React.FC<Props> = () => {
   const getOpenAI = () => {
     setGenerating(true);
     setResponse(null);
-    useOpenAI(prompt1)
+    useOpenAI(prompt)
       .then((response) => {
         const resource = isJSONFormat(response.choices[0]?.message?.content);
 
@@ -97,13 +97,38 @@ const AIMedia: React.FC<Props> = () => {
       });
   };
 
-  const getMediaBySearchTerm = (query: string) => {
-    getAllMediaFromSearch(`${"multi"}?query=${query}`)
-      .then((response: any) => {
-        const mediaType = useDefineMediaType(response.data.results[0]);
+  const getOpenAIMessage = () => {
+    useOpenAI(
+      "Write this in a short, funny way focusing on AI getting it wrong - There was a problem getting the results from TMDB - please try again later",
+    )
+      .then((response) => {
+        const resource = isJSONFormat(response.choices[0]?.message?.content);
+        setOpenModalMessage(resource.message);
+        setOpen(true);
+        setLoadingMessage(false);
+      })
+      .catch((error: ErrorType) => {
+        console.error("Open AI message::", error);
+        setError(error);
+        setLoadingMessage(false);
+      });
+  };
 
-        if (response.data.results[0].id) {
-          window.location.href = `/details/${mediaType}/${response.data.results[0].id}`;
+  const getMediaBySearchTerm = (query: string) => {
+    getAllMediaFromSearch(`${mediaType}?query=${query}`)
+      .then((response: any) => {
+        const results = response.data.results;
+
+        if (!results.length) {
+          setOpenModalMessage("");
+          setLoadingMessage(true);
+          getOpenAIMessage();
+          return;
+        }
+        const mediaType = useDefineMediaType(results[0]);
+
+        if (results[0].id) {
+          window.location.href = `/details/${mediaType}/${results[0].id}`;
         }
       })
       .catch((error) => {
@@ -133,7 +158,7 @@ const AIMedia: React.FC<Props> = () => {
     let names = [];
 
     genreIds.map((genre) => {
-      const genreName = genres.find((item: { id: number; name: string }) => item.id === genre)?.name;
+      const genreName = genres.find((item: GenreType) => item.id === genre)?.name;
       if (genreName) {
         names.push(genreName);
       }
@@ -214,7 +239,7 @@ const AIMedia: React.FC<Props> = () => {
 
   const handleMediaTypeChange = (event: any) => {
     setSelectedGenres(event);
-    const genreNames = event.map((genre: { label: string; value: number }) => genre.label).join(", ");
+    const genreNames = event.map((genre: GenreOptionsType) => genre.label).join(", ");
     setGenres(genreNames);
   };
 
@@ -226,7 +251,7 @@ const AIMedia: React.FC<Props> = () => {
       <div className="ai-media__header">
         <h2 className="ai-media__title">
           <AutoAwesomeIcon />
-          {handleMediaTypeLabel().description}
+          {definedType.description}
           <AutoAwesomeIcon />
         </h2>
 
@@ -235,7 +260,7 @@ const AIMedia: React.FC<Props> = () => {
             tabs={[
               { label: "Movies", value: "movies" },
               { label: "TV", value: "tv" },
-              { label: "Genres", value: "select" },
+              { label: "Genres", value: "multi" },
             ]}
             onClick={(event) => handleChange(event)}
             initialSelection="movies"
@@ -244,7 +269,7 @@ const AIMedia: React.FC<Props> = () => {
       </div>
       <Container>
         <div>
-          {selectedTab === "select" ? (
+          {selectedTab === "multi" ? (
             <div className="ai-media__selected-genres">
               <div className="ai-media__selected-genres-inner">
                 <Select
@@ -258,15 +283,18 @@ const AIMedia: React.FC<Props> = () => {
                   animated
                 />
               </div>
-              {renderGenerateButton(!selectedGenres?.length)}
+
+              {selectedGenres?.length > 1 ? renderGenerateButton(!selectedGenres?.length) : <p className="fade-in">Select two or more genres</p>}
             </div>
           ) : (
             <>
-              <p className="ai-media__genres">{[...new Set(genres.split(" "))].join(" ")}</p>
-              <p className="ai-media__genres">ALL - {genres}</p>
+              <div className="ai-media__genres">
+                <h3>Your collective genres</h3>
+                {mediaLabel !== "Movies or TV shows" && <p>{[...new Set(genres?.split(" "))].join(" ")}</p>}
+              </div>
 
               <div className="ai-media__generate-action">
-                {genres.length ? (
+                {genres?.length ? (
                   !generating && renderGenerateButton(false)
                 ) : (
                   <p className="ai-media__warning-message fade-in">
@@ -291,7 +319,10 @@ const AIMedia: React.FC<Props> = () => {
             response?.media.length && (
               <Fade in={!!response?.media.length}>
                 <div>
-                  {response?.popular && <p>Top four most popular genres: {response.popular.join(", ")}</p>}
+                  <div className="ai-media__genres">
+                    <h3>Most popular genres</h3>
+                    {response?.popular && <p>{response.popular.join(", ")}</p>}
+                  </div>
                   <ul className="ai-media__list">
                     {response?.media.map((item, i) => {
                       return (
@@ -323,6 +354,18 @@ const AIMedia: React.FC<Props> = () => {
           )}
         </div>
       </Container>
+      <Modal
+        id="voice-input"
+        open={open}
+        handleClose={() => {
+          setOpen(false);
+        }}
+      >
+        <p style={{ textAlign: "center" }}>{openModalMessage}</p>
+      </Modal>
+      <Backdrop open={loadingMessage}>
+        <CircularProgress color="primary" />
+      </Backdrop>
     </div>
   );
 };
