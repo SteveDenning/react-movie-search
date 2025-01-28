@@ -228,6 +228,7 @@ const AIMedia: React.FC<Props> = () => {
           {selectedTab === "select" ? (
             <div className="ai-media__selected-genres">
               <div className="ai-media__selected-genres-inner">
+                <p style={{ textAlign: "center" }}>Please choose at least three genres from the list</p>
                 <Select
                   id="genres"
                   label="Select genres"
@@ -239,7 +240,7 @@ const AIMedia: React.FC<Props> = () => {
                   animated
                 />
               </div>
-              {renderGenerateButton(!selectedGenres?.length)}
+              {renderGenerateButton(selectedGenres?.length < 3 || !selectedGenres?.length)}
             </div>
           ) : (
             <>

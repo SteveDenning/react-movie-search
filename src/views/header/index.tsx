@@ -32,14 +32,13 @@ interface Props {
 }
 
 const Header: React.FC<Props> = ({ heading }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
   const [user, setUser] = useState<UserType>(JSON.parse(sessionStorage.getItem("user")));
 
   const navOptions = [
     { label: config.home.name, path: config.home.path, icon: <TheatersIcon /> },
     { label: config.aiMedia.name, path: config.aiMedia.path, icon: <AutoAwesomeIcon /> },
     { label: config.favorites.name, path: config.favorites.path, icon: <FavoriteIcon /> },
-    // { label: config.profile.name, path: config.profile.path },
   ];
 
   const handleLogin = () => {
@@ -57,13 +56,14 @@ const Header: React.FC<Props> = ({ heading }) => {
 
   const handleLogOut = () => {
     const accessToken = sessionStorage.getItem("access_token");
+
     if (accessToken) {
       deleteAccessToken(accessToken)
         .then((response: any) => {
           if (response.data["success"]) {
             sessionStorage.removeItem("access_token");
             sessionStorage.removeItem("request_token");
-            localStorage.removeItem("user");
+            sessionStorage.removeItem("user");
 
             setUser(null);
             window.location.href = "/";
@@ -116,7 +116,7 @@ const Header: React.FC<Props> = ({ heading }) => {
           const update = { ...response.data, account_id: accountId };
           setUser(update);
 
-          localStorage.setItem("user", JSON.stringify(update));
+          sessionStorage.setItem("user", JSON.stringify(update));
           sessionStorage.removeItem("account_id");
         }
       })
