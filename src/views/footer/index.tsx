@@ -20,22 +20,13 @@ const Footer = () => {
               rel="noreferrer"
             >
               TMDB{" "}
-            </a>{" "}
-            &
-            <a
-              href="https://platform.openai.com/docs/api-reference/introduction"
-              className="footer__list-link"
-              target="_blank"
-              rel="noreferrer"
-            >
-              OpenAI
             </a>
             <span>&nbsp; &</span>
             <a
               href="https://platform.openai.com/docs/api-reference/introduction"
               className="footer__list-link"
             >
-              OpenAI API
+              OpenAI
             </a>
           </li>
         </ul>

@@ -62,7 +62,6 @@ const Header: React.FC<Props> = ({ heading }) => {
         .then((response: any) => {
           if (response.data["success"]) {
             sessionStorage.removeItem("access_token");
-            sessionStorage.removeItem("request_token");
             sessionStorage.removeItem("user");
 
             setUser(null);
@@ -118,6 +117,7 @@ const Header: React.FC<Props> = ({ heading }) => {
 
           sessionStorage.setItem("user", JSON.stringify(update));
           sessionStorage.removeItem("account_id");
+          sessionStorage.removeItem("request_token");
         }
       })
       .catch((error) => console.error(error));
