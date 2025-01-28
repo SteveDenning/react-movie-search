@@ -26,14 +26,7 @@ export const getAccessToken = async (body: any): Promise<any> => {
   return response;
 };
 
-export const createSessionWithLogin = async (body: any): Promise<any> => {
-  const url = `${process.env.REACT_APP_TMDB_ROOT}/authentication/session/new`;
-  const response: AxiosResponse<any> = await axios.post(url, body, { ...headers, method: "POST" });
-
-  return response;
-};
-
-export const deleteSession = async (accessToken: string): Promise<any> => {
+export const deleteAccessToken = async (accessToken: string): Promise<any> => {
   const url = "https://api.themoviedb.org/4/auth/access_token";
   const response: AxiosResponse<any> = await axios.delete(url, {
     ...headers,
@@ -53,21 +46,7 @@ export const getAccountDetails = async (sessionId: string): Promise<any> => {
   return response;
 };
 
-export const getAccountDetailsV4 = async (accessToken: string): Promise<any> => {
-  const headers = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-  };
-  const url = "https://api.themoviedb.org/4/account";
-  const response: AxiosResponse<any> = await axios.get(url, { ...headers });
-
-  return response;
-};
-
-export const createSessionWithV4Token = async (body: any): Promise<any> => {
+export const createSessionWithAccessToken = async (body: any): Promise<any> => {
   const url = "https://api.themoviedb.org/3/authentication/session/convert/4";
   const response: AxiosResponse<any> = await axios.post(url, body, { ...headers, method: "POST" });
 

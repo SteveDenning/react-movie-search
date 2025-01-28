@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 
 // Utils
-import {
-  createSessionWithV4Token,
-  getRequestToken,
-  createSessionWithLogin,
-  deleteSession,
-  getAccountDetails,
-  getAccountDetailsV4,
-  getAccessToken,
-} from "../../services/user";
+import { createSessionWithAccessToken, deleteAccessToken, getRequestToken, getAccountDetails, getAccessToken } from "../../services/user";
 
 // Config
 import { config } from "../../config/routes";
@@ -44,8 +35,6 @@ const Header: React.FC<Props> = ({ heading }) => {
   const [open, setOpen] = useState(false);
   const [user, setUser] = useState<UserType>(JSON.parse(sessionStorage.getItem("user")));
 
-  const sessionId = sessionStorage.getItem("sessionId");
-
   const navOptions = [
     { label: config.home.name, path: config.home.path, icon: <TheatersIcon /> },
     { label: config.aiMedia.name, path: config.aiMedia.path, icon: <AutoAwesomeIcon /> },
@@ -53,7 +42,7 @@ const Header: React.FC<Props> = ({ heading }) => {
     // { label: config.profile.name, path: config.profile.path },
   ];
 
-  const handleGetRequestToken = () => {
+  const handleLogin = () => {
     getRequestToken()
       .then((response: any) => {
         const requestToken = response.data["request_token"];
@@ -66,69 +55,72 @@ const Header: React.FC<Props> = ({ heading }) => {
       .catch((error) => console.error(error));
   };
 
-  const getAccessTokenForSession = () => {
-    const requestToken = sessionStorage.getItem("request_token");
-
-    if (requestToken) {
-      getAccessToken({
-        request_token: requestToken,
-      })
-        .then((response: any) => {
-          console.log("Create Access Token", response);
-          const accessToken = response.data["access_token"];
-          const accountId = response.data["account_id"];
-          sessionStorage.setItem("access_token", accessToken);
-          sessionStorage.setItem("account_id", accountId);
-
-          if (accessToken) {
-            createSessionWithToken(accessToken);
-          }
-        })
-        .catch((error) => console.error(error));
-    }
-  };
-
-  const createSessionWithToken = (token: string) => {
-    const accessToken = sessionStorage.getItem("access_token");
-
-    if (accessToken) {
-      createSessionWithV4Token({
-        access_token: accessToken,
-      })
-        .then((response: any) => {
-          handleAccountDetails(response.data["session_id"]);
-        })
-        .catch((error) => console.error(error));
-    }
-  };
-
-  const handleAccountDetails = (sessionId: string) => {
-    getAccountDetails(sessionId)
-      .then((response: any) => {
-        if (response.data["username"]) {
-          setUser(response.data);
-          sessionStorage.setItem("user", JSON.stringify(response.data));
-        }
-      })
-      .catch((error) => console.error(error));
-  };
-
-  const handleDeleteSession = () => {
+  const handleLogOut = () => {
     const accessToken = sessionStorage.getItem("access_token");
     if (accessToken) {
-      deleteSession(accessToken)
+      deleteAccessToken(accessToken)
         .then((response: any) => {
           if (response.data["success"]) {
             sessionStorage.removeItem("access_token");
             sessionStorage.removeItem("request_token");
-            sessionStorage.removeItem("user");
-            sessionStorage.removeItem("account_id");
+            localStorage.removeItem("user");
+
             setUser(null);
             window.location.href = "/";
           }
         })
         .catch((error) => console.error(error));
     }
+  };
+
+  const getAccessTokenForSession = () => {
+    const requestToken = sessionStorage.getItem("request_token");
+
+    if (requestToken && !user) {
+      getAccessToken({
+        request_token: requestToken,
+      })
+        .then((response: any) => {
+          const accessToken = response.data["access_token"];
+          const accountId = response.data["account_id"];
+
+          sessionStorage.setItem("access_token", accessToken);
+          sessionStorage.setItem("account_id", accountId);
+
+          if (accessToken) {
+            createSession(accessToken);
+          }
+        })
+        .catch((error) => console.error(error));
+    }
+  };
+
+  const createSession = (accessToken: string) => {
+    if (accessToken) {
+      createSessionWithAccessToken({
+        access_token: accessToken,
+      })
+        .then((response: any) => {
+          handleGetAccountDetails(response.data["session_id"]);
+        })
+        .catch((error) => console.error(error));
+    }
+  };
+
+  const handleGetAccountDetails = (sessionId: string) => {
+    getAccountDetails(sessionId)
+      .then((response: any) => {
+        if (response.data["username"]) {
+          const accountId = sessionStorage.getItem("account_id");
+
+          const update = { ...response.data, account_id: accountId };
+          setUser(update);
+
+          localStorage.setItem("user", JSON.stringify(update));
+          sessionStorage.removeItem("account_id");
+        }
+      })
+      .catch((error) => console.error(error));
   };
 
   const toggleDrawer = (state: boolean) => {
@@ -208,7 +200,7 @@ const Header: React.FC<Props> = ({ heading }) => {
               <Button
                 variant="link"
                 onClick={() => {
-                  user ? handleDeleteSession() : handleGetRequestToken();
+                  user ? handleLogOut() : handleLogin();
                 }}
                 color="red"
               >
