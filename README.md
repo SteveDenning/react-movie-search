@@ -25,6 +25,8 @@ Open [Local Host](http://localhost:3000) to view it in the browser.
 
 # Storybook
 
+`npm run chromatic` - builds and deploys Storybook and give feedback on any new changes for review before final deployment to hosting
+
 [Storybook](storybook.sdenning.co.uk)
 
 # react-movie-search resources and links
