@@ -90,10 +90,10 @@ const Carousel: React.FC<Props> = ({
         autoPlaySpeed={autoPlaySpeed}
         infinite={infinite}
       >
-        {resources.map((item: any, i: number) => {
+        {resources.map((item: any, index: number) => {
           return (
             <div
-              key={i}
+              key={index}
               className="carousel__item"
             >
               {banner ? (

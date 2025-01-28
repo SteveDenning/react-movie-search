@@ -272,6 +272,7 @@ const AIMedia = () => {
           {selectedTab === "multi" ? (
             <div className="ai-media__selected-genres">
               <div className="ai-media__selected-genres-inner">
+                <p className="ai-media__selected-genres-message">Please choose at least three genres from the list</p>
                 <Select
                   id="genres"
                   label="Select genres"
@@ -324,10 +325,10 @@ const AIMedia = () => {
                     {response?.popular && <p>{response.popular.join(", ")}</p>}
                   </div>
                   <ul className="ai-media__list">
-                    {response?.media.map((item, i) => {
+                    {response?.media.map((item: any, index: number) => {
                       return (
                         <li
-                          key={i}
+                          key={index}
                           className="ai-media__list-item"
                         >
                           <Button

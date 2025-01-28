@@ -28,22 +28,22 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
 
   const user = JSON.parse(sessionStorage.getItem("user") || null);
   const params = new URLSearchParams(window.location.search);
-  const type = params.get("filterByType") || window.location.pathname.split("/")[2];
-  const isMulti = type === "multi";
-  const isPerson = type === "person";
+  const mediaType = params.get("filterByType") || window.location.pathname.split("/")[2];
+  const isMulti = mediaType === "multi";
+  const isPerson = mediaType === "person";
 
   const handleFavorite = (resource: any) => {
-    let type;
+    let mediaType;
     if (Object.prototype.hasOwnProperty.call(resource, "media_type")) {
-      type = resource.media_type;
+      mediaType = resource.media_type;
     } else if (Object.prototype.hasOwnProperty.call(resource, "name")) {
-      type = "tv";
+      mediaType = "tv";
     } else {
-      type = "movie";
+      mediaType = "movie";
     }
 
     const body = {
-      media_type: type,
+      media_type: mediaType,
       media_id: resource.id,
       favorite: !resource?.favorite,
     };
@@ -78,7 +78,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
   const updateResources = () => {
     if (user) {
       if (!isPerson && !isMulti) {
-        getFavoritesList(type);
+        getFavoritesList(mediaType);
       } else {
         setItems(resources);
       }
@@ -118,8 +118,8 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
             component="ul"
             columns={20}
           >
-            {items.map((item: any, i: number) => {
-              const path = item["media_type"] ? item["media_type"] : type;
+            {items.map((item: any, index: number) => {
+              const path = item["media_type"] ? item["media_type"] : mediaType;
 
               return (
                 <Grid
@@ -128,7 +128,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
                   xs={10}
                   sm={5}
                   lg={4}
-                  key={i}
+                  key={index}
                 >
                   <Card
                     resource={item}
@@ -142,13 +142,11 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
             })}
           </Grid>
           {count > 1 && (
-            <div className="resources__pagination">
-              <Pagination
-                count={count}
-                page={page}
-                onChangePage={handlePageChange}
-              />
-            </div>
+            <Pagination
+              count={count}
+              page={page}
+              onChangePage={handlePageChange}
+            />
           )}
         </div>
       </Fade>

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 
 // Utils
-import { getRequestToken, createSessionWithLogin, deleteSession, getAccountDetails } from "../../services/user";
+import { createSessionWithAccessToken, deleteAccessToken, getRequestToken, getAccountDetails, getAccessToken } from "../../services/user";
 
 // Config
 import { config } from "../../config/routes";
@@ -33,73 +32,39 @@ interface Props {
 }
 
 const Header: React.FC<Props> = ({ heading }) => {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
   const [user, setUser] = useState<UserType>(JSON.parse(sessionStorage.getItem("user")));
-  const [searchParams, setSearchParams] = useSearchParams(window.location.search);
-
-  const params = new URLSearchParams(searchParams);
-  const token = params.get("request_token");
-  const sessionId = sessionStorage.getItem("sessionId");
-  const environment = process.env.NODE_ENV;
-  const redirectTo = environment === "development" ? "http://localhost:3000/" : "https://sd-react-movie-search.web.app/";
 
   const navOptions = [
     { label: config.home.name, path: config.home.path, icon: <TheatersIcon /> },
     { label: config.aiMedia.name, path: config.aiMedia.path, icon: <AutoAwesomeIcon /> },
     { label: config.favorites.name, path: config.favorites.path, icon: <FavoriteIcon /> },
-    // { label: config.profile.name, path: config.profile.path },
   ];
 
-  const handleGetRequestToken = () => {
+  const handleLogin = () => {
     getRequestToken()
       .then((response: any) => {
         const requestToken = response.data["request_token"];
 
         if (requestToken) {
-          window.location.href = `https://www.themoviedb.org/authenticate/${requestToken}?redirect_to=${redirectTo}`;
+          sessionStorage.setItem("request_token", requestToken);
+          window.location.href = `https://www.themoviedb.org/auth/access?request_token=${requestToken}`;
         }
       })
       .catch((error) => console.error(error));
   };
 
-  const getSessionWithToken = () => {
-    const requestToken = params.get("request_token");
+  const handleLogOut = () => {
+    const accessToken = sessionStorage.getItem("access_token");
 
-    if (requestToken) {
-      createSessionWithLogin({
-        request_token: requestToken,
-      })
-        .then((response: any) => {
-          const sessionID = response.data["session_id"];
-
-          if (sessionID) {
-            setSearchParams({});
-            sessionStorage.setItem("sessionId", sessionID);
-            handleAccountDetails(sessionID);
-          }
-        })
-        .catch((error) => console.error(error));
-    }
-  };
-
-  const handleAccountDetails = (sessionId: string) => {
-    getAccountDetails(sessionId)
-      .then((response: any) => {
-        if (response.data["name"]) {
-          setUser(response.data);
-          sessionStorage.setItem("user", JSON.stringify(response.data));
-        }
-      })
-      .catch((error) => console.error(error));
-  };
-
-  const handleDeleteSession = () => {
-    if (sessionId) {
-      deleteSession(sessionId)
+    if (accessToken) {
+      deleteAccessToken(accessToken)
         .then((response: any) => {
           if (response.data["success"]) {
-            sessionStorage.removeItem("sessionId");
+            sessionStorage.removeItem("access_token");
+            sessionStorage.removeItem("request_token");
             sessionStorage.removeItem("user");
+
             setUser(null);
             window.location.href = "/";
           }
@@ -108,13 +73,63 @@ const Header: React.FC<Props> = ({ heading }) => {
     }
   };
 
+  const getAccessTokenForSession = () => {
+    const requestToken = sessionStorage.getItem("request_token");
+
+    if (requestToken && !user) {
+      getAccessToken({
+        request_token: requestToken,
+      })
+        .then((response: any) => {
+          const accessToken = response.data["access_token"];
+          const accountId = response.data["account_id"];
+
+          sessionStorage.setItem("access_token", accessToken);
+          sessionStorage.setItem("account_id", accountId);
+
+          if (accessToken) {
+            createSession(accessToken);
+          }
+        })
+        .catch((error) => console.error(error));
+    }
+  };
+
+  const createSession = (accessToken: string) => {
+    if (accessToken) {
+      createSessionWithAccessToken({
+        access_token: accessToken,
+      })
+        .then((response: any) => {
+          handleGetAccountDetails(response.data["session_id"]);
+        })
+        .catch((error) => console.error(error));
+    }
+  };
+
+  const handleGetAccountDetails = (sessionId: string) => {
+    getAccountDetails(sessionId)
+      .then((response: any) => {
+        if (response.data["username"]) {
+          const accountId = sessionStorage.getItem("account_id");
+
+          const update = { ...response.data, account_id: accountId };
+          setUser(update);
+
+          sessionStorage.setItem("user", JSON.stringify(update));
+          sessionStorage.removeItem("account_id");
+        }
+      })
+      .catch((error) => console.error(error));
+  };
+
   const toggleDrawer = (state: boolean) => {
     setOpen(state);
   };
 
   useEffect(() => {
-    getSessionWithToken();
-  }, [token]);
+    getAccessTokenForSession();
+  }, []);
 
   return (
     <header>
@@ -175,7 +190,7 @@ const Header: React.FC<Props> = ({ heading }) => {
                 <ClearIcon />
               </Button>
             </div>
-            {sessionId && (
+            {user && (
               <List
                 items={navOptions}
                 variant="link"
@@ -185,11 +200,11 @@ const Header: React.FC<Props> = ({ heading }) => {
               <Button
                 variant="link"
                 onClick={() => {
-                  sessionId ? handleDeleteSession() : handleGetRequestToken();
+                  user ? handleLogOut() : handleLogin();
                 }}
                 color="red"
               >
-                {sessionId ? "Log Out" : "Login"}
+                {user ? "Log Out" : "Login"}
               </Button>
             </div>
           </Box>

@@ -38,6 +38,7 @@ const DetailsView = () => {
   const programmeId = window.location.pathname.split("/")[3] as string;
   const type = window.location.pathname.split("/")[2];
   const backgroundImage = backDrop ? `url(${process.env.REACT_APP_TMDB_IMAGE_PATH}/${backDrop})` : "";
+
   const isMedia = type == "tv" || "movie";
   const isPerson = type == "person";
   const MediaCarouselLabel = isPerson ? "Known for" : "Top Cast";
@@ -184,8 +185,9 @@ const DetailsView = () => {
                         </h2>
                         {resource.birthday && (
                           <p>
-                            {moment(resource.deathday ? resource.deathday : undefined).diff(resource.birthday, "years")} years old
-                            {resource.deathday && <span> (Deceased)</span>}
+                            {resource.deathday
+                              ? `Died aged ${moment(resource.deathday).diff(resource.birthday, "years")}`
+                              : `${moment().diff(resource.birthday, "years")} years old`}
                           </p>
                         )}
                         {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
@@ -202,7 +204,7 @@ const DetailsView = () => {
                           <ul>
                             {resource.genres.map((genre: any) => (
                               <li
-                                className="genre-tag"
+                                className="details-view__genre-tag"
                                 key={genre.id + genre["name"]}
                               >
                                 {genre["name"]}
@@ -220,12 +222,12 @@ const DetailsView = () => {
                       {resource.networks?.length && (
                         <>
                           <ul>
-                            {resource.networks.map((network: any, i: number) => (
-                              <li key={network.id + i}>
+                            {resource.networks.map((network: any, index: number) => (
+                              <li key={network.id + index}>
                                 <img
-                                  src={`${process.env.REACT_APP_TMDB_ROOT}/t/p/original/${network["logo_path"]}`}
+                                  src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${network["logo_path"]}`}
                                   alt=""
-                                  style={{ width: "100px", background: "#ccc", padding: "10px", marginRight: "10px", borderRadius: "10px" }}
+                                  className="details-view__network"
                                 />
                               </li>
                             ))}

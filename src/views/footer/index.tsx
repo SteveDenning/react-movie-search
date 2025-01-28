@@ -30,6 +30,13 @@ const Footer = () => {
             >
               OpenAI
             </a>
+            <span>&nbsp; &</span>
+            <a
+              href="https://platform.openai.com/docs/api-reference/introduction"
+              className="footer__list-link"
+            >
+              OpenAI API
+            </a>
           </li>
         </ul>
       </div>
