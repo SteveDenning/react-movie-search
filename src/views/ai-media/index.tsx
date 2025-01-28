@@ -250,12 +250,14 @@ const AIMedia: React.FC<Props> = () => {
                   !generating && renderGenerateButton(false)
                 ) : (
                   <p className="ai-media__warning-message fade-in">
-                    No favorite {mediaLabel}? Guess you&#39;re just winging it. Add at least one from{" "}
+                    No favorite {mediaType}? Guess you&#39;re just winging it. Add at least one from{" "}
                     <Button
                       variant="link"
-                      onClick={() => (window.location.href = `/media-listing/${mediaType}/popular?page=1`)}
+                      onClick={() =>
+                        (window.location.href = `/media-listing/${mediaType === "movies" ? pluralize.singular(mediaType) : mediaType}/popular?page=1`)
+                      }
                     >
-                      {mediaLabel}
+                      <span style={{ textTransform: "capitalize" }}> {mediaType === "movie" ? pluralize(mediaType) : mediaType + " shows"}</span>
                     </Button>{" "}
                     to unlock this feature!
                   </p>
