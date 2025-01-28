@@ -272,7 +272,6 @@ const AIMedia = () => {
           {selectedTab === "multi" ? (
             <div className="ai-media__selected-genres">
               <div className="ai-media__selected-genres-inner">
-                <p className="ai-media__selected-genres-message">Please choose at least three genres from the list</p>
                 <Select
                   id="genres"
                   label="Select genres"
@@ -285,7 +284,7 @@ const AIMedia = () => {
                 />
               </div>
 
-              {selectedGenres?.length > 1 ? renderGenerateButton(!selectedGenres?.length) : <p className="fade-in">Select two or more genres</p>}
+              {selectedGenres?.length > 2 ? renderGenerateButton(false) : <p className="fade-in">Select three or more genres</p>}
             </div>
           ) : (
             <>
