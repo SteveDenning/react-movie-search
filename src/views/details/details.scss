@@ -53,6 +53,25 @@
     }
   }
 
+  &__genre-tag {
+    span {
+      color: $primary-color;
+      margin: 0 10px;
+    }
+    &:last-child {
+      span {
+        display: none;
+      }
+    }
+  }
+
+  &__network {
+    background-color: rgba($color: $white, $alpha: 0.2);
+    border-radius: 0 10px;
+    padding: 10px;
+    width: 100px;
+  }
+
   &__profile {
     > div {
       width: 100%;
@@ -93,16 +112,5 @@
   ul {
     display: flex;
     list-style: none;
-  }
-
-  .genre-tag {
-    span {
-      margin: 0 10px;
-    }
-    &:last-child {
-      span {
-        display: none;
-      }
-    }
   }
 }

@@ -228,6 +228,7 @@ const AIMedia: React.FC<Props> = () => {
           {selectedTab === "select" ? (
             <div className="ai-media__selected-genres">
               <div className="ai-media__selected-genres-inner">
+                <p className="ai-media__selected-genres-message">Please choose at least three genres from the list</p>
                 <Select
                   id="genres"
                   label="Select genres"
@@ -239,7 +240,7 @@ const AIMedia: React.FC<Props> = () => {
                   animated
                 />
               </div>
-              {renderGenerateButton(!selectedGenres?.length)}
+              {renderGenerateButton(selectedGenres?.length < 3 || !selectedGenres?.length)}
             </div>
           ) : (
             <>
@@ -271,10 +272,10 @@ const AIMedia: React.FC<Props> = () => {
               <Fade in={!!response?.media.length}>
                 <div>
                   <ul className="ai-media__list">
-                    {response?.media.map((item, i) => {
+                    {response?.media.map((item: any, index: number) => {
                       return (
                         <li
-                          key={i}
+                          key={index}
                           className="ai-media__list-item"
                         >
                           <Button
