@@ -38,6 +38,7 @@ const DetailsView = () => {
   const programmeId = window.location.pathname.split("/")[3] as string;
   const type = window.location.pathname.split("/")[2];
   const backgroundImage = backDrop ? `url(${process.env.REACT_APP_TMDB_IMAGE_PATH}/${backDrop})` : "";
+
   const isMedia = type == "tv" || "movie";
   const isPerson = type == "person";
   const MediaCarouselLabel = isPerson ? "Known for" : "Top Cast";
@@ -203,7 +204,7 @@ const DetailsView = () => {
                           <ul>
                             {resource.genres.map((genre: any) => (
                               <li
-                                className="genre-tag"
+                                className="details-view__genre-tag"
                                 key={genre.id + genre["name"]}
                               >
                                 {genre["name"]}
@@ -226,7 +227,7 @@ const DetailsView = () => {
                                 <img
                                   src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${network["logo_path"]}`}
                                   alt=""
-                                  style={{ width: "100px", background: "#ccc", padding: "10px", marginRight: "10px", borderRadius: "10px" }}
+                                  className="details-view__network"
                                 />
                               </li>
                             ))}
