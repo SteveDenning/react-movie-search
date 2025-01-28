@@ -118,7 +118,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
             component="ul"
             columns={20}
           >
-            {items.map((item: any, i: number) => {
+            {items.map((item: any, index: number) => {
               const path = item["media_type"] ? item["media_type"] : mediaType;
 
               return (
@@ -128,7 +128,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
                   xs={10}
                   sm={5}
                   lg={4}
-                  key={i}
+                  key={index}
                 >
                   <Card
                     resource={item}

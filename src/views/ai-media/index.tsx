@@ -272,10 +272,10 @@ const AIMedia: React.FC<Props> = () => {
               <Fade in={!!response?.media.length}>
                 <div>
                   <ul className="ai-media__list">
-                    {response?.media.map((item, i) => {
+                    {response?.media.map((item: any, index: number) => {
                       return (
                         <li
-                          key={i}
+                          key={index}
                           className="ai-media__list-item"
                         >
                           <Button

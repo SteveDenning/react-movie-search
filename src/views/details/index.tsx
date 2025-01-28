@@ -221,10 +221,10 @@ const DetailsView = () => {
                       {resource.networks?.length && (
                         <>
                           <ul>
-                            {resource.networks.map((network: any, i: number) => (
-                              <li key={network.id + i}>
+                            {resource.networks.map((network: any, index: number) => (
+                              <li key={network.id + index}>
                                 <img
-                                  src={`${process.env.REACT_APP_TMDB_ROOT}/t/p/original/${network["logo_path"]}`}
+                                  src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${network["logo_path"]}`}
                                   alt=""
                                   style={{ width: "100px", background: "#ccc", padding: "10px", marginRight: "10px", borderRadius: "10px" }}
                                 />
