@@ -67,7 +67,7 @@ const AIMedia = () => {
 
   const definedType = handleMediaTypeLabel();
 
-  const prompt = `Create a JSON list of 30 ${definedType.label}, each featuring at least two genres from ${genres}. If there are more than three popular genres, ensure the results include at least two of the top three most frequent genres. Prioritize the top three genres based on their frequency and order the ${definedType.label} by genre popularity. Return a JSON object with a popular key listing the top genres and a media array containing objects with a name key for each ${definedType.label} title. Ensure the ${definedType.label} are relatively popular and diverse.`;
+  const prompt = `Create a JSON list of 30 ${definedType.label}, each featuring at least two genres from these genres: ${genres}. If there are more than three popular genres, ensure the results include at least two of the top three most frequent genres. Prioritize the top three genres based on their frequency and order the ${definedType.label} by genre popularity. Return a JSON object with a popular key listing the top genres and a media array containing objects with a name key for each ${definedType.label} title. Ensure the ${definedType.label} are relatively popular and diverse.`;
 
   const isJSONFormat = (obj: any) => {
     try {

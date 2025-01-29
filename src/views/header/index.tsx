@@ -111,8 +111,9 @@ const Header: React.FC<Props> = ({ heading }) => {
       .then((response: any) => {
         if (response.data["username"]) {
           const accountId = sessionStorage.getItem("account_id");
+          const accessToken = sessionStorage.getItem("access_token");
 
-          const update = { ...response.data, account_id: accountId };
+          const update = { ...response.data, account_id: accountId, access_token: accessToken };
           setUser(update);
 
           sessionStorage.setItem("user", JSON.stringify(update));

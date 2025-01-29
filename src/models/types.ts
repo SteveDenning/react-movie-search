@@ -16,6 +16,7 @@ export type GenreOptionsType = {
 };
 
 export type UserType = {
+  access_token: string;
   avatar: {
     tmdb: {
       avatar_path: string;
