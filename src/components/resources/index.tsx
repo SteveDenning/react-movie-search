@@ -48,7 +48,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
       favorite: !resource?.favorite,
     };
 
-    updateFavorite(user.id, body)
+    updateFavorite(user.account_id, body)
       .then()
       .catch((error) => {
         console.error(error);
@@ -57,7 +57,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
 
   const getFavoritesList = (type?) => {
     setItems([]);
-    getFavorites(user.id, type)
+    getFavorites(user.account_id, type)
       .then((response) => {
         setFavorites(response.data.results);
       })

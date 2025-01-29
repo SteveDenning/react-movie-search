@@ -26,6 +26,8 @@ const SearchResults = () => {
   const type = params.get("filterByType") || "multi";
   const query = params.get("query") || null;
 
+  const resultsType = type === "multi" ? "results" : type === "movie" ? "Films" : type === "tv" ? "TV Shows" : "Actors";
+
   const handleGetResults = () => {
     if (query) {
       setLoading(true);
@@ -71,7 +73,7 @@ const SearchResults = () => {
       <Container>
         {query && resources?.length && (
           <h2 className="search-results__header">
-            Displaying <span>{totalResults} </span> results for: <span>{query} </span>
+            Displaying <span>{totalResults} </span> {resultsType} for: <span>{query} </span>
           </h2>
         )}
         {resources?.length ? (

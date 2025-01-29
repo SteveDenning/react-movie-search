@@ -16,15 +16,17 @@ const Footer = () => {
             <a
               href="https://developer.themoviedb.org/docs/getting-started"
               className="footer__list-link"
+              target="_blank"
+              rel="noreferrer"
             >
-              TMDB
+              TMDB{" "}
             </a>
             <span>&nbsp; &</span>
             <a
               href="https://platform.openai.com/docs/api-reference/introduction"
               className="footer__list-link"
             >
-              OpenAI API
+              OpenAI
             </a>
           </li>
         </ul>

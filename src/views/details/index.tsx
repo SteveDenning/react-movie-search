@@ -94,7 +94,7 @@ const DetailsView = () => {
 
   const getFavoritesList = () => {
     if (user && !isPerson) {
-      getFavorites(user.id, type)
+      getFavorites(user.account_id, type)
         .then((response) => {
           const favorites = response?.data.results;
           const isFavorite = !!favorites.find((favorite) => favorite.id == programmeId);
@@ -114,7 +114,7 @@ const DetailsView = () => {
       favorite: !isFavorite,
     };
 
-    updateFavorite(user.id, body)
+    updateFavorite(user.account_id, body)
       .then(() => {
         getFavoritesList();
       })

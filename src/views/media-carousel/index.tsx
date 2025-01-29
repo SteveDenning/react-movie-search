@@ -68,7 +68,7 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
       favorite: !resource?.favorite,
     };
 
-    updateFavorite(user.id, body)
+    updateFavorite(user.account_id, body)
       .then()
       .catch((error) => {
         console.error(error);
@@ -76,7 +76,7 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
   };
 
   const getFavoritesList = () => {
-    getFavorites(user.id, media)
+    getFavorites(user.account_id, media)
       .then((response) => {
         setFavorites(response.data.results);
       })

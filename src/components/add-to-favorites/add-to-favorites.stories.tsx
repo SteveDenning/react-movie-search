@@ -48,7 +48,7 @@ Default.loaders = [
     window.sessionStorage.setItem(
       "user",
       JSON.stringify({
-        id: 21576164,
+        id: 100,
         username: "SteveD1972",
       }),
     );

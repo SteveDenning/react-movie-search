@@ -28,7 +28,7 @@ const Favorites: React.FC<Props> = () => {
 
   const getFavoritesList = (type: string) => {
     if (user) {
-      getFavorites(user.id, type)
+      getFavorites(user.account_id, type)
         .then((response) => {
           if (type === "movies") {
             setFavoriteMovies(response.data.results);
@@ -49,7 +49,7 @@ const Favorites: React.FC<Props> = () => {
       favorite: false,
     };
 
-    updateFavorite(user.id, body)
+    updateFavorite(user.account_id, body)
       .then(() => {
         getFavoritesList(type);
       })

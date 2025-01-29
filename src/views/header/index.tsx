@@ -62,7 +62,6 @@ const Header: React.FC<Props> = ({ heading }) => {
         .then((response: any) => {
           if (response.data["success"]) {
             sessionStorage.removeItem("access_token");
-            sessionStorage.removeItem("request_token");
             sessionStorage.removeItem("user");
 
             setUser(null);
@@ -101,7 +100,9 @@ const Header: React.FC<Props> = ({ heading }) => {
         access_token: accessToken,
       })
         .then((response: any) => {
-          handleGetAccountDetails(response.data["session_id"]);
+          const sessionId = response.data["session_id"];
+          sessionStorage.setItem("session_id", sessionId);
+          handleGetAccountDetails(sessionId);
         })
         .catch((error) => console.error(error));
     }
@@ -112,12 +113,14 @@ const Header: React.FC<Props> = ({ heading }) => {
       .then((response: any) => {
         if (response.data["username"]) {
           const accountId = sessionStorage.getItem("account_id");
+          const accessToken = sessionStorage.getItem("access_token");
 
-          const update = { ...response.data, account_id: accountId };
+          const update = { ...response.data, account_id: accountId, access_token: accessToken };
           setUser(update);
 
           sessionStorage.setItem("user", JSON.stringify(update));
           sessionStorage.removeItem("account_id");
+          sessionStorage.removeItem("request_token");
         }
       })
       .catch((error) => console.error(error));
