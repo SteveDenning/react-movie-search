@@ -100,7 +100,9 @@ const Header: React.FC<Props> = ({ heading }) => {
         access_token: accessToken,
       })
         .then((response: any) => {
-          handleGetAccountDetails(response.data["session_id"]);
+          const sessionId = response.data["session_id"];
+          sessionStorage.setItem("session_id", sessionId);
+          handleGetAccountDetails(sessionId);
         })
         .catch((error) => console.error(error));
     }

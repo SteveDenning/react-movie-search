@@ -54,10 +54,10 @@ const AIMedia = () => {
   }
 
   // TODO rewrite this
-  const handleMediaTypeLabel = () => {
+  const handleMediaTypeObj = () => {
     switch (mediaType) {
       case "multi":
-        return { label: "Movies or TV shows", description: "Let AI discover a list of Movies and TV Shows based on selected genres" };
+        return { label: "Movies or TV shows", description: "Let AI discover a list of Movies and TV Shows based on selected genres", prompt: "" };
       case "tv":
         return { label: "TV Shows", description: "Let AI discover a list of TV Shows based on the most popular genres from your favourites" };
       default:
@@ -65,9 +65,9 @@ const AIMedia = () => {
     }
   };
 
-  const definedType = handleMediaTypeLabel();
+  const definedType = handleMediaTypeObj();
 
-  const prompt = `Create a JSON list of 30 ${definedType.label}, each featuring at least two genres from these genres: ${genres}. If there are more than three popular genres, ensure the results include at least two of the top three most frequent genres. Prioritize the top three genres based on their frequency and order the ${definedType.label} by genre popularity. Return a JSON object with a popular key listing the top genres and a media array containing objects with a name key for each ${definedType.label} title. Ensure the ${definedType.label} are relatively popular and diverse.`;
+  const prompt = `Create a JSON list of 30 ${definedType.label}, each item must have at least one of the following genres: ${genres}. If there are more than three popular genres, ensure the results include at least two of the top three most frequent genres. Prioritize the top three genres based on their frequency and order the ${definedType.label} by genre popularity. Return a JSON object with a popular key listing the top genres and a media array containing objects with a name key for each ${definedType.label} title. Ensure the ${definedType.label} are relatively popular and diverse.`;
 
   const isJSONFormat = (obj: any) => {
     try {
@@ -186,7 +186,7 @@ const AIMedia = () => {
 
   const getFavoritesList = (type: string, genres: GenreType[]) => {
     if (user) {
-      getFavorites(user.id, type)
+      getFavorites(user.account_id, type)
         .then((response) => {
           const allIds = response.data.results.flatMap((item) => item.genre_ids);
 
@@ -289,8 +289,12 @@ const AIMedia = () => {
           ) : (
             <>
               <div className="ai-media__genres">
-                <h3>Your collective genres</h3>
-                {mediaLabel !== "Movies or TV shows" && <p>{[...new Set(genres?.split(" "))].join(" ")}</p>}
+                {mediaLabel !== "Movies or TV shows" && !!genres.length && (
+                  <>
+                    <h3>Your collective genres</h3>
+                    <p>{[...new Set(genres?.split(" "))].join(" ")}</p>
+                  </>
+                )}
               </div>
 
               <div className="ai-media__generate-action">
