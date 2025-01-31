@@ -84,7 +84,10 @@ const DetailsView: React.FC<Props> = ({ mediaTitle }) => {
       setLoading(true);
       getVideos(id, type)
         .then((response: any) => {
-          setVideoKey(response.data.results[0]?.key);
+          const trailers = response.data.results.filter((video: any) => video.type === "Trailer");
+
+          trailers.length !== 0 ? setVideoKey(trailers[0]?.key) : setVideoKey(response.data.results[0]?.key);
+
           setLoading(false);
         })
         .catch((error) => {
