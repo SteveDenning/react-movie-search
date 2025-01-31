@@ -7,8 +7,14 @@ import DefaultLayout from "../layout/default";
 import SearchResults from "../views/search-results";
 
 const SearchResultsPage = () => {
+  const heading = "Search Results";
+  const pageDescription = "View a list of results based on your search criteria. Find films, TV shows, and actors that match your query!";
+
   return (
-    <DefaultLayout heading="Search Results">
+    <DefaultLayout
+      heading={heading}
+      pageDescription={pageDescription}
+    >
       <SearchResults />
     </DefaultLayout>
   );

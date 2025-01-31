@@ -9,17 +9,21 @@ import "./default.scss";
 // Views
 import Footer from "../../views/footer";
 import Header from "../../views/header";
+import Seo from "../../components/seo";
 
 interface Props {
   children: React.ReactNode;
   heading: string;
-  hasSearch?: boolean;
+  pageDescription?: string;
 }
 
-const DefaultLayout: React.FC<Props> = ({ children, heading }) => {
+const DefaultLayout: React.FC<Props> = ({ children, heading, pageDescription }) => {
   return (
     <MUILayout>
-      {/* SEO goes here */}
+      <Seo
+        title={heading}
+        description={pageDescription}
+      />
       <Header heading={heading} />
       <main className="main-wrapper fade-in">{children}</main>
       <Footer />
