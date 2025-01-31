@@ -23,7 +23,11 @@ import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 // Styles
 import "./details.scss";
 
-const DetailsView = () => {
+interface Props {
+  mediaTitle: (title: string) => void;
+}
+
+const DetailsView: React.FC<Props> = ({ mediaTitle }) => {
   const [backDrop, setBackDrop] = useState<string>("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -62,6 +66,7 @@ const DetailsView = () => {
       getMediaByID(programmeId, type)
         .then((response: any) => {
           setResource(response.data);
+          mediaTitle(response.data.name || response.data.title);
           setBackDrop(response.data?.backdrop_path);
           getFavoritesList();
           fetchVideos(programmeId, type);

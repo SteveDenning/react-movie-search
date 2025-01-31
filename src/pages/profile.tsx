@@ -7,10 +7,13 @@ import DefaultLayout from "../layout/default";
 import Profile from "../views/profile";
 
 const ProfilePage = () => {
+  const title = "Profile Page";
+  const pageDescription = "";
+
   return (
     <DefaultLayout
-      hasSearch
-      heading="Profile"
+      title={title}
+      pageDescription={pageDescription}
     >
       <Profile />
     </DefaultLayout>

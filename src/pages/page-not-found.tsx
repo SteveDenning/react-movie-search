@@ -10,8 +10,14 @@ import Button from "../components/button";
 import backgroundImage from "../assets/images/404.png";
 
 const PageNotFound = () => {
+  const title = "404 - Page not found";
+  const pageDescription = "404 Not Found - The page you are looking for does not exist. Return home or explore other content.";
+
   return (
-    <DefaultLayout heading="404 - Page not found">
+    <DefaultLayout
+      title={title}
+      pageDescription={pageDescription}
+    >
       <div
         data-testid="page-not-found"
         className="page-not-found"

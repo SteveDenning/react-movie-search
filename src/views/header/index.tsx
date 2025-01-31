@@ -153,13 +153,7 @@ const Header: React.FC<Props> = ({ heading }) => {
             <TheatersIcon />
           </Button>
           <div className="header__inner">
-            <Typography
-              className="sr-only"
-              variant="h1"
-              sx={{ fontSize: 24, fontWeight: "200" }}
-            >
-              {heading}
-            </Typography>
+            <h1 className="sr-only">{heading}</h1>
             <Search />
           </div>
           <Login
