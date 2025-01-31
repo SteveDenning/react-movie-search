@@ -7,8 +7,14 @@ import DefaultLayout from "../layout/default";
 import Favorites from "../views/favorites";
 
 const FavoritesPage = () => {
+  const title = "Favourites";
+  const pageDescription = "View your favorites list of saved TV shows, films, and actors. Easily access and manage your top picks!";
+
   return (
-    <DefaultLayout heading="Favorites">
+    <DefaultLayout
+      title={title}
+      pageDescription={pageDescription}
+    >
       <Favorites />
     </DefaultLayout>
   );
