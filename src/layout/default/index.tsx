@@ -13,18 +13,18 @@ import Seo from "../../components/seo";
 
 interface Props {
   children: React.ReactNode;
-  heading: string;
+  title: string;
   pageDescription?: string;
 }
 
-const DefaultLayout: React.FC<Props> = ({ children, heading, pageDescription }) => {
+const DefaultLayout: React.FC<Props> = ({ children, title, pageDescription }) => {
   return (
     <MUILayout>
       <Seo
-        title={heading}
+        title={title}
         description={pageDescription}
       />
-      <Header heading={heading} />
+      <Header heading={title} />
       <main className="main-wrapper fade-in">{children}</main>
       <Footer />
     </MUILayout>

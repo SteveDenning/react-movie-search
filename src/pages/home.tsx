@@ -12,7 +12,7 @@ import { Container } from "@mui/material";
 
 const HomePage = () => {
   const user = JSON.parse(sessionStorage.getItem("user") || null);
-  const heading = "React Movie Search | Home";
+  const title = "React Movie Search | Home";
   const pageDescription = "Home page of the React Movie App. Search for films, TV shows, and actors to discover new favorites!";
 
   const personOptions = {
@@ -28,7 +28,7 @@ const HomePage = () => {
 
   return (
     <DefaultLayout
-      heading={heading}
+      title={title}
       pageDescription={pageDescription}
     >
       <BannerCarousel

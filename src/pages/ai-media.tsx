@@ -7,12 +7,12 @@ import DefaultLayout from "../layout/default";
 import AIMedia from "../views/ai-media";
 
 const AIMediaPage = () => {
-  const heading = "AI Media";
+  const title = "AI Media";
   const pageDescription = "Explore the possibilities of AI-powered discovery for films and TV shows. Let AI find your next favorite watch!";
 
   return (
     <DefaultLayout
-      heading={heading}
+      title={title}
       pageDescription={pageDescription}
     >
       <AIMedia />

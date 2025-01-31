@@ -15,7 +15,7 @@ const DetailsPage = () => {
 
   return (
     <DefaultLayout
-      heading={title}
+      title={title}
       pageDescription={pageDescription}
     >
       <Details mediaTitle={mediaTitle} />

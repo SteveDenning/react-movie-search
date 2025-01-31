@@ -7,12 +7,12 @@ import DefaultLayout from "../layout/default";
 import Profile from "../views/profile";
 
 const ProfilePage = () => {
-  const heading = "Profile Page";
+  const title = "Profile Page";
   const pageDescription = "";
 
   return (
     <DefaultLayout
-      heading={heading}
+      title={title}
       pageDescription={pageDescription}
     >
       <Profile />
