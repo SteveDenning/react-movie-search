@@ -6,16 +6,13 @@ import { getFavorites } from "../../services/favorites";
 import { getMedia } from "../../services/media";
 
 // Components
-import Button from "../../components/button";
 import Carousel from "../../components/carousel";
+import SectionHeading from "../../components/section-heading";
 
 // MUI
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Fade } from "@mui/material";
-
-// Icons
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 // Styles
 import "./media-carousel.scss";
@@ -121,26 +118,11 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
             data-testid="media-carousel"
             className="media-carousel"
           >
-            <div
-              className="media-carousel__header"
-              data-testid="media-carousel-header"
-            >
-              <h2
-                className="text-glow"
-                data-testid="media-carousel-label"
-              >
-                {label}
-              </h2>
-              {buttonText && (
-                <Button
-                  onClick={() => (window.location.href = `/media-listing/${pathName}?page=1`)}
-                  variant="heading"
-                >
-                  <span className="media-carousel__link-text text-glow">{buttonText}</span>
-                  <ArrowForwardIosIcon />
-                </Button>
-              )}
-            </div>
+            <SectionHeading
+              text={label}
+              buttonText={buttonText}
+              mediaType={pathName}
+            />
             <Carousel
               media={media}
               resources={items}

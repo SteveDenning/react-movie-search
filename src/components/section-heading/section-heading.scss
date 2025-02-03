@@ -1,0 +1,26 @@
+@import "../../styles/dependencies";
+
+// Section title styles
+
+.section-heading {
+  display: flex;
+  background: rgba($color: $black, $alpha: 0.7);
+  border-radius: 0 20px;
+  margin-bottom: 10px;
+  padding: 10px;
+  position: relative;
+
+  &__header {
+    padding: 0 10px;
+  }
+
+  .button {
+    margin-left: auto;
+    font-size: 24px;
+    color: $primary-color;
+  }
+
+  @include breakpoint($large) {
+    padding: 10px 20px;
+  }
+}

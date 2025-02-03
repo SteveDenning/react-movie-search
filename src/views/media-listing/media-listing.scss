@@ -4,11 +4,4 @@
 .media-listing {
   display: flex;
   margin: 20px 0;
-
-  &__header {
-    background-color: rgba($color: $black, $alpha: 0.2);
-    border-radius: 0 20px;
-    padding: 20px;
-    text-transform: capitalize;
-  }
 }
