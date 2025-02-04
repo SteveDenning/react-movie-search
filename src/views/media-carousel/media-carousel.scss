@@ -2,33 +2,5 @@
 
 // Media Carousel styles
 .media-carousel {
-  position: relative;
   margin-bottom: 40px;
-
-  &__header {
-    background: rgba($color: $black, $alpha: 0.7);
-    border-radius: 0 20px;
-    display: flex;
-    margin-bottom: 10px;
-    padding: 10px;
-    width: calc(100% - 15px);
-
-    .button {
-      margin-left: auto;
-      font-size: 24px;
-      color: $primary-color;
-    }
-
-    @include breakpoint($large) {
-      padding: 10px 20px;
-    }
-  }
-
-  &__link-text {
-    display: none;
-
-    @include breakpoint($medium) {
-      display: flex;
-    }
-  }
 }

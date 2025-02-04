@@ -21,7 +21,7 @@ const AILoader = () => <Template />;
 
 export const Default: Story = {
   render: () => (
-    <Container>
+    <Container style={{ minHeight: "30vh" }}>
       <AILoader />
     </Container>
   ),

@@ -16,7 +16,7 @@ import Login from "../../views/login";
 import Search from "../../views/search";
 
 // MUI
-import { Box, Container, Drawer, Typography } from "@mui/material";
+import { Box, Container, Drawer } from "@mui/material";
 
 // MUI Icons
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";

@@ -4,8 +4,12 @@ import { useSearchParams } from "react-router-dom";
 // Services
 import { getMedia } from "../../services/media";
 
+// Utils
+import { MOVIES_TITLE, TV_SHOWS_TITLE, ACTORS_TITLE, MEDIA_TITLE } from "../../utils/constants";
+
 // Components
 import Resources from "../../components/resources";
+import SectionHeading from "../../components/section-heading";
 
 // MUI
 import { Container } from "@mui/material";
@@ -15,13 +19,31 @@ import "./media-listing.scss";
 
 const MediaListing = () => {
   const [loading, setLoading] = useState<boolean>(true);
+  const [heading, setHeading] = useState<string>("");
   const [resources, setResources] = useState<any>([]);
   const [page, setPage] = useState<number>(1);
   const [count, setCount] = useState<number>(0);
   const [searchParams, setSearchParams] = useSearchParams();
 
   const params = new URLSearchParams(searchParams);
-  const request = `${window.location.pathname.split("/")[2]}/${window.location.pathname.split("/")[3]}${location.search}`;
+  const mediaType = window.location.pathname.split("/")[2];
+  const request = `${mediaType}/${window.location.pathname.split("/")[3]}${location.search}`;
+
+  const handlePageTitle = () => {
+    switch (mediaType) {
+      case "movie":
+        setHeading(MOVIES_TITLE);
+        break;
+      case "tv":
+        setHeading(TV_SHOWS_TITLE);
+        break;
+      case "people":
+        setHeading(ACTORS_TITLE);
+        break;
+      default:
+        setHeading(MEDIA_TITLE);
+    }
+  };
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -40,6 +62,7 @@ const MediaListing = () => {
         .then((response: any) => {
           setResources(response.data.results);
           setCount(Math.ceil(response.data["total_pages"]));
+          handlePageTitle();
           setLoading(false);
         })
         .catch((error) => {
@@ -64,8 +87,7 @@ const MediaListing = () => {
       data-testid="media-listing"
     >
       <Container>
-        {/* TODO - update to more descriptive text */}
-        <h2 className="media-listing__header">{window.location.pathname.split("/")[2]}</h2>
+        <SectionHeading text={heading} />
         <Resources
           resources={resources}
           page={page}

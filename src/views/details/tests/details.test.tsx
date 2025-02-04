@@ -21,6 +21,8 @@ describe("Details Page component", () => {
   });
   describe("Component rendering (Person)", () => {
     it("Should render details page", async () => {
+      const handleMediaTitle = jest.fn();
+
       delete window.location;
       // @ts-ignore
       window.location = { pathname: "http://localhost:3000/details/person/738" };
@@ -30,7 +32,7 @@ describe("Details Page component", () => {
 
       render(
         <MemoryRouter>
-          <DetailsView />
+          <DetailsView handleMediaTitle={handleMediaTitle} />
         </MemoryRouter>,
       );
 

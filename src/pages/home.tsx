@@ -54,13 +54,13 @@ const HomePage = () => {
         )}
         <MediaCarousel
           buttonText="View all"
-          label="Movie Releases"
+          label="Movies"
           pathName="movie/popular"
           media="movie"
         />
         <MediaCarousel
           buttonText="View all"
-          label="TV releases"
+          label="TV Shows"
           pathName="tv/popular"
           media="tv"
         />
