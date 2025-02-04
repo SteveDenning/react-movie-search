@@ -42,6 +42,7 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
           className="card__content"
           onClick={onClick}
           data-testid="card-content"
+          tabIndex={0}
         >
           <h3
             className="card__title"

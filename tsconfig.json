@@ -1,5 +1,5 @@
 {
-  "include": ["./src/**/*", "./custom.d.ts"],
+  "include": ["./src/**/*", "./custom.d.ts", "_stories/footer.stories.tsx"],
   "compilerOptions": {
     "target": "es6",
     "module": "CommonJS",

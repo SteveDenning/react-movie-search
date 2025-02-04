@@ -22,7 +22,7 @@ const SectionHeading: React.FC<Props> = ({ text, buttonLink, buttonText }) => {
       data-testid="section-heading"
     >
       <h2 className="section-heading__header text-glow">{text}</h2>
-      {buttonLink && (
+      {buttonText && (
         <Button
           onClick={() => (window.location.href = buttonLink)}
           variant="heading"
