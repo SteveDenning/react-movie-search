@@ -12,10 +12,6 @@ jobs:
       - node/install-packages:
           pkg-manager: npm
       - run:
-          name: App configuration
-          command: |
-            cp .env.circle .env
-      - run:
           name: Run tests
           command: npm run test:circle
       - run:
@@ -33,7 +29,10 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: npm
-
+      - run:
+          name: App configuration
+          command: |
+            cp .env.circle .env
       - run:
           name: Run tests
           command: npm run test:circle
