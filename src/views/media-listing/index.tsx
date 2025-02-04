@@ -30,21 +30,19 @@ const MediaListing = () => {
   const request = `${mediaType}/${window.location.pathname.split("/")[3]}${location.search}`;
 
   const handlePageTitle = () => {
-    let title = null;
     switch (mediaType) {
       case "movie":
-        title = setHeading(MOVIES_TITLE);
+        setHeading(MOVIES_TITLE);
         break;
       case "tv":
-        title = setHeading(TV_SHOWS_TITLE);
+        setHeading(TV_SHOWS_TITLE);
         break;
       case "people":
-        title = setHeading(ACTORS_TITLE);
+        setHeading(ACTORS_TITLE);
         break;
       default:
-        title = setHeading(MEDIA_TITLE);
+        setHeading(MEDIA_TITLE);
     }
-    return title;
   };
 
   const handlePageChange = (event, value) => {

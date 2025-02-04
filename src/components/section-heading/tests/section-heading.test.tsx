@@ -9,7 +9,7 @@ describe("Section Title component", () => {
   describe("Component rendering", () => {
     beforeEach(() => render(<SectionTitle text="Heading One" />));
 
-    it("Should render a template", () => {
+    it("Should render a section heading", () => {
       expect(screen.getByTestId("section-heading")).toBeInTheDocument();
     });
 
