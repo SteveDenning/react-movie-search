@@ -8,7 +8,7 @@ import Template from "./index";
 import { Container } from "@mui/material";
 
 const meta: Meta<typeof Template> = {
-  title: "Components/Test",
+  title: "Components/Section Header",
   component: Template,
   tags: ["autodocs"],
   argTypes: {},
@@ -26,4 +26,19 @@ export const Default: Story = {
     </Container>
   ),
 };
-Default.args = {};
+Default.args = {
+  text: "Lorem ipsum dolor sit amet",
+};
+
+export const withLink: Story = {
+  render: (args) => (
+    <Container>
+      <Test {...args} />
+    </Container>
+  ),
+};
+withLink.args = {
+  text: "Lorem ipsum dolor sit amet",
+  buttonLink: "#",
+  buttonText: "View More",
+};

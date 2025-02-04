@@ -121,7 +121,7 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
             <SectionHeading
               text={label}
               buttonText={buttonText}
-              mediaType={pathName}
+              buttonLink={`/media-listing/${pathName}?page=1`}
             />
             <Carousel
               media={media}

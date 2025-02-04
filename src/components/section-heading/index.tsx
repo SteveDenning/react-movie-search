@@ -11,20 +11,20 @@ import "./section-heading.scss";
 
 interface Props {
   text: string;
-  mediaType?: string;
+  buttonLink?: string;
   buttonText?: string;
 }
 
-const SectionHeading: React.FC<Props> = ({ text, mediaType, buttonText }) => {
+const SectionHeading: React.FC<Props> = ({ text, buttonLink, buttonText }) => {
   return (
     <div
       className="section-heading"
       data-testid="section-heading"
     >
       <h2 className="section-heading__header text-glow">{text}</h2>
-      {buttonText && (
+      {buttonLink && (
         <Button
-          onClick={() => (window.location.href = `/media-listing/${mediaType}?page=1`)}
+          onClick={() => (window.location.href = buttonLink)}
           variant="heading"
         >
           <span className="text-glow">{buttonText}</span>

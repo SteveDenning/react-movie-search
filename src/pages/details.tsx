@@ -9,7 +9,7 @@ const DetailsPage = () => {
   const pageDescription =
     "Details of the selectView details of selected media, including films, TV shows, or actors. Explore in-depth information on your favorites!ed media of either Film, TV Show or Actor";
 
-  const mediaTitle = (title: string) => {
+  const handleMediaTitle = (title: string) => {
     setTitle(title);
   };
 
@@ -18,7 +18,7 @@ const DetailsPage = () => {
       title={title}
       pageDescription={pageDescription}
     >
-      <Details mediaTitle={mediaTitle} />
+      <Details handleMediaTitle={handleMediaTitle} />
     </DefaultLayout>
   );
 };
