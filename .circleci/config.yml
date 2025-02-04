@@ -3,19 +3,18 @@
 version: 2.1
 orbs:
   node: circleci/node@5
-
 jobs:
   test:
     # Install node dependencies and run tests
     executor: node/default
     steps:
       - checkout
-      run:
-        name: App configuration
-        command: |
-          cp .env.circle .env
       - node/install-packages:
           pkg-manager: npm
+      - run:
+          name: App configuration
+          command: |
+            cp .env.circle .env
       - run:
           name: Run tests
           command: npm run test:circle
