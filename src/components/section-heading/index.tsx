@@ -13,9 +13,10 @@ interface Props {
   text: string;
   buttonLink?: string;
   buttonText?: string;
+  onClick?: () => void;
 }
 
-const SectionHeading: React.FC<Props> = ({ text, buttonLink, buttonText }) => {
+const SectionHeading: React.FC<Props> = ({ text, buttonLink, buttonText, onClick }) => {
   return (
     <div
       className="section-heading"
@@ -24,7 +25,7 @@ const SectionHeading: React.FC<Props> = ({ text, buttonLink, buttonText }) => {
       <h2 className="section-heading__header text-glow">{text}</h2>
       {buttonText && (
         <Button
-          onClick={() => (window.location.href = buttonLink)}
+          onClick={() => (buttonLink ? (window.location.href = buttonLink) : onClick())}
           variant="heading"
         >
           <span className="text-glow">{buttonText}</span>

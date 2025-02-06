@@ -22,11 +22,13 @@ interface Props {
   pathName: string;
   responsiveOptions?: object;
   buttonText?: string;
+  buttonLink?: string;
   dataResource?: "cast" | "results";
   media?: "tv" | "movies" | "person" | "movie";
+  onClick?: () => void;
 }
 
-const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, buttonText, dataResource = "results", media }) => {
+const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, buttonText, buttonLink, dataResource = "results", media, onClick }) => {
   const [resources, setResources] = useState<any>([]);
   const [items, setItems] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -121,7 +123,8 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
             <SectionHeading
               text={label}
               buttonText={buttonText}
-              buttonLink={`/media-listing/${pathName}?page=1`}
+              buttonLink={buttonLink}
+              onClick={onClick}
             />
             <Carousel
               media={media}
