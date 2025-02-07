@@ -14,7 +14,7 @@ import useDefineMediaType from "../../utils/use-define-media-type";
 interface Props {
   resource: any;
   onClick?: () => void;
-  variant?: "banner" | "resource";
+  variant?: "banner" | "resource" | "details";
   handleFavorite?: (isFavorite: boolean) => void;
   favorite?: boolean;
 }
@@ -29,9 +29,11 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
   const classes = [baseClass, variantClass].filter(Boolean).join(" ");
 
   return (
-    <div
+    <button
       className={classes}
       data-testid="card"
+      onClick={onClick}
+      tabIndex={0}
     >
       <Image
         resource={resource}
@@ -40,9 +42,7 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
       <div className="card__overlay">
         <div
           className="card__content"
-          onClick={onClick}
           data-testid="card-content"
-          tabIndex={0}
         >
           <h3
             className="card__title"
@@ -59,8 +59,8 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
             </p>
           )}
           {resource?.["release_date"] && <p className="card__info">{moment(resource?.["release_date"]).format("YYYY")}</p>}
-          {resource?.["known_for_department"] && <p className="card__info">{resource["known_for_department"]}</p>}
-          <p className="card__info">{resource?.character}</p>
+          {resource?.job && <p className="card__info">{resource.job}</p>}
+          {resource?.character && <p className="card__info">{resource?.character}</p>}
         </div>
         {user && mediaType !== "person" && (
           <AddToFavorites
@@ -69,7 +69,7 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
           />
         )}
       </div>
-    </div>
+    </button>
   );
 };
 

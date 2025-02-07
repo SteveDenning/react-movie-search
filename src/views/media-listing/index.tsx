@@ -87,7 +87,7 @@ const MediaListing = () => {
       data-testid="media-listing"
     >
       <Container>
-        <SectionHeading text={heading} />
+        <SectionHeading heading={heading} />
         <Resources
           resources={resources}
           page={page}

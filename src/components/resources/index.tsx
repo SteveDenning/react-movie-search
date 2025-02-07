@@ -125,8 +125,9 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
                 <Grid
                   component="li"
                   item
-                  xs={10}
-                  sm={5}
+                  xs={20}
+                  sm={10}
+                  md={5}
                   lg={4}
                   key={index}
                 >

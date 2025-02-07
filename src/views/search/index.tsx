@@ -46,7 +46,7 @@ const Search = () => {
     { value: "multi", label: "All" },
     { value: "tv", label: "TV" },
     { value: "movie", label: "Film" },
-    { value: "person", label: "Actor" },
+    { value: "person", label: "People" },
   ];
 
   const updateQuery = (key: string, value: string) => {
@@ -70,7 +70,7 @@ const Search = () => {
   };
 
   const handleSuggestions = (event: any) => {
-    if (event.target.value.length) {
+    if (event.target.value.length > 2) {
       getAllMediaFromSearch(`${mediaType.value}?query=${event.target.value}`)
         .then((response: any) => {
           const suggestions = response.data.results?.slice(0, 10);

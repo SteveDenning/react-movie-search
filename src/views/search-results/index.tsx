@@ -26,7 +26,7 @@ const SearchResults = () => {
   const type = params.get("filterByType") || "multi";
   const query = params.get("query") || null;
 
-  const resultsType = type === "multi" ? "results" : type === "movie" ? "Films" : type === "tv" ? "TV Shows" : "Actors";
+  const resultsType = type === "multi" ? "results" : type === "movie" ? "Films" : type === "tv" ? "TV Shows" : "People";
 
   const handleGetResults = () => {
     if (query) {
