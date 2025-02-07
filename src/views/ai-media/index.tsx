@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import pluralize from "pluralize";
 
+// Config
+import { config } from "../../config/routes";
+
 // Services
 import { getAllMediaFromSearch } from "../../services/search";
 import { getFavorites } from "../../services/favorites";
@@ -35,7 +38,7 @@ const AIMedia = () => {
   const [generating, setGenerating] = useState<boolean>(false);
   const [genres, setGenres] = useState<string>(" ");
   const [genreOptions, setGenreOptions] = useState<GenreOptionsType[]>([]);
-  const [loadingMessage, setLoadingMessage] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const [mediaType, setMediaType] = useState<string>("movie");
   const [movieGenres, setMovieGenres] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
@@ -105,23 +108,23 @@ const AIMedia = () => {
         const resource = isJSONFormat(response.choices[0]?.message?.content);
         setOpenModalMessage(resource.message);
         setOpen(true);
-        setLoadingMessage(false);
+        setLoading(false);
       })
       .catch((error: ErrorType) => {
         console.error("Open AI message::", error);
         setError(error);
-        setLoadingMessage(false);
+        setLoading(false);
       });
   };
 
   const getMediaBySearchTerm = (query: string) => {
+    setLoading(true);
     getAllMediaFromSearch(`${mediaType}?query=${query}`)
       .then((response: any) => {
         const results = response.data.results;
 
         if (!results.length) {
           setOpenModalMessage("");
-          setLoadingMessage(true);
           getOpenAIMessage();
           return;
         }
@@ -130,8 +133,11 @@ const AIMedia = () => {
         if (results[0].id) {
           window.location.href = `/details/${mediaType}/${results[0].id}`;
         }
+        setLoading(false);
       })
       .catch((error) => {
+        setLoading(false);
+        setError(error);
         console.error(error);
       });
   };
@@ -306,7 +312,9 @@ const AIMedia = () => {
                     <Button
                       variant="link"
                       onClick={() =>
-                        (window.location.href = `/media-listing/${mediaType === "movies" ? pluralize.singular(mediaType) : mediaType}/popular?page=1`)
+                        (window.location.href = `${config.mediaListing.path}/${
+                          mediaType === "movies" ? pluralize.singular(mediaType) : mediaType
+                        }/popular?page=1`)
                       }
                     >
                       <span style={{ textTransform: "capitalize" }}> {mediaType === "movie" ? pluralize(mediaType) : mediaType + " shows"}</span>
@@ -369,7 +377,7 @@ const AIMedia = () => {
       >
         <p style={{ textAlign: "center" }}>{openModalMessage}</p>
       </Modal>
-      <Backdrop open={loadingMessage}>
+      <Backdrop open={loading}>
         <CircularProgress color="primary" />
       </Backdrop>
     </div>

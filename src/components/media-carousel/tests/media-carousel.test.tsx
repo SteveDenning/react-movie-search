@@ -32,6 +32,7 @@ describe("Media carousel component", () => {
             pathName="person/popular"
             responsiveOptions={{}}
             media="person"
+            buttonLink="/media-listing/person/popular?page=1"
           />
         </MemoryRouter>,
       );

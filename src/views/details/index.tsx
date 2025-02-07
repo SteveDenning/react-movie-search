@@ -4,7 +4,7 @@ import moment from "moment";
 
 // Services
 import { getFavorites } from "../../services/favorites";
-import { getMediaByID } from "../../services/media";
+import { getMediaByID, getMedia } from "../../services/media";
 import { updateFavorite } from "../../services/favorites";
 import { getVideos } from "../../services/videos";
 
@@ -12,16 +12,17 @@ import { getVideos } from "../../services/videos";
 import AddToFavorites from "../../components/add-to-favorites";
 import Button from "../../components/button";
 import Image from "../../components/image";
-import MediaCarousel from "../../views/media-carousel";
+import MediaCarousel from "../../components/media-carousel";
 import Modal from "../../components/modal";
 import Overview from "../../components/overview";
 import Video from "../../components/video";
 
 // MUI
-import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
+import { Backdrop, CircularProgress, Container, Fade, Grid } from "@mui/material";
 
 // Styles
 import "./details.scss";
+import { config } from "../../config/routes";
 
 interface Props {
   handleMediaTitle: (title: string) => void;
@@ -31,6 +32,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const [backDrop, setBackDrop] = useState<string>("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
+  const [isDetails, setIsDetails] = useState<boolean>(true);
   const [resource, setResource] = useState<any>({});
   const [videoKey, setVideoKey] = useState<string>("");
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
@@ -60,7 +62,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
     },
   };
 
-  const getMedia = () => {
+  const getMediaDetails = () => {
     if (programmeId && type) {
       setLoading(true);
       getMediaByID(programmeId, type)
@@ -69,7 +71,8 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
           handleMediaTitle(response.data.name || response.data.title);
           setBackDrop(response.data?.backdrop_path);
           getFavoritesList();
-          fetchVideos(programmeId, type);
+          getMediaVideos(programmeId, type);
+          setLoading(false);
         })
         .catch((error) => {
           console.error(error);
@@ -79,7 +82,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
     }
   };
 
-  const fetchVideos = (id: string, type: string) => {
+  const getMediaVideos = (id: string, type: string) => {
     if (type !== "person") {
       setLoading(true);
       getVideos(id, type)
@@ -144,7 +147,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   };
 
   useEffect(() => {
-    getMedia();
+    getMediaDetails();
   }, []);
 
   return (
@@ -263,7 +266,9 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 pathName={pathName}
                 dataResource="cast"
                 responsiveOptions={personOptions}
-                media={type === "person" ? "movie" : "person"}
+                media={isPerson ? "movie" : "person"}
+                buttonText={!isPerson ? "Cast and Crew" : null}
+                buttonLink={`${config.credits.path}/${type}/${programmeId}`}
               />
             </Container>
           </div>

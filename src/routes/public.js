@@ -6,6 +6,7 @@ import { config } from "../config/routes";
 // Views
 import APMediaPage from "../pages/ai-media";
 import DetailsPage from "../pages/details";
+import CreditsPage from "../pages/credits";
 import FavoritesPage from "../pages/favorites";
 import HomePage from "../pages/home";
 import MediaListingPage from "../pages/media-listing";
@@ -26,6 +27,10 @@ const routes = {
       {
         path: `${config.aiMedia.path}`,
         element: <APMediaPage />,
+      },
+      {
+        path: `${config.credits.path}/:type/:id`,
+        element: <CreditsPage />,
       },
       {
         path: `${config.details.path}/:type/:id`,
