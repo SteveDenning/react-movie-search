@@ -30,7 +30,6 @@ describe("Media carousel component", () => {
             buttonText="View all"
             label="Most popular actors"
             pathName="person/popular"
-            responsiveOptions={{}}
             media="person"
           />
         </MemoryRouter>,
