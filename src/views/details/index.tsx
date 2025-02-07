@@ -22,8 +22,7 @@ import { Backdrop, CircularProgress, Container, Fade, Grid } from "@mui/material
 
 // Styles
 import "./details.scss";
-import Tabs from "../../components/tabs";
-import Card from "../../components/card";
+import { config } from "../../config/routes";
 
 interface Props {
   handleMediaTitle: (title: string) => void;
@@ -38,10 +37,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const [videoKey, setVideoKey] = useState<string>("");
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectedTab, setSelectedTab] = useState("cast");
-
-  const [cast, setCast] = useState<any[]>([]);
-  const [crew, setCrew] = useState<any[]>([]);
 
   const navigate = useNavigate();
 
@@ -76,9 +71,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
           handleMediaTitle(response.data.name || response.data.title);
           setBackDrop(response.data?.backdrop_path);
           getFavoritesList();
-          if (!isPerson) {
-            getCastAndCrew();
-          }
           getMediaVideos(programmeId, type);
           setLoading(false);
         })
@@ -88,19 +80,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
           setError(true);
         });
     }
-  };
-
-  const getCastAndCrew = () => {
-    setLoading(true);
-    getMedia(pathName)
-      .then((response: any) => {
-        setCast(response.data.cast);
-        setCrew(response.data.crew);
-      })
-      .catch((error) => {
-        console.error(error);
-        setError(true);
-      });
   };
 
   const getMediaVideos = (id: string, type: string) => {
@@ -167,224 +146,154 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
     }
   };
 
-  const handleTabChange = (tab: { label: string; value: string }) => {
-    setSelectedTab(tab.value);
-  };
-
-  const renderTab = (resource: any, type: string) => {
-    return (
-      <Fade in={selectedTab === type}>
-        <div>
-          <Grid
-            aria-label="Results"
-            container
-            spacing={2}
-            rowGap={0}
-            component="ul"
-            columns={20}
-          >
-            {resource.map((item: any, index: number) => {
-              return (
-                <Grid
-                  component="li"
-                  item
-                  xs={10}
-                  sm={5}
-                  lg={4}
-                  key={index}
-                >
-                  <Card
-                    key={item.id + index}
-                    resource={item}
-                    onClick={() => (window.location.href = `/details/person/${item.id}`)}
-                    handleFavorite={handleFavorite}
-                  />
-                </Grid>
-              );
-            })}
-          </Grid>
-        </div>
-      </Fade>
-    );
-  };
-
   useEffect(() => {
     getMediaDetails();
   }, []);
 
-  console.log(cast?.length, crew?.length);
-
   return (
-    <div>
-      {isDetails ? (
-        <>
-          {resource && (
-            <Fade in={!loading}>
+    <>
+      {resource && (
+        <Fade in={!loading}>
+          <div
+            data-testid="details-view"
+            className="details-view"
+            style={{ backgroundImage: backgroundImage }}
+          >
+            <Container>
               <div
-                data-testid="details-view"
-                className="details-view"
-                style={{ backgroundImage: backgroundImage }}
+                className="details-view__inner"
+                data-testid="details-view-inner"
               >
-                <Container>
+                {!!videoKey && (
                   <div
-                    className="details-view__inner"
-                    data-testid="details-view-inner"
+                    className="details-view__video"
+                    data-test-id="details-view-video"
                   >
-                    {!!videoKey && (
-                      <div
-                        className="details-view__video"
-                        data-test-id="details-view-video"
-                      >
-                        <Video
-                          youTubeKey={videoKey}
-                          playing
-                          responsive
-                        />
-                      </div>
-                    )}
-                    <div className="details-view__content">
-                      <div className="details-view__profile">
-                        {resource["profile_path"] && <div className="details-view__profile-image">{renderImage()}</div>}
-                        <div>
-                          <div className="details-view__profile-details">
-                            <h2
-                              className="details-view__title"
-                              data-testid="details-view-title"
-                            >
-                              {resource.name || resource.title}{" "}
-                              {isMedia && resource?.["release_date"] && <span>({moment(resource?.["release_date"]).format("YYYY")})</span>}
-                              {user && type !== "person" && (
-                                <AddToFavorites
-                                  handleFavorite={handleFavorite}
-                                  isFavorite={isFavorite}
-                                />
-                              )}
-                            </h2>
-                            {resource.birthday && (
-                              <p>
-                                {resource.deathday
-                                  ? `Died aged ${moment(resource.deathday).diff(resource.birthday, "years")}`
-                                  : `${moment().diff(resource.birthday, "years")} years old`}
-                              </p>
-                            )}
-                            {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
-                            {resource["known_for_department"] && <p>Known for: {resource["known_for_department"]}</p>}
-                          </div>
-                          {text && (
-                            <Overview
-                              resource={resource}
-                              text={text}
+                    <Video
+                      youTubeKey={videoKey}
+                      playing
+                      responsive
+                    />
+                  </div>
+                )}
+                <div className="details-view__content">
+                  <div className="details-view__profile">
+                    {resource["profile_path"] && <div className="details-view__profile-image">{renderImage()}</div>}
+                    <div>
+                      <div className="details-view__profile-details">
+                        <h2
+                          className="details-view__title"
+                          data-testid="details-view-title"
+                        >
+                          {resource.name || resource.title}{" "}
+                          {isMedia && resource?.["release_date"] && <span>({moment(resource?.["release_date"]).format("YYYY")})</span>}
+                          {user && type !== "person" && (
+                            <AddToFavorites
+                              handleFavorite={handleFavorite}
+                              isFavorite={isFavorite}
                             />
                           )}
-                          {!!resource.genres?.length && (
-                            <>
-                              <ul>
-                                {resource.genres.map((genre: any) => (
-                                  <li
-                                    className="details-view__genre-tag"
-                                    key={genre.id + genre["name"]}
-                                  >
-                                    {genre["name"]}
-                                    <span>|</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </>
-                          )}
-                          {resource.seasons?.length && (
-                            <>
-                              <p>Seasons: {resource.seasons?.length}</p>
-                            </>
-                          )}
-                          {resource.networks?.length && (
-                            <>
-                              <ul>
-                                {resource.networks.map((network: any, index: number) => (
-                                  <li key={network.id + index}>
-                                    <img
-                                      src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${network["logo_path"]}`}
-                                      alt=""
-                                      className="details-view__network"
-                                    />
-                                  </li>
-                                ))}
-                              </ul>
-                            </>
-                          )}
-                          {resource["imdb_id"] && (
-                            <Button
-                              target="_blank"
-                              variant="imdb"
-                              href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource["imdb_id"]}`}
-                            >
-                              IMDb
-                            </Button>
-                          )}
-                        </div>
+                        </h2>
+                        {resource.birthday && (
+                          <p>
+                            {resource.deathday
+                              ? `Died aged ${moment(resource.deathday).diff(resource.birthday, "years")}`
+                              : `${moment().diff(resource.birthday, "years")} years old`}
+                          </p>
+                        )}
+                        {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
+                        {resource["known_for_department"] && <p>Known for: {resource["known_for_department"]}</p>}
                       </div>
-                      <div className="details-view__back-button">
-                        <Button onClick={() => navigate(-1)}>Back</Button>
-                      </div>
+                      {text && (
+                        <Overview
+                          resource={resource}
+                          text={text}
+                        />
+                      )}
+                      {!!resource.genres?.length && (
+                        <>
+                          <ul>
+                            {resource.genres.map((genre: any) => (
+                              <li
+                                className="details-view__genre-tag"
+                                key={genre.id + genre["name"]}
+                              >
+                                {genre["name"]}
+                                <span>|</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                      {resource.seasons?.length && (
+                        <>
+                          <p>Seasons: {resource.seasons?.length}</p>
+                        </>
+                      )}
+                      {resource.networks?.length && (
+                        <>
+                          <ul>
+                            {resource.networks.map((network: any, index: number) => (
+                              <li key={network.id + index}>
+                                <img
+                                  src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${network["logo_path"]}`}
+                                  alt=""
+                                  className="details-view__network"
+                                />
+                              </li>
+                            ))}
+                          </ul>
+                        </>
+                      )}
+                      {resource["imdb_id"] && (
+                        <Button
+                          target="_blank"
+                          variant="imdb"
+                          href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource["imdb_id"]}`}
+                        >
+                          IMDb
+                        </Button>
+                      )}
                     </div>
                   </div>
-                  <MediaCarousel
-                    label={MediaCarouselLabel}
-                    pathName={pathName}
-                    dataResource="cast"
-                    responsiveOptions={personOptions}
-                    media={type === "person" ? "movie" : "person"}
-                    buttonText={cast?.length > 10 ? "Cast and Crew" : null}
-                    onClick={() => setIsDetails(!isDetails)}
-                  />
-                </Container>
+                  <div className="details-view__back-button">
+                    <Button onClick={() => navigate(-1)}>Back</Button>
+                  </div>
+                </div>
               </div>
-            </Fade>
-          )}
-          {error && (
-            <p
-              className="error"
-              data-testid="details-view-error"
-            >
-              There was a problem getting the detail page - please try again later
-            </p>
-          )}
-          <Modal
-            id={resource.id}
-            open={isOpen}
-            handleClose={() => setIsOpen(false)}
-            variant={["image"]}
-          >
-            {renderImage()}
-          </Modal>
-          <Backdrop open={loading}>
-            <CircularProgress color="primary" />
-          </Backdrop>
-        </>
-      ) : (
-        <Container>
-          <Container>
-            <div
-              className="favorites"
-              data-testid="favorites"
-            >
-              <Button onClick={() => setIsDetails(!isDetails)}>Back</Button>
-              <Tabs
-                tabs={[
-                  { label: "Cast", value: "cast" },
-                  { label: "Crew", value: "crew" },
-                ]}
-                onClick={handleTabChange}
-                initialSelection="cast"
+              <MediaCarousel
+                label={MediaCarouselLabel}
+                pathName={pathName}
+                dataResource="cast"
+                responsiveOptions={personOptions}
+                media={isPerson ? "movie" : "person"}
+                buttonText={!isPerson ? "Cast and Crew" : null}
+                buttonLink={`${config.credits.path}/${type}/${programmeId}`}
               />
-              <div className="favorites__inner">
-                {selectedTab === "cast" && renderTab(cast, "cast")}
-                {selectedTab === "crew" && renderTab(crew, "crew")}
-              </div>
-            </div>
-          </Container>
-        </Container>
+            </Container>
+          </div>
+        </Fade>
       )}
-    </div>
+      {error && (
+        <p
+          className="error"
+          data-testid="details-view-error"
+        >
+          There was a problem getting the detail page - please try again later
+        </p>
+      )}
+      <Modal
+        id={resource.id}
+        open={isOpen}
+        handleClose={() => setIsOpen(false)}
+        variant={["image"]}
+      >
+        {renderImage()}
+      </Modal>
+      <Backdrop open={loading}>
+        <CircularProgress color="primary" />
+      </Backdrop>
+    </>
   );
 };
 export default DetailsView;

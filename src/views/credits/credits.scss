@@ -1,0 +1,16 @@
+@import "../../styles/dependencies";
+
+// Credits styles
+
+.credits {
+  margin-top: 20px;
+
+  .section-heading {
+    margin-bottom: 20px;
+  }
+
+  &__no-results {
+    display: flex;
+    justify-content: center;
+  }
+}

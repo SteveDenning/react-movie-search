@@ -10,28 +10,29 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import "./section-heading.scss";
 
 interface Props {
-  text: string;
+  heading: string;
   buttonLink?: string;
   buttonText?: string;
-  onClick?: () => void;
+  children?: React.ReactNode;
 }
 
-const SectionHeading: React.FC<Props> = ({ text, buttonLink, buttonText, onClick }) => {
+const SectionHeading: React.FC<Props> = ({ heading, buttonLink, buttonText, children }) => {
   return (
     <div
       className="section-heading"
       data-testid="section-heading"
     >
-      <h2 className="section-heading__header text-glow">{text}</h2>
+      <h2 className="section-heading__header text-glow">{heading}</h2>
       {buttonText && (
         <Button
-          onClick={() => (buttonLink ? (window.location.href = buttonLink) : onClick())}
+          onClick={() => (window.location.href = buttonLink)}
           variant="heading"
         >
           <span className="text-glow">{buttonText}</span>
           <ArrowForwardIosIcon />
         </Button>
       )}
+      {children}
     </div>
   );
 };

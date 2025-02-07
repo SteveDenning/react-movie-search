@@ -19,6 +19,7 @@ interface Props {
   role?: string;
   onClick?: (event: MouseEvent) => void;
   tabIndex?: number;
+  loading?: boolean;
 }
 
 const Button: React.FC<Props> = ({
@@ -37,12 +38,14 @@ const Button: React.FC<Props> = ({
   role = "button",
   onClick,
   tabIndex,
+  loading,
 }) => {
   // Class Definitions
   const baseClass = "button";
   const colorClass = `button--${color}`;
   const variantClass = `button--${variant}`;
-  const classes = [baseClass, colorClass, variantClass, className].filter(Boolean).join(" ");
+  const loadingClass = loading ? "button--loading" : "";
+  const classes = [baseClass, colorClass, variantClass, loadingClass, className].filter(Boolean).join(" ");
 
   const Element = href ? "a" : "button";
 
