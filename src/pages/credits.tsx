@@ -6,8 +6,7 @@ import Credits from "../views/credits";
 
 const CreditsPage = () => {
   const [title, setTitle] = useState<string>("");
-  const pageDescription =
-    "Details of the selectView details of selected media, including films, TV shows, or actors. Explore in-depth information on your favorites!ed media of either Film, TV Show or Actor";
+  const pageDescription = `Meet cast and crew from ${title} and discover the roles they played in the production.`;
 
   const handleMediaTitle = (title: string) => {
     setTitle(title);
@@ -15,7 +14,7 @@ const CreditsPage = () => {
 
   return (
     <DefaultLayout
-      title={title}
+      title={`${title} - Cast and Crew`}
       pageDescription={pageDescription}
     >
       <Credits handleMediaTitle={handleMediaTitle} />

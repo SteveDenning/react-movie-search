@@ -9,6 +9,9 @@ import BannerCarousel from "./../views/banner-carousel";
 // Components
 import MediaCarousel from "./../components/media-carousel";
 
+// Config
+import { config } from "./../config/routes";
+
 // MUI
 import { Container } from "@mui/material";
 
@@ -59,14 +62,14 @@ const HomePage = () => {
           label="Movies"
           pathName="movie/popular"
           media="movie"
-          buttonLink="/media-listing/movie/popular?page=1"
+          buttonLink={`${config.mediaListing.path}/movie/popular?page=1`}
         />
         <MediaCarousel
           buttonText="View all"
           label="TV Shows"
           pathName="tv/popular"
           media="tv"
-          buttonLink="/media-listing/tv/popular?page=1"
+          buttonLink={`${config.mediaListing.path}/tv/popular?page=1`}
         />
 
         <MediaCarousel
@@ -75,7 +78,7 @@ const HomePage = () => {
           pathName="person/popular"
           responsiveOptions={personOptions}
           media="person"
-          buttonLink="/media-listing/person/popular?page=1"
+          buttonLink={`${config.mediaListing.path}/person/popular?page=1`}
         />
       </Container>
     </DefaultLayout>

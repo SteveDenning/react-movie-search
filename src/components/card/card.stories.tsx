@@ -24,7 +24,7 @@ const meta: Meta<typeof Template> = {
     },
     variant: {
       control: "radio",
-      options: ["banner", "resource", "cast"],
+      options: ["banner", "resource", "details"],
       type: { name: "string", required: false },
       description: "Applies variant classes to remove the border radius in the banner or add a box shadow for resources",
     },

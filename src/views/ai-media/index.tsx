@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import pluralize from "pluralize";
 
+// Config
+import { config } from "../../config/routes";
+
 // Services
 import { getAllMediaFromSearch } from "../../services/search";
 import { getFavorites } from "../../services/favorites";
@@ -309,7 +312,9 @@ const AIMedia = () => {
                     <Button
                       variant="link"
                       onClick={() =>
-                        (window.location.href = `/media-listing/${mediaType === "movies" ? pluralize.singular(mediaType) : mediaType}/popular?page=1`)
+                        (window.location.href = `${config.mediaListing.path}/${
+                          mediaType === "movies" ? pluralize.singular(mediaType) : mediaType
+                        }/popular?page=1`)
                       }
                     >
                       <span style={{ textTransform: "capitalize" }}> {mediaType === "movie" ? pluralize(mediaType) : mediaType + " shows"}</span>

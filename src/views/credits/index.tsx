@@ -92,8 +92,9 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
                   <Grid
                     component="li"
                     item
-                    xs={10}
-                    sm={5}
+                    xs={20}
+                    sm={10}
+                    md={5}
                     lg={4}
                     key={index}
                   >
@@ -101,6 +102,7 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
                       key={item.id + index}
                       resource={item}
                       onClick={() => (window.location.href = `/details/person/${item.id}`)}
+                      variant="details"
                     />
                   </Grid>
                 );

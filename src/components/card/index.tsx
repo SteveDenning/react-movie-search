@@ -14,7 +14,7 @@ import useDefineMediaType from "../../utils/use-define-media-type";
 interface Props {
   resource: any;
   onClick?: () => void;
-  variant?: "banner" | "resource";
+  variant?: "banner" | "resource" | "details";
   handleFavorite?: (isFavorite: boolean) => void;
   favorite?: boolean;
 }
@@ -29,9 +29,11 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
   const classes = [baseClass, variantClass].filter(Boolean).join(" ");
 
   return (
-    <div
+    <button
       className={classes}
       data-testid="card"
+      onClick={onClick}
+      tabIndex={0}
     >
       <Image
         resource={resource}
@@ -40,9 +42,7 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
       <div className="card__overlay">
         <div
           className="card__content"
-          onClick={onClick}
           data-testid="card-content"
-          tabIndex={0}
         >
           <h3
             className="card__title"
@@ -69,7 +69,7 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
           />
         )}
       </div>
-    </div>
+    </button>
   );
 };
 
