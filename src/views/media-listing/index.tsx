@@ -5,7 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import { getMedia } from "../../services/media";
 
 // Utils
-import { MOVIES_TITLE, TV_SHOWS_TITLE, ACTORS_TITLE, MEDIA_TITLE } from "../../utils/constants";
+import { MOVIES_TITLE, TV_SHOWS_TITLE, PERSON_TITLE, MEDIA_TITLE } from "../../utils/constants";
 
 // Components
 import Resources from "../../components/resources";
@@ -37,8 +37,8 @@ const MediaListing = () => {
       case "tv":
         setHeading(TV_SHOWS_TITLE);
         break;
-      case "people":
-        setHeading(ACTORS_TITLE);
+      case "person":
+        setHeading(PERSON_TITLE);
         break;
       default:
         setHeading(MEDIA_TITLE);
