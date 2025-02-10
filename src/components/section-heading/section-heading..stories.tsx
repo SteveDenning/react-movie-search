@@ -27,7 +27,7 @@ export const Default: Story = {
   ),
 };
 Default.args = {
-  text: "Lorem ipsum dolor sit amet",
+  heading: "Lorem ipsum dolor sit amet",
 };
 
 export const withLink: Story = {
@@ -38,7 +38,7 @@ export const withLink: Story = {
   ),
 };
 withLink.args = {
-  text: "Lorem ipsum dolor sit amet",
+  heading: "Lorem ipsum dolor sit amet",
   buttonLink: "#",
   buttonText: "View More",
 };
