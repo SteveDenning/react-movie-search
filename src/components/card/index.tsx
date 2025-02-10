@@ -29,47 +29,51 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
   const classes = [baseClass, variantClass].filter(Boolean).join(" ");
 
   return (
-    <button
+    <div
       className={classes}
       data-testid="card"
-      onClick={onClick}
-      tabIndex={0}
     >
-      <Image
-        resource={resource}
-        id={resource.id}
-      />
-      <div className="card__overlay">
-        <div
-          className="card__content"
-          data-testid="card-content"
-        >
-          <h3
-            className="card__title"
-            data-testid="card-title"
+      <button
+        className="card__wrapper"
+        onClick={onClick}
+        tabIndex={0}
+      >
+        <Image
+          resource={resource}
+          id={resource.id}
+        />
+        <div className="card__overlay">
+          <div
+            className="card__content"
+            data-testid="card-content"
           >
-            {resource?.name || resource?.title}
-          </h3>
-          {resource?.["first_air_date"] && (
-            <p
-              className="card__info"
-              data-testid="first-air-date"
+            <h3
+              className="card__title"
+              data-testid="card-title"
             >
-              {moment(resource?.["first_air_date"]).format("YYYY")}
-            </p>
-          )}
-          {resource?.["release_date"] && <p className="card__info">{moment(resource?.["release_date"]).format("YYYY")}</p>}
-          {resource?.job && <p className="card__info">{resource.job}</p>}
-          {resource?.character && <p className="card__info">{resource?.character}</p>}
+              {resource?.name || resource?.title}
+            </h3>
+            {resource?.["first_air_date"] && (
+              <p
+                className="card__info"
+                data-testid="first-air-date"
+              >
+                {moment(resource?.["first_air_date"]).format("YYYY")}
+              </p>
+            )}
+            {resource?.["release_date"] && <p className="card__info">{moment(resource?.["release_date"]).format("YYYY")}</p>}
+            {resource?.job && <p className="card__info">{resource.job}</p>}
+            {resource?.character && <p className="card__info">{resource?.character}</p>}
+          </div>
         </div>
-        {user && mediaType !== "person" && (
-          <AddToFavorites
-            handleFavorite={() => handleFavorite(resource)}
-            isFavorite={resource?.favorite}
-          />
-        )}
-      </div>
-    </button>
+      </button>
+      {user && mediaType !== "person" && (
+        <AddToFavorites
+          handleFavorite={() => handleFavorite(resource)}
+          isFavorite={resource?.favorite}
+        />
+      )}
+    </div>
   );
 };
 

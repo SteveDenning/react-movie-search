@@ -3,17 +3,29 @@
 // Card styles
 
 .card {
-  background: none;
-  border: 0;
   border-radius: 0 20px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
   height: 100%;
   overflow: hidden;
-  padding: 0;
   position: relative;
   transition: box-shadow 0.3s ease;
+
+  &__wrapper {
+    cursor: pointer;
+    background: none;
+    border: 0;
+    min-height: 100%;
+    padding: 0;
+
+    &:focus-visible {
+      .card__content {
+        background: rgba($black, 0.7);
+        opacity: 1;
+      }
+    }
+  }
 
   &__overlay {
     width: 100%;
@@ -92,7 +104,6 @@
       &__content {
         opacity: 1;
         padding: 10px 5px;
-        position: static;
         top: auto;
       }
     }
