@@ -5,7 +5,7 @@ import { Meta, StoryObj } from "@storybook/react";
 import Template from "./index";
 
 const meta: Meta<typeof Template> = {
-  title: "Views/MediaCarousel",
+  title: "Components/MediaCarousel",
   component: Template,
   tags: ["autodocs"],
   argTypes: {},

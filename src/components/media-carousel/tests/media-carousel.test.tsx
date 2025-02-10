@@ -31,6 +31,7 @@ describe("Media carousel component", () => {
             label="Most popular actors"
             pathName="person/popular"
             media="person"
+            buttonLink="/media-listing/person/popular?page=1"
           />
         </MemoryRouter>,
       );

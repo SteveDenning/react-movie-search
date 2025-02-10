@@ -7,7 +7,7 @@ import SectionTitle from "../index";
 
 describe("Section Title component", () => {
   describe("Component rendering", () => {
-    beforeEach(() => render(<SectionTitle text="Heading One" />));
+    beforeEach(() => render(<SectionTitle heading="Heading One" />));
 
     it("Should render a section heading", () => {
       expect(screen.getByTestId("section-heading")).toBeInTheDocument();
@@ -22,7 +22,7 @@ describe("Section Title component", () => {
     beforeEach(() =>
       render(
         <SectionTitle
-          text="Heading Two"
+          heading="Heading Two"
           buttonText="View more"
           buttonLink={"/media-listing?page=1"}
         />,
