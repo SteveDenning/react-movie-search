@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 // Layouts
 import DefaultLayout from "../layout/default";
@@ -7,6 +7,7 @@ import DefaultLayout from "../layout/default";
 import BannerCarousel from "./../views/banner-carousel";
 
 // Components
+import Button from "./../components/button";
 import MediaCarousel from "./../components/media-carousel";
 
 // Config
@@ -15,10 +16,18 @@ import { config } from "./../config/routes";
 // MUI
 import { Container } from "@mui/material";
 
+import ClearIcon from "@mui/icons-material/Clear";
+
 const HomePage = () => {
-  const user = JSON.parse(sessionStorage.getItem("user") || null);
+  const [hideMessage, setHideMessage] = useState(JSON.parse(sessionStorage.getItem("showMessage")));
+
   const title = "React Movie Search | Home";
   const pageDescription = "Home page of the React Movie App. Search for films, TV shows, and actors to discover new favorites!";
+
+  const handleCloseMessage = () => {
+    setHideMessage(true);
+    sessionStorage.setItem("showMessage", "true");
+  };
 
   const personOptions = {
     desktop: {
@@ -36,27 +45,36 @@ const HomePage = () => {
       title={title}
       pageDescription={pageDescription}
     >
+      {!hideMessage && (
+        <Container>
+          <div style={{ position: "relative", zIndex: "1", padding: "20px", textAlign: "center", display: "flex" }}>
+            <p className="fade-in-slow">
+              This app uses OpenAI technology. Create an account{" "}
+              <a
+                href="https://www.themoviedb.org/signup"
+                target="_blank"
+                rel="noreferrer"
+              >
+                here
+              </a>{" "}
+              to access these features.
+            </p>
+            <Button
+              variant="icon"
+              onClick={() => {
+                handleCloseMessage();
+              }}
+            >
+              <ClearIcon />
+            </Button>
+          </div>
+        </Container>
+      )}
       <BannerCarousel
         media="movie"
         path="movie/upcoming"
       />
       <Container>
-        {!user && (
-          <p
-            style={{ position: "relative", zIndex: "1", padding: "20px", textAlign: "center" }}
-            className="fade-in-slow"
-          >
-            This app uses OpenAi technology in some of its features, to experience these please create an account{" "}
-            <a
-              href="https://www.themoviedb.org/signup"
-              target="_blank"
-              rel="noreferrer"
-            >
-              here
-            </a>
-            . Once registered, come back and login to enjoy the experience.
-          </p>
-        )}
         <MediaCarousel
           buttonText="View all"
           label="Movies"
