@@ -4,7 +4,7 @@ import moment from "moment";
 
 // Services
 import { getFavorites } from "../../services/favorites";
-import { getMediaByID, getMedia } from "../../services/media";
+import { getMediaByID } from "../../services/media";
 import { updateFavorite } from "../../services/favorites";
 import { getVideos } from "../../services/videos";
 
@@ -18,7 +18,7 @@ import Overview from "../../components/overview";
 import Video from "../../components/video";
 
 // MUI
-import { Backdrop, CircularProgress, Container, Fade, Grid } from "@mui/material";
+import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 
 // Styles
 import "./details.scss";
@@ -32,7 +32,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const [backDrop, setBackDrop] = useState<string>("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
-  const [isDetails, setIsDetails] = useState<boolean>(true);
   const [resource, setResource] = useState<any>({});
   const [videoKey, setVideoKey] = useState<string>("");
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
@@ -178,7 +177,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 )}
                 <div className="details-view__content">
                   <div className="details-view__profile">
-                    {resource["profile_path"] && <div className="details-view__profile-image">{renderImage()}</div>}
+                    {(resource["profile_path"] || !videoKey) && <div className="details-view__profile-image">{renderImage()}</div>}
                     <div>
                       <div className="details-view__profile-details">
                         <h2
