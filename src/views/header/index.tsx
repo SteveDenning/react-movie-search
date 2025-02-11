@@ -39,7 +39,7 @@ const Header: React.FC<Props> = ({ heading }) => {
 
   const handleCloseMessage = () => {
     setHideMessage(true);
-    sessionStorage.setItem("hideMessage", "true");
+    sessionStorage.setItem("hide_message", "true");
   };
 
   const navOptions = [
@@ -53,10 +53,8 @@ const Header: React.FC<Props> = ({ heading }) => {
   };
 
   useEffect(() => {
-    setHideMessage(!!user || JSON.parse(sessionStorage.getItem("hideMessage")));
+    setHideMessage(!!user || JSON.parse(sessionStorage.getItem("hide_message")));
   }, [user]);
-
-  console.log(hideMessage);
 
   return (
     <header>
@@ -71,6 +69,7 @@ const Header: React.FC<Props> = ({ heading }) => {
                 rel="noreferrer"
               >
                 here
+                <span className="sr-only">(Create an account with TMDB)</span>
               </a>{" "}
               to access these features.
             </p>

@@ -46,6 +46,8 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
           if (response.data["success"]) {
             sessionStorage.removeItem("access_token");
             sessionStorage.removeItem("user");
+            sessionStorage.removeItem("session_id");
+            sessionStorage.removeItem("hide_message");
 
             setUser(null);
             window.location.href = "/";
