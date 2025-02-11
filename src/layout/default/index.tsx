@@ -12,7 +12,7 @@ import Header from "../../views/header";
 import Seo from "../../components/seo";
 
 // Hocs
-import { UserProvider } from "../../hocs/with-login-actions";
+import { UserProvider } from "../../hocs/with-user-provider";
 
 interface Props {
   children: React.ReactNode;

@@ -92,8 +92,7 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
                   <Grid
                     component="li"
                     item
-                    xs={20}
-                    sm={10}
+                    xs={10}
                     md={5}
                     lg={4}
                     key={index}

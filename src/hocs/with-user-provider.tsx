@@ -1,7 +1,7 @@
 import React, { useState, createContext, useContext, useEffect } from "react";
 
 // Utils
-import { createSessionWithAccessToken, deleteAccessToken, getRequestToken, getAccountDetails, getAccessToken } from "./../services/user";
+import { createSessionWithAccessToken, deleteAccessToken, getRequestToken, getAccountDetails, getAccessToken } from "../services/user";
 
 // Types
 import { UserType } from "models/types";

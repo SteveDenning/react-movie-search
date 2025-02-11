@@ -26,7 +26,8 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
   // Class definitions
   const baseClass = "card";
   const variantClass = variant ? `card--${variant}` : "";
-  const classes = [baseClass, variantClass].filter(Boolean).join(" ");
+  const personClass = mediaType === "person" ? "card--person" : "";
+  const classes = [baseClass, variantClass, personClass].filter(Boolean).join(" ");
 
   return (
     <div

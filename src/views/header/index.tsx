@@ -21,7 +21,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import TheatersIcon from "@mui/icons-material/Theaters";
 
 // Hocs
-import { useUser, useUserUpdate } from "../../hocs/with-login-actions";
+import { useUser, useUserUpdate } from "../../hocs/with-user-provider";
 
 // Styles
 import "./header.scss";
