@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 // Utils
 
@@ -32,9 +32,15 @@ interface Props {
 
 const Header: React.FC<Props> = ({ heading }) => {
   const [open, setOpen] = useState<boolean>(false);
+  const [hideMessage, setHideMessage] = useState<boolean>(true);
 
   const user = useUser();
   const handleUpdateUser = useUserUpdate();
+
+  const handleCloseMessage = () => {
+    setHideMessage(true);
+    sessionStorage.setItem("hideMessage", "true");
+  };
 
   const navOptions = [
     { label: config.home.name, path: config.home.path, icon: <TheatersIcon /> },
@@ -46,8 +52,39 @@ const Header: React.FC<Props> = ({ heading }) => {
     setOpen(state);
   };
 
+  useEffect(() => {
+    setHideMessage(!!user || JSON.parse(sessionStorage.getItem("hideMessage")));
+  }, [user]);
+
+  console.log(hideMessage);
+
   return (
     <header>
+      {!hideMessage && (
+        <Container>
+          <div className="header__message">
+            <p>
+              This app uses OpenAI technology. Create an account{" "}
+              <a
+                href="https://www.themoviedb.org/signup"
+                target="_blank"
+                rel="noreferrer"
+              >
+                here
+              </a>{" "}
+              to access these features.
+            </p>
+            <Button
+              variant="icon"
+              onClick={() => {
+                handleCloseMessage();
+              }}
+            >
+              <ClearIcon />
+            </Button>
+          </div>
+        </Container>
+      )}
       <Container>
         <div
           className="header"
