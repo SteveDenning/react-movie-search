@@ -21,7 +21,7 @@ type UserType = {
 interface Props {
   children?: React.ReactNode;
   onClick: (boolean) => void;
-  user: UserType;
+  user: any;
 }
 
 const Login: React.FC<Props> = ({ onClick, user }) => {

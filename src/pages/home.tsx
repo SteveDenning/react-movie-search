@@ -16,7 +16,6 @@ import { config } from "./../config/routes";
 import { Container } from "@mui/material";
 
 const HomePage = () => {
-  const user = JSON.parse(sessionStorage.getItem("user") || null);
   const title = "React Movie Search | Home";
   const pageDescription = "Home page of the React Movie App. Search for films, TV shows, and actors to discover new favorites!";
 
@@ -41,22 +40,6 @@ const HomePage = () => {
         path="movie/upcoming"
       />
       <Container>
-        {!user && (
-          <p
-            style={{ position: "relative", zIndex: "1", padding: "20px", textAlign: "center" }}
-            className="fade-in-slow"
-          >
-            This app uses OpenAi technology in some of its features, to experience these please create an account{" "}
-            <a
-              href="https://www.themoviedb.org/signup"
-              target="_blank"
-              rel="noreferrer"
-            >
-              here
-            </a>
-            . Once registered, come back and login to enjoy the experience.
-          </p>
-        )}
         <MediaCarousel
           buttonText="View all"
           label="Movies"
@@ -74,7 +57,7 @@ const HomePage = () => {
 
         <MediaCarousel
           buttonText="View all"
-          label="Most popular people"
+          label="People"
           pathName="person/popular"
           responsiveOptions={personOptions}
           media="person"

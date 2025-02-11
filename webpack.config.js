@@ -8,7 +8,7 @@ module.exports = {
   entry: "./src/index.tsx",
   output: {
     path: path.resolve(__dirname, "build"),
-    filename: "main.js",
+    filename: "[name].[contenthash].js",
     publicPath: "/",
   },
   plugins: [
