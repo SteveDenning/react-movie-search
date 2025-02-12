@@ -65,6 +65,10 @@
     &:last-child {
       button {
         padding: 0;
+
+        &.Mui-disabled {
+          opacity: 0;
+        }
       }
     }
 
