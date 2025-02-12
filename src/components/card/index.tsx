@@ -11,6 +11,9 @@ import "./card.scss";
 // Utils
 import useDefineMediaType from "../../utils/use-define-media-type";
 
+// Hocs
+import { useUser } from "../../hocs/with-user-provider";
+
 interface Props {
   resource: any;
   onClick?: () => void;
@@ -20,7 +23,7 @@ interface Props {
 }
 
 const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) => {
-  const user = JSON.parse(sessionStorage.getItem("user") || null);
+  const user = useUser();
   const mediaType = useDefineMediaType(resource);
 
   // Class definitions
@@ -68,10 +71,11 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
           </div>
         </div>
       </button>
-      {user && mediaType !== "person" && (
+      {mediaType !== "person" && (
         <AddToFavorites
           handleFavorite={() => handleFavorite(resource)}
           isFavorite={resource?.favorite}
+          user={user}
         />
       )}
     </div>

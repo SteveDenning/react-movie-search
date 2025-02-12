@@ -13,14 +13,19 @@ import "./add-to-favorites.scss";
 interface Props {
   isFavorite: boolean;
   handleFavorite: (boolean) => void;
+  user: any;
 }
 
-const AddToFavorites: React.FC<Props> = ({ isFavorite, handleFavorite }) => {
+const AddToFavorites: React.FC<Props> = ({ isFavorite, handleFavorite, user }) => {
   const [favorite, setFavorite] = useState<boolean>(false);
 
   const handleFavoriteClick = (favorite) => {
     setFavorite(!favorite);
     handleFavorite(!favorite);
+  };
+
+  const openModal = () => {
+    alert("Please log in to add to favorites.");
   };
 
   useEffect(() => {
@@ -32,7 +37,7 @@ const AddToFavorites: React.FC<Props> = ({ isFavorite, handleFavorite }) => {
       className="add-to-favorites"
       testId="add-to-favorites"
       variant="icon"
-      onClick={() => handleFavoriteClick(favorite)}
+      onClick={() => (user ? handleFavoriteClick(favorite) : openModal())}
     >
       {favorite ? <FavoriteIcon /> : <FavoriteBorderIcon />}
     </Button>
