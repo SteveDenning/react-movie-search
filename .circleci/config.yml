@@ -32,7 +32,7 @@ jobs:
       - run:
           name: App configuration
           command: |
-            cp .env.circle .env
+            cp .env.example .env
       - run:
           name: Run tests
           command: npm run test:circle
