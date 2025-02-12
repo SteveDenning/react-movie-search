@@ -92,3 +92,20 @@ Resource.args = {
     known_for_department: "Acting",
   },
 };
+
+export const Person: Story = {
+  render: (args) => (
+    <Container style={{ width: "500px" }}>
+      <Card {...args} />
+    </Container>
+  ),
+};
+Person.args = {
+  resource: {
+    name: "John Doe",
+    title: "John Doe",
+    gender: 1,
+    known_for_department: "Acting",
+    character: "Superman",
+  },
+};

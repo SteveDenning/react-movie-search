@@ -53,7 +53,7 @@
     }
 
     &::before {
-      background: linear-gradient(rgba($black, 0.1), $black);
+      background: linear-gradient(rgba($black, 0), $black);
       bottom: 0;
       content: "";
       display: block;
