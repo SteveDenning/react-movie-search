@@ -45,11 +45,21 @@ export const Default: Story = {
 };
 Default.args = {
   resource: {
-    name: "John Doe",
-    title: "John Doe",
-    first_air_date: "2021-01-01",
-    release_date: "2021-01-01",
-    known_for_department: "Acting",
+    adult: false,
+    backdrop_path: null,
+    genre_ids: [28, 35],
+    id: 1160956,
+    original_language: "zh",
+    original_title: "熊猫计划",
+    overview:
+      "International action star Jackie Chan is invited to the adoption ceremony of a rare baby panda, but after an international crime syndicate attempts to kidnap the bear, Jackie has to save the bear using his stunt work skills.",
+    popularity: 2126.065,
+    poster_path: null,
+    release_date: "2024-10-01",
+    title: "Panda Plan",
+    video: false,
+    vote_average: 6.4,
+    vote_count: 47,
   },
 };
 
@@ -65,11 +75,21 @@ export const Banner: Story = {
 };
 Banner.args = {
   resource: {
-    name: "John Doe",
-    title: "John Doe",
-    first_air_date: "2021-01-01",
-    release_date: "2021-01-01",
-    known_for_department: "Acting",
+    adult: false,
+    backdrop_path: null,
+    genre_ids: [28, 35],
+    id: 1160956,
+    original_language: "zh",
+    original_title: "熊猫计划",
+    overview:
+      "International action star Jackie Chan is invited to the adoption ceremony of a rare baby panda, but after an international crime syndicate attempts to kidnap the bear, Jackie has to save the bear using his stunt work skills.",
+    popularity: 2126.065,
+    poster_path: null,
+    release_date: "2024-10-01",
+    title: "Panda Plan",
+    video: false,
+    vote_average: 6.4,
+    vote_count: 47,
   },
 };
 
@@ -85,11 +105,21 @@ export const Resource: Story = {
 };
 Resource.args = {
   resource: {
-    name: "John Doe",
-    title: "John Doe",
-    first_air_date: "2021-01-01",
-    release_date: "2021-01-01",
-    known_for_department: "Acting",
+    adult: false,
+    backdrop_path: null,
+    genre_ids: [28, 35],
+    id: 1160956,
+    original_language: "zh",
+    original_title: "熊猫计划",
+    overview:
+      "International action star Jackie Chan is invited to the adoption ceremony of a rare baby panda, but after an international crime syndicate attempts to kidnap the bear, Jackie has to save the bear using his stunt work skills.",
+    popularity: 2126.065,
+    poster_path: null,
+    release_date: "2024-10-01",
+    title: "Panda Plan",
+    video: false,
+    vote_average: 6.4,
+    vote_count: 47,
   },
 };
 
@@ -102,10 +132,14 @@ export const Person: Story = {
 };
 Person.args = {
   resource: {
-    name: "John Doe",
-    title: "John Doe",
-    gender: 1,
+    adult: false,
+    gender: 2,
+    id: 976,
     known_for_department: "Acting",
-    character: "Superman",
+    name: "Jason Statham",
+    original_name: "Jason Statham",
+    popularity: 157.203,
+    profile_path: null,
+    known_for: [],
   },
 };

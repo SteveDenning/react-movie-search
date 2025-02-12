@@ -163,6 +163,9 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 className="details-view__inner"
                 data-testid="details-view-inner"
               >
+                <div className="details-view__back-button">
+                  <Button onClick={() => navigate(-1)}>Back</Button>
+                </div>
                 {!!videoKey && (
                   <div
                     className="details-view__video"
@@ -254,9 +257,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                         </Button>
                       )}
                     </div>
-                  </div>
-                  <div className="details-view__back-button">
-                    <Button onClick={() => navigate(-1)}>Back</Button>
                   </div>
                 </div>
               </div>
