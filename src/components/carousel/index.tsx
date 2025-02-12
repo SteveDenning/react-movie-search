@@ -95,9 +95,10 @@ const Carousel: React.FC<Props> = ({
             <div
               key={index}
               className="carousel__item"
+              onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
             >
               {banner ? (
-                <>
+                <div className="carousel__banner">
                   <Image
                     id={item.id}
                     resource={item}
@@ -112,15 +113,9 @@ const Carousel: React.FC<Props> = ({
                     </div>
                     <div className="carousel__banner-details">
                       <h2>{item.title || item.name}</h2>
-                      <Button
-                        className="carousel__banner-button"
-                        onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
-                      >
-                        View details
-                      </Button>
                     </div>
                   </div>
-                </>
+                </div>
               ) : (
                 <Card
                   resource={item}
