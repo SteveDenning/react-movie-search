@@ -15,6 +15,7 @@ import Image from "../../components/image";
 import MediaCarousel from "../../components/media-carousel";
 import Modal from "../../components/modal";
 import Overview from "../../components/overview";
+import SectionHeading from "../../components/section-heading";
 import Video from "../../components/video";
 
 // MUI
@@ -159,13 +160,14 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
             style={{ backgroundImage: backgroundImage }}
           >
             <Container>
+              <SectionHeading
+                heading={resource.name || resource.title}
+                backButton
+              />
               <div
                 className="details-view__inner"
                 data-testid="details-view-inner"
               >
-                <div className="details-view__back-button">
-                  <Button onClick={() => navigate(-1)}>Back</Button>
-                </div>
                 {!!videoKey && (
                   <div
                     className="details-view__video"
@@ -187,8 +189,8 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                           className="details-view__title"
                           data-testid="details-view-title"
                         >
-                          {resource.name || resource.title}{" "}
-                          {isMedia && resource?.["release_date"] && <span>({moment(resource?.["release_date"]).format("YYYY")})</span>}
+                          {/* {resource.name || resource.title}{" "} */}
+                          {isMedia && resource?.["release_date"] && <span>Released: {moment(resource?.["release_date"]).format("YYYY")}</span>}
                           {user && type !== "person" && (
                             <AddToFavorites
                               handleFavorite={handleFavorite}
