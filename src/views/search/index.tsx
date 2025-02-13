@@ -145,7 +145,7 @@ const Search = () => {
         options={options}
         placeholder="All"
         searchable={false}
-        defaultValue={"multi"}
+        defaultValue="multi"
         isDisabled={!!suggestions.length && !!searchTerm?.length}
       />
       <div className="search__options">

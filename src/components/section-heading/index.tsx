@@ -1,5 +1,4 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 
 // Components
 import Button from "../../components/button";
@@ -18,8 +17,6 @@ interface Props {
 }
 
 const SectionHeading: React.FC<Props> = ({ heading, buttonLink, buttonText, backButton }) => {
-  const navigate = useNavigate();
-
   return (
     <div
       className="section-heading"
@@ -35,7 +32,7 @@ const SectionHeading: React.FC<Props> = ({ heading, buttonLink, buttonText, back
           <ArrowForwardIosIcon />
         </Button>
       )}
-      {backButton && <Button onClick={() => navigate(-1)}>Back</Button>}
+      {backButton && <Button onClick={() => window.history.back()}>Back</Button>}
     </div>
   );
 };
