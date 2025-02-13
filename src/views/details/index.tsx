@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import moment from "moment";
-
-// Services
-import { getFavorites } from "../../services/favorites";
-import { getMediaByID } from "../../services/media";
-import { updateFavorite } from "../../services/favorites";
-import { getVideos } from "../../services/videos";
 
 // Components
 import AddToFavorites from "../../components/add-to-favorites";
@@ -18,12 +11,20 @@ import Overview from "../../components/overview";
 import SectionHeading from "../../components/section-heading";
 import Video from "../../components/video";
 
+// Config
+import { config } from "../../config/routes";
+
 // MUI
 import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 
+// Services
+import { getFavorites } from "../../services/favorites";
+import { getMediaByID } from "../../services/media";
+import { updateFavorite } from "../../services/favorites";
+import { getVideos } from "../../services/videos";
+
 // Styles
 import "./details.scss";
-import { config } from "../../config/routes";
 
 interface Props {
   handleMediaTitle: (title: string) => void;
@@ -37,8 +38,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const [videoKey, setVideoKey] = useState<string>("");
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const navigate = useNavigate();
 
   const user = JSON.parse(sessionStorage.getItem("user") || null);
   const programmeId = window.location.pathname.split("/")[3] as string;
@@ -189,8 +188,9 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                           className="details-view__title"
                           data-testid="details-view-title"
                         >
-                          {/* {resource.name || resource.title}{" "} */}
-                          {isMedia && resource?.["release_date"] && <span>Released: {moment(resource?.["release_date"]).format("YYYY")}</span>}
+                          {isMedia && resource?.["release_date"] && (
+                            <span>Release Date: {moment(resource?.["release_date"]).format("MMMM YYYY")}</span>
+                          )}
                           {user && type !== "person" && (
                             <AddToFavorites
                               handleFavorite={handleFavorite}
