@@ -10,6 +10,7 @@ import { Container, Fade } from "@mui/material";
 
 // Components
 import List from "../../components/list";
+import SectionHeading from "../../components/section-heading";
 import Tabs from "../../components/tabs";
 
 // Styles
@@ -92,27 +93,33 @@ const Favorites: React.FC<Props> = () => {
 
   return (
     <Container>
-      {user ? (
-        <div
-          className="favorites"
-          data-testid="favorites"
-        >
-          <Tabs
-            tabs={[
-              { label: "Movies", value: "movies" },
-              { label: "TV", value: "tv" },
-            ]}
-            onClick={handleTabChange}
-            initialSelection="movies"
-          />
-          <div className="favorites__inner">
-            {selectedTab === "movies" && renderTab(favoriteMovies, "movies")}
-            {selectedTab === "tv" && renderTab(favoriteTv, "tv")}
-          </div>
-        </div>
-      ) : (
-        <h2 style={{ textAlign: "center", marginTop: "2rem" }}>You need to be logged in to see your favorites. Log in (TODO - Login)</h2>
-      )}
+      <div
+        className="favorites"
+        data-testid="favorites"
+      >
+        <SectionHeading
+          heading="Favourites"
+          backButton
+        />
+        {user ? (
+          <>
+            <Tabs
+              tabs={[
+                { label: "Movies", value: "movies" },
+                { label: "TV", value: "tv" },
+              ]}
+              onClick={handleTabChange}
+              initialSelection="movies"
+            />
+            <div className="favorites__inner">
+              {selectedTab === "movies" && renderTab(favoriteMovies, "movies")}
+              {selectedTab === "tv" && renderTab(favoriteTv, "tv")}
+            </div>
+          </>
+        ) : (
+          <h2 style={{ textAlign: "center", marginTop: "2rem" }}>You need to be logged in to see your favorites. Log in (TODO - Login)</h2>
+        )}
+      </div>
     </Container>
   );
 };

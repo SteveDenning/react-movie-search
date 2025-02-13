@@ -184,7 +184,7 @@ const Search = () => {
           </Button>
           {!!searchTerm?.length && (
             <Button
-              data-testid="search-form-clear"
+              testId="search-form-clear"
               variant="icon"
               className="search__form-clear"
               type="reset"

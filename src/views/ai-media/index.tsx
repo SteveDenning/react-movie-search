@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import pluralize from "pluralize";
 
+// Components
+import AILoader from "../../components/ai-loader";
+import Button from "../../components/button";
+import Modal from "../../components/modal";
+import SectionHeading from "../../components/section-heading";
+import Select from "../../components/select";
+import Tabs from "../../components/tabs";
+
 // Config
 import { config } from "../../config/routes";
-
-// Services
-import { getAllMediaFromSearch } from "../../services/search";
-import { getFavorites } from "../../services/favorites";
-import { getGenres } from "../../services/genres";
-import useOpenAI from "../../services/openai";
 
 // MUI Components
 import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
@@ -16,19 +18,18 @@ import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 // MUI Icons
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 
-// Components
-import AILoader from "../../components/ai-loader";
-import Button from "../../components/button";
-import Modal from "../../components/modal";
-import Select from "../../components/select";
-import Tabs from "../../components/tabs";
+// Services
+import { getAllMediaFromSearch } from "../../services/search";
+import { getFavorites } from "../../services/favorites";
+import { getGenres } from "../../services/genres";
+import useOpenAI from "../../services/openai";
+
+// Types
+import { ErrorType, GenreType, GenreOptionsType } from "../../models/types";
 
 // Utils
 import useCustomGenres from "../../utils/use-custom-genres";
 import useDefineMediaType from "../../utils/use-define-media-type";
-
-// Types
-import { ErrorType, GenreType, GenreOptionsType } from "../../models/types";
 
 // Styles
 import "./ai-media.scss";
@@ -254,14 +255,17 @@ const AIMedia = () => {
       className="ai-media"
       data-testid="ai-media"
     >
-      <div className="ai-media__header">
-        <h2 className="ai-media__title">
-          <AutoAwesomeIcon />
-          {definedType.description}
-          <AutoAwesomeIcon />
-        </h2>
-
-        <Container>
+      <Container>
+        <SectionHeading
+          heading="AI Media"
+          backButton
+        />
+        <div className="ai-media__header">
+          <h2 className="ai-media__title">
+            <AutoAwesomeIcon />
+            {definedType.description}
+            <AutoAwesomeIcon />
+          </h2>
           <Tabs
             tabs={[
               { label: "Movies", value: "movies" },
@@ -271,9 +275,7 @@ const AIMedia = () => {
             onClick={(event) => handleChange(event)}
             initialSelection="movies"
           />
-        </Container>
-      </div>
-      <Container>
+        </div>
         <div>
           {selectedTab === "multi" ? (
             <div className="ai-media__selected-genres">
@@ -295,7 +297,7 @@ const AIMedia = () => {
           ) : (
             <>
               <div className="ai-media__genres">
-                {mediaLabel !== "Movies or TV shows" && !!genres.length && (
+                {mediaLabel !== "Movies or TV shows" && !!genres.length && !response?.media.length && (
                   <>
                     <h3>Your collective genres</h3>
                     <p>{[...new Set(genres?.split(" "))].join(" ")}</p>

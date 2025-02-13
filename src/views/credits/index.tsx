@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { getMedia, getMediaByID } from "../../services/media";
 
 // Component
-import Button from "../../components/button";
 import Card from "../../components/card";
 import SectionHeading from "../../components/section-heading";
 import Tabs from "../../components/tabs";
@@ -12,7 +11,6 @@ import Tabs from "../../components/tabs";
 // Styles
 import "./credits.scss";
 import { Backdrop, CircularProgress, Container, Fade, Grid } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 interface Props {
   handleMediaTitle: (title: string) => void;
@@ -29,7 +27,6 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
   const type = window.location.pathname.split("/")[2];
   const programmeId = window.location.pathname.split("/")[3];
   const pathName = `${type}/${programmeId}/credits?language=en-US`;
-  const navigate = useNavigate();
 
   const getMediaDetails = () => {
     if (programmeId && type) {
@@ -122,9 +119,10 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
         data-testid="credits"
       >
         <Container>
-          <SectionHeading heading={heading}>
-            <Button onClick={() => navigate(-1)}>Back</Button>
-          </SectionHeading>
+          <SectionHeading
+            heading={heading}
+            backButton
+          />
 
           <Tabs
             tabs={[

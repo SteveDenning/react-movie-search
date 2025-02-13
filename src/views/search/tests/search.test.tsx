@@ -1,10 +1,17 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { screen, render, fireEvent } from "@testing-library/react";
+import { screen, render, fireEvent, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 // Components
 import Search from "../index";
+
+const mockedUsedNavigate = jest.fn();
+
+jest.mock("react-router-dom", () => ({
+  ...(jest.requireActual("react-router-dom") as any),
+  useNavigate: () => mockedUsedNavigate,
+}));
 
 describe("Search component", () => {
   describe("Component rendering", () => {
@@ -53,6 +60,16 @@ describe("Search component", () => {
       expect(screen.queryByTestId("search-form-input")).toHaveValue("Harry Potter");
       fireEvent.click(screen.queryAllByTestId("button")[0]);
       // TODO - need to mock navigation to test the handle submit has worked
+    });
+
+    it("Should clear and call navigate()", async () => {
+      fireEvent.change(screen.getByTestId("search-form-input"), { target: { value: "one" } });
+      await waitFor(() => expect(screen.queryByTestId("search-form-input")).toHaveValue("one"));
+      expect(screen.queryByTestId("search-form-input")).toHaveValue("one");
+
+      fireEvent.click(screen.getByTestId("search-form-clear"));
+
+      await expect(mockedUsedNavigate).toHaveBeenCalled();
     });
   });
 });
