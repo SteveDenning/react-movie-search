@@ -16,6 +16,5 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 if (process.env.NODE_ENV !== "development") {
-  console.log("Initialize Google Analytics");
   getAnalytics(app);
 }
