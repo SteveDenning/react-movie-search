@@ -21,6 +21,22 @@
     }
   }
 
+  &__overlay {
+    cursor: pointer;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+
+    @include hover {
+      + .card {
+        .card__content {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
   &__item-button {
     border: 0;
     background: none;
@@ -95,6 +111,7 @@
 
         @include hover {
           background-color: $anakiwa;
+
           &:before {
             color: #000;
           }
@@ -127,6 +144,14 @@
     &:not(.react-multi-carousel-item--active) {
       opacity: 0.4;
       pointer-events: none;
+
+      .carousel__overlay {
+        display: none;
+      }
+
+      .add-to-favorites {
+        display: none;
+      }
 
       @include breakpoint($xlarge) {
         opacity: 0.1;
