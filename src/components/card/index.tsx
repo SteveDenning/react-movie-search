@@ -34,10 +34,9 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
       className={classes}
       data-testid="card"
     >
-      <button
+      <div
         className="card__wrapper"
         onClick={onClick}
-        tabIndex={0}
       >
         <Image
           resource={resource}
@@ -67,7 +66,7 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
             {resource?.character && <p className="card__info">{resource?.character}</p>}
           </div>
         </div>
-      </button>
+      </div>
       {user && mediaType !== "person" && (
         <AddToFavorites
           handleFavorite={() => handleFavorite(resource)}
