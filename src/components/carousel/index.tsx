@@ -96,11 +96,11 @@ const Carousel: React.FC<Props> = ({
               key={index}
               className="carousel__item"
             >
-              <div
+              <button
                 tabIndex={0}
                 className="carousel__overlay"
                 onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
-              ></div>
+              ></button>
               {banner ? (
                 <>
                   <Image
