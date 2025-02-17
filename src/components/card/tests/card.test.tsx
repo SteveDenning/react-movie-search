@@ -34,8 +34,8 @@ describe("Card component", () => {
       expect(screen.getByTestId("card")).toHaveClass("card--banner");
     });
 
-    it("Should allow the user to click the card content", () => {
-      fireEvent.click(screen.getByTestId("card-content"));
+    it("Should allow the user to click the card", () => {
+      fireEvent.click(screen.getByTestId("button"));
       expect(handleClick).toHaveBeenCalled();
     });
 

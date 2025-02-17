@@ -26,7 +26,10 @@ const Tile: React.FC<Props> = ({ resource, handleDelete }) => {
   const mediaType = useDefineMediaType(resource);
 
   return (
-    <div className="tile">
+    <div
+      className="tile"
+      data-testid="tile"
+    >
       <button
         className="tile__image"
         onClick={() => window.location.replace(`/details/${mediaType}/${resource.id}`)}
@@ -44,7 +47,7 @@ const Tile: React.FC<Props> = ({ resource, handleDelete }) => {
             text={text}
           />
         )}
-        <p>Popularity vote: {resource.vote_average.toFixed(1)}</p>
+        <p>Popularity vote: {resource?.vote_average?.toFixed(1)}</p>
       </div>
       <div className="tile__actions">
         <Button
