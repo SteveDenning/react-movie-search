@@ -72,8 +72,6 @@
     z-index: 1;
 
     @include hover {
-      // background: rgba($black, 0.6);
-
       + .card__wrapper {
         .card__content {
           opacity: 1;

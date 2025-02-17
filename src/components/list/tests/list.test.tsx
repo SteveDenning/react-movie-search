@@ -10,7 +10,7 @@ import { variables } from "./config";
 
 describe("list component", () => {
   describe("Component rendering", () => {
-    beforeEach(() => render(<List items={variables.navOptions} />));
+    beforeEach(() => render(<List resources={variables.navOptions} />));
 
     it("Should render a list", () => {
       expect(screen.getByTestId("list")).toBeInTheDocument();
@@ -25,7 +25,7 @@ describe("list component", () => {
     beforeEach(() =>
       render(
         <List
-          items={variables.navOptions}
+          resources={variables.navOptions}
           variant="link"
         />,
       ),
@@ -44,7 +44,7 @@ describe("list component", () => {
     beforeEach(() =>
       render(
         <List
-          items={variables.panelItems}
+          resources={variables.panelItems}
           variant="tile"
         />,
       ),

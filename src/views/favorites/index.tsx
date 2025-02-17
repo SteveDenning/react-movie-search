@@ -75,7 +75,7 @@ const Favorites: React.FC<Props> = () => {
           {resource.length ? (
             <List
               variant="tile"
-              items={resource}
+              resources={resource}
               onClick={(item) => handleDelete(type, item)}
             />
           ) : (

@@ -2,8 +2,8 @@ import React from "react";
 import moment from "moment";
 
 // Components
-import Button from "../../components/button";
 import AddToFavorites from "../add-to-favorites";
+import Button from "../../components/button";
 import Image from "../image";
 
 // Styles
@@ -36,9 +36,9 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
       data-testid="card"
     >
       <Button
-        tabIndex={0}
         className="card__cover"
         onClick={onClick}
+        tabIndex={0}
         variant="plain"
       >
         <span

@@ -12,7 +12,7 @@ const meta: Meta<typeof Template> = {
   component: Template,
   tags: ["autodocs"],
   argTypes: {
-    items: {
+    resources: {
       control: "text",
       type: { name: "string", required: true },
       description: "Array of items to display in the list",
@@ -44,7 +44,7 @@ export const Default: Story = {
   ),
 };
 Default.args = {
-  items: [
+  resources: [
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/favorites" },
     { label: "Profile", path: "/profiles" },
@@ -59,7 +59,7 @@ export const Link: Story = {
   ),
 };
 Link.args = {
-  items: [
+  resources: [
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/favorites" },
     { label: "Profile", path: "/profiles" },
@@ -75,7 +75,7 @@ export const Panel: Story = {
   ),
 };
 Panel.args = {
-  items: [
+  resources: [
     {
       adult: false,
       backdrop_path: null,
