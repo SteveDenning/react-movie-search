@@ -137,7 +137,7 @@ const Header: React.FC<Props> = ({ heading }) => {
             </div>
             {user && (
               <List
-                items={navOptions}
+                resources={navOptions}
                 variant="link"
               />
             )}

@@ -22,19 +22,14 @@
   }
 
   &__overlay {
+    background: transparent;
+    border: 0;
     cursor: pointer;
     height: 100%;
+    overflow: hidden;
     position: absolute;
     width: 100%;
     z-index: 1;
-
-    @include hover {
-      + .card {
-        .card__content {
-          opacity: 1;
-        }
-      }
-    }
   }
 
   &__item-button {
@@ -145,6 +140,7 @@
       opacity: 0.4;
       pointer-events: none;
 
+      .card__cover,
       .carousel__overlay {
         display: none;
       }

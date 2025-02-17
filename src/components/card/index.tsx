@@ -3,6 +3,7 @@ import moment from "moment";
 
 // Components
 import AddToFavorites from "../add-to-favorites";
+import Button from "../../components/button";
 import Image from "../image";
 
 // Styles
@@ -34,10 +35,20 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
       className={classes}
       data-testid="card"
     >
-      <div
-        className="card__wrapper"
+      <Button
+        className="card__cover"
         onClick={onClick}
+        tabIndex={0}
+        variant="plain"
       >
+        <span
+          className="sr-only"
+          aria-hidden={true}
+        >
+          Click to open
+        </span>
+      </Button>
+      <div className="card__wrapper">
         <Image
           resource={resource}
           id={resource.id}

@@ -41,6 +41,7 @@ const Search = () => {
   const isTablet = screenSize.width <= 1024;
   const navigate = useNavigate();
   const inputRef = useRef(null);
+  const isDisabled = !!suggestions.length && !!searchTerm?.length;
 
   const options = [
     { value: "multi", label: "All" },
@@ -146,7 +147,7 @@ const Search = () => {
         placeholder="All"
         searchable={false}
         defaultValue="multi"
-        isDisabled={!!suggestions.length && !!searchTerm?.length}
+        isDisabled={isDisabled}
       />
       <div className="search__options">
         <form
@@ -179,6 +180,7 @@ const Search = () => {
             className="sr-only"
             type="submit"
             onClick={handleSubmit}
+            tabIndex={-1}
           >
             Submit
           </Button>
