@@ -111,6 +111,6 @@ Panel.args = {
       vote_count: 532,
     },
   ],
-  variant: "list-panel",
+  variant: "tile",
   onClick: () => alert("clicked"),
 };

@@ -30,15 +30,16 @@ const Tile: React.FC<Props> = ({ resource, handleDelete }) => {
       className="tile"
       data-testid="tile"
     >
-      <button
+      <Button
         className="tile__image"
-        onClick={() => window.location.replace(`/details/${mediaType}/${resource.id}`)}
+        onClick={() => (window.location.href = `/details/${mediaType}/${resource.id}`)}
+        variant="plain"
       >
         <Image
           id={resource.id}
           resource={resource}
         />
-      </button>
+      </Button>
       <div className="tile__content">
         <h2>{resource.title || resource.name}</h2>
         {text && (
@@ -73,6 +74,7 @@ const Tile: React.FC<Props> = ({ resource, handleDelete }) => {
 
         <div className="modal__action-buttons">
           <Button
+            testId="cancel-button"
             onClick={() => {
               setIsOpen(false);
             }}
@@ -85,6 +87,7 @@ const Tile: React.FC<Props> = ({ resource, handleDelete }) => {
               setIsOpen(false);
             }}
             color="red"
+            testId="delete-button"
           >
             Remove
           </Button>

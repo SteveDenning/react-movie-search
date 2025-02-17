@@ -7,6 +7,9 @@ import Template from "./index";
 // MUI
 import { Container } from "@mui/material";
 
+// Variables
+import { variables } from "./tests/config";
+
 const meta: Meta<typeof Template> = {
   title: "Components/Tile",
   component: Template,
@@ -37,4 +40,6 @@ export const Default: Story = {
     </Container>
   ),
 };
-Default.args = {};
+Default.args = {
+  resource: variables.resource,
+};

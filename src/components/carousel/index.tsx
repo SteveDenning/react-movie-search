@@ -2,7 +2,6 @@ import React from "react";
 import ReactCarousel from "react-multi-carousel";
 
 // Components
-import Button from "../button";
 import Card from "../card";
 import Image from "../image";
 

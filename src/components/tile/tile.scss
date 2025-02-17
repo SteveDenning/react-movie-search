@@ -11,14 +11,11 @@
   &__image {
     border-radius: 0 20px;
     border: 0;
+    cursor: pointer;
     overflow: hidden;
     max-width: 100%;
     margin-bottom: 20px;
     padding: 0;
-
-    img {
-      cursor: pointer;
-    }
   }
 
   &__actions {

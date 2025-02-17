@@ -45,7 +45,7 @@ describe("list component", () => {
       render(
         <List
           items={variables.panelItems}
-          variant="list-panel"
+          variant="tile"
         />,
       ),
     );
