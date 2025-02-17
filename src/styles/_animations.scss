@@ -1,7 +1,7 @@
 @import "./variables";
 
 .text-glow {
-  background: linear-gradient(to right, $blue, $lilac, $pink, $lilac, $blue);
+  background: linear-gradient(to right, cyan, $electric-dream, cyan);
   background-clip: text;
   color: transparent;
   animation: glow 8s ease-in-out infinite;
@@ -10,7 +10,7 @@
 }
 
 .glow {
-  background: linear-gradient(to right, $blue, #ff3399, $blue);
+  background: linear-gradient(to right, cyan, $electric-dream, cyan);
   animation: glow 5s ease-in-out infinite;
   background-size: 400% 100%;
   margin-bottom: 0;
