@@ -2,6 +2,7 @@ import React from "react";
 import moment from "moment";
 
 // Components
+import Button from "../../components/button";
 import AddToFavorites from "../add-to-favorites";
 import Image from "../image";
 
@@ -34,10 +35,20 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
       className={classes}
       data-testid="card"
     >
-      <div
-        className="card__wrapper"
+      <Button
+        tabIndex={0}
+        className="card__cover"
         onClick={onClick}
+        variant="plain"
       >
+        <span
+          className="sr-only"
+          aria-hidden={true}
+        >
+          Click to open
+        </span>
+      </Button>
+      <div className="card__wrapper">
         <Image
           resource={resource}
           id={resource.id}

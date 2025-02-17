@@ -12,36 +12,41 @@ import Overview from "../overview";
 // MUI Icons
 import DeleteIcon from "@mui/icons-material/Delete";
 
+// Styles
+import "./tile.scss";
+
 interface Props {
-  item: any;
+  resource: any;
   handleDelete: (id: string) => void;
 }
 
-const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
+const Tile: React.FC<Props> = ({ resource, handleDelete }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const text = item?.overview;
-  const mediaType = useDefineMediaType(item);
+  const text = resource?.overview;
+  const mediaType = useDefineMediaType(resource);
 
   return (
-    <>
-      <div className="list__item-image">
+    <div className="tile">
+      <button
+        className="tile__image"
+        onClick={() => window.location.replace(`/details/${mediaType}/${resource.id}`)}
+      >
         <Image
-          id={item.id}
-          resource={item}
-          onClick={() => window.location.replace(`/details/${mediaType}/${item.id}`)}
+          id={resource.id}
+          resource={resource}
         />
-      </div>
-      <div className="list__item-content">
-        <h2>{item.title || item.name}</h2>
+      </button>
+      <div className="tile__content">
+        <h2>{resource.title || resource.name}</h2>
         {text && (
           <Overview
-            resource={item}
+            resource={resource}
             text={text}
           />
         )}
-        <p>Popularity vote: {item.vote_average.toFixed(1)}</p>
+        <p>Popularity vote: {resource.vote_average.toFixed(1)}</p>
       </div>
-      <div className="list__item-actions">
+      <div className="tile__actions">
         <Button
           variant="icon"
           onClick={() => setIsOpen(true)}
@@ -51,7 +56,7 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
       </div>
 
       <Modal
-        id={item.id}
+        id={resource.id}
         open={isOpen}
         handleClose={() => {
           setIsOpen(false);
@@ -60,7 +65,7 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
       >
         <h3 style={{ textAlign: "center" }}>
           Are you sure you want to remove <br />
-          {item.title || item.name}?
+          {resource.title || resource.name}?
         </h3>
 
         <div className="modal__action-buttons">
@@ -73,7 +78,7 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
           </Button>
           <Button
             onClick={() => {
-              handleDelete(item.id);
+              handleDelete(resource.id);
               setIsOpen(false);
             }}
             color="red"
@@ -82,8 +87,8 @@ const ListPanel: React.FC<Props> = ({ item, handleDelete }) => {
           </Button>
         </div>
       </Modal>
-    </>
+    </div>
   );
 };
 
-export default ListPanel;
+export default Tile;

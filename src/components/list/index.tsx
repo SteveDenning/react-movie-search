@@ -5,12 +5,12 @@ import "./list.scss";
 
 // Components
 import Button from "../button";
-import Panel from "../panel";
+import Tile from "../tile";
 
 interface Props {
   items: any[];
   onClick?: (id?: string) => void;
-  variant?: "list-panel" | "link" | undefined;
+  variant?: "tile" | "link" | undefined;
 }
 
 const List: React.FC<Props> = ({ items, onClick, variant }) => {
@@ -31,9 +31,9 @@ const List: React.FC<Props> = ({ items, onClick, variant }) => {
             className="list__item"
             data-testid="list-item"
           >
-            {variant === "list-panel" ? (
-              <Panel
-                item={item}
+            {variant === "tile" ? (
+              <Tile
+                resource={item}
                 handleDelete={onClick}
               />
             ) : variant === "link" ? (

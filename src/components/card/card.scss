@@ -17,11 +17,11 @@
     flex-direction: column;
     height: 100%;
     padding: 0;
+    pointer-events: none;
     width: 100%;
 
-    &:focus-visible {
+    @include hover {
       .card__content {
-        background: rgba($black, 0.7);
         opacity: 1;
       }
     }
@@ -58,13 +58,24 @@
     transition: opacity 0.5s ease;
     top: 0;
     width: 100%;
+  }
+
+  &__cover {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    transition: background 0.5s ease;
+    width: 100%;
+    z-index: 1;
 
     @include hover {
-      opacity: 1;
+      // background: rgba($black, 0.6);
 
-      .card {
-        &__content-button {
-          bottom: 50px;
+      + .card__wrapper {
+        .card__content {
           opacity: 1;
         }
       }
@@ -103,19 +114,23 @@
     padding-bottom: 50px;
 
     .card {
+      &__cover {
+        @include hover {
+          background: rgba($black, 0.6);
+        }
+      }
+
       &__title {
         font-size: 16px;
         margin: 0;
       }
+
       &__content {
         background: $black;
         opacity: 1;
         padding: 10px 5px;
         top: auto;
       }
-    }
-    @include hover {
-      box-shadow: rgba($black, 0.4) 10px 10px 5px 0px;
     }
   }
 }

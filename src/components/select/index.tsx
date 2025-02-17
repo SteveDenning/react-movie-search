@@ -68,6 +68,7 @@ const SelectComponent: React.FC<Props> = ({
         isDisabled={isDisabled}
         isMulti={isMulti}
         components={animated ? animatedComponents : undefined}
+        aria-disabled={isDisabled}
       />
     </div>
   );

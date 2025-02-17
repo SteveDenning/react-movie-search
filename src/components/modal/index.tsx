@@ -39,7 +39,7 @@ const Modal: React.FC<Props> = ({ variant, className, id, open, handleClose, tit
       onClose={handleClose}
       closeAfterTransition
       data-testid="modal"
-      aria-labelledby={`modal-${id}-title`}
+      aria-labelledby={title || `modal-${id}-title`}
     >
       <>
         <Fade in={open}>
