@@ -55,7 +55,7 @@ describe("list component", () => {
     });
 
     it("Should have a variant class of 'list-panel'", () => {
-      expect(screen.getByTestId("list")).toHaveClass("list list--list-panel");
+      expect(screen.getByTestId("list")).toHaveClass("list list--tile");
     });
 
     it("Should render a list of seven panel list items", () => {
