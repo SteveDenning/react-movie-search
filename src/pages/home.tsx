@@ -19,6 +19,8 @@ const HomePage = () => {
   const title = "React Movie Search | Home";
   const pageDescription = "Home page of the React Movie App. Search for films, TV shows, and actors to discover new favorites!";
 
+  console.log(process.env.REACT_APP_TEST);
+
   const personOptions = {
     desktop: {
       breakpoint: {
