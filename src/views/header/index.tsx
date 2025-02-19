@@ -57,7 +57,7 @@ const Header: React.FC<Props> = ({ heading }) => {
   }, [user]);
 
   useEffect(() => {
-    console.log("REACT_APP_TEST", process.env.REACT_APP_TEST);
+    console.log("REACT_APP_TEST", process.env.REACT_APP_AI_API_KEY);
   }, []);
 
   return (
