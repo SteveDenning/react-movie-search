@@ -56,10 +56,6 @@ const Header: React.FC<Props> = ({ heading }) => {
     setHideMessage(!!user || JSON.parse(sessionStorage.getItem("hide_message")));
   }, [user]);
 
-  useEffect(() => {
-    console.log("REACT_APP_TEST", process.env.REACT_APP_AI_API_KEY);
-  }, []);
-
   return (
     <header>
       <Container
