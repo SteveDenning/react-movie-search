@@ -10,10 +10,6 @@ jobs:
       - node/install-packages:
           pkg-manager: npm
       - run:
-          name: App configuration
-          command: |
-            cp .env.example .env
-      - run:
           name: Run tests
           command: npm run test:circle
       - run:
@@ -35,11 +31,8 @@ jobs:
           name: App configuration
           command: |
             cp .env.example .env
-            # Append environment variables
             printenv | grep -v "^\s*$" >> .env  
-            # Remove duplicate lines
             sort -u -o .env .env  
-            # Remove lines with empty values
             sed -i '/=.*$/!d' .env
             sed -i '/=.*$/{/^.*=$/d}' .env
             cat .env
