@@ -8,7 +8,7 @@ You MUST make a local copy of the .env file before you run this application `cp 
 
 Run `npm start`
 
-Runs the app in the development mode. Open [Windows](http://localhost:3000) to view it in the browser.
+Runs the app in the development mode. Open `http://localhost:3000` to view it in the browser.
 
 # Environment variables
 
@@ -28,11 +28,9 @@ To add new environment variable create a variable in `.env.example` then copy ov
 
 # Storybook
 
-`npm run storybook` - runs Storybook locally and can be viewed here [Windows](http://localhost:6006/)
+`npm run storybook` - runs Storybook locally and can be viewed here `http://localhost:6006/`
 
 `npm run chromatic` - builds and deploys Storybook and gives feedback if any new changes have been detected for review, these will need to be approved before final deployment to hosting.
-
-[Storybook](storybook.sdenning.co.uk)
 
 # react-movie-search resources and links
 

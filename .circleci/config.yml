@@ -37,8 +37,10 @@ jobs:
           name: Run tests
           command: npm run test:circle
       - run:
-          name: Build the App
+          name: Build the App with Environment Variables
           command: |
+            echo "REACT_APP_TEST=$REACT_APP_TEST" >> .env
+            cat .env  # Verify the .env file contents
             npm install
             npm run build
       - run:
