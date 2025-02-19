@@ -3,6 +3,7 @@ import moment from "moment";
 
 // Components
 import AddToFavorites from "../add-to-favorites";
+import Button from "../../components/button";
 import Image from "../image";
 
 // Styles
@@ -14,7 +15,7 @@ import useDefineMediaType from "../../utils/use-define-media-type";
 interface Props {
   resource: any;
   onClick?: () => void;
-  variant?: "banner" | "resource";
+  variant?: "banner" | "resource" | "details";
   handleFavorite?: (isFavorite: boolean) => void;
   favorite?: boolean;
 }
@@ -26,48 +27,63 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
   // Class definitions
   const baseClass = "card";
   const variantClass = variant ? `card--${variant}` : "";
-  const classes = [baseClass, variantClass].filter(Boolean).join(" ");
+  const personClass = mediaType === "person" ? "card--person" : "";
+  const classes = [baseClass, variantClass, personClass].filter(Boolean).join(" ");
 
   return (
     <div
       className={classes}
       data-testid="card"
     >
-      <Image
-        resource={resource}
-        id={resource.id}
-      />
-      <div className="card__overlay">
-        <div
-          className="card__content"
-          onClick={onClick}
-          data-testid="card-content"
+      <Button
+        className="card__cover"
+        onClick={onClick}
+        tabIndex={0}
+        variant="plain"
+      >
+        <span
+          className="sr-only"
+          aria-hidden={true}
         >
-          <h3
-            className="card__title"
-            data-testid="card-title"
+          Click to open
+        </span>
+      </Button>
+      <div className="card__wrapper">
+        <Image
+          resource={resource}
+          id={resource.id}
+        />
+        <div className="card__overlay">
+          <div
+            className="card__content"
+            data-testid="card-content"
           >
-            {resource?.name || resource?.title}
-          </h3>
-          {resource?.["first_air_date"] && (
-            <p
-              className="card__info"
-              data-testid="first-air-date"
+            <h3
+              className="card__title"
+              data-testid="card-title"
             >
-              {moment(resource?.["first_air_date"]).format("YYYY")}
-            </p>
-          )}
-          {resource?.["release_date"] && <p className="card__info">{moment(resource?.["release_date"]).format("YYYY")}</p>}
-          {resource?.["known_for_department"] && <p className="card__info">{resource["known_for_department"]}</p>}
-          <p className="card__info">{resource?.character}</p>
+              {resource?.name || resource?.title}
+            </h3>
+            {resource?.["first_air_date"] && (
+              <p
+                className="card__info"
+                data-testid="first-air-date"
+              >
+                {moment(resource?.["first_air_date"]).format("YYYY")}
+              </p>
+            )}
+            {resource?.["release_date"] && <p className="card__info">{moment(resource?.["release_date"]).format("YYYY")}</p>}
+            {resource?.job && <p className="card__info">{resource.job}</p>}
+            {resource?.character && <p className="card__info">{resource?.character}</p>}
+          </div>
         </div>
-        {user && mediaType !== "person" && (
-          <AddToFavorites
-            handleFavorite={() => handleFavorite(resource)}
-            isFavorite={resource?.favorite}
-          />
-        )}
       </div>
+      {user && mediaType !== "person" && (
+        <AddToFavorites
+          handleFavorite={() => handleFavorite(resource)}
+          isFavorite={resource?.favorite}
+        />
+      )}
     </div>
   );
 };

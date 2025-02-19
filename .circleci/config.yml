@@ -29,7 +29,13 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: npm
-
+      - run:
+          name: App configuration
+          command: |
+            cp .env.example .env
+            cat .env  # Verify the .env file contents
+            printenv | grep -v "^\s*$" >> .env  # Append non-empty environment variables
+            sort -u -o .env .env  # Remove duplicate lines
       - run:
           name: Run tests
           command: npm run test:circle

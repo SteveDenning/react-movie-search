@@ -41,12 +41,13 @@ const Search = () => {
   const isTablet = screenSize.width <= 1024;
   const navigate = useNavigate();
   const inputRef = useRef(null);
+  const isDisabled = !!suggestions.length && !!searchTerm?.length;
 
   const options = [
     { value: "multi", label: "All" },
     { value: "tv", label: "TV" },
     { value: "movie", label: "Film" },
-    { value: "person", label: "Actor" },
+    { value: "person", label: "People" },
   ];
 
   const updateQuery = (key: string, value: string) => {
@@ -70,7 +71,7 @@ const Search = () => {
   };
 
   const handleSuggestions = (event: any) => {
-    if (event.target.value.length) {
+    if (event.target.value.length > 2) {
       getAllMediaFromSearch(`${mediaType.value}?query=${event.target.value}`)
         .then((response: any) => {
           const suggestions = response.data.results?.slice(0, 10);
@@ -145,8 +146,8 @@ const Search = () => {
         options={options}
         placeholder="All"
         searchable={false}
-        defaultValue={"multi"}
-        isDisabled={!!suggestions.length && !!searchTerm?.length}
+        defaultValue="multi"
+        isDisabled={isDisabled}
       />
       <div className="search__options">
         <form
@@ -179,12 +180,13 @@ const Search = () => {
             className="sr-only"
             type="submit"
             onClick={handleSubmit}
+            tabIndex={-1}
           >
             Submit
           </Button>
           {!!searchTerm?.length && (
             <Button
-              data-testid="search-form-clear"
+              testId="search-form-clear"
               variant="icon"
               className="search__form-clear"
               type="reset"

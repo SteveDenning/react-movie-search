@@ -126,7 +126,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
                   component="li"
                   item
                   xs={10}
-                  sm={5}
+                  md={5}
                   lg={4}
                   key={index}
                 >

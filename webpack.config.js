@@ -8,7 +8,7 @@ module.exports = {
   entry: "./src/index.tsx",
   output: {
     path: path.resolve(__dirname, "build"),
-    filename: "main.js",
+    filename: "[name].[contenthash].js",
     publicPath: "/",
   },
   plugins: [
@@ -23,7 +23,7 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: ["*", ".ts", ".tsx", ".html", ".js", ".jsx", ".sass", ".jpg", ".jpeg", ".png", ".gif", ".svg", ".css", ".json"],
+    extensions: [".*", ".ts", ".tsx", ".html", ".js", ".jsx", ".sass", ".jpg", ".jpeg", ".png", ".gif", ".svg", ".css", ".json"],
   },
   devServer: {
     static: {

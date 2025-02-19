@@ -4,14 +4,31 @@
 
 .card {
   border-radius: 0 20px;
-  display: flex;
-  flex-direction: column;
   height: 100%;
   overflow: hidden;
   position: relative;
   transition: box-shadow 0.3s ease;
 
-  @include hover {
+  &__wrapper {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 0;
+    pointer-events: none;
+    width: 100%;
+
+    @include hover {
+      .card__content {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__overlay {
+    width: 100%;
   }
 
   &__content-button {
@@ -31,7 +48,6 @@
     background: rgba($black, 0.7);
     border: 0;
     bottom: 0;
-    cursor: pointer;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -42,13 +58,22 @@
     transition: opacity 0.5s ease;
     top: 0;
     width: 100%;
+  }
+
+  &__cover {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    transition: background 0.5s ease;
+    width: 100%;
+    z-index: 1;
 
     @include hover {
-      opacity: 1;
-
-      .card {
-        &__content-button {
-          bottom: 50px;
+      + .card__wrapper {
+        .card__content {
           opacity: 1;
         }
       }
@@ -80,6 +105,30 @@
   }
 
   &--resource {
-    box-shadow: rgba(0, 0, 0, 0.4) 10px 10px 5px 0px;
+    box-shadow: rgba($black, 0.4) 10px 10px 5px 0px;
+  }
+
+  &--person {
+    padding-bottom: 50px;
+
+    .card {
+      &__cover {
+        @include hover {
+          background: rgba($black, 0.6);
+        }
+      }
+
+      &__title {
+        font-size: 16px;
+        margin: 0;
+      }
+
+      &__content {
+        background: $black;
+        opacity: 1;
+        padding: 10px 5px;
+        top: auto;
+      }
+    }
   }
 }

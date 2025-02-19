@@ -1,6 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import moment from "moment";
+
+// Components
+import AddToFavorites from "../../components/add-to-favorites";
+import Button from "../../components/button";
+import Image from "../../components/image";
+import MediaCarousel from "../../components/media-carousel";
+import Modal from "../../components/modal";
+import Overview from "../../components/overview";
+import SectionHeading from "../../components/section-heading";
+import Video from "../../components/video";
+
+// Config
+import { config } from "../../config/routes";
+
+// MUI
+import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 
 // Services
 import { getFavorites } from "../../services/favorites";
@@ -8,22 +23,14 @@ import { getMediaByID } from "../../services/media";
 import { updateFavorite } from "../../services/favorites";
 import { getVideos } from "../../services/videos";
 
-// Components
-import AddToFavorites from "../../components/add-to-favorites";
-import Button from "../../components/button";
-import Image from "../../components/image";
-import MediaCarousel from "../../views/media-carousel";
-import Modal from "../../components/modal";
-import Overview from "../../components/overview";
-import Video from "../../components/video";
-
-// MUI
-import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
-
 // Styles
 import "./details.scss";
 
-const DetailsView = () => {
+interface Props {
+  handleMediaTitle: (title: string) => void;
+}
+
+const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const [backDrop, setBackDrop] = useState<string>("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -31,8 +38,6 @@ const DetailsView = () => {
   const [videoKey, setVideoKey] = useState<string>("");
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const navigate = useNavigate();
 
   const user = JSON.parse(sessionStorage.getItem("user") || null);
   const programmeId = window.location.pathname.split("/")[3] as string;
@@ -56,15 +61,17 @@ const DetailsView = () => {
     },
   };
 
-  const getMedia = () => {
+  const getMediaDetails = () => {
     if (programmeId && type) {
       setLoading(true);
       getMediaByID(programmeId, type)
         .then((response: any) => {
           setResource(response.data);
+          handleMediaTitle(response.data.name || response.data.title);
           setBackDrop(response.data?.backdrop_path);
           getFavoritesList();
-          fetchVideos(programmeId, type);
+          getMediaVideos(programmeId, type);
+          setLoading(false);
         })
         .catch((error) => {
           console.error(error);
@@ -74,12 +81,15 @@ const DetailsView = () => {
     }
   };
 
-  const fetchVideos = (id: string, type: string) => {
+  const getMediaVideos = (id: string, type: string) => {
     if (type !== "person") {
       setLoading(true);
       getVideos(id, type)
         .then((response: any) => {
-          setVideoKey(response.data.results[0]?.key);
+          const trailers = response.data.results.filter((video: any) => video.type === "Trailer");
+
+          trailers.length !== 0 ? setVideoKey(trailers[0]?.key) : setVideoKey(response.data.results[0]?.key);
+
           setLoading(false);
         })
         .catch((error) => {
@@ -136,7 +146,7 @@ const DetailsView = () => {
   };
 
   useEffect(() => {
-    getMedia();
+    getMediaDetails();
   }, []);
 
   return (
@@ -149,6 +159,10 @@ const DetailsView = () => {
             style={{ backgroundImage: backgroundImage }}
           >
             <Container>
+              <SectionHeading
+                heading={resource.name || resource.title}
+                backButton
+              />
               <div
                 className="details-view__inner"
                 data-testid="details-view-inner"
@@ -167,15 +181,16 @@ const DetailsView = () => {
                 )}
                 <div className="details-view__content">
                   <div className="details-view__profile">
-                    {resource["profile_path"] && <div className="details-view__profile-image">{renderImage()}</div>}
+                    {(resource["profile_path"] || !videoKey) && <div className="details-view__profile-image">{renderImage()}</div>}
                     <div>
                       <div className="details-view__profile-details">
                         <h2
                           className="details-view__title"
                           data-testid="details-view-title"
                         >
-                          {resource.name || resource.title}{" "}
-                          {isMedia && resource?.["release_date"] && <span>({moment(resource?.["release_date"]).format("YYYY")})</span>}
+                          {isMedia && resource?.["release_date"] && (
+                            <span>Release Date: {moment(resource?.["release_date"]).format("MMMM YYYY")}</span>
+                          )}
                           {user && type !== "person" && (
                             <AddToFavorites
                               handleFavorite={handleFavorite}
@@ -245,9 +260,6 @@ const DetailsView = () => {
                       )}
                     </div>
                   </div>
-                  <div className="details-view__back-button">
-                    <Button onClick={() => navigate(-1)}>Back</Button>
-                  </div>
                 </div>
               </div>
               <MediaCarousel
@@ -255,7 +267,9 @@ const DetailsView = () => {
                 pathName={pathName}
                 dataResource="cast"
                 responsiveOptions={personOptions}
-                media={type === "person" ? "movie" : "person"}
+                media={isPerson ? "movie" : "person"}
+                buttonText={!isPerson ? "Cast and Crew" : null}
+                buttonLink={`${config.credits.path}/${type}/${programmeId}`}
               />
             </Container>
           </div>

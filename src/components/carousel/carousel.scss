@@ -21,6 +21,17 @@
     }
   }
 
+  &__overlay {
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+  }
+
   &__item-button {
     border: 0;
     background: none;
@@ -53,7 +64,7 @@
     }
 
     &::before {
-      background: linear-gradient(rgba($black, 0.1), $black);
+      background: linear-gradient(rgba($black, 0), $black);
       bottom: 0;
       content: "";
       display: block;
@@ -95,6 +106,7 @@
 
         @include hover {
           background-color: $anakiwa;
+
           &:before {
             color: #000;
           }
@@ -125,8 +137,21 @@
     transition: opacity 0.4s ease;
 
     &:not(.react-multi-carousel-item--active) {
-      opacity: 0.1;
+      opacity: 0.4;
       pointer-events: none;
+
+      .card__cover,
+      .carousel__overlay {
+        display: none;
+      }
+
+      .add-to-favorites {
+        display: none;
+      }
+
+      @include breakpoint($xlarge) {
+        opacity: 0.1;
+      }
 
       .card__overlay,
       .carousel__banner-button {

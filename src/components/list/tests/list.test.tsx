@@ -10,7 +10,7 @@ import { variables } from "./config";
 
 describe("list component", () => {
   describe("Component rendering", () => {
-    beforeEach(() => render(<List items={variables.navOptions} />));
+    beforeEach(() => render(<List resources={variables.navOptions} />));
 
     it("Should render a list", () => {
       expect(screen.getByTestId("list")).toBeInTheDocument();
@@ -25,7 +25,7 @@ describe("list component", () => {
     beforeEach(() =>
       render(
         <List
-          items={variables.navOptions}
+          resources={variables.navOptions}
           variant="link"
         />,
       ),
@@ -44,8 +44,8 @@ describe("list component", () => {
     beforeEach(() =>
       render(
         <List
-          items={variables.panelItems}
-          variant="list-panel"
+          resources={variables.panelItems}
+          variant="tile"
         />,
       ),
     );
@@ -55,7 +55,7 @@ describe("list component", () => {
     });
 
     it("Should have a variant class of 'list-panel'", () => {
-      expect(screen.getByTestId("list")).toHaveClass("list list--list-panel");
+      expect(screen.getByTestId("list")).toHaveClass("list list--tile");
     });
 
     it("Should render a list of seven panel list items", () => {

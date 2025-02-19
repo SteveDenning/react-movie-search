@@ -9,19 +9,10 @@ import Button from "../../components/button";
 // Styles
 import "./login.scss";
 
-type UserType = {
-  name: string;
-  avatar: {
-    tmdb: {
-      avatar_path: string;
-    };
-  };
-};
-
 interface Props {
   children?: React.ReactNode;
   onClick: (boolean) => void;
-  user: UserType;
+  user: any;
 }
 
 const Login: React.FC<Props> = ({ onClick, user }) => {

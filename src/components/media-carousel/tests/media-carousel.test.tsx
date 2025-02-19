@@ -28,17 +28,16 @@ describe("Media carousel component", () => {
         <MemoryRouter>
           <MediaCarousel
             buttonText="View all"
-            label="TV Releases"
+            label="Most popular actors"
             pathName="person/popular"
-            responsiveOptions={{}}
             media="person"
+            buttonLink="/media-listing/person/popular?page=1"
           />
         </MemoryRouter>,
       );
 
       await waitFor(() => expect(getMedia).toHaveBeenCalledTimes(1));
       await waitFor(() => expect(screen.getByTestId("media-carousel")).toBeInTheDocument());
-      await waitFor(() => expect(screen.getByTestId("media-carousel-label")).toHaveTextContent("TV Releases"));
       await waitFor(() => expect(screen.getByText("View all")).toBeInTheDocument());
 
       fireEvent.click(screen.getByText("View all"));

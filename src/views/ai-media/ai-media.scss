@@ -3,8 +3,9 @@
 // ai-media styles
 
 .ai-media {
+  margin-top: 20px;
+
   &__header {
-    background: rgba($black, 0.5);
     display: flex;
     flex-direction: column;
     justify-content: center;
