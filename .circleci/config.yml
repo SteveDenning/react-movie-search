@@ -21,7 +21,7 @@ jobs:
           command: |
             cp .env.example .env
             cat .env  # Verify the .env file contents
-            grep REACT_APP_ >> .env  # Append non-empty environment variables
+            printenv | grep -v "^\s*$" >> .env  # Append non-empty environment variables
             sort -u -o .env .env  # Remove duplicate lines
             cat .env  # Show final merged .env
 
