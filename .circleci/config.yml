@@ -7,14 +7,16 @@ jobs:
     executor: node/default
     steps:
       - checkout
-      - node/install-packages:
-          pkg-manager: npm
+      # - node/install-packages:
+      #     pkg-manager: npm
       - run:
           name: App configuration
           command: |
             cp .env.example .env
             printenv | grep -v "^\s*$" >> .env  # Append non-empty environment variables
             sort -u -o .env .env  # Remove duplicate lines
+            sed -i '/=.*$/!d' .env
+            sed -i '/=.*$/{/^.*=$/d}' .env
             cat .env
       # - run:
       #     name: Run tests
