@@ -2,7 +2,6 @@ import React from "react";
 import ReactCarousel from "react-multi-carousel";
 
 // Components
-import Button from "../button";
 import Card from "../card";
 import Image from "../image";
 
@@ -98,6 +97,18 @@ const Carousel: React.FC<Props> = ({
             >
               {banner ? (
                 <>
+                  <button
+                    tabIndex={0}
+                    className="carousel__overlay"
+                    onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
+                  >
+                    <span
+                      className="sr-only"
+                      aria-hidden={true}
+                    >
+                      Click to open
+                    </span>
+                  </button>
                   <Image
                     id={item.id}
                     resource={item}
@@ -112,20 +123,14 @@ const Carousel: React.FC<Props> = ({
                     </div>
                     <div className="carousel__banner-details">
                       <h2>{item.title || item.name}</h2>
-                      <Button
-                        className="carousel__banner-button"
-                        onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
-                      >
-                        View details
-                      </Button>
                     </div>
                   </div>
                 </>
               ) : (
                 <Card
                   resource={item}
-                  onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
                   handleFavorite={handleFavorite}
+                  onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
                 />
               )}
             </div>

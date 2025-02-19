@@ -13,10 +13,10 @@ interface Props {
   heading: string;
   buttonLink?: string;
   buttonText?: string;
-  children?: React.ReactNode;
+  backButton?: boolean;
 }
 
-const SectionHeading: React.FC<Props> = ({ heading, buttonLink, buttonText, children }) => {
+const SectionHeading: React.FC<Props> = ({ heading, buttonLink, buttonText, backButton }) => {
   return (
     <div
       className="section-heading"
@@ -32,7 +32,7 @@ const SectionHeading: React.FC<Props> = ({ heading, buttonLink, buttonText, chil
           <ArrowForwardIosIcon />
         </Button>
       )}
-      {children}
+      {backButton && <Button onClick={() => window.history.back()}>Back</Button>}
     </div>
   );
 };

@@ -17,12 +17,12 @@ export default meta;
 
 type Story = StoryObj<typeof Template>;
 
-const Test = (args: any) => <Template {...args} />;
+const SectionHeading = (args: any) => <Template {...args} />;
 
 export const Default: Story = {
   render: (args) => (
     <Container>
-      <Test {...args} />
+      <SectionHeading {...args} />
     </Container>
   ),
 };
@@ -33,12 +33,26 @@ Default.args = {
 export const withLink: Story = {
   render: (args) => (
     <Container>
-      <Test {...args} />
+      <SectionHeading {...args} />
     </Container>
   ),
 };
+
 withLink.args = {
   heading: "Lorem ipsum dolor sit amet",
   buttonLink: "#",
   buttonText: "View More",
+};
+
+export const backButton: Story = {
+  render: (args) => (
+    <Container>
+      <SectionHeading {...args} />
+    </Container>
+  ),
+};
+
+backButton.args = {
+  heading: "Lorem ipsum dolor sit amet",
+  backButton: true,
 };

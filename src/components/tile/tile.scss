@@ -1,0 +1,51 @@
+@import "../../styles/dependencies";
+
+// Tile styles
+.tile {
+  background: rgba($color: $primary-color, $alpha: 0.2);
+  border-radius: 0 20px;
+  display: flex;
+  margin-bottom: 20px;
+  padding: 10px;
+
+  &__image {
+    border-radius: 0 20px;
+    border: 0;
+    cursor: pointer;
+    overflow: hidden;
+    max-width: 100%;
+    margin-bottom: 20px;
+    padding: 0;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: center;
+    margin-left: auto;
+
+    svg {
+      font-size: 50px;
+    }
+  }
+
+  @include breakpoint($medium) {
+    &__item {
+      display: flex;
+    }
+
+    &__image {
+      max-width: 100px;
+      margin-right: 20px;
+      margin-bottom: 0;
+    }
+
+    &__actions {
+      display: flex;
+      margin-left: auto;
+
+      svg {
+        font-size: 50px;
+      }
+    }
+  }
+}

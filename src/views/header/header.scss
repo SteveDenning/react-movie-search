@@ -10,10 +10,20 @@
 
   &__message {
     border: 1px solid $primary-color;
-    display: flex;
+    display: flex !important;
+    height: 36px;
     justify-content: center;
-    position: relative;
+    overflow: hidden;
     padding: 5px 5px 5px 20px;
+    position: relative;
+    transition: all 0.7s ease;
+
+    &--fade-out {
+      border: 0;
+      height: 0;
+      opacity: 0;
+      padding: 0;
+    }
 
     p,
     button {

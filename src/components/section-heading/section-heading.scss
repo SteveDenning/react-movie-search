@@ -11,11 +11,13 @@
   position: relative;
 
   &__header {
+    align-items: center;
+    display: flex;
     padding: 0 10px;
   }
 
   .button {
-    margin-left: auto;
+    margin: 5px 0 5px auto;
 
     &--heading {
       font-size: 22px;

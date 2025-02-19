@@ -6,7 +6,7 @@
   // Important rules to override inline styling
   background-position: center !important;
   background-size: cover !important;
-  padding: 20px 0;
+  padding: 10px 0 20px;
 
   @include breakpoint($medium) {
     min-height: calc(100vh - 145px);
@@ -14,7 +14,7 @@
 
   &__inner {
     border-radius: 0 50px 0 0;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 
     @include breakpoint($xxlarge) {
       padding: 0 200px;
@@ -49,7 +49,6 @@
     span {
       font-size: 20px;
       color: $whispering-mist;
-      margin-left: 20px;
     }
   }
 
@@ -101,9 +100,7 @@
   }
 
   &__back-button {
-    bottom: 20px;
-    position: absolute;
-    right: 20px;
+    margin-bottom: 10px;
   }
   .add-to-favorites {
     margin-left: auto;

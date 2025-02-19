@@ -37,11 +37,6 @@ const Header: React.FC<Props> = ({ heading }) => {
   const user = useUser();
   const handleUpdateUser = useUserUpdate();
 
-  const handleCloseMessage = () => {
-    setHideMessage(true);
-    sessionStorage.setItem("hide_message", "true");
-  };
-
   const navOptions = [
     { label: config.home.name, path: config.home.path, icon: <TheatersIcon /> },
     { label: config.aiMedia.name, path: config.aiMedia.path, icon: <AutoAwesomeIcon /> },
@@ -52,38 +47,43 @@ const Header: React.FC<Props> = ({ heading }) => {
     setOpen(state);
   };
 
+  const handleCloseMessage = () => {
+    setHideMessage(true);
+    sessionStorage.setItem("hide_message", "true");
+  };
+
   useEffect(() => {
     setHideMessage(!!user || JSON.parse(sessionStorage.getItem("hide_message")));
   }, [user]);
 
   return (
     <header>
-      {!hideMessage && (
-        <Container>
-          <div className="header__message">
-            <p>
-              This app uses OpenAI technology. Create an account{" "}
-              <a
-                href="https://www.themoviedb.org/signup"
-                target="_blank"
-                rel="noreferrer"
-              >
-                here
-                <span className="sr-only">(Create an account with TMDB)</span>
-              </a>{" "}
-              to access these features.
-            </p>
-            <Button
-              variant="icon"
-              onClick={() => {
-                handleCloseMessage();
-              }}
-            >
-              <ClearIcon />
-            </Button>
-          </div>
-        </Container>
-      )}
+      <Container
+        className={`header__message ${hideMessage ? "header__message--fade-out" : ""}`}
+        data-testid="header-message"
+      >
+        <p>
+          This app uses OpenAI technology. Create an account{" "}
+          <a
+            href="https://www.themoviedb.org/signup"
+            target="_blank"
+            rel="noreferrer"
+          >
+            here
+            <span className="sr-only">(Create an account with TMDB)</span>
+          </a>{" "}
+          to access these features.
+        </p>
+        <Button
+          variant="icon"
+          onClick={() => {
+            handleCloseMessage();
+          }}
+          testId="hide-message"
+        >
+          <ClearIcon />
+        </Button>
+      </Container>
       <Container>
         <div
           className="header"
@@ -96,6 +96,7 @@ const Header: React.FC<Props> = ({ heading }) => {
               window.location.href = "/";
               sessionStorage.removeItem("query");
             }}
+            testId="header-logo"
           >
             <span className="sr-only">Home</span>
             <TheatersIcon />
@@ -137,7 +138,7 @@ const Header: React.FC<Props> = ({ heading }) => {
             </div>
             {user && (
               <List
-                items={navOptions}
+                resources={navOptions}
                 variant="link"
               />
             )}
