@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 
-const useOpenAI = (content: string, responseFormat = "json_object") => {
+const useOpenAI = (prompt, responseFormat = "text") => {
   const openai = new OpenAI({
     apiKey: process.env.REACT_APP_AI_API_KEY,
     dangerouslyAllowBrowser: true,
@@ -11,9 +11,9 @@ const useOpenAI = (content: string, responseFormat = "json_object") => {
     messages: [
       {
         role: "system",
-        content: "You are a helpful assistant. Your response should be in JSON format.",
+        content: prompt.systemContent,
       },
-      { role: "user", content: content },
+      { role: "user", content: prompt.userContent },
     ],
     // @ts-ignore
     response_format: { type: responseFormat },

@@ -30,6 +30,7 @@ import { ErrorType, GenreType, GenreOptionsType } from "../../models/types";
 // Utils
 import useCustomGenres from "../../utils/use-custom-genres";
 import useDefineMediaType from "../../utils/use-define-media-type";
+import { discoverMediaPrompt, failedSearchMessagePrompt } from "../../utils/use-prompts";
 
 // Styles
 import "./ai-media.scss";
@@ -44,7 +45,7 @@ const AIMedia = () => {
   const [movieGenres, setMovieGenres] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
   const [openModalMessage, setOpenModalMessage] = useState<string>("");
-  const [response, setResponse] = useState(null);
+  const [resources, setResources] = useState(null);
   const [selectedGenres, setSelectedGenres] = useState<string>(null);
   const [tvGenres, setTVGenres] = useState<string>("");
   const [selectedTab, setSelectedTab] = useState<string>("movies");
@@ -61,7 +62,7 @@ const AIMedia = () => {
   const handleMediaTypeObj = () => {
     switch (mediaType) {
       case "multi":
-        return { label: "Movies or TV shows", description: "Let AI discover a list of Movies and TV Shows based on selected genres", prompt: "" };
+        return { label: "Movies or TV shows", description: "Let AI discover a list of Movies and TV Shows based on selected genres" };
       case "tv":
         return { label: "TV Shows", description: "Let AI discover a list of TV Shows based on the most popular genres from your favourites" };
       default:
@@ -70,8 +71,7 @@ const AIMedia = () => {
   };
 
   const definedType = handleMediaTypeObj();
-
-  const prompt = `Create a JSON list of 30 ${definedType.label}, each item must have at least one of the following genres: ${genres}. If there are more than three popular genres, ensure the results include at least two of the top three most frequent genres. Prioritize the top three genres based on their frequency and order the ${definedType.label} by genre popularity. Return a JSON object with a popular key listing the top genres and a media array containing objects with a name key for each ${definedType.label} title. Ensure the ${definedType.label} are relatively popular and diverse.`;
+  const discoverMedia = discoverMediaPrompt(definedType.label, genres);
 
   const isJSONFormat = (obj: any) => {
     try {
@@ -83,33 +83,34 @@ const AIMedia = () => {
 
   const getOpenAI = () => {
     setGenerating(true);
-    setResponse(null);
-    useOpenAI(prompt)
+    setResources(null);
+    useOpenAI(discoverMedia, "json_object")
       .then((response) => {
         const resource = isJSONFormat(response.choices[0]?.message?.content);
 
         if (resource) {
-          setResponse(resource);
+          setResources(resource);
           setGenerating(false);
         }
       })
       .catch((error: ErrorType) => {
         console.error("Open AI::", error);
-        setResponse(null);
+        setResources(null);
         setGenerating(false);
         setError(error);
       });
   };
 
   const getOpenAIMessage = () => {
-    useOpenAI(
-      "Write this in a short, funny way focusing on AI getting it wrong - There was a problem getting the results from TMDB - please try again later",
-    )
+    useOpenAI(failedSearchMessagePrompt)
       .then((response) => {
-        const resource = isJSONFormat(response.choices[0]?.message?.content);
-        setOpenModalMessage(resource.message);
-        setOpen(true);
-        setLoading(false);
+        const message = response.choices[0]?.message?.content;
+
+        if (message) {
+          setLoading(false);
+          setOpenModalMessage(message);
+          setOpen(true);
+        }
       })
       .catch((error: ErrorType) => {
         console.error("Open AI message::", error);
@@ -207,7 +208,7 @@ const AIMedia = () => {
 
   const handleChange = (tab: { label: string; value: string }) => {
     setMediaType(tab.value);
-    setResponse(null);
+    setResources(null);
     setSelectedTab(tab.value);
 
     switch (tab.value) {
@@ -292,14 +293,14 @@ const AIMedia = () => {
                 />
               </div>
 
-              {selectedGenres?.length > 2 ? renderGenerateButton(false) : <p className="fade-in">Select three or more genres</p>}
+              {selectedGenres?.length >= 2 ? renderGenerateButton(false) : <p className="fade-in">Select two or more genres</p>}
             </div>
           ) : (
             <>
               <div className="ai-media__genres">
-                {mediaLabel !== "Movies or TV shows" && !!genres.length && !response?.media.length && (
+                {mediaLabel !== "Movies or TV shows" && !!genres.length && !resources?.media.length && (
                   <>
-                    <h3>Your collective genres</h3>
+                    <h3 className="ai-media__genres-heading">Your collective genres</h3>
                     <p>{[...new Set(genres?.split(" "))].join(" ")}</p>
                   </>
                 )}
@@ -332,15 +333,15 @@ const AIMedia = () => {
           {generating ? (
             <AILoader />
           ) : (
-            response?.media.length && (
-              <Fade in={!!response?.media.length}>
+            resources?.media.length && (
+              <Fade in={!!resources?.media.length}>
                 <div>
                   <div className="ai-media__genres">
                     <h3>Most popular genres</h3>
-                    {response?.popular && <p>{response.popular.join(", ")}</p>}
+                    {resources?.popular && <p>{resources.popular.join(", ")}</p>}
                   </div>
                   <ul className="ai-media__list">
-                    {response?.media.map((item: any, index: number) => {
+                    {resources?.media.map((item: any, index: number) => {
                       return (
                         <li
                           key={index}
