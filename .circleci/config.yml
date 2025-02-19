@@ -33,6 +33,10 @@ jobs:
           name: App configuration
           command: |
             cp .env.example .env
+            cat .env  # Verify the .env file contents
+            printenv | grep -v "^\s*$" >> .env  # Append non-empty environment variables
+            sort -u -o .env .env  # Remove duplicate lines
+            cat .env  # Show final merged .env
       - run:
           name: Run tests
           command: npm run test:circle
