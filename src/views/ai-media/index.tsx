@@ -104,12 +104,12 @@ const AIMedia = () => {
   const getOpenAIMessage = () => {
     useOpenAI(failedSearchMessagePrompt)
       .then((response) => {
-        const resource = isJSONFormat(response.choices[0]?.message?.content);
+        const message = response.choices[0]?.message?.content;
 
-        if (resource) {
-          setOpenModalMessage(resource);
-          setOpen(true);
+        if (message) {
           setLoading(false);
+          setOpenModalMessage(message);
+          setOpen(true);
         }
       })
       .catch((error: ErrorType) => {
