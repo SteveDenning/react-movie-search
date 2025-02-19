@@ -7,27 +7,22 @@ jobs:
     executor: node/default
     steps:
       - checkout
-      # - node/install-packages:
-      #     pkg-manager: npm
+      - node/install-packages:
+          pkg-manager: npm
       - run:
           name: App configuration
           command: |
             cp .env.example .env
-            printenv | grep -v "^\s*$" >> .env  # Append non-empty environment variables
-            sort -u -o .env .env  # Remove duplicate lines
-            sed -i '/=.*$/!d' .env
-            sed -i '/=.*$/{/^.*=$/d}' .env
-            cat .env
-      # - run:
-      #     name: Run tests
-      #     command: npm run test:circle
-      # - run:
-      #     name: Build the App
-      #     command: |
-      #       npm install
-      #       npm run build
-      # - store_artifacts:
-      #     path: coverage
+      - run:
+          name: Run tests
+          command: npm run test:circle
+      - run:
+          name: Build the App
+          command: |
+            npm install
+            npm run build
+      - store_artifacts:
+          path: coverage
 
   build-and-deploy:
     # Build node project
@@ -40,9 +35,14 @@ jobs:
           name: App configuration
           command: |
             cp .env.example .env
-            printenv | grep -v "^\s*$" >> .env  # Append non-empty environment variables
-            sort -u -o .env .env  # Remove duplicate lines
-            cat .env  # Verify the .env file contents
+            # Append environment variables
+            printenv | grep -v "^\s*$" >> .env  
+            # Remove duplicate lines
+            sort -u -o .env .env  
+            # Remove lines with empty values
+            sed -i '/=.*$/!d' .env
+            sed -i '/=.*$/{/^.*=$/d}' .env
+            cat .env
       - run:
           name: Run tests
           command: npm run test:circle
