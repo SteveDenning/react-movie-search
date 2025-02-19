@@ -12,11 +12,6 @@ jobs:
       - node/install-packages:
           pkg-manager: npm
       - run:
-          name: App configuration
-          command: |
-            cp .env.example .env
-
-      - run:
           name: Run tests
           command: npm run test:circle
       - run:
