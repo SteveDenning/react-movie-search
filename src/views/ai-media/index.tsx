@@ -45,7 +45,7 @@ const AIMedia = () => {
   const [movieGenres, setMovieGenres] = useState<string>("");
   const [open, setOpen] = useState<boolean>(false);
   const [openModalMessage, setOpenModalMessage] = useState<string>("");
-  const [response, setResponse] = useState(null);
+  const [resources, setResources] = useState(null);
   const [selectedGenres, setSelectedGenres] = useState<string>(null);
   const [tvGenres, setTVGenres] = useState<string>("");
   const [selectedTab, setSelectedTab] = useState<string>("movies");
@@ -72,7 +72,6 @@ const AIMedia = () => {
 
   const definedType = handleMediaTypeObj();
   const discoverMedia = discoverMediaPrompt(definedType.label, genres);
-  const failedSearchMessage = failedSearchMessagePrompt();
 
   const isJSONFormat = (obj: any) => {
     try {
@@ -84,31 +83,31 @@ const AIMedia = () => {
 
   const getOpenAI = () => {
     setGenerating(true);
-    setResponse(null);
+    setResources(null);
     useOpenAI(discoverMedia, "json_object")
       .then((response) => {
         const resource = isJSONFormat(response.choices[0]?.message?.content);
 
         if (resource) {
-          setResponse(resource);
+          setResources(resource);
           setGenerating(false);
         }
       })
       .catch((error: ErrorType) => {
         console.error("Open AI::", error);
-        setResponse(null);
+        setResources(null);
         setGenerating(false);
         setError(error);
       });
   };
 
   const getOpenAIMessage = () => {
-    useOpenAI(failedSearchMessage)
+    useOpenAI(failedSearchMessagePrompt)
       .then((response) => {
         const resource = isJSONFormat(response.choices[0]?.message?.content);
 
         if (resource) {
-          setOpenModalMessage(resource.message);
+          setOpenModalMessage(resource);
           setOpen(true);
           setLoading(false);
         }
@@ -209,7 +208,7 @@ const AIMedia = () => {
 
   const handleChange = (tab: { label: string; value: string }) => {
     setMediaType(tab.value);
-    setResponse(null);
+    setResources(null);
     setSelectedTab(tab.value);
 
     switch (tab.value) {
@@ -294,14 +293,14 @@ const AIMedia = () => {
                 />
               </div>
 
-              {selectedGenres?.length > 2 ? renderGenerateButton(false) : <p className="fade-in">Select three or more genres</p>}
+              {selectedGenres?.length >= 2 ? renderGenerateButton(false) : <p className="fade-in">Select two or more genres</p>}
             </div>
           ) : (
             <>
               <div className="ai-media__genres">
-                {mediaLabel !== "Movies or TV shows" && !!genres.length && !response?.media.length && (
+                {mediaLabel !== "Movies or TV shows" && !!genres.length && !resources?.media.length && (
                   <>
-                    <h3>Your collective genres</h3>
+                    <h3 className="ai-media__genres-heading">Your collective genres</h3>
                     <p>{[...new Set(genres?.split(" "))].join(" ")}</p>
                   </>
                 )}
@@ -334,15 +333,15 @@ const AIMedia = () => {
           {generating ? (
             <AILoader />
           ) : (
-            response?.media.length && (
-              <Fade in={!!response?.media.length}>
+            resources?.media.length && (
+              <Fade in={!!resources?.media.length}>
                 <div>
                   <div className="ai-media__genres">
                     <h3>Most popular genres</h3>
-                    {response?.popular && <p>{response.popular.join(", ")}</p>}
+                    {resources?.popular && <p>{resources.popular.join(", ")}</p>}
                   </div>
                   <ul className="ai-media__list">
-                    {response?.media.map((item: any, index: number) => {
+                    {resources?.media.map((item: any, index: number) => {
                       return (
                         <li
                           key={index}
