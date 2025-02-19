@@ -1,18 +1,16 @@
+# This config was automatically generated from your source code
+# Stacks detected: deps:node:.
 version: 2.1
 orbs:
   node: circleci/node@5
-
 jobs:
   test:
+    # Install node dependencies and run tests
     executor: node/default
     steps:
       - checkout
       - node/install-packages:
           pkg-manager: npm
-      - run:
-          name: App configuration
-          command: |
-            cp .env.example .env
       - run:
           name: Run tests
           command: npm run test:circle
@@ -35,14 +33,9 @@ jobs:
           name: App configuration
           command: |
             cp .env.example .env
-            # Append environment variables
-            printenv | grep -v "^\s*$" >> .env  
-            # Remove duplicate lines
-            sort -u -o .env .env  
-            # Remove lines with empty values
-            sed -i '/=.*$/!d' .env
-            sed -i '/=.*$/{/^.*=$/d}' .env
-            cat .env
+            printenv | grep -v "^\s*$" >> .env  # Append non-empty environment variables
+            sort -u -o .env .env  # Remove duplicate lines
+            cat .env  # Verify the .env file contents
       - run:
           name: Run tests
           command: npm run test:circle
