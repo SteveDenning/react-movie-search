@@ -20,7 +20,7 @@ jobs:
           name: Export all CircleCI environment variables to .env
           command: |
             # Export all CircleCI environment variables that start with "REACT_APP_"
-            printenv | grep REACT_APP_ > .env
+            printenv > .env
             cat .env  # Verify the .env file contents
       - run:
           name: Run tests
