@@ -15,7 +15,6 @@ jobs:
           name: App configuration
           command: |
             cp .env.example .env
-            echo $REACT_APP_TEST > .env
             cat .env  # Verify the .env file contents
       - run:
           name: Run tests
