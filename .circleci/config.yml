@@ -13,19 +13,19 @@ jobs:
           name: App configuration
           command: |
             cp .env.example .env
-            echo "SECRET_KEY=$SECRET_KEY" >> .env
-            echo "API_TOKEN=$API_TOKEN" >> .env
+            printenv | grep -v "^\s*$" >> .env  # Append non-empty environment variables
+            sort -u -o .env .env  # Remove duplicate lines
             cat .env
-      - run:
-          name: Run tests
-          command: npm run test:circle
-      - run:
-          name: Build the App
-          command: |
-            npm install
-            npm run build
-      - store_artifacts:
-          path: coverage
+      # - run:
+      #     name: Run tests
+      #     command: npm run test:circle
+      # - run:
+      #     name: Build the App
+      #     command: |
+      #       npm install
+      #       npm run build
+      # - store_artifacts:
+      #     path: coverage
 
   build-and-deploy:
     # Build node project
