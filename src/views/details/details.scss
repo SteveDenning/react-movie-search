@@ -42,9 +42,15 @@
     position: relative;
   }
 
-  &__title {
+  &__title-wrapper {
     display: flex;
     align-items: center;
+  }
+
+  &__title {
+    align-items: center;
+    display: flex;
+    margin-bottom: 0;
 
     span {
       font-size: 20px;
@@ -102,8 +108,14 @@
   &__back-button {
     margin-bottom: 10px;
   }
-  .add-to-favorites {
+
+  &__actions {
+    display: flex;
     margin-left: auto;
+
+    .add-to-favorites {
+      margin-left: 10px;
+    }
   }
 
   ul {

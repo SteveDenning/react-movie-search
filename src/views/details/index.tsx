@@ -9,6 +9,7 @@ import MediaCarousel from "../../components/media-carousel";
 import Modal from "../../components/modal";
 import Overview from "../../components/overview";
 import SectionHeading from "../../components/section-heading";
+import Share from "../../components/share";
 import Video from "../../components/video";
 
 // Config
@@ -184,20 +185,25 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                     {(resource["profile_path"] || !videoKey) && <div className="details-view__profile-image">{renderImage()}</div>}
                     <div>
                       <div className="details-view__profile-details">
-                        <h2
-                          className="details-view__title"
-                          data-testid="details-view-title"
-                        >
-                          {isMedia && resource?.["release_date"] && (
-                            <span>Release Date: {moment(resource?.["release_date"]).format("MMMM YYYY")}</span>
-                          )}
-                          {user && type !== "person" && (
-                            <AddToFavorites
-                              handleFavorite={handleFavorite}
-                              isFavorite={isFavorite}
-                            />
-                          )}
-                        </h2>
+                        <div className="details-view__title-wrapper">
+                          <h2
+                            className="details-view__title"
+                            data-testid="details-view-title"
+                          >
+                            {isMedia && resource?.["release_date"] && (
+                              <span>Release Date: {moment(resource?.["release_date"]).format("MMMM YYYY")}</span>
+                            )}
+                          </h2>
+                          <div className="details-view__actions">
+                            <Share title={resource.name || resource.title} />
+                            {user && type !== "person" && (
+                              <AddToFavorites
+                                handleFavorite={handleFavorite}
+                                isFavorite={isFavorite}
+                              />
+                            )}
+                          </div>
+                        </div>
                         {resource.birthday && (
                           <p>
                             {resource.deathday
