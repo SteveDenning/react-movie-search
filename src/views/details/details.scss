@@ -43,8 +43,8 @@
   }
 
   &__title-wrapper {
-    display: flex;
     align-items: center;
+    display: flex;
   }
 
   &__title {
@@ -53,8 +53,8 @@
     margin-bottom: 0;
 
     span {
-      font-size: 20px;
       color: $whispering-mist;
+      font-size: 20px;
     }
   }
 

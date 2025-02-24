@@ -50,6 +50,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const MediaCarouselLabel = isPerson ? "Known for" : "Top Cast";
   const pathName = `${type}/${programmeId}/credits?language=en-US`;
   const text = resource?.overview || resource?.biography || null;
+  const title = resource.name || resource.title;
 
   const personOptions = {
     desktop: {
@@ -161,7 +162,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
           >
             <Container>
               <SectionHeading
-                heading={resource.name || resource.title}
+                heading={title}
                 backButton
               />
               <div
@@ -195,7 +196,10 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                             )}
                           </h2>
                           <div className="details-view__actions">
-                            <Share title={resource.name || resource.title} />
+                            <Share
+                              title={title}
+                              id={title}
+                            />
                             {user && type !== "person" && (
                               <AddToFavorites
                                 handleFavorite={handleFavorite}

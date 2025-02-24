@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Button from "../button";
 
 // MUI Components
+import { IconButton } from "@mui/material";
 import Popover from "@mui/material/Popover";
 
 // Icons
@@ -13,7 +14,6 @@ import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 
 // Styles
 import "./share.scss";
-import { IconButton } from "@mui/material";
 
 interface Props {
   id: string;
@@ -39,13 +39,14 @@ const Share: React.FC<Props> = ({ title, id }) => {
     >
       <IconButton
         onClick={handleClick}
-        className="share__icon"
+        className="share__button"
         data-testid="share-button"
       >
         <ShareIcon />
       </IconButton>
       <Popover
         className="share__popover"
+        data-testid="share-popover"
         id={id}
         open={open}
         anchorEl={anchorEl}

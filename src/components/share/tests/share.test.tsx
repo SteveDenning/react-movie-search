@@ -6,7 +6,7 @@ import { screen, render, fireEvent, waitFor } from "@testing-library/react";
 import Share from "../index";
 
 Object.defineProperty(window, "location", {
-  value: { href: "www.test.com" },
+  value: { href: "www.Gladiator-two.com" },
   writable: true,
 });
 
@@ -25,16 +25,12 @@ describe("Share component", () => {
       expect(screen.getByTestId("share")).toBeInTheDocument();
     });
 
-    it("Should render the component with a button", () => {
-      expect(screen.getByTestId("share-button")).toBeInTheDocument();
-    });
-
-    it("Should allow the user to click the button", async () => {
+    it("Should allow the user to click the button top open the popover", async () => {
       expect(screen.getByTestId("share-button")).toBeInTheDocument();
 
       fireEvent.click(screen.getByTestId("share-button"));
 
-      await waitFor(() => expect(screen.getByTestId("sentinelStart")).toBeInTheDocument());
+      await waitFor(() => expect(screen.getByTestId("share-popover")).toBeInTheDocument());
     });
 
     it("Should render two share options", async () => {
@@ -52,7 +48,7 @@ describe("Share component", () => {
 
       const emailButton = screen.queryAllByTestId("button")[0];
 
-      await waitFor(() => expect(emailButton).toHaveAttribute("href", "mailto:?subject=Gladiator II&body=www.test.com"));
+      await waitFor(() => expect(emailButton).toHaveAttribute("href", "mailto:?subject=Gladiator II&body=www.Gladiator-two.com"));
     });
 
     it("Should share a link when sharing with WhatsApp", async () => {
@@ -62,7 +58,7 @@ describe("Share component", () => {
 
       const emailButton = screen.queryAllByTestId("button")[1];
 
-      await waitFor(() => expect(emailButton).toHaveAttribute("href", "https://api.whatsapp.com/send?text=www.test.com"));
+      await waitFor(() => expect(emailButton).toHaveAttribute("href", "https://api.whatsapp.com/send?text=www.Gladiator-two.com"));
     });
   });
 });

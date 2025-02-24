@@ -3,7 +3,7 @@
 // test styles
 
 .share {
-  &__icon {
+  &__button {
     svg {
       fill: $primary-color;
     }
@@ -28,9 +28,9 @@
 
   &__popover {
     .MuiPopover-paper {
+      background: $black;
       border: 1px solid $primary-color;
       border-radius: 0 10px;
-      background: #000;
     }
   }
 }
