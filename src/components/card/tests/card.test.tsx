@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { screen, render, fireEvent } from "@testing-library/react";
+import { screen, render, fireEvent, waitFor } from "@testing-library/react";
 
 // Variables
 import { variables } from "./config";
@@ -8,14 +8,23 @@ import { variables } from "./config";
 // Components
 import Card from "../index";
 
+let mockStorage = {};
+
 describe("Card component", () => {
   describe("Component rendering", () => {
     const handleClick = jest.fn();
 
+    beforeAll(() => {
+      global.Storage.prototype.setItem = jest.fn((key, value) => {
+        mockStorage[key] = value;
+      });
+      global.Storage.prototype.getItem = jest.fn((key) => mockStorage[key]);
+    });
+
     beforeEach(() =>
       render(
         <Card
-          resource={variables.data}
+          resource={variables.person}
           onClick={handleClick}
           variant="banner"
         />,
@@ -45,6 +54,36 @@ describe("Card component", () => {
 
     it("Should display the character the actor plays", () => {
       expect(screen.getByText("Eddie Brock / Venom")).toBeInTheDocument();
+    });
+  });
+
+  describe("Component rendering (logged in)", () => {
+    const handleFavorite = jest.fn();
+
+    beforeEach(() => {
+      mockStorage = {
+        user: JSON.stringify(variables.user),
+      };
+      render(
+        <Card
+          resource={variables.film}
+          handleFavorite={handleFavorite}
+        />,
+      );
+    });
+
+    it("Should render a card with a favourites icon", async () => {
+      expect(screen.getByTestId("add-to-favorites")).toBeInTheDocument();
+    });
+
+    it("Should allow the user to click the favourite button", async () => {
+      const favouriteButton = screen.getByTestId("add-to-favorites");
+
+      expect(favouriteButton).toBeInTheDocument();
+
+      fireEvent.click(favouriteButton);
+
+      await waitFor(() => expect(handleFavorite).toHaveBeenCalled());
     });
   });
 });

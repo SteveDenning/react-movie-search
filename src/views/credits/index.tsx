@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 // Services
-import { getMedia, getMediaByID } from "../../services/media";
+import { getMedia } from "../../services/media";
 
 // Component
 import Card from "../../components/card";
@@ -27,22 +27,7 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
   const type = window.location.pathname.split("/")[2];
   const programmeId = window.location.pathname.split("/")[3];
   const pathName = `${type}/${programmeId}/credits?language=en-US`;
-
-  const getMediaDetails = () => {
-    if (programmeId && type) {
-      setLoading(true);
-      getMediaByID(programmeId, type)
-        .then((response: any) => {
-          handlePageHeading(response.data.name || response.data.title);
-          getCastAndCrew();
-        })
-        .catch((error) => {
-          console.error(error);
-          setLoading(false);
-          setError(true);
-        });
-    }
-  };
+  const title = window.location.pathname.split("/")[4] as string;
 
   const getCastAndCrew = () => {
     getMedia(pathName)
@@ -58,17 +43,22 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
       });
   };
 
-  const handlePageHeading = (heading: string) => {
-    handleMediaTitle(heading);
-    setHeading(heading);
-  };
-
   const handleTabChange = (tab: { label: string; value: string }) => {
     setSelectedTab(tab.value);
   };
 
+  const handlePageHeading = () => {
+    const decodedTitle = decodeURI(title);
+
+    if (decodedTitle) {
+      handleMediaTitle(decodedTitle);
+      setHeading(decodedTitle);
+    }
+  };
+
   useEffect(() => {
-    getMediaDetails();
+    handlePageHeading();
+    getCastAndCrew();
   }, []);
 
   const renderTab = (resource: any, type: string) => {
