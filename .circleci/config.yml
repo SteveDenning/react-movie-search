@@ -60,6 +60,13 @@ workflows:
             branches:
               ignore:
                 - main
+                - release
+  release:
+    jobs:
+      - build-and-deploy:
+          filters:
+            branches:
+              only: release
   deploy-production:
     jobs:
       - build-and-deploy:
