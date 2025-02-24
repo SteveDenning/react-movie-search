@@ -60,6 +60,7 @@ workflows:
             branches:
               ignore:
                 - main
+                - release
   release:
     jobs:
       - build-and-deploy:
