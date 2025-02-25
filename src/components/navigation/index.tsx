@@ -40,7 +40,7 @@ const Navigation: React.FC<Props> = ({ toggleDrawer, open, navItems }) => {
       className="navigation"
       data-testid="navigation"
       open={open}
-      onClose={toggleDrawer}
+      onClick={() => toggleDrawer(false)}
       anchor="right"
       PaperProps={{
         sx: {
