@@ -48,6 +48,7 @@ const Navigation: React.FC<Props> = ({ toggleDrawer, open, navItems }) => {
           <Button
             variant="icon"
             onClick={() => toggleDrawer(false)}
+            testId="navigation-action-close"
           >
             <ClearIcon />
           </Button>
@@ -63,7 +64,7 @@ const Navigation: React.FC<Props> = ({ toggleDrawer, open, navItems }) => {
             variant="link"
             // @ts-ignore
             onClick={handleUpdateUser}
-            color="red"
+            testId="navigation-action-login"
           >
             {user ? "Log Out" : "Login"}
           </Button>
