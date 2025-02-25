@@ -16,6 +16,9 @@ import ClearIcon from "@mui/icons-material/Clear";
 // Types
 import { NavItemType } from "../../models/types";
 
+// Utils
+import useScreenSize from "../../utils/use-screen-size";
+
 // Styles
 import "./navigation.scss";
 
@@ -29,6 +32,9 @@ const Navigation: React.FC<Props> = ({ toggleDrawer, open, navItems }) => {
   const handleUpdateUser = useUserUpdate();
   const user = useUser();
 
+  const screenSize = useScreenSize();
+  const navWidth = screenSize.width <= 1024 ? 200 : 300;
+
   return (
     <Drawer
       className="navigation"
@@ -38,12 +44,12 @@ const Navigation: React.FC<Props> = ({ toggleDrawer, open, navItems }) => {
       anchor="right"
       PaperProps={{
         sx: {
-          width: 300,
+          width: navWidth,
           bgcolor: "#000",
         },
       }}
     >
-      <Box sx={{ mt: 2, mx: 2.5 }}>
+      <div className="navigation__inner">
         <div className="navigation__action-close">
           <Button
             variant="icon"
@@ -69,7 +75,7 @@ const Navigation: React.FC<Props> = ({ toggleDrawer, open, navItems }) => {
             {user ? "Log Out" : "Login"}
           </Button>
         </div>
-      </Box>
+      </div>
     </Drawer>
   );
 };

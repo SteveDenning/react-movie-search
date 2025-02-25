@@ -3,6 +3,10 @@
 // Navigation styles
 
 .navigation {
+  &__inner {
+    padding: 20px;
+  }
+
   &__action-close {
     display: flex;
     justify-content: end;

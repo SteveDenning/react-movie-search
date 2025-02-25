@@ -18,6 +18,16 @@ const meta: Meta<typeof Template> = {
       type: { name: "boolean", required: true },
       description: "Handles onClick",
     },
+    open: {
+      control: "boolean",
+      type: { name: "boolean", required: true },
+      description: "Handles display of NAvigation - either open or closed",
+    },
+    navItems: {
+      control: "text",
+      type: { name: "string", required: true },
+      description: "Array of navigation items to be render",
+    },
   },
 };
 export default meta;
@@ -47,5 +57,9 @@ export const Default: Story = {
   render: (args) => <Navigation {...args} />,
 };
 Default.args = {
-  navItems: variables.navItems,
+  navItems: [
+    { label: "Home", path: "", icon: "" },
+    { label: "AI Media", path: "", icon: "" },
+    { label: "Favourites", path: "", icon: "" },
+  ],
 };
