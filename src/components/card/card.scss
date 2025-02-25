@@ -129,6 +129,15 @@
         padding: 10px 5px;
         top: auto;
         z-index: 1;
+
+        &:before {
+          background: linear-gradient(0deg, $black 0%, rgba($black, 0) 100%);
+          content: "";
+          height: 50px;
+          position: absolute;
+          top: -50px;
+          width: 100%;
+        }
       }
     }
   }
