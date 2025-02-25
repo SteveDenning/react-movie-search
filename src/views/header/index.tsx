@@ -1,27 +1,20 @@
 import React, { useEffect, useState } from "react";
 
-// Utils
-
-// Config
-import { config } from "../../config/routes";
-
 // Components
 import Button from "../../components/button";
-import List from "../../components/list";
 import Login from "../../views/login";
+import Navigation from "../../components/navigation";
 import Search from "../../views/search";
 
+// Hocs
+import { useUser } from "../../hocs/with-user-provider";
+
 // MUI
-import { Box, Container, Drawer } from "@mui/material";
+import { Container } from "@mui/material";
 
 // MUI Icons
-import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import ClearIcon from "@mui/icons-material/Clear";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import TheatersIcon from "@mui/icons-material/Theaters";
-
-// Hocs
-import { useUser, useUserUpdate } from "../../hocs/with-user-provider";
 
 // Styles
 import "./header.scss";
@@ -35,13 +28,6 @@ const Header: React.FC<Props> = ({ heading }) => {
   const [hideMessage, setHideMessage] = useState<boolean>(true);
 
   const user = useUser();
-  const handleUpdateUser = useUserUpdate();
-
-  const navOptions = [
-    { label: config.home.name, path: config.home.path, icon: <TheatersIcon /> },
-    { label: config.aiMedia.name, path: config.aiMedia.path, icon: <AutoAwesomeIcon /> },
-    { label: config.favorites.name, path: config.favorites.path, icon: <FavoriteIcon /> },
-  ];
 
   const toggleDrawer = (state: boolean) => {
     setOpen(state);
@@ -112,48 +98,11 @@ const Header: React.FC<Props> = ({ heading }) => {
             user={user}
           />
         </div>
-        {/* TODO - move to navigation component */}
-        <Drawer
-          className="navigation"
+        <Navigation
+          user={user}
+          toggleDrawer={toggleDrawer}
           open={open}
-          onClose={() => toggleDrawer(false)}
-          anchor="right"
-          PaperProps={{
-            sx: {
-              width: 300,
-              bgcolor: "#000",
-            },
-          }}
-        >
-          <Box sx={{ mt: 2, mx: 2.5 }}>
-            <div style={{ display: "flex", justifyContent: "end" }}>
-              <Button
-                variant="icon"
-                onClick={() => {
-                  toggleDrawer(false);
-                }}
-              >
-                <ClearIcon />
-              </Button>
-            </div>
-            {user && (
-              <List
-                resources={navOptions}
-                variant="link"
-              />
-            )}
-            <div style={{ display: "flex", justifyContent: "center", marginTop: "50px" }}>
-              <Button
-                variant="link"
-                // @ts-ignore
-                onClick={handleUpdateUser}
-                color="red"
-              >
-                {user ? "Log Out" : "Login"}
-              </Button>
-            </div>
-          </Box>
-        </Drawer>
+        />
       </Container>
     </header>
   );

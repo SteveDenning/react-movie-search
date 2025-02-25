@@ -1,0 +1,9 @@
+@import "../../styles/dependencies";
+
+// Navigation styles
+
+.navigation {
+  .MuiPaper-elevation {
+    border-left: 1px solid rgba($color: $primary-color, $alpha: 0.5);
+  }
+}
