@@ -109,7 +109,11 @@
   }
 
   &--person {
-    padding-bottom: 50px;
+    padding-bottom: 80px;
+
+    @include breakpoint($medium) {
+      padding-bottom: 50px;
+    }
 
     .card {
       &__cover {
@@ -126,9 +130,22 @@
       &__content {
         background: $black;
         opacity: 1;
-        padding: 10px 5px;
+        padding: 0 5px 10px 5px;
         top: auto;
         z-index: 1;
+
+        &:before {
+          background: linear-gradient(0deg, $black 0%, rgba($black, 0) 100%);
+          content: "";
+          height: 50px;
+          position: absolute;
+          top: -50px;
+          width: 100%;
+        }
+      }
+
+      &__info {
+        font-size: 15px;
       }
     }
   }

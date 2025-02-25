@@ -1,0 +1,24 @@
+@import "../../styles/dependencies";
+
+// Navigation styles
+
+.navigation {
+  &__inner {
+    padding: 20px;
+  }
+
+  &__action-close {
+    display: flex;
+    justify-content: end;
+  }
+
+  &__action-login {
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+  }
+
+  .MuiPaper-elevation {
+    border-left: 1px solid rgba($color: $primary-color, $alpha: 0.5);
+  }
+}

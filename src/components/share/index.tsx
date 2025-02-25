@@ -62,7 +62,7 @@ const Share: React.FC<Props> = ({ title, id }) => {
               href={`mailto:?subject=${title}&body=${window.location.href}`}
               target="_blank"
               rel="noopener noreferrer"
-              variant="icon"
+              variant="link"
             >
               <EmailIcon />
               <span data-testId="email">Email</span>
@@ -74,7 +74,7 @@ const Share: React.FC<Props> = ({ title, id }) => {
               href={`https://api.whatsapp.com/send?text=${window.location.href}`}
               target="_blank"
               rel="noopener noreferrer"
-              variant="icon"
+              variant="link"
             >
               <WhatsAppIcon />
               <span data-testId="whatsapp">WhatsApp</span>
