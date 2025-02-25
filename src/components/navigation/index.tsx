@@ -8,7 +8,7 @@ import List from "../../components/list";
 import { useUser, useUserUpdate } from "../../hocs/with-user-provider";
 
 // MUI
-import { Box, Drawer } from "@mui/material";
+import { Drawer } from "@mui/material";
 
 // MUI Icons
 import ClearIcon from "@mui/icons-material/Clear";

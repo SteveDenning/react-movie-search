@@ -5,9 +5,6 @@ import { Meta, StoryObj } from "@storybook/react";
 import Template from "./index";
 import Button from "../button";
 
-// Variables
-import { variables } from "./tests/config";
-
 const meta: Meta<typeof Template> = {
   title: "Components/Navigation",
   component: Template,
