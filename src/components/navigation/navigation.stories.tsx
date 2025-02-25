@@ -1,18 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 // Components
 import Template from "./index";
+import Button from "../button";
 
-// MUI
-import { Container } from "@mui/material";
+// Variables
+import { variables } from "./tests/config";
 
 const meta: Meta<typeof Template> = {
   title: "Components/Navigation",
   component: Template,
   tags: ["autodocs"],
   argTypes: {
-    onClick: {
+    toggleDrawer: {
       control: "boolean",
       type: { name: "boolean", required: true },
       description: "Handles onClick",
@@ -23,13 +24,28 @@ export default meta;
 
 type Story = StoryObj<typeof Template>;
 
-const Navigation = (args: any) => <Template {...args} />;
+const Navigation = (args: any) => {
+  const [open, setOpen] = useState(false);
+
+  const toggleDrawer = () => {
+    setOpen(!open);
+  };
+
+  return (
+    <>
+      <Button onClick={toggleDrawer}>Open Navigation</Button>
+      <Template
+        open={open}
+        toggleDrawer={toggleDrawer}
+        {...args}
+      />
+    </>
+  );
+};
 
 export const Default: Story = {
-  render: (args) => (
-    <Container>
-      <Navigation {...args} />
-    </Container>
-  ),
+  render: (args) => <Navigation {...args} />,
 };
-Default.args = {};
+Default.args = {
+  navItems: variables.navItems,
+};
