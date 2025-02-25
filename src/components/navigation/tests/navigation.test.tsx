@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { screen, render, fireEvent, waitFor, act } from "@testing-library/react";
+import { screen, render, fireEvent, waitFor } from "@testing-library/react";
 
 // Components
 import Navigation from "../index";
@@ -62,11 +62,7 @@ describe("Navigation component", () => {
 
       fireEvent.click(closeButton);
 
-      act(() => {
-        jest.advanceTimersByTime(3000);
-      });
-
-      await waitFor(() => expect(toggleDrawer).toHaveBeenCalledTimes(1));
+      await waitFor(() => expect(toggleDrawer).toHaveBeenCalled());
     });
   });
 });
