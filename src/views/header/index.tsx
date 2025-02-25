@@ -6,6 +6,9 @@ import Login from "../../views/login";
 import Navigation from "../../components/navigation";
 import Search from "../../views/search";
 
+// Config
+import { config } from "../../config/routes";
+
 // Hocs
 import { useUser } from "../../hocs/with-user-provider";
 
@@ -13,11 +16,14 @@ import { useUser } from "../../hocs/with-user-provider";
 import { Container } from "@mui/material";
 
 // MUI Icons
+import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import ClearIcon from "@mui/icons-material/Clear";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 import TheatersIcon from "@mui/icons-material/Theaters";
 
 // Styles
 import "./header.scss";
+import { NavItemType } from "../../models/types";
 
 interface Props {
   heading: string;
@@ -28,6 +34,12 @@ const Header: React.FC<Props> = ({ heading }) => {
   const [hideMessage, setHideMessage] = useState<boolean>(true);
 
   const user = useUser();
+
+  const navItems: NavItemType[] = [
+    { label: config.home.name, path: config.home.path, icon: <TheatersIcon /> },
+    { label: config.aiMedia.name, path: config.aiMedia.path, icon: <AutoAwesomeIcon /> },
+    { label: config.favorites.name, path: config.favorites.path, icon: <FavoriteIcon /> },
+  ];
 
   const toggleDrawer = (state: boolean) => {
     setOpen(state);
@@ -99,9 +111,9 @@ const Header: React.FC<Props> = ({ heading }) => {
           />
         </div>
         <Navigation
-          user={user}
-          toggleDrawer={toggleDrawer}
+          navItems={navItems}
           open={open}
+          toggleDrawer={toggleDrawer}
         />
       </Container>
     </header>
