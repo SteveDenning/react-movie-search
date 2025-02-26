@@ -78,8 +78,6 @@ const Carousel: React.FC<Props> = ({
     swipeable: true,
   };
 
-  console.log(resources);
-
   return (
     <div
       className="carousel"
