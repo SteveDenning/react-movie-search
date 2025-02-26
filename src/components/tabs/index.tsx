@@ -51,6 +51,7 @@ const Tabs: React.FC<Props> = ({ variant, className, tabs, onClick, initialSelec
             onClick={(event) => handleClick(event, tab)}
             key={index}
             variant="plain"
+            testId="button-tab"
           >
             {tab.label}
 

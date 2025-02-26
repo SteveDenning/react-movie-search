@@ -30,17 +30,19 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
   const title = window.location.pathname.split("/")[4] as string;
 
   const getCastAndCrew = () => {
-    getMedia(pathName)
-      .then((response: any) => {
-        setCast(response.data.cast);
-        setCrew(response.data.crew);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        setError(true);
-        setLoading(false);
-      });
+    if (pathName) {
+      getMedia(pathName)
+        .then((response: any) => {
+          setCast(response.data.cast);
+          setCrew(response.data.crew);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          setError(true);
+          setLoading(false);
+        });
+    }
   };
 
   const handleTabChange = (tab: { label: string; value: string }) => {
