@@ -78,65 +78,70 @@ const Carousel: React.FC<Props> = ({
     swipeable: true,
   };
 
+  console.log(resources);
+
   return (
     <div
       className="carousel"
       data-testid="carousel"
     >
-      <ReactCarousel
-        {...options}
-        autoPlay={autoPlay}
-        autoPlaySpeed={autoPlaySpeed}
-        infinite={infinite}
-      >
-        {resources.map((item: any, index: number) => {
-          return (
-            <div
-              key={index}
-              className="carousel__item"
-            >
-              {banner ? (
-                <>
-                  <button
-                    tabIndex={0}
-                    className="carousel__overlay"
-                    onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
-                  >
-                    <span
-                      className="sr-only"
-                      aria-hidden={true}
+      {resources.length && (
+        <ReactCarousel
+          {...options}
+          autoPlay={autoPlay}
+          autoPlaySpeed={autoPlaySpeed}
+          infinite={infinite}
+        >
+          {resources.map((item: any, index: number) => {
+            return (
+              <div
+                key={index}
+                className="carousel__item"
+                data-testid="carousel-item"
+              >
+                {banner ? (
+                  <>
+                    <button
+                      tabIndex={0}
+                      className="carousel__overlay"
+                      onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
                     >
-                      Click to open
-                    </span>
-                  </button>
-                  <Image
-                    id={item.id}
+                      <span
+                        className="sr-only"
+                        aria-hidden={true}
+                      >
+                        Click to open
+                      </span>
+                    </button>
+                    <Image
+                      id={item.id}
+                      resource={item}
+                      variant="banner"
+                    />
+                    <div className="carousel__banner-content">
+                      <div className="carousel__banner-poster">
+                        <Image
+                          id={`${item.id}-${item.title || item.name}`}
+                          resource={item}
+                        />
+                      </div>
+                      <div className="carousel__banner-details">
+                        <h2>{item.title || item.name}</h2>
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <Card
                     resource={item}
-                    variant="banner"
+                    handleFavorite={handleFavorite}
+                    onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
                   />
-                  <div className="carousel__banner-content">
-                    <div className="carousel__banner-poster">
-                      <Image
-                        id={`${item.id}-${item.title || item.name}`}
-                        resource={item}
-                      />
-                    </div>
-                    <div className="carousel__banner-details">
-                      <h2>{item.title || item.name}</h2>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <Card
-                  resource={item}
-                  handleFavorite={handleFavorite}
-                  onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
-                />
-              )}
-            </div>
-          );
-        })}
-      </ReactCarousel>
+                )}
+              </div>
+            );
+          })}
+        </ReactCarousel>
+      )}
     </div>
   );
 };
