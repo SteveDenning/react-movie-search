@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { screen, render, fireEvent, waitFor } from "@testing-library/react";
+import { screen, render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 // Components
@@ -17,7 +17,7 @@ describe("Search component", () => {
     });
 
     it("Should render the search form", () => {
-      // expect(screen.getByTestId("search-results")).toBeInTheDocument();
+      expect(screen.getByTestId("search-results")).toBeInTheDocument();
     });
   });
 });
