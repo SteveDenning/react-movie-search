@@ -9,6 +9,7 @@ import MediaCarousel from "../../components/media-carousel";
 import Modal from "../../components/modal";
 import Overview from "../../components/overview";
 import SectionHeading from "../../components/section-heading";
+import Share from "../../components/share";
 import Video from "../../components/video";
 
 // Config
@@ -49,6 +50,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const MediaCarouselLabel = isPerson ? "Known for" : "Top Cast";
   const pathName = `${type}/${programmeId}/credits?language=en-US`;
   const text = resource?.overview || resource?.biography || null;
+  const title = resource.name || resource.title;
 
   const personOptions = {
     desktop: {
@@ -160,7 +162,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
           >
             <Container>
               <SectionHeading
-                heading={resource.name || resource.title}
+                heading={title}
                 backButton
               />
               <div
@@ -184,20 +186,28 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                     {(resource["profile_path"] || !videoKey) && <div className="details-view__profile-image">{renderImage()}</div>}
                     <div>
                       <div className="details-view__profile-details">
-                        <h2
-                          className="details-view__title"
-                          data-testid="details-view-title"
-                        >
-                          {isMedia && resource?.["release_date"] && (
-                            <span>Release Date: {moment(resource?.["release_date"]).format("MMMM YYYY")}</span>
-                          )}
-                          {user && type !== "person" && (
-                            <AddToFavorites
-                              handleFavorite={handleFavorite}
-                              isFavorite={isFavorite}
+                        <div className="details-view__title-wrapper">
+                          <h2
+                            className="details-view__title"
+                            data-testid="details-view-title"
+                          >
+                            {isMedia && resource?.["release_date"] && (
+                              <span>Release Date: {moment(resource?.["release_date"]).format("MMMM YYYY")}</span>
+                            )}
+                          </h2>
+                          <div className="details-view__actions">
+                            <Share
+                              title={title}
+                              id={title}
                             />
-                          )}
-                        </h2>
+                            {user && type !== "person" && (
+                              <AddToFavorites
+                                handleFavorite={handleFavorite}
+                                isFavorite={isFavorite}
+                              />
+                            )}
+                          </div>
+                        </div>
                         {resource.birthday && (
                           <p>
                             {resource.deathday
@@ -269,7 +279,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 responsiveOptions={personOptions}
                 media={isPerson ? "movie" : "person"}
                 buttonText={!isPerson ? "Cast and Crew" : null}
-                buttonLink={`${config.credits.path}/${type}/${programmeId}`}
+                buttonLink={`${config.credits.path}/${type}/${programmeId}/${title}`}
               />
             </Container>
           </div>

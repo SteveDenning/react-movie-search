@@ -26,3 +26,9 @@ export type UserType = {
   name: string;
   username: string;
 };
+
+export type NavItemType = {
+  label: string;
+  path: string;
+  icon?: any;
+};

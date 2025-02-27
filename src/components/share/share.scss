@@ -1,0 +1,36 @@
+@import "../../styles/dependencies";
+
+// test styles
+
+.share {
+  &__button {
+    svg {
+      fill: $primary-color;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    padding: 15px;
+  }
+
+  &__list-item {
+    margin-bottom: 10px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    svg {
+      margin-right: 10px;
+    }
+  }
+
+  &__popover {
+    .MuiPopover-paper {
+      background: $black;
+      border: 1px solid $primary-color;
+      border-radius: 0 10px;
+    }
+  }
+}

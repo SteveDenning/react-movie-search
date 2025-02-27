@@ -69,7 +69,10 @@ const SearchResults = () => {
   }, [type]);
 
   return (
-    <div className="search-results">
+    <div
+      className="search-results"
+      data-testid="search-results"
+    >
       <Container>
         {query && resources?.length && (
           <h2 className="search-results__header">

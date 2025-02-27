@@ -2,12 +2,12 @@
 
 // Banner carousel styles
 .banner-carousel {
-  background: #000;
+  background: $black;
   position: relative;
 
   &:after {
     background: rgb(2, 0, 36);
-    background: linear-gradient(180deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(180deg, $black 0%, rgba($black, 0) 100%);
     bottom: -300px;
     content: "";
     height: 300px;
