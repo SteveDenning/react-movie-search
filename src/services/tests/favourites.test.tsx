@@ -7,7 +7,7 @@ jest.mock("axios");
 
 let mockStorage = {};
 
-describe("getFavorites", () => {
+describe("Favorites service (getFavorites)", () => {
   const userId = "12345";
   const type = "movie";
 
@@ -27,7 +27,7 @@ describe("getFavorites", () => {
     },
   };
 
-  it("should fetch favorite items successfully", async () => {
+  it("Should fetch favorite items successfully", async () => {
     (axios.get as jest.MockedFunction<typeof axios.get>).mockResolvedValue(mockResponse);
 
     const response = await getFavorites(userId, type);
@@ -39,18 +39,18 @@ describe("getFavorites", () => {
     expect(response).toEqual(mockResponse);
   });
 
-  it("should return undefined when userId or type is missing", async () => {
+  it("Should return undefined when userId or type is missing", async () => {
     await expect(getFavorites("", type)).resolves.toBeUndefined();
     await expect(getFavorites(userId, "")).resolves.toBeUndefined();
   });
 });
 
-describe("updateFavorite", () => {
+describe("Favorites service (updateFavorite)", () => {
   const userId = "12345";
   const body = { media_type: "movie", media_id: 1, favorite: true };
   const mockResponse = { data: { success: true } };
 
-  it("should update favorite status successfully", async () => {
+  it("Should update favorite status successfully", async () => {
     (axios.post as jest.MockedFunction<typeof axios.post>).mockResolvedValue(mockResponse);
 
     const response = await updateFavorite(userId, body);

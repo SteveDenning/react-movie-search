@@ -44,14 +44,14 @@ describe("Credits component", () => {
     });
 
     it("Should render tabs for Cast and Crew", async () => {
-      expect(screen.queryAllByTestId("button-tab")).toHaveLength(2);
+      expect(screen.queryAllByTestId("tab-button")).toHaveLength(2);
     });
 
     it("Should allow the user to select the Crew tab", async () => {
-      expect(screen.queryAllByTestId("button-tab")).toHaveLength(2);
+      expect(screen.queryAllByTestId("tab-button")).toHaveLength(2);
 
-      const castTabButton = screen.queryAllByTestId("button-tab")[0];
-      const crewTabButton = screen.queryAllByTestId("button-tab")[1];
+      const castTabButton = screen.queryAllByTestId("tab-button")[0];
+      const crewTabButton = screen.queryAllByTestId("tab-button")[1];
 
       expect(castTabButton).toHaveClass("tabs__button--selected");
       fireEvent.click(crewTabButton);

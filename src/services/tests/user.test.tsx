@@ -4,8 +4,8 @@ import { getRequestToken, getAccessToken, deleteAccessToken, getAccountDetails, 
 
 jest.mock("axios");
 
-describe("Service Component API Calls", () => {
-  it("should fetch request token successfully", async () => {
+describe("User service (API calls)", () => {
+  it("Should fetch request token successfully", async () => {
     const mockData = { request_token: "mock_token" };
     (axios.post as jest.MockedFunction<typeof axios.post>).mockResolvedValue({ data: mockData });
 
@@ -13,7 +13,7 @@ describe("Service Component API Calls", () => {
     expect(response.data).toEqual(mockData);
   });
 
-  it("should fetch access token successfully", async () => {
+  it("Should fetch access token successfully", async () => {
     const mockData = { access_token: "mock_access_token" };
     (axios.post as jest.MockedFunction<typeof axios.post>).mockResolvedValue({ data: mockData });
 
@@ -21,7 +21,7 @@ describe("Service Component API Calls", () => {
     expect(response.data).toEqual(mockData);
   });
 
-  it("should delete access token successfully", async () => {
+  it("Should delete access token successfully", async () => {
     const mockData = { success: true };
     (axios.delete as jest.MockedFunction<typeof axios.delete>).mockResolvedValue({ data: mockData });
 
@@ -29,7 +29,7 @@ describe("Service Component API Calls", () => {
     expect(response.data).toEqual(mockData);
   });
 
-  it("should fetch account details successfully", async () => {
+  it("Should fetch account details successfully", async () => {
     const mockData = { id: 1, username: "mock_user" };
     (axios.get as jest.MockedFunction<typeof axios.get>).mockResolvedValue({ data: mockData });
 
@@ -37,7 +37,7 @@ describe("Service Component API Calls", () => {
     expect(response.data).toEqual(mockData);
   });
 
-  it("should create session with access token successfully", async () => {
+  it("Should create session with access token successfully", async () => {
     const mockData = { session_id: "mock_session_id" };
     (axios.post as jest.MockedFunction<typeof axios.post>).mockResolvedValue({ data: mockData });
 
@@ -45,7 +45,7 @@ describe("Service Component API Calls", () => {
     expect(response.data).toEqual(mockData);
   });
 
-  it("should handle API errors", async () => {
+  it("Should handle API errors", async () => {
     (axios.post as jest.MockedFunction<typeof axios.post>).mockRejectedValue(new Error("Network Error"));
     await expect(getRequestToken()).rejects.toThrow("Network Error");
   });

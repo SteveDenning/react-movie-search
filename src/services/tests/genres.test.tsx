@@ -4,7 +4,7 @@ import { headers } from "../headers";
 
 jest.mock("axios");
 
-describe("getGenres", () => {
+describe("Genres service (getGenres)", () => {
   const mediaType = "movie";
   const mockResponse = {
     data: {
@@ -15,7 +15,7 @@ describe("getGenres", () => {
     },
   };
 
-  it("should fetch genres successfully", async () => {
+  it("Should fetch genres successfully", async () => {
     (axios.get as jest.MockedFunction<typeof axios.get>).mockResolvedValue(mockResponse);
 
     const response = await getGenres(mediaType);
@@ -24,7 +24,7 @@ describe("getGenres", () => {
     expect(response).toEqual(mockResponse);
   });
 
-  it("should handle API errors", async () => {
+  it("Should handle API errors", async () => {
     const errorMessage = "Network Error";
     (axios.get as jest.MockedFunction<typeof axios.get>).mockRejectedValue(new Error(errorMessage));
 

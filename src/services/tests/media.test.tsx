@@ -4,7 +4,7 @@ import { headers } from "../headers";
 
 jest.mock("axios");
 
-describe("getMedia", () => {
+describe("Media service (getMedia)", () => {
   const path = "movie/popular";
   const mockResponse = {
     data: {
@@ -15,7 +15,7 @@ describe("getMedia", () => {
     },
   };
 
-  it("should fetch media successfully", async () => {
+  it("Should fetch media successfully", async () => {
     (axios.get as jest.MockedFunction<typeof axios.get>).mockResolvedValue(mockResponse);
 
     const response = await getMedia(path);
@@ -24,7 +24,7 @@ describe("getMedia", () => {
     expect(response).toEqual(mockResponse);
   });
 
-  it("should handle API errors", async () => {
+  it("Should handle API errors", async () => {
     const errorMessage = "Network Error";
     (axios.get as jest.MockedFunction<typeof axios.get>).mockRejectedValue(new Error(errorMessage));
 
@@ -32,14 +32,14 @@ describe("getMedia", () => {
   });
 });
 
-describe("getMediaByID", () => {
+describe("Media service (getMediaByID)", () => {
   const id = "12345";
   const type = "movie";
   const mockResponse = {
     data: { id: 12345, title: "Inception" },
   };
 
-  it("should fetch media by ID successfully", async () => {
+  it("Should fetch media by ID successfully", async () => {
     (axios.get as jest.MockedFunction<typeof axios.get>).mockResolvedValue(mockResponse);
 
     const response = await getMediaByID(id, type);
@@ -48,7 +48,7 @@ describe("getMediaByID", () => {
     expect(response).toEqual(mockResponse);
   });
 
-  it("should handle API errors", async () => {
+  it("Should handle API errors", async () => {
     const errorMessage = "Network Error";
     (axios.get as jest.MockedFunction<typeof axios.get>).mockRejectedValue(new Error(errorMessage));
 
