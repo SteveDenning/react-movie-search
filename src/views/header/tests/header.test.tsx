@@ -44,5 +44,14 @@ describe("Header component", () => {
 
       await waitFor(() => expect(window.location.href).toBe("/"));
     });
+
+    it("Should allow the user to toggle the navigation", async () => {
+      const loginButton = screen.getByTestId("login");
+      expect(loginButton).toBeInTheDocument();
+
+      fireEvent.click(loginButton);
+
+      await waitFor(() => expect(screen.queryByTestId("navigation")).toBeInTheDocument());
+    });
   });
 });

@@ -120,6 +120,12 @@ export const variables = {
     },
   ],
 
+  links: [
+    { label: "Home", path: "/home", icon: "icon" },
+    { label: "AI Media", path: "/ai-media", icon: "icon" },
+    { label: "Favourites", path: "/favourites", icon: "icon" },
+  ],
+
   navOptions: [
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/favorites" },
