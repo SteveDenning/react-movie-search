@@ -5,7 +5,7 @@
     "\\.png": "<rootDir>/mocks/imgMock.ts"
   },
   "testEnvironment": "jest-environment-jsdom",
-  "coveragePathIgnorePatterns": ["node_modules", "<rootDir>/src/utils"],
+  "coveragePathIgnorePatterns": ["node_modules", "<rootDir>/src/utils", "<rootDir>/src/hocs", "src/routes/config.ts", "tests/config.tsx"],
   "transformIgnorePatterns": ["node_modules/(?!(decode-uri-component|filter-obj|split-on-first|query-string)/)"],
   "setupFilesAfterEnv": ["<rootDir>/jest.setup.js"]
 }

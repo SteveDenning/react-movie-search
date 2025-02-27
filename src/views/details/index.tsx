@@ -279,7 +279,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 responsiveOptions={personOptions}
                 media={isPerson ? "movie" : "person"}
                 buttonText={!isPerson ? "Cast and Crew" : null}
-                buttonLink={`${config.credits.path}/${type}/${programmeId}`}
+                buttonLink={`${config.credits.path}/${type}/${programmeId}/${title}`}
               />
             </Container>
           </div>

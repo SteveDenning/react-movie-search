@@ -29,7 +29,7 @@ const routes = {
         element: <APMediaPage />,
       },
       {
-        path: `${config.credits.path}/:type/:id`,
+        path: `${config.credits.path}/:type/:id/:title`,
         element: <CreditsPage />,
       },
       {

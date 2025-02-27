@@ -5,14 +5,15 @@ import { screen, render } from "@testing-library/react";
 // Components
 import Carousel from "../index";
 
+// Variable
+import { variables } from "./config";
+
 describe("Carousel component", () => {
   describe("Component rendering", () => {
-    const resources = [{ image: "", alt: "Lorem ipsum" }];
-
     beforeEach(() => {
       render(
         <Carousel
-          resources={resources}
+          resources={variables.resources}
           media="movie"
         />,
       );
