@@ -5,11 +5,6 @@ import { screen, render, fireEvent, waitFor } from "@testing-library/react";
 // Components
 import AddToFavorites from "../index";
 
-// Variables
-import { variables } from "./config";
-
-let mockStorage = {};
-
 describe("Add to favorites component", () => {
   const handleFavorite = jest.fn();
 
@@ -19,7 +14,6 @@ describe("Add to favorites component", () => {
         <AddToFavorites
           isFavorite={false}
           handleFavorite={handleFavorite}
-          user
         />,
       );
     });
@@ -41,7 +35,6 @@ describe("Add to favorites component", () => {
         <AddToFavorites
           isFavorite={false}
           handleFavorite={handleFavorite}
-          user={false}
         />,
       );
     });

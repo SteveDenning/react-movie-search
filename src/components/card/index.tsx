@@ -85,7 +85,6 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
         <AddToFavorites
           handleFavorite={() => handleFavorite(resource)}
           isFavorite={resource?.favorite}
-          user={user}
         />
       )}
     </div>

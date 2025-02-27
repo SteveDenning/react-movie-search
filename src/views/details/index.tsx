@@ -206,7 +206,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                               <AddToFavorites
                                 handleFavorite={handleFavorite}
                                 isFavorite={isFavorite}
-                                user={user}
                               />
                             )}
                           </div>
