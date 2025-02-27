@@ -81,7 +81,7 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
           </div>
         </div>
       </div>
-      {user && mediaType !== "person" && (
+      {mediaType !== "person" && resource && (
         <AddToFavorites
           handleFavorite={() => handleFavorite(resource)}
           isFavorite={resource?.favorite}

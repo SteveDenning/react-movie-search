@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
 
-// Services
-import { updateFavorite } from "../../services/favorites";
-import { getFavorites } from "../../services/favorites";
-
 // Components
 import Card from "../card";
 import Pagination from "../pagination";
 
+// Hocs
+import { useUser } from "../../hocs/with-user-provider";
+
 // MUI
 import { Fade, Grid, Backdrop, CircularProgress } from "@mui/material";
+
+// Services
+import { updateFavorite } from "../../services/favorites";
+import { getFavorites } from "../../services/favorites";
 
 // Styles
 import "./resources.scss";
@@ -26,7 +29,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
   const [favorites, setFavorites] = useState([]);
   const [items, setItems] = useState([]);
 
-  const user = JSON.parse(sessionStorage.getItem("user") || null);
+  const user = useUser();
   const params = new URLSearchParams(window.location.search);
   const mediaType = params.get("filterByType") || window.location.pathname.split("/")[2];
   const isMulti = mediaType === "multi";
@@ -48,7 +51,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
       favorite: !resource?.favorite,
     };
 
-    updateFavorite(user.account_id, body)
+    updateFavorite(user, body)
       .then()
       .catch((error) => {
         console.error(error);
@@ -57,7 +60,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
 
   const getFavoritesList = (type?) => {
     setItems([]);
-    getFavorites(user.account_id, type)
+    getFavorites(user, type)
       .then((response) => {
         setFavorites(response.data.results);
       })
