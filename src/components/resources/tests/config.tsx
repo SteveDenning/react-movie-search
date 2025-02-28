@@ -57,7 +57,7 @@ export const variables = {
         vote_count: 126,
       },
     ],
-    total_pages: 284,
-    total_results: 5664,
+    total_pages: 1,
+    total_results: 3,
   },
 };

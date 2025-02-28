@@ -12,6 +12,9 @@ import Tabs from "../../components/tabs";
 // Config
 import { config } from "../../config/routes";
 
+// Hocs
+import { useUser } from "../../hocs/with-user-provider";
+
 // MUI Components
 import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 
@@ -52,7 +55,7 @@ const AIMedia = () => {
 
   const customGenres = useCustomGenres();
   const mediaLabel = mediaType === "movie" ? pluralize(mediaType) : "TV Shows";
-  const user = JSON.parse(sessionStorage.getItem("user") || null);
+  const user = useUser();
 
   if (!user) {
     window.location.href = "/";
@@ -194,7 +197,7 @@ const AIMedia = () => {
 
   const getFavoritesList = (type: string, genres: GenreType[]) => {
     if (user) {
-      getFavorites(user.account_id, type)
+      getFavorites(user, type)
         .then((response) => {
           const allIds = response.data.results.flatMap((item) => item.genre_ids);
 
@@ -293,7 +296,7 @@ const AIMedia = () => {
                 />
               </div>
 
-              {selectedGenres?.length >= 2 ? renderGenerateButton(false) : <p className="fade-in">Select two or more genres</p>}
+              {selectedGenres?.length > 2 ? renderGenerateButton(false) : <p className="fade-in">Select three or more genres</p>}
             </div>
           ) : (
             <>
