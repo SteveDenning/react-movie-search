@@ -10,7 +10,7 @@ import Search from "../../views/search";
 import { config } from "../../config/routes";
 
 // Hocs
-import { useUser } from "../../hocs/with-user-provider";
+import { useUser, useUserUpdate } from "../../hocs/with-user-provider";
 
 // MUI
 import { Container } from "@mui/material";
@@ -34,6 +34,7 @@ const Header: React.FC<Props> = ({ heading }) => {
   const [hideMessage, setHideMessage] = useState<boolean>(true);
 
   const user = useUser();
+  const handleUpdateUser = useUserUpdate();
 
   const navItems: NavItemType[] = [
     { label: config.home.name, path: config.home.path, icon: <TheatersIcon /> },
@@ -57,30 +58,32 @@ const Header: React.FC<Props> = ({ heading }) => {
   return (
     <header>
       <Container
-        className={`header__message ${hideMessage ? "header__message--fade-out" : ""}`}
+        className={`header__message fade-in ${hideMessage ? "header__message--fade-out" : ""}`}
         data-testid="header-message"
       >
-        <p>
-          This app uses OpenAI technology. Create an account{" "}
-          <a
-            href="https://www.themoviedb.org/signup"
-            target="_blank"
-            rel="noreferrer"
+        <div className="header__message-inner">
+          <p>
+            This app uses OpenAI technology. You must{" "}
+            <Button
+              variant="link"
+              // @ts-ignore
+              onClick={handleUpdateUser}
+              testId="navigation-action-login"
+            >
+              login
+            </Button>{" "}
+            to use this feature
+          </p>
+          <Button
+            variant="icon"
+            onClick={() => {
+              handleCloseMessage();
+            }}
+            testId="hide-message"
           >
-            here
-            <span className="sr-only">(Create an account with TMDB)</span>
-          </a>{" "}
-          to access these features.
-        </p>
-        <Button
-          variant="icon"
-          onClick={() => {
-            handleCloseMessage();
-          }}
-          testId="hide-message"
-        >
-          <ClearIcon />
-        </Button>
+            <ClearIcon />
+          </Button>
+        </div>
       </Container>
       <Container>
         <div

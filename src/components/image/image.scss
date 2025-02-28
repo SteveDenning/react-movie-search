@@ -8,6 +8,7 @@
   height: 100%;
   object-fit: cover;
   width: auto;
+  transition: scale 0.3s ease-in-out;
 
   // Sizes
   &--xsmall {

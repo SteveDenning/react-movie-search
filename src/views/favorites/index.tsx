@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
 import pluralize from "pluralize";
 
-// Services
-import { getFavorites } from "../../services/favorites";
-import { updateFavorite } from "../../services/favorites";
-
-// MUI Components
-import { Container, Fade } from "@mui/material";
-
 // Components
 import List from "../../components/list";
 import SectionHeading from "../../components/section-heading";
 import Tabs from "../../components/tabs";
+
+// MUI Components
+import { Container, Fade } from "@mui/material";
+
+// Hocs
+import { useUser } from "../../hocs/with-user-provider";
+
+// Services
+import { getFavorites } from "../../services/favorites";
+import { updateFavorite } from "../../services/favorites";
 
 // Styles
 import "./favorites.scss";
@@ -25,11 +28,11 @@ const Favorites: React.FC<Props> = () => {
   const [favoriteTv, setFavoriteTv] = useState<any>([]);
   const [selectedTab, setSelectedTab] = useState("movies");
 
-  const user = JSON.parse(sessionStorage.getItem("user") || null);
+  const user = useUser();
 
   const getFavoritesList = (type: string) => {
     if (user) {
-      getFavorites(user.account_id, type)
+      getFavorites(user, type)
         .then((response) => {
           if (type === "movies") {
             setFavoriteMovies(response.data.results);
@@ -50,7 +53,7 @@ const Favorites: React.FC<Props> = () => {
       favorite: false,
     };
 
-    updateFavorite(user.account_id, body)
+    updateFavorite(user, body)
       .then(() => {
         getFavoritesList(type);
       })

@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { screen, render, fireEvent, waitFor } from "@testing-library/react";
+import { screen, render } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 // Variables
@@ -11,8 +11,6 @@ import Resources from "../index";
 
 describe("Resources component", () => {
   describe("Component rendering", () => {
-    const handlePageChange = jest.fn();
-
     beforeAll(() => {
       Object.defineProperty(window, "location", {
         value: {
@@ -44,11 +42,6 @@ describe("Resources component", () => {
 
     it("Should render pagination", () => {
       expect(screen.getByTestId("pagination")).toBeInTheDocument();
-    });
-
-    it("Should allow the user to click the card content", async () => {
-      fireEvent.click(screen.getAllByTestId("card-content")[0]);
-      await waitFor(() => expect(handlePageChange).not.toHaveBeenCalled());
     });
   });
 

@@ -1,8 +1,12 @@
 @import "../../styles/dependencies";
 
 // Add to favorites styles
-
 .add-to-favorites {
   position: relative;
   z-index: 5;
+
+  &__login-message {
+    font-size: 20px;
+    text-align: center;
+  }
 }

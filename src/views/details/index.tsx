@@ -15,6 +15,9 @@ import Video from "../../components/video";
 // Config
 import { config } from "../../config/routes";
 
+// Hocs
+import { useUser } from "../../hocs/with-user-provider";
+
 // MUI
 import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 
@@ -40,11 +43,10 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const user = JSON.parse(sessionStorage.getItem("user") || null);
+  const user = useUser();
   const programmeId = window.location.pathname.split("/")[3] as string;
   const type = window.location.pathname.split("/")[2];
   const backgroundImage = backDrop ? `url(${process.env.REACT_APP_TMDB_IMAGE_PATH}/${backDrop})` : "";
-
   const isMedia = type == "tv" || "movie";
   const isPerson = type == "person";
   const MediaCarouselLabel = isPerson ? "Known for" : "Top Cast";
@@ -106,7 +108,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
 
   const getFavoritesList = () => {
     if (user && !isPerson) {
-      getFavorites(user.account_id, type)
+      getFavorites(user, type)
         .then((response) => {
           const favorites = response?.data.results;
           const isFavorite = !!favorites.find((favorite) => favorite.id == programmeId);
@@ -126,7 +128,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
       favorite: !isFavorite,
     };
 
-    updateFavorite(user.account_id, body)
+    updateFavorite(user, body)
       .then(() => {
         getFavoritesList();
       })
@@ -200,7 +202,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                               title={title}
                               id={title}
                             />
-                            {user && type !== "person" && (
+                            {type !== "person" && (
                               <AddToFavorites
                                 handleFavorite={handleFavorite}
                                 isFavorite={isFavorite}

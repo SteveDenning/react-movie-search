@@ -1,5 +1,11 @@
 @import "../../styles/dependencies";
 
+.selectedState {
+  background: rgba($color: $black, $alpha: 1);
+  border: 1px solid $primary-color;
+  color: $primary-color;
+}
+
 // Pagination styles
 .pagination {
   display: flex;
@@ -14,8 +20,8 @@
     }
 
     button {
-      background: rgba($color: $lilac, $alpha: 0.3);
-      border: 1px solid rgba($color: $lilac, $alpha: 0.3);
+      background: rgba($color: $black, $alpha: 0.4);
+      border: 1px solid rgba($color: $primary-color, $alpha: 0.9);
       border-radius: 0 5px;
       flex: 1;
       height: auto;
@@ -47,13 +53,11 @@
       }
 
       &.Mui-selected {
-        border: 1px solid $primary-color;
-        color: $primary-color;
+        @extend .selectedState;
       }
 
       @include hover {
-        border: 1px solid $primary-color;
-        color: $primary-color;
+        @extend .selectedState;
       }
 
       @include breakpoint($xlarge) {

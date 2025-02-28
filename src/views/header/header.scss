@@ -9,18 +9,15 @@
   width: 100%;
 
   &__message {
-    border: 1px solid $primary-color;
-    display: flex !important;
-    height: 36px;
     justify-content: center;
+    max-height: 200px;
     overflow: hidden;
-    padding: 5px 5px 5px 20px;
-    position: relative;
     transition: all 0.7s ease;
+    padding-top: 1px;
 
     &--fade-out {
       border: 0;
-      height: 0;
+      max-height: 0;
       opacity: 0;
       padding: 0;
     }
@@ -29,6 +26,14 @@
     button {
       margin: 0 0 0 auto;
     }
+  }
+
+  &__message-inner {
+    border: 1px solid $primary-color;
+    display: flex !important;
+    padding: 5px 5px 5px 20px;
+    position: relative;
+    width: 100%;
   }
 
   &__inner {

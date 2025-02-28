@@ -99,13 +99,15 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
         if (response.data["username"]) {
           const accountId = sessionStorage.getItem("account_id");
           const accessToken = sessionStorage.getItem("access_token");
+          const sessionId = sessionStorage.getItem("session_id");
 
-          const update = { ...response.data, account_id: accountId, access_token: accessToken };
+          const update = { ...response.data, account_id: accountId, access_token: accessToken, session_id: sessionId };
           setUser(update);
 
           sessionStorage.setItem("user", JSON.stringify(update));
           sessionStorage.removeItem("account_id");
           sessionStorage.removeItem("request_token");
+          sessionStorage.removeItem("session_id");
         }
       })
       .catch((error) => console.error(error));

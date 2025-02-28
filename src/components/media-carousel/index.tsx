@@ -9,6 +9,9 @@ import { getMedia } from "../../services/media";
 import Carousel from "../../components/carousel";
 import SectionHeading from "../../components/section-heading";
 
+// Hocs
+import { useUser } from "../../hocs/with-user-provider";
+
 // MUI
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -34,7 +37,7 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
   const [error, setError] = useState<boolean>(false);
   const [favorites, setFavorites] = useState<any>([]);
 
-  const user = JSON.parse(sessionStorage.getItem("user") || null);
+  const user = useUser();
 
   const fetchMediaForCarousel = () => {
     setLoading(true);
@@ -51,30 +54,32 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
   };
 
   const handleFavorite = (resource: any) => {
-    let type;
-    if (Object.prototype.hasOwnProperty.call(resource, "media_type")) {
-      type = resource.media_type;
-    } else if (Object.prototype.hasOwnProperty.call(resource, "name")) {
-      type = "tv";
-    } else {
-      type = "movie";
+    if (user) {
+      let type;
+      if (Object.prototype.hasOwnProperty.call(resource, "media_type")) {
+        type = resource.media_type;
+      } else if (Object.prototype.hasOwnProperty.call(resource, "name")) {
+        type = "tv";
+      } else {
+        type = "movie";
+      }
+
+      const body = {
+        media_type: type,
+        media_id: resource.id,
+        favorite: !resource?.favorite,
+      };
+
+      updateFavorite(user, body)
+        .then()
+        .catch((error) => {
+          console.error(error);
+        });
     }
-
-    const body = {
-      media_type: type,
-      media_id: resource.id,
-      favorite: !resource?.favorite,
-    };
-
-    updateFavorite(user.account_id, body)
-      .then()
-      .catch((error) => {
-        console.error(error);
-      });
   };
 
   const getFavoritesList = () => {
-    getFavorites(user.account_id, media)
+    getFavorites(user, media)
       .then((response) => {
         setFavorites(response.data.results);
       })
@@ -85,7 +90,7 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
 
   useEffect(() => {
     updateResources();
-  }, [resources]);
+  }, [resources, user]);
 
   const handleAddFavorite = () => {
     const updatedArray = resources.map((resource) => {

@@ -21,7 +21,6 @@ interface Props {
 }
 
 const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) => {
-  const user = JSON.parse(sessionStorage.getItem("user") || null);
   const mediaType = useDefineMediaType(resource);
 
   // Class definitions
@@ -78,7 +77,7 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
           </div>
         </div>
       </div>
-      {user && mediaType !== "person" && (
+      {mediaType !== "person" && resource && (
         <AddToFavorites
           handleFavorite={() => handleFavorite(resource)}
           isFavorite={resource?.favorite}
