@@ -296,7 +296,7 @@ const AIMedia = () => {
                 />
               </div>
 
-              {selectedGenres?.length >= 2 ? renderGenerateButton(false) : <p className="fade-in">Select two or more genres</p>}
+              {selectedGenres?.length > 2 ? renderGenerateButton(false) : <p className="fade-in">Select three or more genres</p>}
             </div>
           ) : (
             <>

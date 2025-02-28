@@ -12,9 +12,6 @@ import "./card.scss";
 // Utils
 import useDefineMediaType from "../../utils/use-define-media-type";
 
-// Hocs
-import { useUser } from "../../hocs/with-user-provider";
-
 interface Props {
   resource: any;
   onClick?: () => void;
@@ -24,7 +21,6 @@ interface Props {
 }
 
 const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) => {
-  const user = useUser();
   const mediaType = useDefineMediaType(resource);
 
   // Class definitions
