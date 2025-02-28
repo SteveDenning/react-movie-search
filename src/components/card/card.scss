@@ -119,6 +119,12 @@
       &__cover {
         @include hover {
           background: rgba($black, 0.6);
+
+          + .card__wrapper {
+            .image {
+              scale: 1.2;
+            }
+          }
         }
       }
 
