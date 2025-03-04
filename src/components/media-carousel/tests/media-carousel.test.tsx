@@ -39,9 +39,32 @@ describe("Media carousel component", () => {
       await waitFor(() => expect(getMedia).toHaveBeenCalledTimes(1));
       await waitFor(() => expect(screen.getByTestId("media-carousel")).toBeInTheDocument());
       await waitFor(() => expect(screen.getByText("View all")).toBeInTheDocument());
+      await waitFor(() => expect(screen.queryByTestId("banner-carousel-error")).toBeNull());
 
       fireEvent.click(screen.getByText("View all"));
       expect(window.location.href).toBe("/media-listing/person/popular?page=1");
+    });
+  });
+
+  describe("Component rendering (error state)", () => {
+    it("Should render the Banner Carousel", async () => {
+      const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+
+      (getMedia as jest.Mock).mockRejectedValue(variables.error);
+
+      render(
+        <MemoryRouter>
+          <MediaCarousel
+            buttonText="View all"
+            label="Known for"
+            pathName="person/popular"
+            responsiveOptions={{}}
+            media="person"
+          />
+        </MemoryRouter>,
+      );
+      await waitFor(() => expect(consoleSpy).toHaveBeenCalled());
+      await waitFor(() => expect(screen.getByTestId("media-carousel-error")).toBeInTheDocument());
     });
   });
 });

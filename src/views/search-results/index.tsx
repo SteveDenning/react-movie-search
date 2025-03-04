@@ -74,7 +74,7 @@ const SearchResults = () => {
       data-testid="search-results"
     >
       <Container>
-        {query && resources?.length && (
+        {query && !!resources?.length && (
           <h2 className="search-results__header">
             Displaying <span>{totalResults} </span> {resultsType} for: <span>{query} </span>
           </h2>

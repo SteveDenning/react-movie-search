@@ -33,8 +33,8 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
     if (pathName) {
       getMedia(pathName)
         .then((response: any) => {
-          setCast(response.data.cast);
-          setCrew(response.data.crew);
+          setCast(response.data?.cast);
+          setCrew(response.data?.crew);
           setLoading(false);
         })
         .catch((error) => {
@@ -69,12 +69,13 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
         <div>
           {resource?.length ? (
             <Grid
-              aria-label="Results"
+              aria-label="credits-results"
               container
               spacing={2}
               rowGap={0}
               component="ul"
               columns={20}
+              data-testid="credits-results"
             >
               {resource.map((item: any, index: number) => {
                 return (
@@ -97,7 +98,12 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
               })}
             </Grid>
           ) : (
-            <p className="credits__no-results">Ooops, looks like there&#39;s no {type} available</p>
+            <p
+              className="credits__no-results"
+              data-testid="credits-no-results"
+            >
+              Ooops, looks like there&#39;s no {type} available
+            </p>
           )}
         </div>
       </Fade>
@@ -131,7 +137,7 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
           {error && (
             <p
               className="error"
-              data-testid="details-view-error"
+              data-testid="credits-error"
             >
               There was a problem getting the detail page - please try again later
             </p>

@@ -141,7 +141,7 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
       {error && (
         <p
           className="error"
-          data-testid="banner-carousel-error"
+          data-testid="media-carousel-error"
         >
           {`There was a problem getting the ${media} - please try again later`}
         </p>

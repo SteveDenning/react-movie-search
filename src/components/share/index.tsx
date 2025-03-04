@@ -42,6 +42,7 @@ const Share: React.FC<Props> = ({ title, id }) => {
         className="share__button"
         data-testid="share-button"
       >
+        <span className="sr-only">Share button</span>
         <ShareIcon />
       </IconButton>
       <Popover
@@ -65,7 +66,7 @@ const Share: React.FC<Props> = ({ title, id }) => {
               variant="link"
             >
               <EmailIcon />
-              <span data-testId="email">Email</span>
+              <span data-testid="email">Email</span>
             </Button>
           </li>
 
@@ -77,7 +78,7 @@ const Share: React.FC<Props> = ({ title, id }) => {
               variant="link"
             >
               <WhatsAppIcon />
-              <span data-testId="whatsapp">WhatsApp</span>
+              <span data-testid="whatsapp">WhatsApp</span>
             </Button>
           </li>
         </ul>
