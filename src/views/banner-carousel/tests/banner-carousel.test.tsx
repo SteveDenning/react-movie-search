@@ -32,8 +32,8 @@ describe("Banner carousel component", () => {
   });
 
   describe("Component rendering (error state)", () => {
-    it("Should render the Banner Carousel", async () => {
-      const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+    it("Should render the Banner Carousel error message", async () => {
+      const consoleSpy = jest.spyOn(console, "error").mockImplementation();
 
       (getMedia as jest.Mock).mockRejectedValue(variables.error);
 

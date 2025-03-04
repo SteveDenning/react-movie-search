@@ -64,27 +64,20 @@ describe("Credits component", () => {
     });
   });
 
-  describe("Component rendering (error handling)", () => {
-    const handleMediaTitle = jest.fn();
+  describe("Component rendering (error state)", () => {
+    it("Should render the Credits error message", async () => {
+      const handleMediaTitle = jest.fn();
+      const consoleSpy = jest.spyOn(console, "error").mockImplementation();
 
-    beforeEach(async () => {
-      Object.defineProperty(window, "location", {
-        value: { pathname: "/credits/movie/1241982/Moana%202" },
-        writable: true,
-      });
+      (getMedia as jest.Mock).mockRejectedValue(variables.error);
 
-      (getMedia as jest.Mock).mockResolvedValue(variables.error);
-      await waitFor(() => {
-        render(
-          <MemoryRouter>
-            <Credits handleMediaTitle={handleMediaTitle} />
-          </MemoryRouter>,
-        );
-      });
-    });
-
-    it("Should handle the error response from the request", async () => {
-      await waitFor(() => expect(getMedia).toHaveBeenCalled());
+      render(
+        <MemoryRouter>
+          <Credits handleMediaTitle={handleMediaTitle} />
+        </MemoryRouter>,
+      );
+      await waitFor(() => expect(consoleSpy).toHaveBeenCalled());
+      await waitFor(() => expect(screen.getByTestId("credits-error")).toBeInTheDocument());
     });
   });
 });

@@ -39,7 +39,7 @@ describe("Media carousel component", () => {
       await waitFor(() => expect(getMedia).toHaveBeenCalledTimes(1));
       await waitFor(() => expect(screen.getByTestId("media-carousel")).toBeInTheDocument());
       await waitFor(() => expect(screen.getByText("View all")).toBeInTheDocument());
-      await waitFor(() => expect(screen.queryByTestId("banner-carousel-error")).toBeNull());
+      await waitFor(() => expect(screen.queryByTestId("media-carousel-error")).toBeNull());
 
       fireEvent.click(screen.getByText("View all"));
       expect(window.location.href).toBe("/media-listing/person/popular?page=1");
@@ -47,8 +47,8 @@ describe("Media carousel component", () => {
   });
 
   describe("Component rendering (error state)", () => {
-    it("Should render the Banner Carousel", async () => {
-      const consoleSpy = jest.spyOn(console, "error").mockImplementation(() => {});
+    it("Should render the Media Carousel error message", async () => {
+      const consoleSpy = jest.spyOn(console, "error").mockImplementation();
 
       (getMedia as jest.Mock).mockRejectedValue(variables.error);
 
