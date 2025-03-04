@@ -6,6 +6,7 @@
   // Important rules to override inline styling
   background-position: center !important;
   background-size: cover !important;
+  background-attachment: fixed !important;
   padding: 10px 0 20px;
 
   @include breakpoint($medium) {
@@ -31,6 +32,25 @@
 
     & ~ div {
       border-radius: 0 0 0 50px;
+    }
+  }
+
+  &__poster {
+    border-radius: 0 50px 0 0;
+    background: $background-opacity-color;
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+
+    & ~ div {
+      border-radius: 0 0 0 50px;
+    }
+
+    .image {
+      border: 1px solid $whispering-mist;
+      border-radius: 0 20px;
+      cursor: pointer;
+      max-width: 300px;
     }
   }
 
@@ -70,11 +90,22 @@
     }
   }
 
-  &__network {
-    background-color: rgba($color: $white, $alpha: 0.2);
+  &__network-image {
+    background-color: rgba($color: $primary-color, $alpha: 0.3);
     border-radius: 0 10px;
     padding: 10px;
     width: 100px;
+  }
+
+  &__network-list li {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-right: 10px;
+  }
+
+  &__seasons {
+    margin-bottom: 20px;
   }
 
   &__profile {

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import moment from "moment";
 
 // Components
+import Accordion from "../../components/accordion";
 import AddToFavorites from "../../components/add-to-favorites";
 import Button from "../../components/button";
 import Image from "../../components/image";
@@ -149,6 +150,10 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
     }
   };
 
+  const getEpisodesForSeason = (season: any) => {
+    console.log(season.id);
+  };
+
   useEffect(() => {
     getMediaDetails();
   }, []);
@@ -171,7 +176,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 className="details-view__inner"
                 data-testid="details-view-inner"
               >
-                {!!videoKey && (
+                {videoKey && (
                   <div
                     className="details-view__video"
                     data-test-id="details-view-video"
@@ -183,20 +188,28 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                     />
                   </div>
                 )}
+                {!videoKey && !resource["profile_path"] && (
+                  <div
+                    className="details-view__poster fade-in"
+                    data-test-id="details-view-poster"
+                  >
+                    {renderImage()}
+                  </div>
+                )}
                 <div className="details-view__content">
                   <div className="details-view__profile">
-                    {(resource["profile_path"] || !videoKey) && <div className="details-view__profile-image">{renderImage()}</div>}
+                    {resource["profile_path"] && <div className="details-view__profile-image">{renderImage()}</div>}
                     <div>
                       <div className="details-view__profile-details">
                         <div className="details-view__title-wrapper">
-                          <h2
-                            className="details-view__title"
-                            data-testid="details-view-title"
-                          >
-                            {isMedia && resource?.["release_date"] && (
+                          {isMedia && resource?.["release_date"] && (
+                            <h2
+                              className="details-view__title"
+                              data-testid="details-view-title"
+                            >
                               <span>Release Date: {moment(resource?.["release_date"]).format("MMMM YYYY")}</span>
-                            )}
-                          </h2>
+                            </h2>
+                          )}
                           <div className="details-view__actions">
                             <Share
                               title={title}
@@ -241,20 +254,27 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                           </ul>
                         </>
                       )}
-                      {resource.seasons?.length && (
+                      {!!resource.seasons?.length && (
                         <>
-                          <p>Seasons: {resource.seasons?.length}</p>
+                          <div className="details-view__seasons">
+                            <Accordion
+                              key={resource.id}
+                              label="seasons"
+                              items={resource.seasons}
+                              onClick={getEpisodesForSeason}
+                            />
+                          </div>
                         </>
                       )}
-                      {resource.networks?.length && (
+                      {!!resource.networks?.length && (
                         <>
-                          <ul>
+                          <ul className="details-view__network-list">
                             {resource.networks.map((network: any, index: number) => (
                               <li key={network.id + index}>
                                 <img
                                   src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${network["logo_path"]}`}
-                                  alt=""
-                                  className="details-view__network"
+                                  alt={network.name + " logo"}
+                                  className="details-view__network-image"
                                 />
                               </li>
                             ))}
