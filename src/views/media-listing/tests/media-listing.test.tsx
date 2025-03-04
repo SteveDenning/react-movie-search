@@ -16,7 +16,7 @@ import { variables } from "./config";
 jest.mock("../../../services/media");
 
 describe("Media carousel component", () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     Object.defineProperty(window, "location", {
       value: {
         pathname: "/media-listing/movie/popular?page=1",
@@ -27,11 +27,13 @@ describe("Media carousel component", () => {
 
     (getMedia as jest.Mock).mockResolvedValue(variables.media);
 
-    render(
-      <MemoryRouter>
-        <MediaListing />
-      </MemoryRouter>,
-    );
+    await waitFor(() => {
+      render(
+        <MemoryRouter>
+          <MediaListing />
+        </MemoryRouter>,
+      );
+    });
   });
 
   describe("Component rendering", () => {
