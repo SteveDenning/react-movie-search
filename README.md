@@ -18,7 +18,7 @@ To add new environment variable create a variable in `.env.example` then copy ov
 
 `npm test` - Launches the test runner in the interactive watch mode.
 
-`npx jest --coverage` - Launches the test runner that will output the test coverage for each file. This can be launched by opening the `index.html` in `coverage/lcov-report` folder once this has run.
+`npm run test:coverage` - Launches the test runner that will output the test coverage for each file. This can be launched by opening the `index.html` in `coverage/lcov-report` folder once this has run.
 
 # Build and deploying the App
 
