@@ -30,6 +30,10 @@ const Favorites: React.FC<Props> = () => {
 
   const user = useUser();
 
+  if (!user) {
+    window.location.href = "/";
+  }
+
   const getFavoritesList = (type: string) => {
     if (user) {
       getFavorites(user, type)
@@ -104,24 +108,18 @@ const Favorites: React.FC<Props> = () => {
           heading="Favourites"
           backButton
         />
-        {user ? (
-          <>
-            <Tabs
-              tabs={[
-                { label: "Movies", value: "movies" },
-                { label: "TV", value: "tv" },
-              ]}
-              onClick={handleTabChange}
-              initialSelection="movies"
-            />
-            <div className="favorites__inner">
-              {selectedTab === "movies" && renderTab(favoriteMovies, "movies")}
-              {selectedTab === "tv" && renderTab(favoriteTv, "tv")}
-            </div>
-          </>
-        ) : (
-          <h2 style={{ textAlign: "center", marginTop: "2rem" }}>You need to be logged in to see your favorites. Log in (TODO - Login)</h2>
-        )}
+        <Tabs
+          tabs={[
+            { label: "Movies", value: "movies" },
+            { label: "TV", value: "tv" },
+          ]}
+          onClick={handleTabChange}
+          initialSelection="movies"
+        />
+        <div className="favorites__inner">
+          {selectedTab === "movies" && renderTab(favoriteMovies, "movies")}
+          {selectedTab === "tv" && renderTab(favoriteTv, "tv")}
+        </div>
       </div>
     </Container>
   );

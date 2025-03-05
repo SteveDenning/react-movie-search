@@ -1,4 +1,236 @@
 export const variables = {
+  tv: {
+    data: {
+      adult: false,
+      backdrop_path: "/JYgqp8g2kI3SEus9XBDSHukfBN.jpg",
+      created_by: [
+        {
+          id: 78417,
+          credit_id: "5f54f833713ed40036eed3e7",
+          name: "Nick Santora",
+          original_name: "Nick Santora",
+          gender: 2,
+          profile_path: "/iipP9fTQhRuPJHFMhbpMCceBiiu.jpg",
+        },
+      ],
+      episode_run_time: [],
+      first_air_date: "2022-02-03",
+      genres: [
+        {
+          id: 10759,
+          name: "Action & Adventure",
+        },
+        {
+          id: 80,
+          name: "Crime",
+        },
+        {
+          id: 18,
+          name: "Drama",
+        },
+      ],
+      homepage: "https://www.amazon.com/dp/B09ML1ZF3D",
+      id: 108978,
+      in_production: true,
+      languages: ["en"],
+      last_air_date: "2025-02-27",
+      last_episode_to_air: {
+        id: 5818655,
+        name: "Dominique",
+        overview: "Reacher reunites with Duffy and Villanueva and finally shares the painful details of his history with Xavier Quinn.",
+        vote_average: 5.4,
+        vote_count: 5,
+        air_date: "2025-02-27",
+        episode_number: 4,
+        episode_type: "standard",
+        production_code: "",
+        runtime: 52,
+        season_number: 3,
+        show_id: 108978,
+        still_path: "/ypZpH089L0AD45fH0SiixqW3MK8.jpg",
+      },
+      name: "Reacher",
+      next_episode_to_air: {
+        id: 5818656,
+        name: "Smackdown",
+        overview: "When a DEA tragedy puts the entire mission at risk, Reacher, Duffy, and Villanueva improvise a drastic plan to save their cover.",
+        vote_average: 0,
+        vote_count: 0,
+        air_date: "2025-03-06",
+        episode_number: 5,
+        episode_type: "standard",
+        production_code: "",
+        runtime: null,
+        season_number: 3,
+        show_id: 108978,
+        still_path: "/4r5BUAgNyzhsk28Pr9OpnrQXsvZ.jpg",
+      },
+      networks: [
+        {
+          id: 1024,
+          logo_path: "/ifhbNuuVnlwYy5oXA5VIb2YR8AZ.png",
+          name: "Prime Video",
+          origin_country: "",
+        },
+      ],
+      number_of_episodes: 24,
+      number_of_seasons: 3,
+      origin_country: ["US"],
+      original_language: "en",
+      original_name: "Reacher",
+      overview:
+        "Jack Reacher, a veteran military police investigator, has just recently entered civilian life. Reacher is a drifter, carrying no phone and the barest of essentials as he travels the country and explores the nation he once served.",
+      popularity: 1200.245,
+      poster_path: "/31GlRQMiDunO8cl3NxTz34U64rf.jpg",
+      production_companies: [
+        {
+          id: 20580,
+          logo_path: "/oRR9EXVoKP9szDkVKlze5HVJS7g.png",
+          name: "Amazon Studios",
+          origin_country: "US",
+        },
+        {
+          id: 87731,
+          logo_path: "/8PeKdSO13vYTod2HAJsV2m7mRr0.png",
+          name: "Skydance Television",
+          origin_country: "US",
+        },
+        {
+          id: 228633,
+          logo_path: "/of4mmVt6egYaO9oERJbuUxMOTkj.png",
+          name: "Paramount Television Studios",
+          origin_country: "US",
+        },
+        {
+          id: 210099,
+          logo_path: "/d6HwljzlOzxJ4tXlrpRkNZaZMWL.png",
+          name: "Amazon MGM Studios",
+          origin_country: "US",
+        },
+      ],
+      production_countries: [
+        {
+          iso_3166_1: "US",
+          name: "United States of America",
+        },
+      ],
+      seasons: [
+        {
+          air_date: "2022-02-02",
+          episode_count: 8,
+          id: 161571,
+          name: "Season 1",
+          overview:
+            "Reacher hurtles into the dark heart of a vast criminal enterprise when trying to rescue an undercover DEA informant whose time is running out.",
+          poster_path: "/bQnnKBe3VsvXKMoNCaYmRzs1Dup.jpg",
+          season_number: 1,
+          vote_average: 7.5,
+        },
+        {
+          air_date: "2023-12-13",
+          episode_count: 8,
+          id: 364732,
+          name: "Season 2",
+          overview:
+            "Reacher hurtles into the dark heart of a vast criminal enterprise when trying to rescue an undercover DEA informant whose time is running out.",
+          poster_path: "/jFuH0md41x5mB4qj5344mSmtHrO.jpg",
+          season_number: 2,
+          vote_average: 7,
+        },
+      ],
+      spoken_languages: [
+        {
+          english_name: "English",
+          iso_639_1: "en",
+          name: "English",
+        },
+      ],
+      status: "Returning Series",
+      tagline: "Reacher's back.",
+      type: "Scripted",
+      vote_average: 8.1,
+      vote_count: 2049,
+    },
+  },
+  movie: {
+    data: {
+      adult: false,
+      backdrop_path: "/9nhjGaFLKtddDPtPaX5EmKqsWdH.jpg",
+      belongs_to_collection: null,
+      budget: 0,
+      genres: [
+        {
+          id: 10749,
+          name: "Romance",
+        },
+        {
+          id: 878,
+          name: "Science Fiction",
+        },
+        {
+          id: 53,
+          name: "Thriller",
+        },
+      ],
+      homepage: "https://tv.apple.com/movie/umc.cmc.26o403koqo2klixc0jtqy6tmc",
+      id: 950396,
+      imdb_id: "tt13654226",
+      origin_country: ["US"],
+      original_language: "en",
+      original_title: "The Gorge",
+      overview:
+        "Two highly trained operatives grow close from a distance after being sent to guard opposite sides of a mysterious gorge. When an evil below emerges, they must work together to survive what lies within.",
+      popularity: 2415.786,
+      poster_path: "/7iMBZzVZtG0oBug4TfqDb9ZxAOa.jpg",
+      production_companies: [
+        {
+          id: 82819,
+          logo_path: "/gXfFl9pRPaoaq14jybEn1pHeldr.png",
+          name: "Skydance Media",
+          origin_country: "US",
+        },
+        {
+          id: 162439,
+          logo_path: "/h9hG1svKeylr9KqUOGmO4i3wRP0.png",
+          name: "Crooked Highway",
+          origin_country: "US",
+        },
+        {
+          id: 194232,
+          logo_path: "/oE7H93u8sy5vvW5EH3fpCp68vvB.png",
+          name: "Apple Studios",
+          origin_country: "US",
+        },
+      ],
+      production_countries: [
+        {
+          iso_3166_1: "US",
+          name: "United States of America",
+        },
+      ],
+      release_date: "2025-02-13",
+      revenue: 0,
+      runtime: 127,
+      spoken_languages: [
+        {
+          english_name: "English",
+          iso_639_1: "en",
+          name: "English",
+        },
+        {
+          english_name: "Lithuanian",
+          iso_639_1: "lt",
+          name: "Lietuvių",
+        },
+      ],
+      status: "Released",
+      tagline: "The world's most dangerous secret lies between them.",
+      title: "The Gorge",
+      video: false,
+      vote_average: 7.789,
+      vote_count: 1615,
+    },
+  },
   person: {
     data: {
       adult: false,
@@ -96,6 +328,38 @@ export const variables = {
       ],
       total_pages: 38,
       total_results: 748,
+    },
+  },
+
+  videos: {
+    data: {
+      id: 108978,
+      results: [
+        {
+          iso_639_1: "en",
+          iso_3166_1: "US",
+          name: "Prison Brawl Clip",
+          key: "u-YNd31tSZg",
+          site: "YouTube",
+          size: 1080,
+          type: "Clip",
+          official: true,
+          published_at: "2022-01-18T18:59:49.000Z",
+          id: "61e8d7e8d37197006bca1016",
+        },
+        {
+          iso_639_1: "en",
+          iso_3166_1: "US",
+          name: "Official Trailer",
+          key: "GSycMV-_Csw",
+          site: "YouTube",
+          size: 1080,
+          type: "Trailer",
+          official: true,
+          published_at: "2021-12-02T17:59:53.000Z",
+          id: "61a90af0d2f5b50097032aec",
+        },
+      ],
     },
   },
 
