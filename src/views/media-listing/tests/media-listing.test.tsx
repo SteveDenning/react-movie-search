@@ -16,27 +16,26 @@ import { variables } from "./config";
 jest.mock("../../../services/media");
 
 describe("Media carousel component", () => {
-  beforeEach(async () => {
-    Object.defineProperty(window, "location", {
-      value: {
-        pathname: "/media-listing/movie/popular?page=1",
-        search: "?page=1&type=movie",
-      },
-      writable: true,
-    });
-
-    (getMedia as jest.Mock).mockResolvedValue(variables.media);
-
-    await waitFor(() => {
-      render(
-        <MemoryRouter>
-          <MediaListing />
-        </MemoryRouter>,
-      );
-    });
-  });
-
   describe("Component rendering", () => {
+    beforeEach(async () => {
+      Object.defineProperty(window, "location", {
+        value: {
+          pathname: "/media-listing/movie/popular/Most%20popular%20Movies",
+          search: "?page=1",
+        },
+        writable: true,
+      });
+
+      (getMedia as jest.Mock).mockResolvedValue(variables.media);
+
+      await waitFor(() => {
+        render(
+          <MemoryRouter>
+            <MediaListing />
+          </MemoryRouter>,
+        );
+      });
+    });
     it("Should render the Media listings", async () => {
       await waitFor(() => expect(getMedia).toHaveBeenCalled());
       await waitFor(() => expect(screen.getByTestId("media-listing")).toBeInTheDocument());
@@ -44,7 +43,28 @@ describe("Media carousel component", () => {
 
     it("Should render the Media listings with a heading for Movies", async () => {
       await waitFor(() => expect(screen.getByTestId("section-heading")).toBeInTheDocument());
+      await waitFor(() => expect(screen.getByTestId("pagination")).toBeInTheDocument());
       await waitFor(() => expect(screen.getByText("Most popular Movies")).toBeInTheDocument());
+    });
+
+    it("Should render the pagination", async () => {
+      await waitFor(() => expect(screen.getByTestId("pagination")).toBeInTheDocument());
+    });
+  });
+
+  describe("Component rendering (error state)", () => {
+    it("Should render the Media listing error message", async () => {
+      const consoleSpy = jest.spyOn(console, "error").mockImplementation();
+
+      (getMedia as jest.Mock).mockRejectedValue(variables.error);
+
+      render(
+        <MemoryRouter>
+          <MediaListing />
+        </MemoryRouter>,
+      );
+      await waitFor(() => expect(consoleSpy).toHaveBeenCalled());
+      await waitFor(() => expect(screen.getByTestId("media-listing-error")).toBeInTheDocument());
     });
   });
 });

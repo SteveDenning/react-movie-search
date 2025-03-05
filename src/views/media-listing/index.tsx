@@ -4,9 +4,6 @@ import { useSearchParams } from "react-router-dom";
 // Services
 import { getMedia } from "../../services/media";
 
-// Utils
-import { MOVIES_TITLE, TV_SHOWS_TITLE, PERSON_TITLE, MEDIA_TITLE } from "../../utils/constants";
-
 // Components
 import Resources from "../../components/resources";
 import SectionHeading from "../../components/section-heading";
@@ -19,7 +16,7 @@ import "./media-listing.scss";
 
 const MediaListing = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [heading, setHeading] = useState<string>("");
+  const [error, setError] = useState(false);
   const [resources, setResources] = useState<any>([]);
   const [page, setPage] = useState<number>(1);
   const [count, setCount] = useState<number>(0);
@@ -28,22 +25,7 @@ const MediaListing = () => {
   const params = new URLSearchParams(searchParams);
   const mediaType = window.location.pathname.split("/")[2];
   const request = `${mediaType}/${window.location.pathname.split("/")[3]}${location.search}`;
-
-  const handlePageTitle = () => {
-    switch (mediaType) {
-      case "movie":
-        setHeading(MOVIES_TITLE);
-        break;
-      case "tv":
-        setHeading(TV_SHOWS_TITLE);
-        break;
-      case "person":
-        setHeading(PERSON_TITLE);
-        break;
-      default:
-        setHeading(MEDIA_TITLE);
-    }
-  };
+  const title = decodeURI(window.location.pathname.split("/")[4] as string);
 
   const handlePageChange = (event, value) => {
     setPage(value);
@@ -62,12 +44,12 @@ const MediaListing = () => {
         .then((response: any) => {
           setResources(response.data.results);
           setCount(Math.ceil(response.data["total_pages"]));
-          handlePageTitle();
           setLoading(false);
         })
         .catch((error) => {
-          setLoading(false);
           console.error(error);
+          setError(error);
+          setLoading(false);
         });
     }
   };
@@ -88,7 +70,7 @@ const MediaListing = () => {
     >
       <Container>
         <SectionHeading
-          heading={heading}
+          heading={title}
           backButton
         />
         <Resources
@@ -99,6 +81,14 @@ const MediaListing = () => {
           loading={loading}
         />
       </Container>
+      {error && (
+        <p
+          className="error"
+          data-testid="media-listing-error"
+        >
+          There was a problem with the banner - please try again later
+        </p>
+      )}
     </div>
   );
 };

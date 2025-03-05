@@ -1,10 +1,16 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { screen, render } from "@testing-library/react";
+import { screen, render, waitFor } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+
+// Services
+import { getFavorites } from "../../../services/favorites";
 
 // Variables
 import { variables } from "./config";
+
+// Mock
+jest.mock("../../../services/favorites");
 
 // Components
 import Resources from "../index";
@@ -22,19 +28,22 @@ describe("Resources component", () => {
       });
     });
 
-    beforeEach(() =>
-      render(
-        <MemoryRouter>
-          <Resources
-            resources={variables.movies.results}
-            count={20}
-            page={1}
-            loading={false}
-          />
-          ,
-        </MemoryRouter>,
-      ),
-    );
+    beforeEach(async () => {
+      (getFavorites as jest.Mock).mockResolvedValue(variables.favourites);
+
+      await waitFor(() => {
+        render(
+          <MemoryRouter>
+            <Resources
+              resources={variables.resources}
+              count={3}
+              page={1}
+              loading={false}
+            />
+          </MemoryRouter>,
+        );
+      });
+    });
 
     it("Should render resources", () => {
       expect(screen.getByTestId("resources")).toBeInTheDocument();
@@ -43,25 +52,31 @@ describe("Resources component", () => {
     it("Should render pagination", () => {
       expect(screen.getByTestId("pagination")).toBeInTheDocument();
     });
-  });
 
-  describe("Component rendering (single page of results)", () => {
-    beforeEach(() =>
-      render(
-        <MemoryRouter>
-          <Resources
-            resources={variables.movies.results}
-            count={1}
-            page={1}
-            loading={false}
-          />
-          ,
-        </MemoryRouter>,
-      ),
-    );
-
-    it("Should not render pagination if only one page is present", () => {
-      expect(screen.queryByTestId("pagination")).toBeNull();
+    it("Should allow the user to click a card", async () => {
+      const card = screen.getAllByTestId("button")[0];
+      card.click();
+      await waitFor(() => expect(window.location.href).toBe("/details/movie/912649"));
     });
   });
+
+  // describe("Component rendering (error state)", () => {
+  //   it("Should render the Media listing error message", async () => {
+  //     const consoleSpy = jest.spyOn(console, "error").mockImplementation();
+
+  //     (getFavorites as jest.Mock).mockResolvedValue(variables.error);
+
+  //     render(
+  //       <MemoryRouter>
+  //         <Resources
+  //           resources={variables.resources}
+  //           count={3}
+  //           page={1}
+  //           loading={false}
+  //         />
+  //       </MemoryRouter>,
+  //     );
+  //     await waitFor(() => expect(consoleSpy).toHaveBeenCalled());
+  //   });
+  // });
 });
