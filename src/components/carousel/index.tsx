@@ -17,6 +17,7 @@ interface Props {
   resources: any[];
   responsiveOptions?: object;
   handleFavorite?: (isFavorite: boolean) => void;
+  user?: any;
 }
 
 const Carousel: React.FC<Props> = ({
@@ -28,6 +29,7 @@ const Carousel: React.FC<Props> = ({
   resources,
   responsiveOptions,
   handleFavorite,
+  user,
 }) => {
   const responsive = {
     desktop: {
@@ -133,6 +135,7 @@ const Carousel: React.FC<Props> = ({
                     resource={item}
                     handleFavorite={handleFavorite}
                     onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
+                    user={user}
                   />
                 )}
               </div>

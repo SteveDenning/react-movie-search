@@ -61,23 +61,21 @@ describe("Card component", () => {
     const handleFavorite = jest.fn();
 
     beforeEach(() => {
-      mockStorage = {
-        user: JSON.stringify(variables.user),
-      };
       render(
         <Card
           resource={variables.film}
           handleFavorite={handleFavorite}
+          user={variables.user}
         />,
       );
     });
 
     it("Should render a card with a favourites icon", async () => {
-      expect(screen.getByTestId("add-to-favorites")).toBeInTheDocument();
+      expect(screen.getByTestId("add-to-favorites-logged-in")).toBeInTheDocument();
     });
 
     it("Should allow the user to click the favourite button", async () => {
-      const favouriteButton = screen.getByTestId("add-to-favorites");
+      const favouriteButton = screen.getByTestId("add-to-favorites-logged-in");
 
       expect(favouriteButton).toBeInTheDocument();
 

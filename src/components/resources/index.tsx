@@ -4,9 +4,6 @@ import React, { useEffect, useState } from "react";
 import Card from "../card";
 import Pagination from "../pagination";
 
-// Hocs
-import { useUser } from "../../hocs/with-user-provider";
-
 // MUI
 import { Fade, Grid, Backdrop, CircularProgress } from "@mui/material";
 
@@ -27,13 +24,13 @@ interface Props {
 
 const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }) => {
   const [favorites, setFavorites] = useState([]);
+  const [tVFavorites, setTvFavorites] = useState([]);
+  const [movieFavorites, setMovieFavorites] = useState([]);
   const [items, setItems] = useState([]);
 
-  const user = useUser();
+  const user = JSON.parse(sessionStorage.getItem("user")) || null;
   const params = new URLSearchParams(window.location.search);
   const mediaType = params.get("filterByType") || window.location.pathname.split("/")[2];
-  const isMulti = mediaType === "multi";
-  const isPerson = mediaType === "person";
 
   const handleFavorite = (resource: any) => {
     let mediaType;
@@ -59,34 +56,29 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
   };
 
   const getFavoritesList = (type?) => {
-    setItems([]);
-    getFavorites(user, type)
-      .then((response) => {
-        setFavorites(response.data.results);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    if (user) {
+      setItems([]);
+      getFavorites(user, type)
+        .then((response) => {
+          if (type === "tv") {
+            setTvFavorites(response.data.results);
+          } else {
+            setMovieFavorites(response.data.results);
+          }
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
   };
 
   const handleAddFavorite = () => {
-    const updatedArray = resources.map((resource) => {
-      const isFavorite = favorites.find((favorite) => favorite.id === resource.id);
-      return isFavorite ? { ...resource, favorite: true } : resource;
-    });
-    setItems(updatedArray);
-  };
-
-  // Need to simplify this
-  const updateResources = () => {
-    if (user) {
-      if (!isPerson && !isMulti) {
-        getFavoritesList(mediaType);
-      } else {
-        setItems(resources);
-      }
-    } else {
-      setItems(resources);
+    if (items?.length) {
+      const updatedArray = items.map((item) => {
+        const isFavorite = favorites.find((favorite) => favorite.id === item.id);
+        return isFavorite ? { ...item, favorite: true } : item;
+      });
+      setItems(updatedArray);
     }
   };
 
@@ -99,12 +91,18 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
   }, [favorites]);
 
   useEffect(() => {
-    updateResources();
+    getFavoritesList("movie");
+    getFavoritesList("tv");
+    setItems(resources);
   }, [resources]);
 
   useEffect(() => {
     window.scroll({ top: 0, left: 0, behavior: "smooth" });
   }, [page]);
+
+  useEffect(() => {
+    setFavorites([tVFavorites, movieFavorites].flat());
+  }, [tVFavorites, movieFavorites]);
 
   return (
     <div
@@ -139,6 +137,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
                     variant="resource"
                     handleFavorite={(event) => handleFavorite(event)}
                     favorite
+                    user={user}
                   />
                 </Grid>
               );

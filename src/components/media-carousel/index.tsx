@@ -134,6 +134,7 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
               resources={items}
               responsiveOptions={responsiveOptions}
               handleFavorite={handleFavorite}
+              user={user}
             />
           </div>
         </Fade>

@@ -22,6 +22,11 @@ const meta: Meta<typeof Template> = {
       type: { name: "function", required: true },
       description: "Function to be called to trigger the favorite action",
     },
+    user: {
+      control: false,
+      type: { name: "string", required: true },
+      description: "User object",
+    },
   },
 };
 export default meta;
@@ -41,19 +46,11 @@ export const Default: Story = {
 Default.args = {
   isFavorite: false,
   handleFavorite: () => null,
-};
-
-Default.loaders = [
-  () => {
-    window.sessionStorage.setItem(
-      "user",
-      JSON.stringify({
-        id: 100,
-        username: "SteveD1972",
-      }),
-    );
+  user: {
+    id: 100,
+    username: "SteveD1972",
   },
-];
+};
 
 export const Guest: Story = {
   render: (args) => (
@@ -66,10 +63,5 @@ export const Guest: Story = {
 Guest.args = {
   isFavorite: false,
   handleFavorite: () => null,
+  user: null,
 };
-
-Guest.loaders = [
-  () => {
-    window.sessionStorage.setItem("user", null);
-  },
-];

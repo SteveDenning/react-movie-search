@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { screen, render, waitFor } from "@testing-library/react";
+import { screen, render, waitFor, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 // Services
@@ -54,8 +54,8 @@ describe("Resources component", () => {
     });
 
     it("Should allow the user to click a card", async () => {
-      const card = screen.getAllByTestId("button")[0];
-      card.click();
+      expect(screen.getAllByTestId("button")).toHaveLength(3);
+      fireEvent.click(screen.getAllByTestId("button")[0]);
       await waitFor(() => expect(window.location.href).toBe("/details/movie/912649"));
     });
   });

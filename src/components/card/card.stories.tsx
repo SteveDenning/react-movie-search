@@ -28,6 +28,11 @@ const meta: Meta<typeof Template> = {
       type: { name: "string", required: false },
       description: "Applies variant classes to remove the border radius in the banner or add a box shadow for resources",
     },
+    user: {
+      control: false,
+      type: { name: "string", required: true },
+      description: "User object",
+    },
   },
 };
 export default meta;
