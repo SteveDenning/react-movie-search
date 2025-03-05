@@ -45,6 +45,31 @@ describe("Favorites component", () => {
     });
   });
 
+  describe("Component rendering (logged out)", () => {
+    beforeEach(() => {
+      mockStorage = {
+        user: null,
+      };
+
+      render(
+        <MemoryRouter>
+          <Favorites />
+        </MemoryRouter>,
+      );
+    });
+
+    it("Should redirect to home page if not logged in", () => {
+      mockStorage = {};
+      render(
+        <MemoryRouter>
+          <Favorites />
+        </MemoryRouter>,
+      );
+
+      expect(window.location.href).toBe(window.location.origin + "/");
+    });
+  });
+
   describe("Component rendering (no added favourites)", () => {
     beforeEach(() => {
       mockStorage = {

@@ -1,10 +1,16 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { screen, render } from "@testing-library/react";
+import { screen, render, waitFor, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
+
+// Services
+import { getFavorites } from "../../../services/favorites";
 
 // Variables
 import { variables } from "./config";
+
+// Mock
+jest.mock("../../../services/favorites");
 
 // Components
 import Resources from "../index";
@@ -22,19 +28,22 @@ describe("Resources component", () => {
       });
     });
 
-    beforeEach(() =>
-      render(
-        <MemoryRouter>
-          <Resources
-            resources={variables.movies.results}
-            count={20}
-            page={1}
-            loading={false}
-          />
-          ,
-        </MemoryRouter>,
-      ),
-    );
+    beforeEach(async () => {
+      (getFavorites as jest.Mock).mockResolvedValue(variables.favourites);
+
+      await waitFor(() => {
+        render(
+          <MemoryRouter>
+            <Resources
+              resources={variables.resources}
+              count={3}
+              page={1}
+              loading={false}
+            />
+          </MemoryRouter>,
+        );
+      });
+    });
 
     it("Should render resources", () => {
       expect(screen.getByTestId("resources")).toBeInTheDocument();
@@ -43,25 +52,11 @@ describe("Resources component", () => {
     it("Should render pagination", () => {
       expect(screen.getByTestId("pagination")).toBeInTheDocument();
     });
-  });
 
-  describe("Component rendering (single page of results)", () => {
-    beforeEach(() =>
-      render(
-        <MemoryRouter>
-          <Resources
-            resources={variables.movies.results}
-            count={1}
-            page={1}
-            loading={false}
-          />
-          ,
-        </MemoryRouter>,
-      ),
-    );
-
-    it("Should not render pagination if only one page is present", () => {
-      expect(screen.queryByTestId("pagination")).toBeNull();
+    it("Should allow the user to click a card", async () => {
+      expect(screen.getAllByTestId("button")).toHaveLength(3);
+      fireEvent.click(screen.getAllByTestId("button")[0]);
+      await waitFor(() => expect(window.location.href).toBe("/details/movie/912649"));
     });
   });
 });

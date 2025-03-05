@@ -45,10 +45,11 @@ export const Default: Story = {
 };
 Default.args = {
   resources: [
-    { label: "Home", path: "/" },
-    { label: "Favorites", path: "/favorites" },
-    { label: "Profile", path: "/profiles" },
+    { label: "Home", path: "" },
+    { label: "Favorites", path: "" },
+    { label: "Profile", path: "" },
   ],
+  onClick: () => {},
 };
 
 export const Link: Story = {
@@ -60,11 +61,12 @@ export const Link: Story = {
 };
 Link.args = {
   resources: [
-    { label: "Home", path: "/" },
-    { label: "Favorites", path: "/favorites" },
-    { label: "Profile", path: "/profiles" },
+    { label: "Home", path: "" },
+    { label: "Favorites", path: "" },
+    { label: "Profile", path: "" },
   ],
   variant: "link",
+  onClick: () => {},
 };
 
 export const Panel: Story = {
@@ -112,5 +114,5 @@ Panel.args = {
     },
   ],
   variant: "tile",
-  onClick: () => alert("clicked"),
+  onClick: () => {},
 };

@@ -5,7 +5,7 @@ import Button from "../button";
 import Modal from "../modal";
 
 // Hocs
-import { useUser, useUserUpdate } from "../../hocs/with-user-provider";
+import { useUserUpdate } from "../../hocs/with-user-provider";
 
 // MUI Icons
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -17,13 +17,13 @@ import "./add-to-favorites.scss";
 interface Props {
   isFavorite: boolean;
   handleFavorite: (boolean) => void;
+  user?: any;
 }
 
-const AddToFavorites: React.FC<Props> = ({ isFavorite, handleFavorite }) => {
+const AddToFavorites: React.FC<Props> = ({ isFavorite, handleFavorite, user }) => {
   const [favorite, setFavorite] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const user = useUser();
   const handleUpdateUser = useUserUpdate();
 
   const handleFavoriteClick = (favorite) => {
@@ -43,7 +43,7 @@ const AddToFavorites: React.FC<Props> = ({ isFavorite, handleFavorite }) => {
     <>
       <Button
         className="add-to-favorites"
-        testId="add-to-favorites"
+        testId={user ? "add-to-favorites-logged-in" : "navigation-action-logged-out"}
         variant="icon"
         onClick={() => (user ? handleFavoriteClick(favorite) : openModal())}
       >
@@ -59,8 +59,7 @@ const AddToFavorites: React.FC<Props> = ({ isFavorite, handleFavorite }) => {
           You must{" "}
           <Button
             variant="link"
-            // @ts-ignore
-            onClick={handleUpdateUser}
+            onClick={() => handleUpdateUser}
             testId="navigation-action-login"
           >
             login

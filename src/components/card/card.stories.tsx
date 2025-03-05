@@ -28,6 +28,11 @@ const meta: Meta<typeof Template> = {
       type: { name: "string", required: false },
       description: "Applies variant classes to remove the border radius in the banner or add a box shadow for resources",
     },
+    user: {
+      control: false,
+      type: { name: "string", required: true },
+      description: "User object",
+    },
   },
 };
 export default meta;
@@ -44,36 +49,6 @@ export const Default: Story = {
   ),
 };
 Default.args = {
-  resource: {
-    adult: false,
-    backdrop_path: null,
-    genre_ids: [28, 35],
-    id: 1160956,
-    original_language: "zh",
-    original_title: "熊猫计划",
-    overview:
-      "International action star Jackie Chan is invited to the adoption ceremony of a rare baby panda, but after an international crime syndicate attempts to kidnap the bear, Jackie has to save the bear using his stunt work skills.",
-    popularity: 2126.065,
-    poster_path: null,
-    release_date: "2024-10-01",
-    title: "Panda Plan",
-    video: false,
-    vote_average: 6.4,
-    vote_count: 47,
-  },
-};
-
-export const Banner: Story = {
-  render: (args) => (
-    <Container style={{ width: "500px" }}>
-      <Card
-        {...args}
-        variant="banner"
-      />
-    </Container>
-  ),
-};
-Banner.args = {
   resource: {
     adult: false,
     backdrop_path: null,
