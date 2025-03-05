@@ -46,13 +46,10 @@ export const Default: Story = {
 Default.args = {
   isFavorite: false,
   handleFavorite: () => null,
-  user: {
-    id: 100,
-    username: "SteveD1972",
-  },
+  user: null,
 };
 
-export const Guest: Story = {
+export const LoggedIn: Story = {
   render: (args) => (
     <Container>
       <AddToFavorites {...args} />
@@ -60,8 +57,11 @@ export const Guest: Story = {
   ),
 };
 
-Guest.args = {
+LoggedIn.args = {
   isFavorite: false,
   handleFavorite: () => null,
-  user: null,
+  user: {
+    id: 100,
+    username: "SteveD1972",
+  },
 };

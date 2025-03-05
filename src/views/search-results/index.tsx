@@ -32,9 +32,11 @@ const SearchResults = () => {
     setLoading(true);
     getAllMediaFromSearch(`${type}${window.location.search}`)
       .then((response: any) => {
-        if (response.data) setResources(response.data?.results);
-        setCount(response.data?.["total_pages"]);
-        setTotalResults(response.data?.["total_results"]);
+        if (response.data) {
+          setResources(response.data?.results);
+          setCount(response.data?.["total_pages"]);
+          setTotalResults(response.data?.["total_results"]);
+        }
         setLoading(false);
       })
       .catch((error) => {

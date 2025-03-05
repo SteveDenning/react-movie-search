@@ -59,24 +59,4 @@ describe("Resources component", () => {
       await waitFor(() => expect(window.location.href).toBe("/details/movie/912649"));
     });
   });
-
-  // describe("Component rendering (error state)", () => {
-  //   it("Should render the Media listing error message", async () => {
-  //     const consoleSpy = jest.spyOn(console, "error").mockImplementation();
-
-  //     (getFavorites as jest.Mock).mockResolvedValue(variables.error);
-
-  //     render(
-  //       <MemoryRouter>
-  //         <Resources
-  //           resources={variables.resources}
-  //           count={3}
-  //           page={1}
-  //           loading={false}
-  //         />
-  //       </MemoryRouter>,
-  //     );
-  //     await waitFor(() => expect(consoleSpy).toHaveBeenCalled());
-  //   });
-  // });
 });
