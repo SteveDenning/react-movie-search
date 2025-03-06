@@ -152,10 +152,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
     }
   };
 
-  const getEpisodesForSeason = (season: any) => {
-    console.log(season.id);
-  };
-
   useEffect(() => {
     getMediaDetails();
   }, []);
@@ -271,7 +267,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                               key={resource.id}
                               label="seasons"
                               items={resource.seasons}
-                              onClick={getEpisodesForSeason}
                             />
                           </div>
                         </>

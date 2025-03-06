@@ -37,7 +37,7 @@ describe("Accordion Component", () => {
       expect(screen.getByTestId("accordion-inner")).not.toHaveClass("accordion__inner--open");
     });
 
-    it("Should open item when clicking toggle", () => {
+    it("Should open item when clicking toggle", async () => {
       fireEvent.click(screen.getByTestId("accordion-trigger"));
       expect(screen.getByTestId("accordion-trigger")).toHaveClass("accordion__trigger--open");
       expect(screen.getByTestId("accordion-inner")).toHaveClass("accordion__inner--open");

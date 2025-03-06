@@ -17,14 +17,12 @@ interface Props {
   items: itemType[];
   label: string;
   reversed?: boolean;
-  onClick?: (item: itemType) => void;
 }
 
-const Accordion: React.FC<Props> = ({ label, items, reversed = false, onClick }) => {
+const Accordion: React.FC<Props> = ({ label, items, reversed = false }) => {
   const [openItems, setOpenItems] = useState<number[]>([]);
 
-  const updateOpenItems = (e, index: number, item: itemType) => {
-    onClick(item);
+  const updateOpenItems = (e, index: number) => {
     e.preventDefault();
     if (openItems.includes(index)) {
       setOpenItems(openItems.filter((item) => item !== index));
@@ -52,7 +50,9 @@ const Accordion: React.FC<Props> = ({ label, items, reversed = false, onClick })
             <a
               className={`accordion__trigger${isOpen ? " accordion__trigger--open" : ""}${reversed ? " accordion__trigger--reversed" : ""}`}
               href="#"
-              onClick={(e) => updateOpenItems(e, index, item)}
+              onClick={(e) => {
+                updateOpenItems(e, index);
+              }}
               role="menuitem"
               aria-expanded={isOpen}
               data-testid="accordion-trigger"
