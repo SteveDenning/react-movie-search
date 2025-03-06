@@ -85,7 +85,7 @@ Resource.args = {
     genre_ids: [28, 35],
     id: 1160956,
     original_language: "zh",
-    original_title: "熊猫计划",
+    original_title: "Panda Plan",
     overview:
       "International action star Jackie Chan is invited to the adoption ceremony of a rare baby panda, but after an international crime syndicate attempts to kidnap the bear, Jackie has to save the bear using his stunt work skills.",
     popularity: 2126.065,

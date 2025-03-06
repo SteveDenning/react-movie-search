@@ -19,8 +19,8 @@ import { MOVIES_TITLE, TV_SHOWS_TITLE, PERSON_TITLE } from "../utils/constants";
 import { Container } from "@mui/material";
 
 const HomePage = () => {
-  const title = "React Movie Search | Home";
-  const pageDescription = "Home page of the React Movie App. Search for films, TV shows, and actors to discover new favorites!";
+  const title = "My Movie Database | Home";
+  const pageDescription = "Home page of the My Movie Database App. Search for films, TV shows, and actors to discover new favorites!";
 
   const personOptions = {
     desktop: {
