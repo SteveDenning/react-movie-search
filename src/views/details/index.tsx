@@ -118,6 +118,8 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
         })
         .catch((error) => {
           console.error(error);
+          setLoading(false);
+          setError(true);
         });
     }
   };
@@ -198,7 +200,14 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 )}
                 <div className="details-view__content">
                   <div className="details-view__profile">
-                    {resource["profile_path"] && <div className="details-view__profile-image">{renderImage()}</div>}
+                    {(resource["profile_path"] || !videoKey) && (
+                      <div
+                        className="details-view__profile-image"
+                        data-testid="details-view-profile-image"
+                      >
+                        {renderImage()}
+                      </div>
+                    )}
                     <div>
                       <div className="details-view__profile-details">
                         <div className="details-view__title-wrapper">
@@ -219,6 +228,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                               <AddToFavorites
                                 handleFavorite={handleFavorite}
                                 isFavorite={isFavorite}
+                                user={user}
                               />
                             )}
                           </div>

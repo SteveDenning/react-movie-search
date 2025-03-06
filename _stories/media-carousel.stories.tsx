@@ -2,7 +2,7 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 // Components
-import Template from "./index";
+import Template from "../src/components/media-carousel/index";
 
 const meta: Meta<typeof Template> = {
   title: "Components/MediaCarousel",

@@ -18,9 +18,10 @@ interface Props {
   variant?: "banner" | "resource" | "details";
   handleFavorite?: (isFavorite: boolean) => void;
   favorite?: boolean;
+  user?: any;
 }
 
-const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) => {
+const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite, user }) => {
   const mediaType = useDefineMediaType(resource);
 
   // Class definitions
@@ -81,6 +82,7 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite }) =
         <AddToFavorites
           handleFavorite={() => handleFavorite(resource)}
           isFavorite={resource?.favorite}
+          user={user}
         />
       )}
     </div>

@@ -30,4 +30,21 @@ describe("Banner carousel component", () => {
       await waitFor(() => expect(getMedia).toHaveBeenCalledTimes(1));
     });
   });
+
+  describe("Component rendering (error state)", () => {
+    it("Should render the Banner Carousel error message", async () => {
+      const consoleSpy = jest.spyOn(console, "error").mockImplementation();
+
+      (getMedia as jest.Mock).mockRejectedValue(variables.error);
+
+      render(
+        <BannerCarousel
+          media="test"
+          path="/test/path"
+        />,
+      );
+      await waitFor(() => expect(consoleSpy).toHaveBeenCalled());
+      await waitFor(() => expect(screen.getByTestId("banner-carousel-error")).toBeInTheDocument());
+    });
+  });
 });

@@ -29,24 +29,22 @@ const SearchResults = () => {
   const resultsType = type === "multi" ? "results" : type === "movie" ? "Films" : type === "tv" ? "TV Shows" : "People";
 
   const handleGetResults = () => {
-    if (query) {
-      setLoading(true);
-      getAllMediaFromSearch(`${type}${window.location.search}`)
-        .then((response: any) => {
-          setResources(response.data.results);
-          setCount(response.data["total_pages"]);
-          setTotalResults(response.data["total_results"]);
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error(error);
-          setLoading(false);
-          setError(true);
-        });
-    } else {
-      setLoading(false);
-      setResources([]);
-    }
+    setLoading(true);
+    getAllMediaFromSearch(`${type}${window.location.search}`)
+      .then((response: any) => {
+        if (response.data) {
+          setResources(response.data?.results);
+          setCount(response.data?.["total_pages"]);
+          setTotalResults(response.data?.["total_results"]);
+        }
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+        setError(true);
+        setResources([]);
+      });
   };
 
   const handlePageChange = (event, value) => {
@@ -74,7 +72,7 @@ const SearchResults = () => {
       data-testid="search-results"
     >
       <Container>
-        {query && resources?.length && (
+        {query && !!resources?.length && (
           <h2 className="search-results__header">
             Displaying <span>{totalResults} </span> {resultsType} for: <span>{query} </span>
           </h2>

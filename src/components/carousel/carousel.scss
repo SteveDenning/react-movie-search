@@ -114,7 +114,7 @@
       }
     }
 
-    @include breakpoint($xxlarge) {
+    @include breakpoint($xxxlarge) {
       &__arrow--right,
       &__arrow--left {
         display: block;
