@@ -6,6 +6,9 @@ import Login from "../../views/login";
 import Navigation from "../../components/navigation";
 import Search from "../../views/search";
 
+// Utils
+import { icons } from "../../utils/use-icon";
+
 // Config
 import { config } from "../../config/routes";
 
@@ -99,8 +102,8 @@ const Header: React.FC<Props> = ({ heading }) => {
             }}
             testId="header-logo"
           >
-            <span className="sr-only">Home</span>
-            <TheatersIcon />
+            MMDb
+            <span className="sr-only">My Movie Database Home page</span>
           </Button>
           <div className="header__inner">
             <h1 className="sr-only">{heading}</h1>

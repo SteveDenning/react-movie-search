@@ -26,7 +26,6 @@ import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 import { getFavorites } from "../../services/favorites";
 import { getMediaByID } from "../../services/media";
 import { updateFavorite } from "../../services/favorites";
-import { getVideos } from "../../services/videos";
 
 // Styles
 import "./details.scss";
@@ -51,8 +50,9 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const isMedia = type == "tv" || "movie";
   const isPerson = type == "person";
   const MediaCarouselLabel = isPerson ? "Known for" : "Top Cast";
-  const pathName = `${type}/${programmeId}/credits?language=en-US`;
-  const text = resource?.overview || resource?.biography || null;
+  const pathName = `${type}/${programmeId}/${isPerson ? "combined_credits" : "credits"}?language=en-US`;
+
+  const overview = resource?.overview || resource?.biography || null;
   const title = resource.name || resource.title;
 
   const personOptions = {
@@ -73,9 +73,9 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
         .then((response: any) => {
           setResource(response.data);
           handleMediaTitle(response.data.name || response.data.title);
+          handleVideos(response.data.videos?.results || []);
           setBackDrop(response.data?.backdrop_path);
           getFavoritesList();
-          getMediaVideos(programmeId, type);
           setLoading(false);
         })
         .catch((error) => {
@@ -86,25 +86,9 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
     }
   };
 
-  const getMediaVideos = (id: string, type: string) => {
-    if (type !== "person") {
-      setLoading(true);
-      getVideos(id, type)
-        .then((response: any) => {
-          const trailers = response.data.results.filter((video: any) => video.type === "Trailer");
-
-          trailers.length !== 0 ? setVideoKey(trailers[0]?.key) : setVideoKey(response.data.results[0]?.key);
-
-          setLoading(false);
-        })
-        .catch((error) => {
-          console.error(error);
-          setLoading(false);
-          setError(true);
-        });
-    } else {
-      setLoading(false);
-    }
+  const handleVideos = (videos: { key: string }[]) => {
+    const trailers = videos.filter((video: any) => video.type === "Trailer");
+    trailers.length !== 0 ? setVideoKey(trailers[0]?.key) : setVideoKey(videos[0]?.key);
   };
 
   const getFavoritesList = () => {
@@ -174,7 +158,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 className="details-view__inner"
                 data-testid="details-view-inner"
               >
-                {videoKey && (
+                {videoKey ? (
                   <div
                     className="details-view__video"
                     data-test-id="details-view-video"
@@ -185,18 +169,20 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                       responsive
                     />
                   </div>
+                ) : (
+                  !resource["profile_path"] && (
+                    <div
+                      className="details-view__poster fade-in"
+                      data-test-id="details-view-poster"
+                    >
+                      {renderImage()}
+                    </div>
+                  )
                 )}
-                {!videoKey && !resource["profile_path"] && (
-                  <div
-                    className="details-view__poster fade-in"
-                    data-test-id="details-view-poster"
-                  >
-                    {renderImage()}
-                  </div>
-                )}
+
                 <div className="details-view__content">
                   <div className="details-view__profile">
-                    {(resource["profile_path"] || !videoKey) && (
+                    {(resource["profile_path"] || !videoKey) && resource.gender && (
                       <div
                         className="details-view__profile-image"
                         data-testid="details-view-profile-image"
@@ -204,15 +190,13 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                         {renderImage()}
                       </div>
                     )}
+
                     <div>
                       <div className="details-view__profile-details">
                         <div className="details-view__title-wrapper">
-                          {isMedia && resource?.["release_date"] && (
-                            <h2
-                              className="details-view__title"
-                              data-testid="details-view-title"
-                            >
-                              <span>Release Date: {moment(resource?.["release_date"]).format("MMMM YYYY")}</span>
+                          {isMedia && (resource?.["release_date"] || resource?.["first_air_date"]) && (
+                            <h2 className="details-view__title details-view__label">
+                              <span>{moment(resource?.["release_date"] || resource?.["first_air_date"]).format("YYYY")}</span>
                             </h2>
                           )}
                           <div className="details-view__actions">
@@ -239,10 +223,10 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                         {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
                         {resource["known_for_department"] && <p>Known for: {resource["known_for_department"]}</p>}
                       </div>
-                      {text && (
+                      {overview && (
                         <Overview
                           resource={resource}
-                          text={text}
+                          text={overview}
                         />
                       )}
                       {!!resource.genres?.length && (
@@ -259,6 +243,12 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                             ))}
                           </ul>
                         </>
+                      )}
+                      {resource?.next_episode_to_air && (
+                        <p className="details-view__label">
+                          Next episode:
+                          <span> {moment(resource.next_episode_to_air["air_date"]).format("MMMM Do YYYY")}</span>
+                        </p>
                       )}
                       {!!resource.seasons?.length && (
                         <>

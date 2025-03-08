@@ -11,7 +11,7 @@ export const getMedia = async (path: string): Promise<any> => {
 };
 
 export const getMediaByID = async (id: string, type: string): Promise<any> => {
-  const url = `https://api.themoviedb.org/3/${type}/${id}?language=en-US`;
+  const url = `https://api.themoviedb.org/3/${type}/${id}?append_to_response=videos&language=en-US`;
 
   const response: AxiosResponse<any> = await axios.get(url, headers);
 

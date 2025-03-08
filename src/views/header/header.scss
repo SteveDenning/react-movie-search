@@ -52,13 +52,13 @@
   }
 
   &__logo {
-    svg {
-      cursor: pointer;
-      font-size: 25px;
+    font-family: Impact, Arial, sans-serif;
+    font-size: 27px;
+    letter-spacing: 1px;
+    text-anchor: middle;
 
-      @include breakpoint($medium) {
-        font-size: 35px;
-      }
+    @include hover {
+      color: $lilac;
     }
   }
 }

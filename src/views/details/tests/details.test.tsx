@@ -8,14 +8,12 @@ import DetailsView from "../index";
 
 // Services
 import { getMediaByID, getMedia } from "../../../services/media";
-import { getVideos } from "../../../services/videos";
 
 // Variables
 import { variables } from "./config";
 
 // Mock
 jest.mock("../../../services/media");
-jest.mock("../../../services/videos");
 jest.mock("../../../hocs/with-user-provider");
 
 describe("Details Page component", () => {
@@ -33,7 +31,6 @@ describe("Details Page component", () => {
 
       (getMediaByID as jest.Mock).mockResolvedValue(variables.movie);
       (getMedia as jest.Mock).mockResolvedValue(variables.media);
-      (getVideos as jest.Mock).mockResolvedValue(variables.media);
 
       render(
         <MemoryRouter>
@@ -44,7 +41,6 @@ describe("Details Page component", () => {
       await waitFor(() => {
         expect(getMediaByID).toHaveBeenCalled();
         expect(getMedia).toHaveBeenCalled();
-        expect(getVideos).toHaveBeenCalled();
         expect(screen.getByTestId("details-view")).toBeInTheDocument();
         expect(screen.getByText("The Gorge")).toBeInTheDocument();
       });
@@ -58,7 +54,6 @@ describe("Details Page component", () => {
       window.location = { pathname: "/details/tv/108978" };
 
       (getMediaByID as jest.Mock).mockResolvedValue(variables.tv);
-      (getVideos as jest.Mock).mockResolvedValue(variables.media);
 
       render(
         <MemoryRouter>
@@ -68,7 +63,6 @@ describe("Details Page component", () => {
 
       await waitFor(() => {
         expect(getMediaByID).toHaveBeenCalled();
-        expect(getVideos).toHaveBeenCalled();
         expect(screen.getByTestId("details-view")).toBeInTheDocument();
         expect(screen.getByText("Reacher")).toBeInTheDocument();
       });
@@ -122,8 +116,6 @@ describe("Details Page component", () => {
       window.location = { pathname: "/details/tv/108978" };
 
       const consoleSpy = jest.spyOn(console, "error").mockImplementation();
-
-      (getVideos as jest.Mock).mockRejectedValue(variables.error);
 
       render(
         <MemoryRouter>

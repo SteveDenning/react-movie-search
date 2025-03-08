@@ -65,16 +65,18 @@
   &__title-wrapper {
     align-items: center;
     display: flex;
+    margin-bottom: 20px;
   }
 
   &__title {
     align-items: center;
     display: flex;
     margin-bottom: 0;
+  }
 
+  &__label {
     span {
       color: $whispering-mist;
-      font-size: 20px;
     }
   }
 
@@ -91,9 +93,9 @@
   }
 
   &__network-image {
-    background-color: rgba($color: $primary-color, $alpha: 0.3);
+    background-color: rgba($color: $white, $alpha: 0.8);
     border-radius: 0 10px;
-    padding: 10px;
+    padding: 5px;
     width: 100px;
   }
 
@@ -152,5 +154,6 @@
   ul {
     display: flex;
     list-style: none;
+    margin-bottom: 16px;
   }
 }
