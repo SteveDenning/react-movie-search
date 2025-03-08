@@ -251,13 +251,13 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                           <span> {moment(resource.next_episode_to_air["air_date"]).format("MMMM Do YYYY")}</span>
                         </p>
                       )}
-                      {!!resource.seasons?.length && (
+                      {/* {!!resource.seasons?.length && (
                         <>
                           <div className="details-view__seasons">
                             <Button onClick={() => setIsOpenSeasonsModal(true)}>{resource.seasons.length} Seasons</Button>
                           </div>
                         </>
-                      )}
+                      )} */}
                       {!!resource.networks?.length && (
                         <>
                           <ul className="details-view__network-list">
