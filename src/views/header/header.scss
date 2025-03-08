@@ -1,5 +1,6 @@
 // Footer Styles
 @import "../../styles/dependencies";
+@import "../../styles/animations";
 
 .header {
   align-items: center;
@@ -53,12 +54,18 @@
 
   &__logo {
     font-family: Impact, Arial, sans-serif;
-    font-size: 27px;
+    font-size: 16px;
     letter-spacing: 1px;
     text-anchor: middle;
+    transition: background 0.3s ease;
+
+    @include breakpoint($large) {
+      font-size: 27px;
+    }
 
     @include hover {
-      color: $lilac;
+      @extend .text-glow;
+      animation: glow 2s ease-in-out infinite;
     }
   }
 }

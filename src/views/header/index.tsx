@@ -102,8 +102,8 @@ const Header: React.FC<Props> = ({ heading }) => {
             }}
             testId="header-logo"
           >
-            MMDb
-            <span className="sr-only">My Movie Database Home page</span>
+            MyMDb
+            <span className="sr-only"> - My Movie Database Home page</span>
           </Button>
           <div className="header__inner">
             <h1 className="sr-only">{heading}</h1>
