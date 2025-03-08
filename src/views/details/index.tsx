@@ -41,7 +41,8 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const [resource, setResource] = useState<any>({});
   const [videoKey, setVideoKey] = useState<string>("");
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const [isOpenSeasonsModal, setIsOpenSeasonsModal] = useState<boolean>(false);
 
   const user = useUser();
   const programmeId = window.location.pathname.split("/")[3] as string;
@@ -130,7 +131,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
         <Image
           id={resource.id}
           resource={resource}
-          onClick={() => setIsOpen(true)}
+          onClick={() => setIsOpenModal(true)}
         />
       );
     }
@@ -196,7 +197,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                         <div className="details-view__title-wrapper">
                           {isMedia && (resource?.["release_date"] || resource?.["first_air_date"]) && (
                             <h2 className="details-view__title details-view__label">
-                              <span>{moment(resource?.["release_date"] || resource?.["first_air_date"]).format("YYYY")}</span>
+                              <span>({moment(resource?.["release_date"] || resource?.["first_air_date"]).format("YYYY")})</span>
                             </h2>
                           )}
                           <div className="details-view__actions">
@@ -253,11 +254,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                       {!!resource.seasons?.length && (
                         <>
                           <div className="details-view__seasons">
-                            <Accordion
-                              key={resource.id}
-                              label="seasons"
-                              items={resource.seasons}
-                            />
+                            <Button onClick={() => setIsOpenSeasonsModal(true)}>{resource.seasons.length} Seasons</Button>
                           </div>
                         </>
                       )}
@@ -312,11 +309,23 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
       )}
       <Modal
         id={resource.id}
-        open={isOpen}
-        handleClose={() => setIsOpen(false)}
+        open={isOpenModal}
+        handleClose={() => setIsOpenModal(false)}
         variant={["image"]}
       >
         {renderImage()}
+      </Modal>
+      <Modal
+        id={resource.id + "-seasons"}
+        open={isOpenSeasonsModal}
+        handleClose={() => setIsOpenSeasonsModal(false)}
+        title={title}
+      >
+        <Accordion
+          key={resource.id}
+          label="seasons"
+          items={resource.seasons}
+        />
       </Modal>
       <Backdrop open={loading}>
         <CircularProgress color="primary" />

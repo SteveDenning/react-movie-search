@@ -38,9 +38,9 @@
   &__poster {
     border-radius: 0 50px 0 0;
     background: $background-opacity-color;
-    padding-top: 20px;
     display: flex;
     justify-content: center;
+    padding: 20px;
 
     & ~ div {
       border-radius: 0 0 0 50px;
@@ -48,7 +48,7 @@
 
     .image {
       border: 1px solid $whispering-mist;
-      border-radius: 0 20px;
+      border-radius: 0 30px;
       cursor: pointer;
       max-width: 300px;
     }
