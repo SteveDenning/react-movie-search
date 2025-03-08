@@ -6,6 +6,7 @@
   // Important rules to override inline styling
   background-position: center !important;
   background-size: cover !important;
+  background-attachment: fixed !important;
   padding: 10px 0 20px;
 
   @include breakpoint($medium) {
@@ -34,6 +35,25 @@
     }
   }
 
+  &__poster {
+    border-radius: 0 50px 0 0;
+    background: $background-opacity-color;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+
+    & ~ div {
+      border-radius: 0 0 0 50px;
+    }
+
+    .image {
+      border: 1px solid $whispering-mist;
+      border-radius: 0 30px;
+      cursor: pointer;
+      max-width: 300px;
+    }
+  }
+
   &__content {
     background: $background-opacity-color;
     border-radius: 0 50px 0 50px;
@@ -45,16 +65,18 @@
   &__title-wrapper {
     align-items: center;
     display: flex;
+    margin-bottom: 20px;
   }
 
   &__title {
     align-items: center;
     display: flex;
     margin-bottom: 0;
+  }
 
+  &__label {
     span {
       color: $whispering-mist;
-      font-size: 20px;
     }
   }
 
@@ -70,11 +92,22 @@
     }
   }
 
-  &__network {
-    background-color: rgba($color: $white, $alpha: 0.2);
+  &__network-image {
+    background-color: rgba($color: $white, $alpha: 0.8);
     border-radius: 0 10px;
-    padding: 10px;
+    padding: 5px;
     width: 100px;
+  }
+
+  &__network-list li {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin-right: 10px;
+  }
+
+  &__seasons {
+    margin-bottom: 20px;
   }
 
   &__profile {
@@ -121,5 +154,6 @@
   ul {
     display: flex;
     list-style: none;
+    margin-bottom: 16px;
   }
 }

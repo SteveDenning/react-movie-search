@@ -14,6 +14,9 @@ const theme = createTheme({
   typography: {
     fontFamily: "Gothic,Arial,sans-serif",
   },
+  palette: {
+    mode: "dark",
+  },
   components: {
     MuiContainer: {
       styleOverrides: {
