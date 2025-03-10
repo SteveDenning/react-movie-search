@@ -53,9 +53,10 @@
   }
 
   &__logo {
-    font-family: Impact, Arial, sans-serif;
+    border-radius: 0;
+    font-family: Anton, Arial, sans-serif;
     font-size: 16px;
-    letter-spacing: 1px;
+    font-weight: 600;
     text-anchor: middle;
     transition: background 0.3s ease;
 

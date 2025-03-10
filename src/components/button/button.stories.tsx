@@ -6,6 +6,8 @@ import Template from "./index";
 
 // MUI Icons
 import Person3OutlinedIcon from "@mui/icons-material/Person3Outlined";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 const meta: Meta<typeof Template> = {
   title: "Components/Button",
@@ -43,6 +45,16 @@ const meta: Meta<typeof Template> = {
       control: false,
       type: { name: "function", required: false },
       description: "Function to be called when the button is clicked",
+    },
+    startIcon: {
+      control: false,
+      type: { name: "string", required: false },
+      description: "Icon to appear before the button text",
+    },
+    endIcon: {
+      control: false,
+      type: { name: "string", required: false },
+      description: "Icon to appear after the button text>",
     },
   },
 };
@@ -84,4 +96,20 @@ export const Icon: Story = {
 Icon.args = {
   children: <Person3OutlinedIcon />,
   variant: "icon",
+};
+
+export const StartIcon: Story = {
+  render: (args) => <Button {...args} />,
+};
+StartIcon.args = {
+  children: "Lorem ipsum",
+  startIcon: <ChevronLeftIcon />,
+};
+
+export const EndIcon: Story = {
+  render: (args) => <Button {...args} />,
+};
+EndIcon.args = {
+  children: "Lorem ipsum",
+  endIcon: <ChevronRightIcon />,
 };

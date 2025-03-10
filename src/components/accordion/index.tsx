@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import pluralize from "pluralize";
 
+// Components
+import Image from "../../components/image";
+
 // Utils
 import { icons } from "../../utils/use-icon";
 
@@ -8,7 +11,7 @@ import { icons } from "../../utils/use-icon";
 import "./accordion.scss";
 
 interface itemType {
-  title: string;
+  name: string;
   overview: any;
   episode_count?: string;
 }
@@ -39,7 +42,6 @@ const Accordion: React.FC<Props> = ({ label, items, reversed = false }) => {
     >
       {items.map((item: any, index: number) => {
         const isOpen = openItems.includes(index);
-        if (!item.overview) return false;
         return (
           <li
             className="accordion__item"
@@ -83,7 +85,15 @@ const Accordion: React.FC<Props> = ({ label, items, reversed = false }) => {
               className={`accordion__inner${isOpen ? " accordion__inner--open" : ""}`}
               data-testid="accordion-inner"
             >
-              <p>{item.overview}</p>
+              <Image
+                resource={item}
+                id={item.id}
+              />
+              {item.overview && (
+                <div>
+                  <p>{item.overview ? item.overview : <span className="copy">No description available</span>}</p>
+                </div>
+              )}
             </div>
           </li>
         );

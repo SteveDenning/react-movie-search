@@ -38,10 +38,6 @@
       display: none;
     }
 
-    @include hover {
-      color: $pink;
-    }
-
     &--reversed {
       > * {
         order: 1;
@@ -98,6 +94,12 @@
 
     p {
       margin-top: 0;
+    }
+
+    .image {
+      max-width: 100px;
+      margin-right: 20px;
+      margin-bottom: 20px;
     }
   }
 }

@@ -54,7 +54,7 @@ describe("Section Title component", () => {
     });
 
     it("Should have an arrow icon next to the button text", () => {
-      expect(screen.getByTestId("ArrowForwardIosIcon")).toBeInTheDocument();
+      expect(screen.getByTestId("ChevronRightIcon")).toBeInTheDocument();
     });
 
     it("Should take the user to the media listing page", async () => {

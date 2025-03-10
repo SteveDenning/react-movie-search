@@ -4,7 +4,7 @@ import React from "react";
 import Button from "../../components/button";
 
 // MUI Icons
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 // Styles
 import "./section-heading.scss";
@@ -26,10 +26,10 @@ const SectionHeading: React.FC<Props> = ({ heading, buttonLink, buttonText, back
       {buttonText && (
         <Button
           onClick={() => (window.location.href = buttonLink)}
-          variant="heading"
+          variant="link"
+          endIcon={<ChevronRightIcon />}
         >
           <span className="text-glow">{buttonText}</span>
-          <ArrowForwardIosIcon />
         </Button>
       )}
       {backButton && <Button onClick={() => window.history.back()}>Back</Button>}

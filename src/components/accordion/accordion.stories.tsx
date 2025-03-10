@@ -2,7 +2,7 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 // Layouts
-import StorybookLayout from "../../layouts/storybook";
+import StorybookLayout from "../../layout/storybook";
 
 // Components
 import Template from "./index";
@@ -46,8 +46,8 @@ Default.args = {
   label: "Lorem ipsum",
   items: [
     {
-      title: "Lorem ipsum",
-      content: "This is some toggle content",
+      name: "According Heading",
+      overview: "This is some toggle content",
     },
   ],
 };

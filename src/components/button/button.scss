@@ -41,19 +41,22 @@
     height: 100%;
   }
 
-  &__start--start,
-  &__end--start {
+  &__start-icon,
+  &__end-icon {
     align-items: center;
     display: inline-flex;
     justify-content: center;
+    svg {
+      font-size: 2rem;
+    }
   }
 
-  &__start--icon {
-    margin-right: 8px;
+  &__start-icon {
+    margin-left: -8px;
   }
 
-  &__end--icon {
-    margin-left: 8px;
+  &__end-icon {
+    margin-right: -8px;
   }
 
   .loader {
