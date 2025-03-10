@@ -34,8 +34,8 @@ const Overview: React.FC<Props> = ({ resource, text, limit = 400 }) => {
             handleClose={() => {
               setIsModalOpen(false);
             }}
+            title={resource.title || resource.name}
           >
-            <h3>{resource.title || resource.name}</h3>
             <p>{text}</p>
           </Modal>
         </>

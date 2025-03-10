@@ -4,6 +4,9 @@ import { Meta, StoryObj } from "@storybook/react";
 // Components
 import Template from "./index";
 
+// Layout
+import StorybookLayout from "../../layout/storybook";
+
 const meta: Meta<typeof Template> = {
   title: "Components/Video",
   component: Template,
@@ -29,7 +32,11 @@ const Video = (args: any) => {
 };
 
 export const Default: Story = {
-  render: (args) => <Video {...args} />,
+  render: (args) => (
+    <StorybookLayout>
+      <Video {...args} />
+    </StorybookLayout>
+  ),
 };
 Default.args = {
   youTubeKey: "hwS5HIPb5mM",

@@ -4,8 +4,8 @@ import { Meta, StoryObj } from "@storybook/react";
 // Components
 import Template from "./index";
 
-// MUI
-import { Container } from "@mui/material";
+// Layout
+import StorybookLayout from "../../layout/storybook";
 
 const meta: Meta<typeof Template> = {
   title: "Components/Add To Favorites Button",
@@ -37,9 +37,9 @@ const AddToFavorites = (args: any) => <Template {...args} />;
 
 export const Default: Story = {
   render: (args) => (
-    <Container>
+    <StorybookLayout>
       <AddToFavorites {...args} />
-    </Container>
+    </StorybookLayout>
   ),
 };
 
@@ -51,9 +51,9 @@ Default.args = {
 
 export const LoggedIn: Story = {
   render: (args) => (
-    <Container>
+    <StorybookLayout>
       <AddToFavorites {...args} />
-    </Container>
+    </StorybookLayout>
   ),
 };
 

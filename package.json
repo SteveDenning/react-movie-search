@@ -7,7 +7,7 @@
     "start": "webpack serve --mode development",
     "build": "webpack --mode production",
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
-    "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage ",
+    "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage",
     "test:circle": "node --experimental-vm-modules node_modules/jest/bin/jest.js --maxWorkers=2 --collectCoverage=true",
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",

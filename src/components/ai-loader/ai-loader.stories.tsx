@@ -4,8 +4,8 @@ import { Meta, StoryObj } from "@storybook/react";
 // Components
 import Template from "./index";
 
-// MUI
-import { Container } from "@mui/material";
+// Layout
+import StorybookLayout from "../../layout/storybook";
 
 const meta: Meta<typeof Template> = {
   title: "Components/AI Loader",
@@ -21,8 +21,8 @@ const AILoader = () => <Template />;
 
 export const Default: Story = {
   render: () => (
-    <Container style={{ minHeight: "50vh" }}>
+    <StorybookLayout>
       <AILoader />
-    </Container>
+    </StorybookLayout>
   ),
 };

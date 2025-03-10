@@ -4,8 +4,8 @@ import { Meta, StoryObj } from "@storybook/react";
 // Components
 import Template from "./index";
 
-// MUI
-import { Container } from "@mui/material";
+// Layout
+import StorybookLayout from "../../layout/storybook";
 
 const meta: Meta<typeof Template> = {
   title: "Components/Section Header",
@@ -21,9 +21,9 @@ const SectionHeading = (args: any) => <Template {...args} />;
 
 export const Default: Story = {
   render: (args) => (
-    <Container>
+    <StorybookLayout>
       <SectionHeading {...args} />
-    </Container>
+    </StorybookLayout>
   ),
 };
 Default.args = {
@@ -32,9 +32,9 @@ Default.args = {
 
 export const withLink: Story = {
   render: (args) => (
-    <Container>
+    <StorybookLayout>
       <SectionHeading {...args} />
-    </Container>
+    </StorybookLayout>
   ),
 };
 
@@ -46,9 +46,9 @@ withLink.args = {
 
 export const backButton: Story = {
   render: (args) => (
-    <Container>
+    <StorybookLayout>
       <SectionHeading {...args} />
-    </Container>
+    </StorybookLayout>
   ),
 };
 

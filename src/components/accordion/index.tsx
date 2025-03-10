@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import pluralize from "pluralize";
 
+// Components
+import Image from "../../components/image";
+
 // Utils
 import { icons } from "../../utils/use-icon";
 
@@ -8,7 +11,8 @@ import { icons } from "../../utils/use-icon";
 import "./accordion.scss";
 
 interface itemType {
-  title: string;
+  name?: string;
+  title?: string;
   overview: any;
   episode_count?: string;
 }
@@ -17,9 +21,10 @@ interface Props {
   items: itemType[];
   label: string;
   reversed?: boolean;
+  hasImage?: boolean;
 }
 
-const Accordion: React.FC<Props> = ({ label, items, reversed = false }) => {
+const Accordion: React.FC<Props> = ({ label, items, reversed = false, hasImage }) => {
   const [openItems, setOpenItems] = useState<number[]>([]);
 
   const updateOpenItems = (e, index: number) => {
@@ -39,7 +44,6 @@ const Accordion: React.FC<Props> = ({ label, items, reversed = false }) => {
     >
       {items.map((item: any, index: number) => {
         const isOpen = openItems.includes(index);
-        if (!item.overview) return false;
         return (
           <li
             className="accordion__item"
@@ -61,7 +65,7 @@ const Accordion: React.FC<Props> = ({ label, items, reversed = false }) => {
                 className="accordion__title"
                 data-testid="accordion-title"
               >
-                {item.name}
+                {item.name || item.title}
               </span>
               {item?.episode_count && (
                 <span
@@ -83,7 +87,17 @@ const Accordion: React.FC<Props> = ({ label, items, reversed = false }) => {
               className={`accordion__inner${isOpen ? " accordion__inner--open" : ""}`}
               data-testid="accordion-inner"
             >
-              <p>{item.overview}</p>
+              {hasImage && (
+                <Image
+                  resource={item}
+                  id={item.id}
+                />
+              )}
+              {item.overview && (
+                <div>
+                  <p>{item.overview ? item.overview : <span className="copy">No description available</span>}</p>
+                </div>
+              )}
             </div>
           </li>
         );

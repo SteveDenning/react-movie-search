@@ -17,19 +17,11 @@
   }
 
   .button {
+    font-size: 22px;
     margin: 5px 0 5px auto;
-
-    &--heading {
-      font-size: 22px;
-      color: $primary-color;
-    }
   }
 
   @include breakpoint($large) {
     padding: 10px 20px;
-
-    .button--heading {
-      font-size: 24px;
-    }
   }
 }

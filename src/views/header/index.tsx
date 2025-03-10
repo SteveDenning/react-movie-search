@@ -6,9 +6,6 @@ import Login from "../../views/login";
 import Navigation from "../../components/navigation";
 import Search from "../../views/search";
 
-// Utils
-import { icons } from "../../utils/use-icon";
-
 // Config
 import { config } from "../../config/routes";
 

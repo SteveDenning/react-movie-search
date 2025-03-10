@@ -4,7 +4,10 @@ import { Meta, StoryObj } from "@storybook/react";
 // Components
 import Template from "./index";
 
-// MUI
+// Layout
+import StorybookLayout from "../../layout/storybook";
+
+// MUI Components
 import { Container } from "@mui/material";
 
 const meta: Meta<typeof Template> = {
@@ -43,9 +46,11 @@ const Card = (args: any) => <Template {...args} />;
 
 export const Default: Story = {
   render: (args) => (
-    <Container style={{ width: "500px" }}>
-      <Card {...args} />
-    </Container>
+    <StorybookLayout>
+      <Container style={{ width: "500px" }}>
+        <Card {...args} />
+      </Container>
+    </StorybookLayout>
   ),
 };
 Default.args = {
@@ -70,12 +75,11 @@ Default.args = {
 
 export const Resource: Story = {
   render: (args) => (
-    <Container style={{ width: "500px" }}>
-      <Card
-        {...args}
-        variant="resource"
-      />
-    </Container>
+    <StorybookLayout>
+      <Container style={{ width: "500px" }}>
+        <Card {...args} />
+      </Container>
+    </StorybookLayout>
   ),
 };
 Resource.args = {
@@ -100,9 +104,11 @@ Resource.args = {
 
 export const Person: Story = {
   render: (args) => (
-    <Container style={{ width: "500px" }}>
-      <Card {...args} />
-    </Container>
+    <StorybookLayout>
+      <Container style={{ width: "500px" }}>
+        <Card {...args} />
+      </Container>
+    </StorybookLayout>
   ),
 };
 Person.args = {

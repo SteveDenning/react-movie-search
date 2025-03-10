@@ -4,8 +4,8 @@ import { Meta, StoryObj } from "@storybook/react";
 // Components
 import Template from "./index";
 
-// MUI
-import { Container } from "@mui/material";
+// Layout
+import StorybookLayout from "../../layout/storybook";
 
 const meta: Meta<typeof Template> = {
   title: "Components/Image",
@@ -29,7 +29,7 @@ const meta: Meta<typeof Template> = {
     },
     variant: {
       control: "radio",
-      options: ["banner", "scale"],
+      options: ["banner"],
       type: { name: "string", required: false },
       description: "Applies variant classes to remove pointer events for banner, hover effect for scale",
     },
@@ -43,9 +43,9 @@ const Image = (args: any) => <Template {...args} />;
 
 export const Default: Story = {
   render: (args) => (
-    <Container>
+    <StorybookLayout>
       <Image {...args} />
-    </Container>
+    </StorybookLayout>
   ),
 };
 Default.args = {

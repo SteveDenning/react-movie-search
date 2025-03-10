@@ -19,6 +19,8 @@ interface Props {
   role?: string;
   onClick?: (event: MouseEvent) => void;
   tabIndex?: number;
+  startIcon?: any;
+  endIcon?: any;
 }
 
 const Button: React.FC<Props> = ({
@@ -37,6 +39,8 @@ const Button: React.FC<Props> = ({
   role = "button",
   onClick,
   tabIndex,
+  startIcon,
+  endIcon,
 }) => {
   // Class Definitions
   const baseClass = "button";
@@ -71,6 +75,14 @@ const Button: React.FC<Props> = ({
       role={role}
       tabIndex={tabIndex}
     >
+      {startIcon && (
+        <span
+          className="button__start-icon"
+          data-testid="button-start-icon"
+        >
+          {startIcon}
+        </span>
+      )}
       {variant === "null" ? (
         children
       ) : (
@@ -79,6 +91,14 @@ const Button: React.FC<Props> = ({
           data-testid="button-content"
         >
           {children}
+        </span>
+      )}
+      {endIcon && (
+        <span
+          className="button__end-icon"
+          data-testid="button-end-icon"
+        >
+          {endIcon}
         </span>
       )}
     </Element>

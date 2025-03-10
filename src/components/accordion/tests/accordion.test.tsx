@@ -13,7 +13,7 @@ describe("Accordion Component", () => {
           label="Lorem ipsum"
           items={[
             {
-              title: "Lorem ipsum",
+              name: "Lorem ipsum",
               overview: "This is some toggle content",
             },
           ]}
@@ -52,7 +52,7 @@ describe("Accordion Component", () => {
           reversed
           items={[
             {
-              title: "Lorem ipsum",
+              name: "Lorem ipsum",
               overview: "This is some toggle content ",
             },
           ]}

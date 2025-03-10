@@ -5,6 +5,9 @@ import { Meta, StoryObj } from "@storybook/react";
 import Template from "./index";
 import Button from "../button";
 
+// Layout
+import StorybookLayout from "../../layout/storybook";
+
 const meta: Meta<typeof Template> = {
   title: "Components/Navigation",
   component: Template,
@@ -51,7 +54,11 @@ const Navigation = (args: any) => {
 };
 
 export const Default: Story = {
-  render: (args) => <Navigation {...args} />,
+  render: () => (
+    <StorybookLayout>
+      <Navigation />
+    </StorybookLayout>
+  ),
 };
 Default.args = {
   navItems: [
