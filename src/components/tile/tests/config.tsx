@@ -1,3 +1,6 @@
+// Constants
+import { LORUM_IPSUM } from "../../../utils/constants";
+
 export const variables = {
   resource: {
     adult: false,
@@ -6,7 +9,7 @@ export const variables = {
     id: 893978,
     original_language: "zh",
     original_title: "Town of the Dragon",
-    overview: "",
+    overview: LORUM_IPSUM,
     popularity: 0.498,
     poster_path: "/ou9pnOnNijccUzo1DFhTIZb4ZLM.jpg",
     release_date: "2014-10-17",

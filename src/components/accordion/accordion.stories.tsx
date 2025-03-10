@@ -8,7 +8,7 @@ import StorybookLayout from "../../layout/storybook";
 import Template from "./index";
 
 // Constants
-import { BACON_IPSOM } from "../../utils/constants";
+import { LORUM_IPSUM } from "../../utils/constants";
 
 const meta: Meta<typeof Template> = {
   title: "Components/Accordion",
@@ -55,11 +55,11 @@ Default.args = {
   items: [
     {
       name: "According Heading One",
-      overview: BACON_IPSOM,
+      overview: LORUM_IPSUM,
     },
     {
       name: "According Heading Two",
-      overview: BACON_IPSOM,
+      overview: LORUM_IPSUM,
     },
   ],
 };
@@ -73,11 +73,11 @@ WithImage.args = {
   items: [
     {
       name: "According Heading One",
-      overview: BACON_IPSOM,
+      overview: LORUM_IPSUM,
     },
     {
       name: "According Heading Two",
-      overview: BACON_IPSOM,
+      overview: LORUM_IPSUM,
     },
   ],
 };

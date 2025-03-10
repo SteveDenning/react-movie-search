@@ -5,6 +5,9 @@ import { Meta, StoryObj } from "@storybook/react";
 import Template from "./index";
 import Button from "../button";
 
+// Constants
+import { LORUM_IPSUM } from "../../utils/constants";
+
 const meta: Meta<typeof Template> = {
   title: "Components/Modal",
   component: Template,
@@ -91,12 +94,7 @@ export const Default: Story = {
 Default.args = {
   id: "id",
   title: "Title",
-  children: (
-    <p>
-      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum animi veniam voluptate voluptatem delectus quos corrupti praesentium cumque,
-      culpa illum voluptatum doloribus aspernatur expedita non ad, sed cum excepturi pariatur!
-    </p>
-  ),
+  children: LORUM_IPSUM,
   footer: <p>Footer text</p>,
 };
 
@@ -107,12 +105,7 @@ Large.args = {
   id: "test-modal",
   title: "Large Modal",
   variant: ["large"],
-  children: (
-    <p>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi molestiae vero similique autem repellendus eum nesciunt porro? Ipsum rem, ipsam,
-      atque nemo voluptas vero adipisci debitis aut, necessitatibus deserunt ea!,
-    </p>
-  ),
+  children: LORUM_IPSUM,
   footer: <p>Footer text</p>,
 };
 
@@ -123,12 +116,7 @@ Small.args = {
   id: "test-modal",
   title: "Small Modal",
   variant: ["small"],
-  children: (
-    <p>
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Modi molestiae vero similique autem repellendus eum nesciunt porro? Ipsum rem, ipsam,
-      atque nemo voluptas vero adipisci debitis aut, necessitatibus deserunt ea!,
-    </p>
-  ),
+  children: LORUM_IPSUM,
   footer: <p>Footer text</p>,
 };
 
@@ -157,10 +145,5 @@ export const Text: Story = {
 };
 Text.args = {
   id: "text",
-  children: (
-    <p>
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab delectus dolor laboriosam praesentium neque eius cum architecto quibusdam ex
-      tempora. Quaerat illo blanditiis saepe tempore eligendi, quibusdam eum beatae quidem.
-    </p>
-  ),
+  children: LORUM_IPSUM,
 };
