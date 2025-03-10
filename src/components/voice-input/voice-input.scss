@@ -6,6 +6,7 @@
     text-align: center;
 
     svg {
+      animation: pulse 2s infinite;
       fill: $primary-color;
       font-size: 100px;
       padding: 10px;

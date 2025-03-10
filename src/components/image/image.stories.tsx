@@ -29,7 +29,7 @@ const meta: Meta<typeof Template> = {
     },
     variant: {
       control: "radio",
-      options: ["banner", "scale"],
+      options: ["banner"],
       type: { name: "string", required: false },
       description: "Applies variant classes to remove pointer events for banner, hover effect for scale",
     },

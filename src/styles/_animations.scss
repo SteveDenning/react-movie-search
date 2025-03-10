@@ -24,10 +24,6 @@
   animation: fade-in 3s ease-in-out;
 }
 
-.scale {
-  animation: scale 1s ease-in-out;
-}
-
 // Animations
 @keyframes glow {
   0%,
@@ -40,12 +36,18 @@
   }
 }
 
-@keyframes scale {
+@keyframes pulse {
   0% {
     scale: 1;
+    fill: $primary-color;
+  }
+  20% {
+    fill: $lilac;
+    scale: 1.3;
   }
   50% {
-    scale: 1.01;
+    fill: $primary-color;
+    scale: 1;
   }
   100% {
     scale: 1;

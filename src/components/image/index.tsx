@@ -15,7 +15,7 @@ interface Props {
   id: any;
   resource: any;
   size?: "xsmall" | "small" | "medium" | "large" | "fill";
-  variant?: "banner" | "scale";
+  variant?: "banner";
   onClick?: () => void;
 }
 
