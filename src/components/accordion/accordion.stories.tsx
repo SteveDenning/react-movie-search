@@ -7,6 +7,9 @@ import StorybookLayout from "../../layout/storybook";
 // Components
 import Template from "./index";
 
+// Constants
+import { BACON_IPSOM } from "../../utils/constants";
+
 const meta: Meta<typeof Template> = {
   title: "Components/Accordion",
   component: Template,
@@ -51,8 +54,30 @@ Default.args = {
   label: "Lorem ipsum",
   items: [
     {
-      name: "According Heading",
-      overview: "This is some toggle content",
+      name: "According Heading One",
+      overview: BACON_IPSOM,
+    },
+    {
+      name: "According Heading Two",
+      overview: BACON_IPSOM,
+    },
+  ],
+};
+
+export const WithImage: Story = {
+  render: (args) => <Accordion {...args} />,
+};
+WithImage.args = {
+  label: "Lorem ipsum",
+  hasImage: true,
+  items: [
+    {
+      name: "According Heading One",
+      overview: BACON_IPSOM,
+    },
+    {
+      name: "According Heading Two",
+      overview: BACON_IPSOM,
     },
   ],
 };
