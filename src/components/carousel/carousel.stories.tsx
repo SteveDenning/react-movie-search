@@ -1,6 +1,9 @@
 import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
+// Layout
+import StorybookLayout from "../../layout/storybook";
+
 // Components
 import Template from "./index";
 
@@ -22,9 +25,9 @@ type Story = StoryObj<typeof Template>;
 
 const Video = (args: any) => {
   return (
-    <div>
+    <StorybookLayout>
       <Template {...args} />
-    </div>
+    </StorybookLayout>
   );
 };
 

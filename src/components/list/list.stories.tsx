@@ -4,8 +4,8 @@ import { Meta, StoryObj } from "@storybook/react";
 // Components
 import Template from "./index";
 
-// MUI
-import { Container } from "@mui/material";
+// Layout
+import StorybookLayout from "../../layout/storybook";
 
 const meta: Meta<typeof Template> = {
   title: "Components/List",
@@ -38,9 +38,9 @@ const List = (args: any) => <Template {...args} />;
 
 export const Default: Story = {
   render: (args) => (
-    <Container>
+    <StorybookLayout>
       <List {...args} />
-    </Container>
+    </StorybookLayout>
   ),
 };
 Default.args = {
@@ -54,9 +54,9 @@ Default.args = {
 
 export const Link: Story = {
   render: (args) => (
-    <Container>
+    <StorybookLayout>
       <List {...args} />
-    </Container>
+    </StorybookLayout>
   ),
 };
 Link.args = {
@@ -71,9 +71,9 @@ Link.args = {
 
 export const Panel: Story = {
   render: (args) => (
-    <Container>
+    <StorybookLayout>
       <List {...args} />
-    </Container>
+    </StorybookLayout>
   ),
 };
 Panel.args = {

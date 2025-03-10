@@ -4,8 +4,8 @@ import { Meta, StoryObj } from "@storybook/react";
 // Components
 import Template from "./index";
 
-// MUI
-import { Container } from "@mui/material";
+// Layout
+import StorybookLayout from "../../layout/storybook";
 
 const meta: Meta<typeof Template> = {
   title: "Components/Test",
@@ -32,9 +32,9 @@ const Test = (args: any) => <Template {...args} />;
 
 export const Default: Story = {
   render: (args) => (
-    <Container>
+    <StorybookLayout>
       <Test {...args} />
-    </Container>
+    </StorybookLayout>
   ),
 };
 Default.args = {};

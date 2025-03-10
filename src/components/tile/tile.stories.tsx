@@ -4,8 +4,8 @@ import { Meta, StoryObj } from "@storybook/react";
 // Components
 import Template from "./index";
 
-// MUI
-import { Container } from "@mui/material";
+// Layout
+import StorybookLayout from "../../layout/storybook";
 
 // Variables
 import { variables } from "./tests/config";
@@ -35,9 +35,9 @@ const Tile = (args: any) => <Template {...args} />;
 
 export const Default: Story = {
   render: (args) => (
-    <Container>
+    <StorybookLayout>
       <Tile {...args} />
-    </Container>
+    </StorybookLayout>
   ),
 };
 Default.args = {

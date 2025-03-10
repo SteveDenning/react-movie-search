@@ -4,6 +4,9 @@ import { Meta, StoryObj } from "@storybook/react";
 // Components
 import Template from "./index";
 
+// Layout
+import StorybookLayout from "../../layout/storybook";
+
 // MUI Icons
 import Person3OutlinedIcon from "@mui/icons-material/Person3Outlined";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
@@ -62,7 +65,11 @@ export default meta;
 
 type Story = StoryObj<typeof Template>;
 
-const Button = (args: any) => <Template {...args} />;
+const Button = (args: any) => (
+  <StorybookLayout>
+    <Template {...args} />
+  </StorybookLayout>
+);
 
 export const Default: Story = {
   render: (args) => <Button {...args} />,
