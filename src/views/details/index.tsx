@@ -325,6 +325,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
           key={resource.id}
           label="seasons"
           items={resource.seasons}
+          hasImage
         />
       </Modal>
       <Backdrop open={loading}>

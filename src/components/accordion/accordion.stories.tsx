@@ -27,6 +27,11 @@ const meta: Meta<typeof Template> = {
       type: { name: "boolean", required: false },
       description: "Reverses the display of the toggle arrow",
     },
+    hasImage: {
+      control: "boolean",
+      type: { name: "boolean", required: false },
+      description: "Determine if the accordion item has an image",
+    },
   },
 };
 export default meta;
