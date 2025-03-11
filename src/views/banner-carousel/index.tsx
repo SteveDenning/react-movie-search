@@ -24,6 +24,30 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
 
+  const responsiveOptions = [
+    {
+      breakpoint: 3000,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+    // {
+    //   breakpoint: 1024,
+    //   settings: {
+    //     slidesToShow: 4,
+    //     slidesToScroll: 4,
+    //   },
+    // },
+    // {
+    //   breakpoint: 464,
+    //   settings: {
+    //     slidesToShow: 2,
+    //     slidesToScroll: 2,
+    //   },
+    // },
+  ];
+
   const fetchLatestRelease = () => {
     setLoading(true);
     getMedia(path)
@@ -53,12 +77,12 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
             >
               <Carousel
                 resources={resources}
+                responsiveOptions={responsiveOptions}
                 media={media}
                 autoPlay={true}
                 autoPlaySpeed={5000}
                 infinite
                 banner
-                fade
               />
             </div>
           </Fade>

@@ -44,19 +44,11 @@ const Carousel: React.FC<Props> = ({
 }) => {
   const responsive = [
     {
-      breakpoint: 3000,
+      breakpoint: 1024,
       settings: {
         slidesToShow: 5,
         desktopSlides: 5,
         slidesToScroll: 5,
-      },
-    },
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 4,
-        slidesToScroll: 4,
-        initialSlide: 2,
       },
     },
     {
@@ -72,12 +64,13 @@ const Carousel: React.FC<Props> = ({
     fade: fade,
     dots: false,
     infinite: infinite,
-    slidesToShow: 1,
-    slidesToScroll: 1,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 5,
+    initialSlide: 0,
     autoplay: autoPlay,
     autoPlaySpeed: autoPlaySpeed,
     responsive: responsiveOptions?.length ? responsiveOptions : responsive,
-    initialSlide: 0,
     nextArrow: (
       <Button variant="icon">
         <ChevronRightIcon />
@@ -106,10 +99,10 @@ const Carousel: React.FC<Props> = ({
               >
                 {banner ? (
                   <>
-                    <a
-                      tabIndex={0}
+                    <button
                       className="carousel__overlay"
                       onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
+                      data-testid="carousel-overlay"
                     >
                       <span
                         className="sr-only"
@@ -117,7 +110,7 @@ const Carousel: React.FC<Props> = ({
                       >
                         Click to open
                       </span>
-                    </a>
+                    </button>
                     <Image
                       id={item.id}
                       resource={item}
