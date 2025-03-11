@@ -35,20 +35,6 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
         slidesToScroll: 1,
       },
     },
-    // {
-    //   breakpoint: 1024,
-    //   settings: {
-    //     slidesToShow: 4,
-    //     slidesToScroll: 4,
-    //   },
-    // },
-    // {
-    //   breakpoint: 464,
-    //   settings: {
-    //     slidesToShow: 2,
-    //     slidesToScroll: 2,
-    //   },
-    // },
   ];
 
   const fetchLatestRelease = () => {

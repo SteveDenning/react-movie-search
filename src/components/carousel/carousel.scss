@@ -104,24 +104,6 @@
     overflow: visible;
   }
 
-  .slick-next {
-    right: -10px;
-  }
-
-  .slick-prev {
-    left: -10px;
-  }
-
-  @include breakpoint($xxxlarge) {
-    .slick-next {
-      right: -50px;
-    }
-
-    .slick-prev {
-      left: -50px;
-    }
-  }
-
   .slick-arrow {
     background: rgba($color: $black, $alpha: 0.3);
     border-radius: 50%;
@@ -150,6 +132,25 @@
       }
     }
   }
+
+  .slick-next {
+    right: -10px;
+  }
+
+  .slick-prev {
+    left: -10px;
+  }
+
+  @include breakpoint($xxxlarge) {
+    .slick-next {
+      right: -50px;
+    }
+
+    .slick-prev {
+      left: -50px;
+    }
+  }
+
   .slick-slide {
     display: flex;
     height: auto;
