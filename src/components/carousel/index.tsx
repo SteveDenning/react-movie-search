@@ -1,10 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 // Components
-
+import Button from "../button";
 import Card from "../card";
 import Image from "../image";
 
@@ -14,7 +12,11 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 
 // Styles
 import "./carousel.scss";
-import Button from "../../components/button";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+// Types
+import { ResponsiveOptionsType } from "../../models/types";
 
 interface Props {
   autoPlaySpeed?: number;
@@ -23,7 +25,7 @@ interface Props {
   infinite?: boolean;
   media?: string;
   resources: any[];
-  responsiveOptions?: any;
+  responsiveOptions?: ResponsiveOptionsType[];
   handleFavorite?: (isFavorite: boolean) => void;
   user?: any;
   fade?: boolean;
@@ -42,12 +44,11 @@ const Carousel: React.FC<Props> = ({
   fade = false,
   user,
 }) => {
-  const responsive = [
+  const defaultOptions: ResponsiveOptionsType[] = [
     {
       breakpoint: 1024,
       settings: {
         slidesToShow: 5,
-        desktopSlides: 5,
         slidesToScroll: 5,
       },
     },
@@ -70,7 +71,7 @@ const Carousel: React.FC<Props> = ({
     initialSlide: 0,
     autoplay: autoPlay,
     autoPlaySpeed: autoPlaySpeed,
-    responsive: responsiveOptions?.length ? responsiveOptions : responsive,
+    responsive: responsiveOptions || defaultOptions,
     nextArrow: (
       <Button variant="icon">
         <ChevronRightIcon />

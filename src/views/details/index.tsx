@@ -27,6 +27,9 @@ import { getFavorites } from "../../services/favorites";
 import { getMediaByID } from "../../services/media";
 import { updateFavorite } from "../../services/favorites";
 
+// Types
+import { ResponsiveOptionsType } from "../../models/types";
+
 // Styles
 import "./details.scss";
 
@@ -55,7 +58,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
 
   const overview = resource?.overview || resource?.biography || null;
   const title = resource.name || resource.title;
-  const personOptions = [
+  const personOptions: ResponsiveOptionsType[] = [
     {
       breakpoint: 5000,
       settings: {

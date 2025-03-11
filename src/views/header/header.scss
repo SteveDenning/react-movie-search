@@ -62,7 +62,6 @@
     transition: background 0.3s ease;
 
     @include breakpoint($large) {
-      letter-spacing: 0;
       font-size: 27px;
     }
 

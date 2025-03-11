@@ -104,8 +104,26 @@
     overflow: visible;
   }
 
+  .slick-next {
+    right: -10px;
+  }
+
+  .slick-prev {
+    left: -10px;
+  }
+
+  @include breakpoint($xxxlarge) {
+    .slick-next {
+      right: -50px;
+    }
+
+    .slick-prev {
+      left: -50px;
+    }
+  }
+
   .slick-arrow {
-    background: rgba($color: #000000, $alpha: 0.3);
+    background: rgba($color: $black, $alpha: 0.3);
     border-radius: 50%;
     display: none;
     padding: 20px;
@@ -124,8 +142,8 @@
     }
 
     @include hover {
-      fill: $black;
       background: rgba($color: $primary-color, $alpha: 0.7);
+      fill: $black;
 
       svg {
         fill: $black;
@@ -137,8 +155,8 @@
     height: auto;
     transition: opacity 0.4s ease;
 
-    &:nth-child(1) {
-      opacity: 1;
+    > div {
+      display: contents;
     }
 
     &:not(.slick-active) {

@@ -32,3 +32,11 @@ export type NavItemType = {
   path: string;
   icon?: any;
 };
+
+export type ResponsiveOptionsType = {
+  breakpoint: number;
+  settings: {
+    slidesToShow: number;
+    slidesToScroll: number;
+  };
+};

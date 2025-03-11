@@ -18,11 +18,14 @@ import { MOVIES_TITLE, TV_SHOWS_TITLE, PERSON_TITLE } from "../utils/constants";
 // MUI
 import { Container } from "@mui/material";
 
+// Types
+import { ResponsiveOptionsType } from "../models/types";
+
 const HomePage = () => {
   const title = "My Movie Database | Home";
   const pageDescription = "Home page of the My Movie Database App. Search for films, TV shows, and actors to discover new favorites!";
 
-  const personOptions = [
+  const personOptions: ResponsiveOptionsType[] = [
     {
       breakpoint: 3000,
       settings: {

@@ -59,7 +59,8 @@ const AddToFavorites: React.FC<Props> = ({ isFavorite, handleFavorite, user }) =
           You must{" "}
           <Button
             variant="link"
-            onClick={() => handleUpdateUser}
+            // @ts-ignore
+            onClick={() => handleUpdateUser()}
             testId="navigation-action-login"
           >
             login

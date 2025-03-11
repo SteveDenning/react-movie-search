@@ -11,6 +11,9 @@ import Backdrop from "@mui/material/Backdrop";
 import { Fade } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
+// Types
+import { ResponsiveOptionsType } from "../../models/types";
+
 // Styles
 import "./banner-carousel.scss";
 
@@ -24,7 +27,7 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const responsiveOptions = [
+  const responsiveOptions: ResponsiveOptionsType[] = [
     {
       breakpoint: 3000,
       settings: {
