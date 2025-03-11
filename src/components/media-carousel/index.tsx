@@ -23,14 +23,24 @@ import "./media-carousel.scss";
 interface Props {
   label?: string;
   pathName: string;
-  responsiveOptions?: object;
+  responsiveOptions?: any;
   buttonText?: string;
   buttonLink?: string;
   dataResource?: "cast" | "results";
   media?: "tv" | "movies" | "person" | "movie";
+  desktopSlides?: number;
 }
 
-const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, buttonText, buttonLink, dataResource = "results", media }) => {
+const MediaCarousel: React.FC<Props> = ({
+  label,
+  responsiveOptions,
+  pathName,
+  buttonText,
+  buttonLink,
+  dataResource = "results",
+  media,
+  desktopSlides,
+}) => {
   const [resources, setResources] = useState<any>([]);
   const [items, setItems] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -135,6 +145,7 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
               responsiveOptions={responsiveOptions}
               handleFavorite={handleFavorite}
               user={user}
+              desktopSlides={desktopSlides}
             />
           </div>
         </Fade>

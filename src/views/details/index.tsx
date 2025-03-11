@@ -56,16 +56,41 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const overview = resource?.overview || resource?.biography || null;
   const title = resource.name || resource.title;
 
-  const personOptions = {
-    desktop: {
-      breakpoint: {
-        max: 3000,
-        min: 1024,
+  // const personOptions = {
+  //   desktop: {
+  //     breakpoint: {
+  //       max: 3000,
+  //       min: 1024,
+  //     },
+  //     items: 7,
+  //     slidesToSlide: 7,
+  //   },
+  // };
+  const personOptions = [
+    {
+      breakpoint: 3000,
+      settings: {
+        slidesToShow: 5,
+        slidesToScroll: 5,
+        infinite: true,
       },
-      items: 7,
-      slidesToSlide: 7,
     },
-  };
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        initialSlide: 2,
+      },
+    },
+    {
+      breakpoint: 464,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ];
 
   const getMediaDetails = () => {
     if (programmeId && type) {
@@ -290,7 +315,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 label={MediaCarouselLabel}
                 pathName={pathName}
                 dataResource="cast"
-                responsiveOptions={personOptions}
+                // responsiveOptions={personOptions}
                 media={isPerson ? "movie" : "person"}
                 buttonText={!isPerson ? "Cast and Crew" : null}
                 buttonLink={`${config.credits.path}/${type}/${programmeId}/${title}`}

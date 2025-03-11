@@ -22,16 +22,33 @@ const HomePage = () => {
   const title = "My Movie Database | Home";
   const pageDescription = "Home page of the My Movie Database App. Search for films, TV shows, and actors to discover new favorites!";
 
-  const personOptions = {
-    desktop: {
-      breakpoint: {
-        max: 3000,
-        min: 1024,
+  const personOptions = [
+    {
+      breakpoint: 2000,
+      settings: {
+        slidesToShow: 7,
+        slidesToScroll: 7,
+        infinite: true,
       },
-      items: 7,
-      slidesToSlide: 7,
     },
-  };
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        initialSlide: 2,
+      },
+    },
+    {
+      breakpoint: 464,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ];
+
+  console.log(personOptions);
 
   return (
     <DefaultLayout
@@ -41,6 +58,7 @@ const HomePage = () => {
       <BannerCarousel
         media="movie"
         path="movie/upcoming"
+        desktopSlides={1}
       />
       <Container>
         <MediaCarousel
@@ -62,9 +80,9 @@ const HomePage = () => {
           buttonText="View all"
           label="People"
           pathName="person/popular"
-          responsiveOptions={personOptions}
           media="person"
           buttonLink={`${config.mediaListing.path}/person/popular/${PERSON_TITLE}?page=1`}
+          desktopSlides={7}
         />
       </Container>
     </DefaultLayout>

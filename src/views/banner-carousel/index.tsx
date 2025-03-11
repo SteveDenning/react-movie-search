@@ -17,39 +17,39 @@ import "./banner-carousel.scss";
 interface Props {
   media: string;
   path: string;
+  desktopSlides?: number;
 }
 
-const BannerCarousel: React.FC<Props> = ({ media, path }) => {
+const BannerCarousel: React.FC<Props> = ({ media, path, desktopSlides }) => {
   const [resources, setResources] = useState<any>([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const responsiveOptions = {
-    desktop: {
-      breakpoint: {
-        max: 3000,
-        min: 1024,
+  const responsiveOptions = [
+    {
+      breakpoint: 3000,
+      settings: {
+        slidesToShow: 5,
+        slidesToScroll: 5,
+        infinite: true,
       },
-      items: 1,
-      slidesToSlide: 1,
     },
-    tablet: {
-      breakpoint: {
-        max: 1024,
-        min: 464,
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+        initialSlide: 2,
       },
-      items: 1,
-      slidesToSlide: 1,
     },
-    mobile: {
-      breakpoint: {
-        max: 464,
-        min: 0,
+    {
+      breakpoint: 464,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
       },
-      items: 1,
-      slidesToSlide: 1,
     },
-  };
+  ];
 
   const fetchLatestRelease = () => {
     setLoading(true);
@@ -69,6 +69,8 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
     fetchLatestRelease();
   }, []);
 
+  console.log("banner", desktopSlides);
+
   return (
     <>
       {resources?.length && (
@@ -81,11 +83,12 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
               <Carousel
                 resources={resources}
                 media={media}
-                responsiveOptions={responsiveOptions}
+                // responsiveOptions={responsiveOptions}
                 autoPlay={true}
                 autoPlaySpeed={5000}
                 infinite
                 banner
+                desktopSlides={desktopSlides}
               />
             </div>
           </Fade>
