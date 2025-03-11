@@ -26,7 +26,8 @@ interface Props {
   responsiveOptions?: any;
   handleFavorite?: (isFavorite: boolean) => void;
   user?: any;
-  desktopSlides: number;
+  fade?: boolean;
+  options?: any;
 }
 
 const Carousel: React.FC<Props> = ({
@@ -36,48 +37,46 @@ const Carousel: React.FC<Props> = ({
   infinite,
   media = "movie",
   resources,
-  desktopSlides,
   responsiveOptions,
   handleFavorite,
+  fade = false,
   user,
 }) => {
   const responsive = [
     {
       breakpoint: 3000,
       settings: {
-        slidesToShow: desktopSlides || 5,
-        desktopSlides,
-        slidesToScroll: desktopSlides || 5,
-        infinite: true,
+        slidesToShow: 5,
+        desktopSlides: 5,
+        slidesToScroll: 5,
       },
     },
     {
       breakpoint: 1024,
       settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
+        slidesToShow: 4,
+        slidesToScroll: 4,
         initialSlide: 2,
       },
     },
     {
       breakpoint: 464,
       settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
+        slidesToShow: 2,
+        slidesToScroll: 2,
       },
     },
   ];
 
-  console.log(desktopSlides);
-
   const settings = {
+    fade: fade,
     dots: false,
-    infinite: false,
+    infinite: infinite,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: autoPlay,
     autoPlaySpeed: autoPlaySpeed,
-    responsive: responsive,
+    responsive: responsiveOptions?.length ? responsiveOptions : responsive,
     initialSlide: 0,
     nextArrow: (
       <Button variant="icon">

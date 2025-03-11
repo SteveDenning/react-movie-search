@@ -28,19 +28,9 @@ interface Props {
   buttonLink?: string;
   dataResource?: "cast" | "results";
   media?: "tv" | "movies" | "person" | "movie";
-  desktopSlides?: number;
 }
 
-const MediaCarousel: React.FC<Props> = ({
-  label,
-  responsiveOptions,
-  pathName,
-  buttonText,
-  buttonLink,
-  dataResource = "results",
-  media,
-  desktopSlides,
-}) => {
+const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, buttonText, buttonLink, dataResource = "results", media }) => {
   const [resources, setResources] = useState<any>([]);
   const [items, setItems] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -145,7 +135,6 @@ const MediaCarousel: React.FC<Props> = ({
               responsiveOptions={responsiveOptions}
               handleFavorite={handleFavorite}
               user={user}
-              desktopSlides={desktopSlides}
             />
           </div>
         </Fade>

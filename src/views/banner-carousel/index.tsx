@@ -17,39 +17,12 @@ import "./banner-carousel.scss";
 interface Props {
   media: string;
   path: string;
-  desktopSlides?: number;
 }
 
-const BannerCarousel: React.FC<Props> = ({ media, path, desktopSlides }) => {
+const BannerCarousel: React.FC<Props> = ({ media, path }) => {
   const [resources, setResources] = useState<any>([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
-
-  const responsiveOptions = [
-    {
-      breakpoint: 3000,
-      settings: {
-        slidesToShow: 5,
-        slidesToScroll: 5,
-        infinite: true,
-      },
-    },
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
-        initialSlide: 2,
-      },
-    },
-    {
-      breakpoint: 464,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-      },
-    },
-  ];
 
   const fetchLatestRelease = () => {
     setLoading(true);
@@ -69,8 +42,6 @@ const BannerCarousel: React.FC<Props> = ({ media, path, desktopSlides }) => {
     fetchLatestRelease();
   }, []);
 
-  console.log("banner", desktopSlides);
-
   return (
     <>
       {resources?.length && (
@@ -83,12 +54,11 @@ const BannerCarousel: React.FC<Props> = ({ media, path, desktopSlides }) => {
               <Carousel
                 resources={resources}
                 media={media}
-                // responsiveOptions={responsiveOptions}
                 autoPlay={true}
                 autoPlaySpeed={5000}
                 infinite
                 banner
-                desktopSlides={desktopSlides}
+                fade
               />
             </div>
           </Fade>

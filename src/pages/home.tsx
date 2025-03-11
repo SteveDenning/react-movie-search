@@ -24,31 +24,27 @@ const HomePage = () => {
 
   const personOptions = [
     {
-      breakpoint: 2000,
+      breakpoint: 3000,
       settings: {
         slidesToShow: 7,
         slidesToScroll: 7,
-        infinite: true,
       },
     },
     {
       breakpoint: 1024,
       settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
-        initialSlide: 2,
+        slidesToShow: 4,
+        slidesToScroll: 4,
       },
     },
     {
       breakpoint: 464,
       settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
+        slidesToShow: 2,
+        slidesToScroll: 2,
       },
     },
   ];
-
-  console.log(personOptions);
 
   return (
     <DefaultLayout
@@ -58,7 +54,6 @@ const HomePage = () => {
       <BannerCarousel
         media="movie"
         path="movie/upcoming"
-        desktopSlides={1}
       />
       <Container>
         <MediaCarousel
@@ -82,7 +77,7 @@ const HomePage = () => {
           pathName="person/popular"
           media="person"
           buttonLink={`${config.mediaListing.path}/person/popular/${PERSON_TITLE}?page=1`}
-          desktopSlides={7}
+          responsiveOptions={personOptions}
         />
       </Container>
     </DefaultLayout>
