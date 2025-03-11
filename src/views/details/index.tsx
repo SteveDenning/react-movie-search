@@ -27,6 +27,9 @@ import { getFavorites } from "../../services/favorites";
 import { getMediaByID } from "../../services/media";
 import { updateFavorite } from "../../services/favorites";
 
+// Types
+import { ResponsiveOptionsType } from "../../models/types";
+
 // Styles
 import "./details.scss";
 
@@ -55,17 +58,29 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
 
   const overview = resource?.overview || resource?.biography || null;
   const title = resource.name || resource.title;
-
-  const personOptions = {
-    desktop: {
-      breakpoint: {
-        max: 3000,
-        min: 1024,
+  const personOptions: ResponsiveOptionsType[] = [
+    {
+      breakpoint: 5000,
+      settings: {
+        slidesToShow: 7,
+        slidesToScroll: 7,
       },
-      items: 7,
-      slidesToSlide: 7,
     },
-  };
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 4,
+      },
+    },
+    {
+      breakpoint: 464,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+      },
+    },
+  ];
 
   const getMediaDetails = () => {
     if (programmeId && type) {

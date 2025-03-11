@@ -29,7 +29,7 @@ export const variables = {
       popularity: 1400.256,
       poster_path: "/9bXHaLlsFYpJUutg4E6WXAjaxDi.jpg",
       release_date: "2024-12-18",
-      title: "Mufasa: The Lion King",
+      name: "Mufasa: The Lion King",
       video: false,
       vote_average: 7.5,
       vote_count: 1394,

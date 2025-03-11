@@ -30,11 +30,19 @@
     }
   }
 
-  .carousel__item {
+  .slick-slide {
     margin: 0;
   }
 
-  .react-multi-carousel-track {
+  .slick-next {
+    right: -70px;
+  }
+
+  .slick-prev {
+    left: -70px;
+  }
+
+  .slick-track {
     background: $black;
     padding-bottom: 40px;
   }

@@ -1,12 +1,22 @@
 import React from "react";
-import ReactCarousel from "react-multi-carousel";
+import Slider from "react-slick";
 
 // Components
+import Button from "../button";
 import Card from "../card";
 import Image from "../image";
 
+// MUI Icons
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+
 // Styles
 import "./carousel.scss";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
+// Types
+import { ResponsiveOptionsType } from "../../models/types";
 
 interface Props {
   autoPlaySpeed?: number;
@@ -15,9 +25,11 @@ interface Props {
   infinite?: boolean;
   media?: string;
   resources: any[];
-  responsiveOptions?: object;
+  responsiveOptions?: ResponsiveOptionsType[];
   handleFavorite?: (isFavorite: boolean) => void;
   user?: any;
+  fade?: boolean;
+  options?: any;
 }
 
 const Carousel: React.FC<Props> = ({
@@ -29,55 +41,47 @@ const Carousel: React.FC<Props> = ({
   resources,
   responsiveOptions,
   handleFavorite,
+  fade = false,
   user,
 }) => {
-  const responsive = {
-    desktop: {
-      breakpoint: {
-        max: 3000,
-        min: 1024,
+  const defaultOptions: ResponsiveOptionsType[] = [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 5,
+        slidesToScroll: 5,
       },
-      items: 5,
-      slidesToSlide: 5,
     },
-    tablet: {
-      breakpoint: {
-        max: 1024,
-        min: 464,
+    {
+      breakpoint: 464,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
       },
-      items: 3,
-      slidesToSlide: 3,
     },
-    mobile: {
-      breakpoint: {
-        max: 464,
-        min: 0,
-      },
-      items: 2,
-      slidesToSlide: 2,
-    },
-  };
+  ];
 
-  const options = {
-    renderDotsOutside: true,
-    responsive: { ...responsive, ...responsiveOptions },
-    pauseOnHover: true,
-    slidesToSlide: 5,
-    infinite: true,
-    additionalTransfrom: 0,
-    arrows: true,
-    className: "",
-    containerClass: "container",
-    dotListClass: "",
-    draggable: true,
-    itemClass: "",
-    keyBoardControl: true,
-    minimumTouchDrag: 80,
-    partialVisible: true,
-    shouldResetAutoplay: true,
-    sliderClass: "",
-    showDots: false,
-    swipeable: true,
+  const settings = {
+    fade: fade,
+    dots: false,
+    infinite: infinite,
+    speed: 500,
+    slidesToShow: 5,
+    slidesToScroll: 5,
+    initialSlide: 0,
+    autoplay: autoPlay,
+    autoPlaySpeed: autoPlaySpeed,
+    responsive: responsiveOptions || defaultOptions,
+    nextArrow: (
+      <Button variant="icon">
+        <ChevronRightIcon />
+      </Button>
+    ),
+    prevArrow: (
+      <Button variant="icon">
+        <ChevronLeftIcon />
+      </Button>
+    ),
   };
 
   return (
@@ -86,12 +90,7 @@ const Carousel: React.FC<Props> = ({
       data-testid="carousel"
     >
       {resources.length && (
-        <ReactCarousel
-          {...options}
-          autoPlay={autoPlay}
-          autoPlaySpeed={autoPlaySpeed}
-          infinite={infinite}
-        >
+        <Slider {...settings}>
           {resources.map((item: any, index: number) => {
             return (
               <div
@@ -102,9 +101,9 @@ const Carousel: React.FC<Props> = ({
                 {banner ? (
                   <>
                     <button
-                      tabIndex={0}
                       className="carousel__overlay"
                       onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
+                      data-testid="carousel-overlay"
                     >
                       <span
                         className="sr-only"
@@ -141,7 +140,7 @@ const Carousel: React.FC<Props> = ({
               </div>
             );
           })}
-        </ReactCarousel>
+        </Slider>
       )}
     </div>
   );

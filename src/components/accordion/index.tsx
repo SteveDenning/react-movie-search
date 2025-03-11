@@ -93,11 +93,7 @@ const Accordion: React.FC<Props> = ({ label, items, reversed = false, hasImage }
                   id={item.id}
                 />
               )}
-              {item.overview && (
-                <div>
-                  <p>{item.overview ? item.overview : <span className="copy">No description available</span>}</p>
-                </div>
-              )}
+              <p>{item?.overview ? item.overview : <span className="copy">No description available</span>}</p>
             </div>
           </li>
         );

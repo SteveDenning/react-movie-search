@@ -11,6 +11,9 @@ import Backdrop from "@mui/material/Backdrop";
 import { Fade } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 
+// Types
+import { ResponsiveOptionsType } from "../../models/types";
+
 // Styles
 import "./banner-carousel.scss";
 
@@ -24,32 +27,15 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
 
-  const responsiveOptions = {
-    desktop: {
-      breakpoint: {
-        max: 3000,
-        min: 1024,
+  const responsiveOptions: ResponsiveOptionsType[] = [
+    {
+      breakpoint: 3000,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
       },
-      items: 1,
-      slidesToSlide: 1,
     },
-    tablet: {
-      breakpoint: {
-        max: 1024,
-        min: 464,
-      },
-      items: 1,
-      slidesToSlide: 1,
-    },
-    mobile: {
-      breakpoint: {
-        max: 464,
-        min: 0,
-      },
-      items: 1,
-      slidesToSlide: 1,
-    },
-  };
+  ];
 
   const fetchLatestRelease = () => {
     setLoading(true);
@@ -80,8 +66,8 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
             >
               <Carousel
                 resources={resources}
-                media={media}
                 responsiveOptions={responsiveOptions}
+                media={media}
                 autoPlay={true}
                 autoPlaySpeed={5000}
                 infinite

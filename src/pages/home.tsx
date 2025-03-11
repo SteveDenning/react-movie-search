@@ -18,20 +18,36 @@ import { MOVIES_TITLE, TV_SHOWS_TITLE, PERSON_TITLE } from "../utils/constants";
 // MUI
 import { Container } from "@mui/material";
 
+// Types
+import { ResponsiveOptionsType } from "../models/types";
+
 const HomePage = () => {
   const title = "My Movie Database | Home";
   const pageDescription = "Home page of the My Movie Database App. Search for films, TV shows, and actors to discover new favorites!";
 
-  const personOptions = {
-    desktop: {
-      breakpoint: {
-        max: 3000,
-        min: 1024,
+  const personOptions: ResponsiveOptionsType[] = [
+    {
+      breakpoint: 3000,
+      settings: {
+        slidesToShow: 7,
+        slidesToScroll: 7,
       },
-      items: 7,
-      slidesToSlide: 7,
     },
-  };
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 4,
+      },
+    },
+    {
+      breakpoint: 464,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+      },
+    },
+  ];
 
   return (
     <DefaultLayout
@@ -62,9 +78,9 @@ const HomePage = () => {
           buttonText="View all"
           label="People"
           pathName="person/popular"
-          responsiveOptions={personOptions}
           media="person"
           buttonLink={`${config.mediaListing.path}/person/popular/${PERSON_TITLE}?page=1`}
+          responsiveOptions={personOptions}
         />
       </Container>
     </DefaultLayout>

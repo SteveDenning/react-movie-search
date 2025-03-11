@@ -17,13 +17,16 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { Fade } from "@mui/material";
 
+// Types
+import { ResponsiveOptionsType } from "../../models/types";
+
 // Styles
 import "./media-carousel.scss";
 
 interface Props {
   label?: string;
   pathName: string;
-  responsiveOptions?: object;
+  responsiveOptions?: ResponsiveOptionsType[];
   buttonText?: string;
   buttonLink?: string;
   dataResource?: "cast" | "results";
