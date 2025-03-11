@@ -4,6 +4,9 @@ import { Meta, StoryObj } from "@storybook/react";
 // Components
 import Template from "./index";
 
+// Constants
+import { LORUM_IPSUM } from "../../utils/constants";
+
 // Layout
 import StorybookLayout from "../../layout/storybook";
 
@@ -32,6 +35,6 @@ Default.args = {
     title: "Title",
     name: "Name",
   },
-  text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum felis id, tincidunt nunc. Cras sit amet tincidunt nunc. Integer nec libero nec libero vestibulum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum felis id, tincidunt nunc. Cras sit amet tincidunt nunc. Integer nec libero nec libero vestibulumfelis id, tincidunt nunc. Cras sit amet tincidunt nunc. Integer nec libero nec libero vestibulum",
+  text: LORUM_IPSUM,
   limit: 400,
 };
