@@ -31,9 +31,19 @@ interface Props {
   buttonLink?: string;
   dataResource?: "cast" | "results";
   media?: "tv" | "movies" | "person" | "movie";
+  resourceItems?: any[];
 }
 
-const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, buttonText, buttonLink, dataResource = "results", media }) => {
+const MediaCarousel: React.FC<Props> = ({
+  label,
+  responsiveOptions,
+  pathName,
+  buttonText,
+  buttonLink,
+  dataResource = "results",
+  media,
+  resourceItems,
+}) => {
   const [resources, setResources] = useState<any>([]);
   const [items, setItems] = useState<any>([]);
   const [loading, setLoading] = useState<boolean>(true);
@@ -43,17 +53,19 @@ const MediaCarousel: React.FC<Props> = ({ label, responsiveOptions, pathName, bu
   const user = useUser();
 
   const fetchMediaForCarousel = () => {
-    setLoading(true);
-    getMedia(pathName)
-      .then((response: any) => {
-        setResources(response.data[dataResource]);
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        setError(true);
-        setLoading(false);
-      });
+    if (!resourceItems?.length) {
+      setLoading(true);
+      getMedia(pathName)
+        .then((response: any) => {
+          setResources(response.data[dataResource]);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          setError(true);
+          setLoading(false);
+        });
+    }
   };
 
   const handleFavorite = (resource: any) => {
