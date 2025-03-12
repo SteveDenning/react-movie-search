@@ -34,7 +34,7 @@ const List: React.FC<Props> = ({ resources, onClick, variant }) => {
             {variant === "tile" ? (
               <Tile
                 resource={item}
-                handleDelete={onClick}
+                handleDelete={null}
               />
             ) : variant === "link" ? (
               <Button

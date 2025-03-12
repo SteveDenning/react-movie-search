@@ -14,12 +14,17 @@ interface Props {
   buttonLink?: string;
   buttonText?: string;
   backButton?: boolean;
+  variant?: "no-background";
 }
 
-const SectionHeading: React.FC<Props> = ({ heading, buttonLink, buttonText, backButton }) => {
+const SectionHeading: React.FC<Props> = ({ heading, buttonLink, buttonText, backButton, variant }) => {
+  const variantClass = `section-heading--${variant}`;
+  const baseClass = "section-heading";
+  const classes = [baseClass, variantClass].filter(Boolean).join(" ");
+
   return (
     <div
-      className="section-heading"
+      className={classes}
       data-testid="section-heading"
     >
       <h2 className="section-heading__header text-glow">{heading}</h2>

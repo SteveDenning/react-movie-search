@@ -6,6 +6,7 @@ import Accordion from "../../components/accordion";
 import AddToFavorites from "../../components/add-to-favorites";
 import Button from "../../components/button";
 import Image from "../../components/image";
+import List from "../../components/list";
 import MediaCarousel from "../../components/media-carousel";
 import Modal from "../../components/modal";
 import Overview from "../../components/overview";
@@ -247,7 +248,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                       )}
                       {!!resource.genres?.length && (
                         <>
-                          <ul>
+                          <ul className="details-view__genres">
                             {resource.genres.map((genre: any) => (
                               <li
                                 className="details-view__genre-tag"
@@ -310,6 +311,39 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 buttonText={!isPerson ? "Cast and Crew" : null}
                 buttonLink={`${config.credits.path}/${type}/${programmeId}/${title}`}
               />
+
+              {resource.reviews?.results.length && (
+                <div className="details-view__content">
+                  <SectionHeading
+                    heading="User Reviews"
+                    variant="no-background"
+                  />
+                  <List
+                    variant="tile"
+                    resources={resource.reviews.results}
+                  />
+                  {resource.reviews.results.length > 4 && (
+                    <div className="details-view__reviews-button">
+                      <Button>Show More</Button>
+                    </div>
+                  )}
+                  {/* <div className="grid--content">
+                    <div className="column--wrapper">
+                      {resource.reviews.results.map((review: any) => {
+                        return (
+                          <div
+                            className="post--item"
+                            key={review.id}
+                          >
+                            <h2>{review.author}</h2>
+                            <p className="copy">{review.content.slice(0, 400)}....</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div> */}
+                </div>
+              )}
             </Container>
           </div>
         </Fade>

@@ -22,7 +22,7 @@ interface Props {
 
 const Tile: React.FC<Props> = ({ resource, handleDelete }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const text = resource?.overview;
+  const text = resource?.overview || resource?.content;
   const mediaType = useDefineMediaType(resource);
 
   return (
@@ -32,7 +32,7 @@ const Tile: React.FC<Props> = ({ resource, handleDelete }) => {
     >
       <Button
         className="tile__image"
-        onClick={() => (window.location.href = `/details/${mediaType}/${resource.id}`)}
+        onClick={() => !resource?.author_details && (window.location.href = `/details/${mediaType}/${resource.id}`)}
         variant="plain"
       >
         <Image
@@ -41,22 +41,24 @@ const Tile: React.FC<Props> = ({ resource, handleDelete }) => {
         />
       </Button>
       <div className="tile__content">
-        <h2>{resource.title || resource.name}</h2>
+        <h3>{resource.title || resource.name || resource.author_details.name || "Unknown"} </h3>
         {text && (
           <Overview
             resource={resource}
             text={text}
           />
         )}
-        <p>Popularity vote: {resource?.vote_average?.toFixed(1)}</p>
+        {resource?.vote_average && <p>Popularity vote: {resource?.vote_average?.toFixed(1)}</p>}
       </div>
       <div className="tile__actions">
-        <Button
-          variant="icon"
-          onClick={() => setIsOpen(true)}
-        >
-          <DeleteIcon />
-        </Button>
+        {handleDelete && (
+          <Button
+            variant="icon"
+            onClick={() => setIsOpen(true)}
+          >
+            <DeleteIcon />
+          </Button>
+        )}
       </div>
 
       <Modal

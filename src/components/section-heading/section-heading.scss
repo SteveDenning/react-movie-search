@@ -24,4 +24,18 @@
   @include breakpoint($large) {
     padding: 10px 20px;
   }
+
+  // Variant
+
+  &--no-background {
+    background: none;
+    padding: 0;
+
+    .section-heading {
+      &__header {
+        padding: 0;
+        margin-bottom: 20px;
+      }
+    }
+  }
 }

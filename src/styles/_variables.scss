@@ -68,6 +68,10 @@ $imdb: #fec601;
 
 // Theme
 $primary-color: $anakiwa;
+$primary-border-color: rgba(
+  $color: $primary-color,
+  $alpha: 0.4,
+);
 $secondary-color: $light-blue;
 $background-color: radial-gradient(ellipse at top, $lilac, transparent), radial-gradient(ellipse at bottom, $primary-color, transparent);
 $background-opacity-color: rgba(

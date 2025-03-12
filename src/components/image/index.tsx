@@ -21,11 +21,11 @@ interface Props {
 
 const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick }) => {
   const mediaType = useDefineMediaType(resource);
-  const isPerson = mediaType === "person";
+  const isPerson = mediaType === "person" || Object.prototype.hasOwnProperty.call(resource, "author_details");
   const screenSize = useScreenSize();
   const isMobile = screenSize.width <= 480;
 
-  const imageSrc = resource["poster_path"] || resource["profile_path"] || resource["backdrop_path"];
+  const imageSrc = resource["poster_path"] || resource["profile_path"] || resource["backdrop_path"] || resource?.["author_details"]?.["avatar_path"];
   const imagePath = imageSrc
     ? `${process.env.REACT_APP_TMDB_IMAGE_PATH}/${variant === "banner" ? resource["backdrop_path"] : imageSrc}`
     : isPerson
