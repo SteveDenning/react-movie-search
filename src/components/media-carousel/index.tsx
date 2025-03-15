@@ -25,12 +25,12 @@ import "./media-carousel.scss";
 
 interface Props {
   label?: string;
-  pathName: string;
+  pathName?: string;
   responsiveOptions?: ResponsiveOptionsType[];
   buttonText?: string;
   buttonLink?: string;
   dataResource?: "cast" | "results";
-  media?: "tv" | "movies" | "person" | "movie";
+  media?: "tv" | "movies" | "person" | "movie" | string;
   resourceItems?: any[];
 }
 
@@ -44,9 +44,9 @@ const MediaCarousel: React.FC<Props> = ({
   media,
   resourceItems,
 }) => {
-  const [resources, setResources] = useState<any>([]);
+  const [resources, setResources] = useState<any>(resourceItems || []);
   const [items, setItems] = useState<any>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
   const [favorites, setFavorites] = useState<any>([]);
 
@@ -100,12 +100,13 @@ const MediaCarousel: React.FC<Props> = ({
       })
       .catch((error) => {
         console.error(error);
+        setLoading(false);
       });
   };
 
   useEffect(() => {
     updateResources();
-  }, [resources, user]);
+  }, [resourceItems, resources, user]);
 
   const handleAddFavorite = () => {
     const updatedArray = resources.map((resource) => {
@@ -117,6 +118,7 @@ const MediaCarousel: React.FC<Props> = ({
 
   const updateResources = () => {
     if (user && media !== "person") {
+      console.log("getFavoritesList");
       getFavoritesList();
     } else {
       setItems(resources);

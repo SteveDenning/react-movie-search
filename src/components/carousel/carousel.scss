@@ -156,10 +156,6 @@
     height: auto;
     transition: opacity 0.4s ease;
 
-    > div {
-      display: contents;
-    }
-
     &:not(.slick-active) {
       opacity: 0.4;
       pointer-events: none;
