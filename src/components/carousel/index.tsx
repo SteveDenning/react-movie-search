@@ -100,10 +100,11 @@ const Carousel: React.FC<Props> = ({
               >
                 {banner ? (
                   <>
-                    <button
+                    <Button
                       className="carousel__overlay"
                       onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
                       data-testid="carousel-overlay"
+                      variant="plain"
                     >
                       <span
                         className="sr-only"
@@ -111,7 +112,7 @@ const Carousel: React.FC<Props> = ({
                       >
                         Click to open
                       </span>
-                    </button>
+                    </Button>
                     <Image
                       id={item.id}
                       resource={item}

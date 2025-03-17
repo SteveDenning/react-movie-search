@@ -23,11 +23,12 @@ interface Props {
 
 const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite, user }) => {
   const mediaType = useDefineMediaType(resource);
+  const isPerson = mediaType === "person";
 
   // Class definitions
   const baseClass = "card";
   const variantClass = variant ? `card--${variant}` : "";
-  const personClass = mediaType === "person" ? "card--person" : "";
+  const personClass = isPerson ? "card--person" : "";
   const classes = [baseClass, variantClass, personClass].filter(Boolean).join(" ");
 
   return (
@@ -53,6 +54,14 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite, use
           resource={resource}
           id={resource.id}
         />
+        {!isPerson && !resource.poster_path && (
+          <h3
+            className="card__title card__title--no-image"
+            data-testid="card-title"
+          >
+            {resource?.name || resource?.title}
+          </h3>
+        )}
         <div className="card__overlay">
           <div
             className="card__content"

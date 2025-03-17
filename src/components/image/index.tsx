@@ -5,8 +5,8 @@ import useScreenSize from "../../utils/use-screen-size";
 import useDefineMediaType from "../../utils/use-define-media-type";
 
 // Assets
-import mediaPlaceholder from "../../assets/images/default-placeholder.png";
 import avatarPlaceholder from "../../assets/images/avatar-placeholder.png";
+import mediaPlaceholder from "../../assets/images/default-placeholder.png";
 
 // Styles
 import "./image.scss";
@@ -24,10 +24,11 @@ const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick }) =
   const isPerson = mediaType === "person";
   const screenSize = useScreenSize();
   const isMobile = screenSize.width <= 480;
+  const isBanner = variant === "banner";
 
   const imageSrc = resource["poster_path"] || resource["profile_path"] || resource["backdrop_path"];
   const imagePath = imageSrc
-    ? `${process.env.REACT_APP_TMDB_IMAGE_PATH}/${variant === "banner" ? resource["backdrop_path"] : imageSrc}`
+    ? `${process.env.REACT_APP_TMDB_IMAGE_PATH}${isBanner ? resource["backdrop_path"] : imageSrc}`
     : isPerson
     ? avatarPlaceholder
     : mediaPlaceholder;
@@ -44,7 +45,7 @@ const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick }) =
       className={classes}
       data-testid="image"
       src={imagePath}
-      alt={resource["profile_path"] ? `Actor - ${resource.name}` : ""}
+      alt={resource["profile_path"] ? `Actor - ${resource.name}` : resource.name || resource.title}
       onClick={onClick}
     />
   );
