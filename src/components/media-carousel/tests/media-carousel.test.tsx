@@ -67,19 +67,20 @@ describe("Media carousel component", () => {
     });
   });
 
-  // describe("Component rendering with passed in props", () => {
-  //   it("Should render the Media Carousel", async () => {
-  //     render(
-  //       <MemoryRouter>
-  //         <MediaCarousel
-  //           buttonText="View all"
-  //           label="Known for"
-  //           pathName="person/popular"
-  //           media="person"
-  //         />
-  //       </MemoryRouter>,
-  //     );
-  //     await waitFor(() => expect(screen.getByTestId("media-carousel")).toBeInTheDocument());
-  //   });
-  // });
+  describe("Component rendering with passed in resources", () => {
+    it("Should render the Media Carousel", async () => {
+      render(
+        <MemoryRouter>
+          <MediaCarousel
+            buttonText="View all"
+            label="Known for"
+            pathName="person/popular"
+            media="person"
+            resourceItems={variables.media.data.results}
+          />
+        </MemoryRouter>,
+      );
+      await waitFor(() => expect(screen.getByTestId("media-carousel")).toBeInTheDocument());
+    });
+  });
 });
