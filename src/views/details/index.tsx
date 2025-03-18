@@ -42,6 +42,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [resource, setResource] = useState<any>({});
+  const [recommendations, setRecommendations] = useState([]);
   const [videoKey, setVideoKey] = useState<string>("");
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
@@ -88,6 +89,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
       getMediaByID(programmeId, type)
         .then((response: any) => {
           setResource(response.data);
+          setRecommendations(response.data?.recommendations?.results);
           handleMediaTitle(response.data.name || response.data.title);
           handleVideos(response.data.videos?.results || []);
           setBackDrop(response.data?.backdrop_path);
@@ -95,7 +97,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
           setLoading(false);
         })
         .catch((error) => {
-          console.error(error);
+          console.error("getMediaDetails::", error);
           setLoading(false);
           setError(true);
         });
@@ -117,7 +119,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
           setIsFavorite(isFavorite);
         })
         .catch((error) => {
-          console.error(error);
+          console.error("getFavoritesList::", error);
           setLoading(false);
           setError(true);
         });
@@ -144,7 +146,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
     if (resource) {
       return (
         <Image
-          id={resource.id}
           resource={resource}
           onClick={() => setIsOpenModal(true)}
         />
@@ -310,6 +311,14 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 buttonText={!isPerson ? "Cast and Crew" : null}
                 buttonLink={`${config.credits.path}/${type}/${programmeId}/${title}`}
               />
+              {!isPerson && !!recommendations?.length && (
+                <MediaCarousel
+                  label={`Recommended ${type === "tv" ? "TV Shows" : "Films"}`}
+                  resourceItems={recommendations}
+                  responsiveOptions={personOptions}
+                  media={type}
+                />
+              )}
             </Container>
           </div>
         </Fade>
@@ -319,7 +328,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
           className="error"
           data-testid="details-view-error"
         >
-          There was a problem getting the detail page - please try again later
+          There was a problem getting the detail page - please try again later.
         </p>
       )}
       <Modal

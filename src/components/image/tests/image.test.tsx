@@ -13,8 +13,7 @@ describe("Image component", () => {
       render(
         <Image
           resource={{ src: "mock-image-url.jpg", alt: "Lorem ipsum", id: 1 }}
-          id="1"
-          variant="banner"
+          variant="test"
           size="small"
           onClick={handleClick}
         />,
@@ -25,8 +24,8 @@ describe("Image component", () => {
       expect(screen.getByTestId("image")).toBeInTheDocument();
     });
 
-    it("Should have a variant class of 'banner applied'", () => {
-      expect(screen.getByTestId("image")).toHaveClass("image--banner");
+    it("Should have a variant class of 'test applied'", () => {
+      expect(screen.getByTestId("image")).toHaveClass("image--test");
     });
 
     it("Should have a size class of 'small' applied", () => {
@@ -51,7 +50,6 @@ describe("Image component", () => {
       render(
         <Image
           resource={{ src: "mock-image-url.jpg", alt: "Lorem ipsum", id: 1 }}
-          id="1"
           onClick={handleClick}
         />,
       );

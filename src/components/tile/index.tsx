@@ -35,10 +35,7 @@ const Tile: React.FC<Props> = ({ resource, handleDelete }) => {
         onClick={() => (window.location.href = `/details/${mediaType}/${resource.id}`)}
         variant="plain"
       >
-        <Image
-          id={resource.id}
-          resource={resource}
-        />
+        <Image resource={resource} />
       </Button>
       <div className="tile__content">
         <h2>{resource.title || resource.name}</h2>
