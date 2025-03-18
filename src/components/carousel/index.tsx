@@ -103,7 +103,7 @@ const Carousel: React.FC<Props> = ({
                     <Button
                       className="carousel__overlay"
                       onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
-                      data-testid="carousel-overlay"
+                      testId="carousel-overlay"
                       variant="plain"
                     >
                       <span
