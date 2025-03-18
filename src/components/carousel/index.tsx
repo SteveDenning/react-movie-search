@@ -1,6 +1,9 @@
 import React from "react";
 import Slider from "react-slick";
 
+// Assets
+import bannerPlaceholder from "../../assets/images/banner-placeholder.png";
+
 // Components
 import Button from "../button";
 import Card from "../card";
@@ -14,8 +17,6 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import "./carousel.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
-import bannerPlaceholder from "../../assets/images/banner-placeholder.png";
 
 // Types
 import { ResponsiveOptionsType } from "../../models/types";
@@ -71,7 +72,7 @@ const Carousel: React.FC<Props> = ({
     slidesToShow: 5,
     slidesToScroll: 5,
     initialSlide: 0,
-    autoplay: false,
+    autoplay: autoPlay,
     autoPlaySpeed: autoPlaySpeed,
     responsive: responsiveOptions || defaultOptions,
     nextArrow: (
