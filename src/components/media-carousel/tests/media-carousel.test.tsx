@@ -66,4 +66,21 @@ describe("Media carousel component", () => {
       await waitFor(() => expect(screen.getByTestId("media-carousel-error")).toBeInTheDocument());
     });
   });
+
+  describe("Component rendering with passed in resources", () => {
+    it("Should render the Media Carousel", async () => {
+      render(
+        <MemoryRouter>
+          <MediaCarousel
+            buttonText="View all"
+            label="Known for"
+            pathName="person/popular"
+            media="person"
+            resourceItems={variables.media.data.results}
+          />
+        </MemoryRouter>,
+      );
+      await waitFor(() => expect(screen.getByTestId("media-carousel")).toBeInTheDocument());
+    });
+  });
 });

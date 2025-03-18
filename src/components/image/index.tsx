@@ -5,32 +5,28 @@ import useScreenSize from "../../utils/use-screen-size";
 import useDefineMediaType from "../../utils/use-define-media-type";
 
 // Assets
-import mediaPlaceholder from "../../assets/images/default-placeholder.png";
 import avatarPlaceholder from "../../assets/images/avatar-placeholder.png";
+import mediaPlaceholder from "../../assets/images/default-placeholder.png";
 
 // Styles
 import "./image.scss";
 
 interface Props {
-  id: any;
   resource: any;
   size?: "xsmall" | "small" | "medium" | "large" | "fill";
-  variant?: "banner";
+  variant?: string;
   onClick?: () => void;
+  src?: string;
 }
 
-const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick }) => {
+const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick, src = "" }) => {
   const mediaType = useDefineMediaType(resource);
-  const isPerson = mediaType === "person" || Object.prototype.hasOwnProperty.call(resource, "author_details");
   const screenSize = useScreenSize();
-  const isMobile = screenSize.width <= 480;
 
-  const imageSrc = resource["poster_path"] || resource["profile_path"] || resource["backdrop_path"] || resource?.["author_details"]?.["avatar_path"];
-  const imagePath = imageSrc
-    ? `${process.env.REACT_APP_TMDB_IMAGE_PATH}/${variant === "banner" ? resource["backdrop_path"] : imageSrc}`
-    : isPerson
-    ? avatarPlaceholder
-    : mediaPlaceholder;
+  const isPerson = mediaType === "person";
+  const isMobile = screenSize.width <= 480;
+  const imageSrc = resource["poster_path"] || resource["profile_path"];
+  const imagePath = imageSrc ? `${process.env.REACT_APP_TMDB_IMAGE_PATH}${imageSrc}` : isPerson ? avatarPlaceholder : mediaPlaceholder;
 
   // Class Definitions
   const baseClass = "image";
@@ -41,10 +37,11 @@ const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick }) =
 
   return (
     <img
+      id={resource.id}
       className={classes}
       data-testid="image"
-      src={imagePath}
-      alt={resource["profile_path"] ? `Actor - ${resource.name}` : ""}
+      src={src || imagePath}
+      alt={resource["profile_path"] ? `Actor - ${resource.name}` : resource.name || resource.title}
       onClick={onClick}
     />
   );

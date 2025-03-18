@@ -45,7 +45,6 @@ const AutoSuggestOptions: React.FC<Props> = ({ options, type }) => {
                 <Image
                   resource={suggestion}
                   size="xsmall"
-                  id={suggestion["id"]}
                 />
                 <div className="suggestions__content">
                   <p>{suggestion["original_title"] || suggestion["name"]}</p>
