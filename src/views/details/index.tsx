@@ -146,7 +146,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
     if (resource) {
       return (
         <Image
-          id={resource.id}
           resource={resource}
           onClick={() => setIsOpenModal(true)}
         />
@@ -312,7 +311,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 buttonText={!isPerson ? "Cast and Crew" : null}
                 buttonLink={`${config.credits.path}/${type}/${programmeId}/${title}`}
               />
-              {!isPerson && recommendations?.length && (
+              {!isPerson && !!recommendations?.length && (
                 <MediaCarousel
                   label={`Recommended ${type === "tv" ? "TV Shows" : "Films"}`}
                   resourceItems={recommendations}

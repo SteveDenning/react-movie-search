@@ -56,7 +56,7 @@ const HomePage = () => {
     >
       <BannerCarousel
         media="movie"
-        path="movie/upcoming"
+        path="discover/movie"
       />
       <Container>
         <MediaCarousel

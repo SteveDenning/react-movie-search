@@ -12,11 +12,6 @@ const meta: Meta<typeof Template> = {
   component: Template,
   tags: ["autodocs"],
   argTypes: {
-    id: {
-      control: "object",
-      type: { name: "string", required: true },
-      description: "Sets the id of the image",
-    },
     resource: {
       control: "object",
       type: { name: "string", required: true },
@@ -29,9 +24,9 @@ const meta: Meta<typeof Template> = {
     },
     variant: {
       control: "radio",
-      options: ["banner"],
+      options: [],
       type: { name: "string", required: false },
-      description: "Applies variant classes to remove pointer events for banner, hover effect for scale",
+      description: "Applies variant classes to modify the image styling",
     },
   },
 };
@@ -49,7 +44,6 @@ export const Default: Story = {
   ),
 };
 Default.args = {
-  id: 1,
   resource: "Lorem ipsum",
   size: "small",
   onClick: () => {},

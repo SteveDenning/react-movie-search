@@ -50,10 +50,7 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite, use
         </span>
       </Button>
       <div className="card__wrapper">
-        <Image
-          resource={resource}
-          id={resource.id}
-        />
+        <Image resource={resource} />
         {!isPerson && !resource.poster_path && (
           <h3
             className="card__title card__title--no-image"

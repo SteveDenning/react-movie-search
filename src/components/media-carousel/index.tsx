@@ -135,7 +135,7 @@ const MediaCarousel: React.FC<Props> = ({
 
   return (
     <>
-      {items?.length && (
+      {!!items?.length && (
         <Fade in={!!items.length}>
           <div
             data-testid="media-carousel"
