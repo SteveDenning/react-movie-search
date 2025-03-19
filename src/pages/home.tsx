@@ -27,7 +27,7 @@ const HomePage = () => {
 
   const personOptions: ResponsiveOptionsType[] = [
     {
-      breakpoint: 3000,
+      breakpoint: 5000,
       settings: {
         slidesToShow: 7,
         slidesToScroll: 7,
@@ -56,7 +56,7 @@ const HomePage = () => {
     >
       <BannerCarousel
         media="movie"
-        path="movie/upcoming"
+        path="discover/movie"
       />
       <Container>
         <MediaCarousel

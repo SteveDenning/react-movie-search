@@ -5,46 +5,45 @@ import useScreenSize from "../../utils/use-screen-size";
 import useDefineMediaType from "../../utils/use-define-media-type";
 
 // Assets
-import mediaPlaceholder from "../../assets/images/default-placeholder.png";
 import avatarPlaceholder from "../../assets/images/avatar-placeholder.png";
+import mediaPlaceholder from "../../assets/images/default-placeholder.png";
 
 // Styles
 import "./image.scss";
 
 interface Props {
-  id: any;
   resource: any;
-  size?: "xsmall" | "small" | "medium" | "large" | "fill";
-  variant?: "banner";
+  size?: "xsmall" | "small" | "medium" | "large" | "fill" | "avatar";
+  variant?: string;
   onClick?: () => void;
+  src?: string;
 }
 
-const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick }) => {
+const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick, src = "" }) => {
   const mediaType = useDefineMediaType(resource);
-  const isPerson = mediaType === "person" || Object.prototype.hasOwnProperty.call(resource, "author_details");
   const screenSize = useScreenSize();
+
+  const isPerson = mediaType === "person";
+  const isAvatar = Object.prototype.hasOwnProperty.call(resource, "author_details");
   const isMobile = screenSize.width <= 480;
 
-  const imageSrc = resource["poster_path"] || resource["profile_path"] || resource["backdrop_path"] || resource?.["author_details"]?.["avatar_path"];
-  const imagePath = imageSrc
-    ? `${process.env.REACT_APP_TMDB_IMAGE_PATH}/${variant === "banner" ? resource["backdrop_path"] : imageSrc}`
-    : isPerson
-    ? avatarPlaceholder
-    : mediaPlaceholder;
+  const imageSrc = resource["poster_path"] || resource["profile_path"];
+  const imagePath = imageSrc ? `${process.env.REACT_APP_TMDB_IMAGE_PATH}${imageSrc}` : isPerson || isAvatar ? avatarPlaceholder : mediaPlaceholder;
 
   // Class Definitions
   const baseClass = "image";
   const mobileClass = isMobile ? "image--mobile" : "";
+  const avatarClass = isAvatar ? "image--avatar" : "";
   const sizeClass = size ? `image--${size}` : "";
   const variantClass = variant ? `image--${variant}` : "";
-  const classes = [baseClass, sizeClass, mobileClass, variantClass].filter(Boolean).join(" ");
+  const classes = [baseClass, sizeClass, mobileClass, variantClass, avatarClass].filter(Boolean).join(" ");
 
   return (
     <img
       className={classes}
-      data-testid="image"
-      src={imagePath}
-      alt={resource["profile_path"] ? `Actor - ${resource.name}` : ""}
+      id={resource.id}
+      src={src || imagePath}
+      alt={resource["profile_path"] ? `Actor - ${resource.name}` : resource.name || resource.title}
       onClick={onClick}
     />
   );

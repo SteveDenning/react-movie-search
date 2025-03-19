@@ -157,7 +157,8 @@
     transition: opacity 0.4s ease;
 
     > div {
-      display: contents;
+      height: 100%;
+      min-height: 100%;
     }
 
     &:not(.slick-active) {
@@ -165,21 +166,13 @@
       pointer-events: none;
 
       .card__cover,
-      .carousel__overlay {
-        display: none;
-      }
-
+      .carousel__banner-button,
       .add-to-favorites {
         display: none;
       }
 
       @include breakpoint($xlarge) {
         opacity: 0.1;
-      }
-
-      .card__overlay,
-      .carousel__banner-button {
-        display: none;
       }
 
       img {

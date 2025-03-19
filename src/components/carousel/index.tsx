@@ -1,6 +1,9 @@
 import React from "react";
 import Slider from "react-slick";
 
+// Assets
+import bannerPlaceholder from "../../assets/images/banner-placeholder.png";
+
 // Components
 import Button from "../button";
 import Card from "../card";
@@ -89,7 +92,7 @@ const Carousel: React.FC<Props> = ({
       className="carousel"
       data-testid="carousel"
     >
-      {resources.length && (
+      {!!resources.length && (
         <Slider {...settings}>
           {resources.map((item: any, index: number) => {
             return (
@@ -100,10 +103,11 @@ const Carousel: React.FC<Props> = ({
               >
                 {banner ? (
                   <>
-                    <button
+                    <Button
                       className="carousel__overlay"
                       onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
-                      data-testid="carousel-overlay"
+                      testId="carousel-overlay"
+                      variant="plain"
                     >
                       <span
                         className="sr-only"
@@ -111,18 +115,14 @@ const Carousel: React.FC<Props> = ({
                       >
                         Click to open
                       </span>
-                    </button>
+                    </Button>
                     <Image
-                      id={item.id}
+                      src={item["backdrop_path"] ? `${process.env.REACT_APP_TMDB_IMAGE_PATH}${item["backdrop_path"]}` : bannerPlaceholder}
                       resource={item}
-                      variant="banner"
                     />
                     <div className="carousel__banner-content">
                       <div className="carousel__banner-poster">
-                        <Image
-                          id={`${item.id}-${item.title || item.name}`}
-                          resource={item}
-                        />
+                        <Image resource={item} />
                       </div>
                       <div className="carousel__banner-details">
                         <h2>{item.title || item.name}</h2>

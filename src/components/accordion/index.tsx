@@ -87,12 +87,7 @@ const Accordion: React.FC<Props> = ({ label, items, reversed = false, hasImage }
               className={`accordion__inner${isOpen ? " accordion__inner--open" : ""}`}
               data-testid="accordion-inner"
             >
-              {hasImage && (
-                <Image
-                  resource={item}
-                  id={item.id}
-                />
-              )}
+              {hasImage && <Image resource={item} />}
               <p>{item?.overview ? item.overview : <span className="copy">No description available</span>}</p>
             </div>
           </li>

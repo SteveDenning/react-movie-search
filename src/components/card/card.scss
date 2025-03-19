@@ -82,6 +82,13 @@
 
   &__title {
     color: $white;
+
+    &--no-image {
+      bottom: 50px;
+      position: absolute;
+      text-align: center;
+      width: 100%;
+    }
   }
 
   &__info {
