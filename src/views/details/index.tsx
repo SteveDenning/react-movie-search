@@ -24,7 +24,7 @@ import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 
 // Services
 import { getFavorites } from "../../services/favorites";
-import { getMediaByID } from "../../services/media";
+import { getMediaByID, getOmdbMedia } from "../../services/media";
 import { updateFavorite } from "../../services/favorites";
 
 // Types
@@ -42,6 +42,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [resource, setResource] = useState<any>({});
+  const [resourceDetails, setResourceDetails] = useState<any>({});
   const [recommendations, setRecommendations] = useState([]);
   const [videoKey, setVideoKey] = useState<string>("");
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
@@ -64,6 +65,9 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
 
   const overview = resource?.overview || resource?.biography || null;
   const title = resource.name || resource.title;
+  const rating = Number(resourceDetails?.imdbRating);
+  const imdbRatingColor = rating > 7 ? "#00b500" : "#d3d300";
+
   const responsiveOptions: ResponsiveOptionsType[] = [
     {
       breakpoint: 5000,
@@ -100,9 +104,24 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
           setBackDrop(response.data?.backdrop_path);
           getFavoritesList();
           setLoading(false);
+          getOmdbDetails(response.data.name || response.data.title);
         })
         .catch((error) => {
           console.error("getMediaDetails::", error);
+          setLoading(false);
+          setError(true);
+        });
+    }
+  };
+
+  const getOmdbDetails = (title: string) => {
+    if (title) {
+      getOmdbMedia(title)
+        .then((response: any) => {
+          setResourceDetails(response.data);
+        })
+        .catch((error) => {
+          console.error("getOmdbDetails::", error);
           setLoading(false);
           setError(true);
         });
@@ -219,6 +238,20 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                           {isMedia && (resource?.["release_date"] || resource?.["first_air_date"]) && (
                             <h2 className="details-view__title details-view__label">
                               <span>({moment(resource?.["release_date"] || resource?.["first_air_date"]).format("YYYY")})</span>
+
+                              {resourceDetails?.imdbRating && resourceDetails?.imdbRating !== "N/A" && (
+                                <div className="details-view__imdb-rating">
+                                  <span
+                                    className="details-view__imdb-rating-score"
+                                    style={{ color: imdbRatingColor }}
+                                  >
+                                    {resourceDetails.imdbRating}
+                                  </span>
+                                  <span>
+                                    / 10 <span style={{ fontSize: "12px" }}> (IMDb)</span>
+                                  </span>
+                                </div>
+                              )}
                             </h2>
                           )}
                           <div className="details-view__actions">
@@ -235,6 +268,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                             )}
                           </div>
                         </div>
+
                         {resource.birthday && (
                           <p>
                             {resource.deathday
@@ -242,15 +276,19 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                               : `${moment().diff(resource.birthday, "years")} years old`}
                           </p>
                         )}
+
                         {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
+
                         {resource["known_for_department"] && <p>Known for: {resource["known_for_department"]}</p>}
                       </div>
+
                       {overview && (
                         <Overview
                           resource={resource}
                           text={overview}
                         />
                       )}
+
                       {!!resource.genres?.length && (
                         <>
                           <ul>
@@ -266,12 +304,14 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                           </ul>
                         </>
                       )}
+
                       {resource?.next_episode_to_air && (
                         <p className="details-view__label">
                           Next episode:
                           <span> {moment(resource.next_episode_to_air["air_date"]).format("MMMM Do YYYY")}</span>
                         </p>
                       )}
+
                       {!!resource.seasons?.length && (
                         <>
                           <div className="details-view__seasons">
@@ -279,6 +319,19 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                           </div>
                         </>
                       )}
+
+                      {(resource["imdb_id"] || resourceDetails?.imdbID) && (
+                        <>
+                          <Button
+                            target="_blank"
+                            variant="imdb"
+                            href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource["imdb_id"] || resourceDetails.imdbID}`}
+                          >
+                            IMDb
+                          </Button>
+                        </>
+                      )}
+
                       {!!resource.networks?.length && (
                         <>
                           <ul className="details-view__network-list">
@@ -294,19 +347,11 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                           </ul>
                         </>
                       )}
-                      {resource["imdb_id"] && (
-                        <Button
-                          target="_blank"
-                          variant="imdb"
-                          href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource["imdb_id"]}`}
-                        >
-                          IMDb
-                        </Button>
-                      )}
                     </div>
                   </div>
                 </div>
               </div>
+
               <MediaCarousel
                 label={MediaCarouselLabel}
                 pathName={pathName}
@@ -316,6 +361,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 buttonText={!isPerson ? "Cast and Crew" : null}
                 buttonLink={`${config.credits.path}/${type}/${programmeId}/${title}`}
               />
+
               {!isPerson && !!recommendations?.length && (
                 <MediaCarousel
                   label={`Recommended ${type === "tv" ? "TV Shows" : "Films"}`}
