@@ -24,7 +24,7 @@ import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 
 // Services
 import { getFavorites } from "../../services/favorites";
-import { getMediaByID } from "../../services/media";
+import { getMediaByID, getOmdbMedia } from "../../services/media";
 import { updateFavorite } from "../../services/favorites";
 
 // Types
@@ -42,6 +42,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [resource, setResource] = useState<any>({});
+  const [resourceDetails, setResourceDetails] = useState<any>({});
   const [recommendations, setRecommendations] = useState([]);
   const [videoKey, setVideoKey] = useState<string>("");
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
@@ -64,6 +65,9 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
 
   const overview = resource?.overview || resource?.biography || null;
   const title = resource.name || resource.title;
+  const rating = Number(resourceDetails.imdbRating);
+  const imdbRatingColor = rating > 6.6 ? "#00b500" : "#d3d300";
+
   const responsiveOptions: ResponsiveOptionsType[] = [
     {
       breakpoint: 5000,
@@ -100,6 +104,21 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
           setBackDrop(response.data?.backdrop_path);
           getFavoritesList();
           setLoading(false);
+          getOmdbDetails(response.data.name || response.data.title);
+        })
+        .catch((error) => {
+          console.error("getMediaDetails::", error);
+          setLoading(false);
+          setError(true);
+        });
+    }
+  };
+
+  const getOmdbDetails = (title: string) => {
+    if (title) {
+      getOmdbMedia(title)
+        .then((response: any) => {
+          setResourceDetails(response.data);
         })
         .catch((error) => {
           console.error("getMediaDetails::", error);
@@ -130,6 +149,8 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
         });
     }
   };
+
+  const color = "green";
 
   const handleFavorite = () => {
     const body = {
@@ -219,6 +240,20 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                           {isMedia && (resource?.["release_date"] || resource?.["first_air_date"]) && (
                             <h2 className="details-view__title details-view__label">
                               <span>({moment(resource?.["release_date"] || resource?.["first_air_date"]).format("YYYY")})</span>
+
+                              {resourceDetails?.imdbRating && resourceDetails?.imdbRating !== "N/A" && (
+                                <div className="details-view__imdb-rating">
+                                  <span
+                                    className="details-view__imdb-rating-score"
+                                    style={{ color: imdbRatingColor }}
+                                  >
+                                    {resourceDetails.imdbRating}
+                                  </span>
+                                  <span>
+                                    / 10 <span style={{ fontSize: "12px" }}> (IMDb)</span>
+                                  </span>
+                                </div>
+                              )}
                             </h2>
                           )}
                           <div className="details-view__actions">
@@ -279,6 +314,17 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                           </div>
                         </>
                       )}
+                      {(resource["imdb_id"] || resourceDetails.imdbID) && (
+                        <>
+                          <Button
+                            target="_blank"
+                            variant="imdb"
+                            href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource["imdb_id"] || resourceDetails.imdbID}`}
+                          >
+                            IMDb
+                          </Button>
+                        </>
+                      )}
                       {!!resource.networks?.length && (
                         <>
                           <ul className="details-view__network-list">
@@ -293,15 +339,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                             ))}
                           </ul>
                         </>
-                      )}
-                      {resource["imdb_id"] && (
-                        <Button
-                          target="_blank"
-                          variant="imdb"
-                          href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource["imdb_id"]}`}
-                        >
-                          IMDb
-                        </Button>
                       )}
                     </div>
                   </div>

@@ -74,6 +74,23 @@
     margin-bottom: 0;
   }
 
+  &__imdb-rating {
+    margin-left: 10px;
+
+    span {
+      font-size: 18px;
+    }
+
+    > span {
+      margin-right: 5px;
+    }
+  }
+
+  &__imdb-rating-score {
+    font-weight: bold;
+    font-size: 20px;
+  }
+
   &__label {
     span {
       color: $whispering-mist;
@@ -93,10 +110,9 @@
   }
 
   &__network-image {
-    background-color: rgba($color: $white, $alpha: 0.8);
     border-radius: 0 10px;
     padding: 5px;
-    width: 100px;
+    width: 60px;
   }
 
   &__network-list li {
@@ -104,10 +120,6 @@
     display: flex;
     justify-content: center;
     margin-right: 10px;
-  }
-
-  &__seasons {
-    margin-bottom: 20px;
   }
 
   &__profile {
