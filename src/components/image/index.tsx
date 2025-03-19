@@ -13,7 +13,7 @@ import "./image.scss";
 
 interface Props {
   resource: any;
-  size?: "xsmall" | "small" | "medium" | "large" | "fill" | "avatar";
+  size?: "xsmall" | "small" | "medium" | "large" | "fill";
   variant?: string;
   onClick?: () => void;
   src?: string;
@@ -40,8 +40,9 @@ const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick, src
 
   return (
     <img
-      className={classes}
       id={resource.id}
+      className={classes}
+      data-testid="image"
       src={src || imagePath}
       alt={resource["profile_path"] ? `Actor - ${resource.name}` : resource.name || resource.title}
       onClick={onClick}

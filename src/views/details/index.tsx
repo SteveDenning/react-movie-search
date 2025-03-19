@@ -279,7 +279,10 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                         <>
                           <ul className="details-view__network-list">
                             {resource.networks.map((network: any, index: number) => (
-                              <li key={network.id + index}>
+                              <li
+                                key={network.id + index}
+                                className="details-view__network-list-item"
+                              >
                                 <img
                                   src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${network["logo_path"]}`}
                                   alt={network.name + " logo"}

@@ -98,18 +98,22 @@
     }
   }
 
-  &__network-image {
-    background-color: rgba($color: $white, $alpha: 0.8);
-    border-radius: 0 10px;
-    padding: 5px;
-    width: 100px;
-  }
-
-  &__network-list li {
+  &__network-list {
     align-items: center;
     display: flex;
-    justify-content: center;
+  }
+
+  &__network-list-item {
+    align-items: center;
+    display: flex;
     margin-right: 10px;
+  }
+
+  &__network-image {
+    // background-color: rgba($color: $white, $alpha: 0.3);
+    border-radius: 0 10px;
+    padding: 5px;
+    width: 70px;
   }
 
   &__seasons {
