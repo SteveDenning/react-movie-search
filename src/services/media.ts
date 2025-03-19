@@ -11,7 +11,7 @@ export const getMedia = async (path: string): Promise<any> => {
 };
 
 export const getOmdbMedia = async (title: string): Promise<any> => {
-  const url = `http://www.omdbapi.com/?apikey=c43485b9&t=${title}`;
+  const url = `https://www.omdbapi.com/?apikey=c43485b9&t=${title}`;
   const response: AxiosResponse<any> = await axios.get(url);
 
   return response;
