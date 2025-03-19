@@ -7,7 +7,7 @@ import { MemoryRouter } from "react-router-dom";
 import DetailsView from "../index";
 
 // Services
-import { getMediaByID, getMedia } from "../../../services/media";
+import { getMediaByID, getMedia, getOmdbMedia } from "../../../services/media";
 
 // Variables
 import { variables } from "./config";
@@ -30,6 +30,7 @@ describe("Details Page component", () => {
       window.location = { pathname: "/details/movie/950396" };
 
       (getMediaByID as jest.Mock).mockResolvedValue(variables.movie);
+      (getOmdbMedia as jest.Mock).mockResolvedValue(variables.omdbResource);
       (getMedia as jest.Mock).mockResolvedValue(variables.media);
 
       render(
@@ -40,6 +41,7 @@ describe("Details Page component", () => {
 
       await waitFor(() => {
         expect(getMediaByID).toHaveBeenCalled();
+        expect(getOmdbMedia).toHaveBeenCalled();
         expect(getMedia).toHaveBeenCalled();
         expect(screen.getByTestId("details-view")).toBeInTheDocument();
         expect(screen.getByText("The Gorge")).toBeInTheDocument();
