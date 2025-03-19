@@ -290,24 +290,25 @@
       position: relative;
 
       &:before {
-        background: $primary-color;
-        border-radius: 2px;
-        bottom: -2px;
-        display: inline-block;
+        background: $link-hover-state;
+        border-radius: 50%;
+        bottom: -5px;
         content: "";
-        height: 2px;
-        left: 0;
-        opacity: 0;
+        display: block;
+        height: 8px;
         position: absolute;
-        transition: width ease 0.2s, opacity ease 0.3s;
-        width: 0;
+        right: 0;
+        transform: scaleX(0);
+        transition: all 0.3s ease-in-out;
+        visibility: hidden;
+        width: 100%;
       }
     }
 
     @include hover {
       .button__content:before {
-        opacity: 1;
-        width: 100%;
+        transform: scaleX(1);
+        visibility: visible;
       }
     }
   }

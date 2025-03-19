@@ -9,17 +9,28 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 20px;
+    padding: 10px 0;
     text-align: center;
   }
 
   &__title {
     color: $primary-color;
+    margin-bottom: 0;
 
     svg {
       animation: icon-glow 4s ease-in-out infinite;
       margin: 0 10px;
     }
+  }
+
+  &__genres {
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  &__genres-heading {
+    color: $primary-color;
+    margin-bottom: 5px;
   }
 
   &__generate-action {
@@ -32,15 +43,6 @@
         animation: icon-glow 4s ease-in-out infinite;
       }
     }
-  }
-
-  &__genres {
-    margin: 10px 0;
-    text-align: center;
-  }
-
-  &__genres-heading {
-    color: $primary-color;
   }
 
   &__toggle-wrapper {

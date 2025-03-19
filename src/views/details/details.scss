@@ -156,4 +156,20 @@
     list-style: none;
     margin-bottom: 16px;
   }
+
+  // Variants
+  &--person {
+    .details-view {
+      &__profile-details {
+        position: relative;
+      }
+
+      &__title-wrapper {
+        margin-bottom: 0;
+        position: absolute;
+        right: 0;
+        top: -10px;
+      }
+    }
+  }
 }

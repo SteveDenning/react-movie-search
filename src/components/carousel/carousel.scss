@@ -73,10 +73,14 @@
       bottom: 0;
       content: "";
       display: block;
-      height: 100px;
+      height: 75px;
       left: 0;
       position: absolute;
       width: 100%;
+
+      @include breakpoint($large) {
+        height: 150px;
+      }
     }
   }
 
@@ -167,6 +171,7 @@
 
       .card__cover,
       .carousel__banner-button,
+      .carousel__overlay,
       .add-to-favorites {
         display: none;
       }
