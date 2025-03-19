@@ -5,7 +5,7 @@ import { headers } from "./headers";
 
 export const getRequestToken = async (): Promise<any> => {
   const environment = process.env.NODE_ENV;
-  const redirectTo = environment === "development" ? "http://localhost:3000/" : "https://sd-react-movie-search.web.app/";
+  const redirectTo = environment === "development" ? window.location.origin : "https://sd-react-movie-search.web.app/";
   const url = "https://api.themoviedb.org/4/auth/request_token";
 
   const response: AxiosResponse<any> = await axios.post(

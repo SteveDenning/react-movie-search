@@ -82,6 +82,14 @@
 
   &__title {
     color: $white;
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 10px;
+
+    @include breakpoint($small) {
+      font-size: 18px;
+      line-height: 24px;
+    }
 
     &--no-image {
       bottom: 50px;
@@ -93,7 +101,7 @@
 
   &__info {
     color: $light-grey;
-    font-size: 18px;
+    font-size: 14px;
     margin: 0 0 10px;
   }
 
@@ -135,11 +143,6 @@
         }
       }
 
-      &__title {
-        font-size: 16px;
-        margin: 0;
-      }
-
       &__content {
         background: $black;
         opacity: 1;
@@ -155,10 +158,6 @@
           top: -50px;
           width: 100%;
         }
-      }
-
-      &__info {
-        font-size: 15px;
       }
     }
   }

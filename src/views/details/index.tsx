@@ -57,6 +57,11 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const MediaCarouselLabel = isPerson ? "Known for" : "Top Cast";
   const pathName = `${type}/${programmeId}/${isPerson ? "combined_credits" : "credits"}?language=en-US`;
 
+  // Class Definitions
+  const baseClass = "details-view";
+  const personClass = isPerson ? "details-view--person" : "";
+  const classes = [baseClass, personClass].filter(Boolean).join(" ");
+
   const overview = resource?.overview || resource?.biography || null;
   const title = resource.name || resource.title;
   const personOptions: ResponsiveOptionsType[] = [
@@ -77,8 +82,8 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
     {
       breakpoint: 464,
       settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
+        slidesToShow: 3,
+        slidesToScroll: 3,
       },
     },
   ];
@@ -163,7 +168,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
         <Fade in={!loading}>
           <div
             data-testid="details-view"
-            className="details-view"
+            className={classes}
             style={{ backgroundImage: backgroundImage }}
           >
             <Container>
@@ -199,7 +204,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
 
                 <div className="details-view__content">
                   <div className="details-view__profile">
-                    {(resource["profile_path"] || !videoKey) && resource.gender && (
+                    {(resource["profile_path"] || !videoKey) && !!resource.gender && (
                       <div
                         className="details-view__profile-image"
                         data-testid="details-view-profile-image"

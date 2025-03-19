@@ -20,7 +20,7 @@ describe("Media carousel component", () => {
     beforeEach(async () => {
       Object.defineProperty(window, "location", {
         value: {
-          pathname: "/media-listing/movie/popular/Most%20popular%20Movies",
+          pathname: "/media-listing/trending/movie/week/Most%20popular%20Movies",
           search: "?page=1",
         },
         writable: true,

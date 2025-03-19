@@ -69,6 +69,7 @@ $imdb: #fec601;
 // Theme
 $primary-color: $anakiwa;
 $secondary-color: $light-blue;
+$link-hover-state: radial-gradient(ellipse at top, $black, transparent), radial-gradient(ellipse at bottom, $primary-color, transparent);
 $background-color: radial-gradient(ellipse at top, $lilac, transparent), radial-gradient(ellipse at bottom, $primary-color, transparent);
 $background-opacity-color: rgba(
   $color: $black,

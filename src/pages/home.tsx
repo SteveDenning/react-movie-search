@@ -29,12 +29,19 @@ const HomePage = () => {
     {
       breakpoint: 5000,
       settings: {
-        slidesToShow: 7,
-        slidesToScroll: 7,
+        slidesToShow: 8,
+        slidesToScroll: 8,
       },
     },
     {
       breakpoint: 1024,
+      settings: {
+        slidesToShow: 6,
+        slidesToScroll: 6,
+      },
+    },
+    {
+      breakpoint: 768,
       settings: {
         slidesToShow: 4,
         slidesToScroll: 4,
@@ -43,8 +50,8 @@ const HomePage = () => {
     {
       breakpoint: 464,
       settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
+        slidesToShow: 3,
+        slidesToScroll: 3,
       },
     },
   ];
@@ -56,30 +63,30 @@ const HomePage = () => {
     >
       <BannerCarousel
         media="movie"
-        path="discover/movie"
+        path="trending/all/week"
       />
       <Container>
         <MediaCarousel
           buttonText="View all"
           label="Movies"
-          pathName="movie/popular"
+          pathName="trending/movie/week"
           media="movie"
-          buttonLink={`${config.mediaListing.path}/movie/popular/${MOVIES_TITLE}?page=1`}
+          buttonLink={`${config.mediaListing.path}/trending/movie/week/${MOVIES_TITLE}?page=1`}
         />
         <MediaCarousel
           buttonText="View all"
           label="TV Shows"
-          pathName="tv/popular"
+          pathName="tv/top_rated"
           media="tv"
-          buttonLink={`${config.mediaListing.path}/tv/popular/${TV_SHOWS_TITLE}?page=1`}
+          buttonLink={`${config.mediaListing.path}trending/tv/week/${TV_SHOWS_TITLE}?page=1`}
         />
 
         <MediaCarousel
           buttonText="View all"
           label="People"
-          pathName="person/popular"
+          pathName="trending/person/week"
           media="person"
-          buttonLink={`${config.mediaListing.path}/person/popular/${PERSON_TITLE}?page=1`}
+          buttonLink={`${config.mediaListing.path}/trending/person/week/${PERSON_TITLE}?page=1`}
           responsiveOptions={personOptions}
         />
       </Container>

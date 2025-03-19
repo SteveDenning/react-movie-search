@@ -5,6 +5,7 @@ export const variables = {
       backdrop_path: "/9nhjGaFLKtddDPtPaX5EmKqsWdH.jpg",
       genre_ids: [10749, 878, 53],
       id: 950396,
+      media_type: "movie",
       original_language: "en",
       original_title: "The Gorge",
       overview:
@@ -22,6 +23,7 @@ export const variables = {
       backdrop_path: "/cVh8Af7a9JMOJl75ML3Dg2QVEuq.jpg",
       genre_ids: [12, 10751, 16],
       id: 762509,
+      media_type: "movie",
       original_language: "en",
       original_title: "Mufasa: The Lion King",
       overview:
@@ -39,6 +41,7 @@ export const variables = {
       backdrop_path: "/rOMLLMGgDgGG6XeT3P8sUdUb8nl.jpg",
       genre_ids: [28, 53, 80],
       id: 1126166,
+      media_type: "movie",
       original_language: "en",
       original_title: "Flight Risk",
       overview:
@@ -56,6 +59,7 @@ export const variables = {
       backdrop_path: "/zo8CIjJ2nfNOevqNajwMRO6Hwka.jpg",
       genre_ids: [16, 12, 10751, 35],
       id: 1241982,
+      media_type: "movie",
       original_language: "en",
       original_title: "Moana 2",
       overview:
@@ -73,6 +77,7 @@ export const variables = {
       backdrop_path: "/zOpe0eHsq0A2NvNyBbtT6sj53qV.jpg",
       genre_ids: [28, 878, 35, 10751],
       id: 939243,
+      media_type: "movie",
       original_language: "en",
       original_title: "Sonic the Hedgehog 3",
       overview:
@@ -90,6 +95,7 @@ export const variables = {
       backdrop_path: "/7cNE2qydew1c8fqnlhWjkE3DHc2.jpg",
       genre_ids: [28, 18, 12, 10752],
       id: 927342,
+      media_type: "movie",
       original_language: "ta",
       original_title: "அமரன்",
       overview:
@@ -107,6 +113,7 @@ export const variables = {
       backdrop_path: "/sc1abgWNXc29wSBaerrjGBih06l.jpg",
       genre_ids: [878, 53],
       id: 1084199,
+      media_type: "movie",
       original_language: "en",
       original_title: "Companion",
       overview:
@@ -124,6 +131,7 @@ export const variables = {
       backdrop_path: "/qfAfE5auxsuxhxPpnETRAyTP5ff.jpg",
       genre_ids: [28, 53, 878],
       id: 822119,
+      media_type: "movie",
       original_language: "en",
       original_title: "Captain America: Brave New World",
       overview:

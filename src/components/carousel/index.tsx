@@ -4,6 +4,9 @@ import Slider from "react-slick";
 // Assets
 import bannerPlaceholder from "../../assets/images/banner-placeholder.png";
 
+// Config
+import { config } from "../../config/routes";
+
 // Components
 import Button from "../button";
 import Card from "../card";
@@ -56,10 +59,17 @@ const Carousel: React.FC<Props> = ({
       },
     },
     {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 4,
+      },
+    },
+    {
       breakpoint: 464,
       settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
+        slidesToShow: 3,
+        slidesToScroll: 3,
       },
     },
   ];
@@ -69,8 +79,8 @@ const Carousel: React.FC<Props> = ({
     dots: false,
     infinite: infinite,
     speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 5,
+    slidesToShow: 6,
+    slidesToScroll: 6,
     initialSlide: 0,
     autoplay: autoPlay,
     autoPlaySpeed: autoPlaySpeed,
@@ -95,6 +105,8 @@ const Carousel: React.FC<Props> = ({
       {!!resources.length && (
         <Slider {...settings}>
           {resources.map((item: any, index: number) => {
+            const mediaType = item.media_type;
+
             return (
               <div
                 key={index}
@@ -105,7 +117,7 @@ const Carousel: React.FC<Props> = ({
                   <>
                     <Button
                       className="carousel__overlay"
-                      onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
+                      onClick={() => (window.location.href = `${config.details.path}/${mediaType}/${item.id}`)}
                       testId="carousel-overlay"
                       variant="plain"
                     >
@@ -133,7 +145,7 @@ const Carousel: React.FC<Props> = ({
                   <Card
                     resource={item}
                     handleFavorite={handleFavorite}
-                    onClick={() => (window.location.href = `/details/${media}/${item.id}`)}
+                    onClick={() => (window.location.href = `${config.details.path}/${media}/${item.id}`)}
                     user={user}
                   />
                 )}

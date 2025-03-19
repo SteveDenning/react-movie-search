@@ -24,8 +24,8 @@ const MediaListing = () => {
 
   const params = new URLSearchParams(searchParams);
   const mediaType = window.location.pathname.split("/")[2];
-  const request = `${mediaType}/${window.location.pathname.split("/")[3]}${location.search}`;
-  const title = decodeURI(window.location.pathname.split("/")[4] as string);
+  const request = `${mediaType}/${window.location.pathname.split("/")[3]}/${window.location.pathname.split("/")[4]}${location.search}`;
+  const title = decodeURI(window.location.pathname.split("/")[5] as string);
 
   const handlePageChange = (event, value) => {
     setPage(value);

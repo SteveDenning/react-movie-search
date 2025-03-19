@@ -41,7 +41,7 @@ const routes = {
         element: <FavoritesPage />,
       },
       {
-        path: `${config.mediaListing.path}/:type/:media/:title`,
+        path: `${config.mediaListing.path}/:type/:media/:period/:title`,
         element: <MediaListingPage />,
       },
       {
