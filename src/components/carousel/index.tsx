@@ -134,7 +134,10 @@ const Carousel: React.FC<Props> = ({
                     />
                     <div className="carousel__banner-content">
                       <div className="carousel__banner-poster">
-                        <Image resource={item} />
+                        <Image
+                          resource={item}
+                          alt={`Poster Image for ${item.title || item.name}`}
+                        />
                       </div>
                       <div className="carousel__banner-details">
                         <h2>{item.title || item.name}</h2>

@@ -66,6 +66,7 @@ const HomePage = () => {
         path="trending/all/week"
       />
       <Container>
+        <h1 className="page-title">Trending this week</h1>
         <MediaCarousel
           buttonText="View all"
           label="Movies"

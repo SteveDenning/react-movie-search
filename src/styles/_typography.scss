@@ -6,9 +6,9 @@ h3,
 h4,
 h5,
 h6 {
-  color: $white;
+  color: $primary-color;
   font-family: Gothic, Arial, sans-serif;
-  font-weight: normal;
+  font-weight: 200;
   margin: 0;
   margin-bottom: 1rem;
 }
@@ -126,6 +126,11 @@ a {
 
 .copy {
   color: $whispering-mist;
+}
+
+.page-title {
+  position: relative;
+  z-index: 1;
 }
 
 *:focus-visible {

@@ -29,22 +29,27 @@ const SearchResults = () => {
   const resultsType = type === "multi" ? "results" : type === "movie" ? "Films" : type === "tv" ? "TV Shows" : "People";
 
   const handleGetResults = () => {
-    setLoading(true);
-    getAllMediaFromSearch(`${type}${window.location.search}`)
-      .then((response: any) => {
-        if (response.data) {
-          setResources(response.data?.results);
-          setCount(response.data?.["total_pages"]);
-          setTotalResults(response.data?.["total_results"]);
-        }
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        setLoading(false);
-        setError(true);
-        setResources([]);
-      });
+    if (window.location.search) {
+      setLoading(true);
+      getAllMediaFromSearch(`${type}${window.location.search}`)
+        .then((response: any) => {
+          if (response.data) {
+            setResources(response.data?.results);
+            setCount(response.data?.["total_pages"]);
+            setTotalResults(response.data?.["total_results"]);
+          }
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          setLoading(false);
+          setError(true);
+          setResources([]);
+        });
+    } else {
+      setLoading(false);
+      setResources([]);
+    }
   };
 
   const handlePageChange = (event, value) => {
