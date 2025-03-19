@@ -35,7 +35,7 @@ describe("Media service (getOmdbMedia)", () => {
 
     const response = await getOmdbMedia(title);
 
-    expect(axios.get).toHaveBeenCalledWith(`https://www.omdbapi.com?t=${title}apikey=c43485b9`, headers);
+    expect(axios.get).toHaveBeenCalledWith(`http://www.omdbapi.com/?apikey=c43485b9&t=${title}`);
     expect(response).toEqual(variables.omdbResource);
   });
 
