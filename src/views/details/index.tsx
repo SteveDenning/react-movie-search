@@ -64,7 +64,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
 
   const overview = resource?.overview || resource?.biography || null;
   const title = resource.name || resource.title;
-  const personOptions: ResponsiveOptionsType[] = [
+  const responsiveOptions: ResponsiveOptionsType[] = [
     {
       breakpoint: 5000,
       settings: {
@@ -311,7 +311,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 label={MediaCarouselLabel}
                 pathName={pathName}
                 dataResource="cast"
-                responsiveOptions={personOptions}
+                responsiveOptions={responsiveOptions}
                 media={isPerson ? "movie" : "person"}
                 buttonText={!isPerson ? "Cast and Crew" : null}
                 buttonLink={`${config.credits.path}/${type}/${programmeId}/${title}`}
@@ -320,7 +320,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 <MediaCarousel
                   label={`Recommended ${type === "tv" ? "TV Shows" : "Films"}`}
                   resourceItems={recommendations}
-                  responsiveOptions={personOptions}
+                  responsiveOptions={responsiveOptions}
                   media={type}
                 />
               )}

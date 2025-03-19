@@ -25,7 +25,7 @@ const HomePage = () => {
   const title = "My Movie Database | Home";
   const pageDescription = "Home page of the My Movie Database App. Search for films, TV shows, and actors to discover new favorites!";
 
-  const personOptions: ResponsiveOptionsType[] = [
+  const responsiveOptions: ResponsiveOptionsType[] = [
     {
       breakpoint: 5000,
       settings: {
@@ -88,7 +88,7 @@ const HomePage = () => {
           pathName="trending/person/week"
           media="person"
           buttonLink={`${config.mediaListing.path}/trending/person/week/${PERSON_TITLE}?page=1`}
-          responsiveOptions={personOptions}
+          responsiveOptions={responsiveOptions}
         />
       </Container>
     </DefaultLayout>

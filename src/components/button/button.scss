@@ -290,7 +290,7 @@
       position: relative;
 
       &:before {
-        background: radial-gradient(ellipse at top, $black, transparent), radial-gradient(ellipse at bottom, $primary-color, transparent);
+        background: $link-hover-state;
         border-radius: 50%;
         bottom: -5px;
         content: "";
