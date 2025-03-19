@@ -148,7 +148,7 @@ const Carousel: React.FC<Props> = ({
                   <Card
                     resource={item}
                     handleFavorite={handleFavorite}
-                    onClick={() => (window.location.href = `${config.details.path}/${media}/${item.id}`)}
+                    onClick={() => (window.location.href = `${config.details.path}/${item.media_type || media}/${item.id}`)}
                     user={user}
                   />
                 )}
