@@ -17,7 +17,6 @@ const SearchResults = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState(false);
   const [resources, setResources] = useState<any[]>([]);
-  const [page, setPage] = useState<number>(1);
   const [count, setCount] = useState<number>(0);
   const [totalResults, setTotalResults] = useState<number>(0);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,7 +24,7 @@ const SearchResults = () => {
   const params = new URLSearchParams(searchParams);
   const type = params.get("filterByType") || "multi";
   const query = params.get("query") || null;
-
+  const [page, setPage] = useState<number>(Number(params.get("page")) || 1);
   const resultsType = type === "multi" ? "results" : type === "movie" ? "Films" : type === "tv" ? "TV Shows" : "People";
 
   const handleGetResults = () => {

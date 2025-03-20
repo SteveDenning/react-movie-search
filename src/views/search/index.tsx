@@ -63,7 +63,7 @@ const Search = () => {
       navigate(
         {
           pathname: `${config.searchResults.path}`,
-          search: `?query=${encodeURIComponent(searchTerm)}&filterByType=${mediaType.value}`,
+          search: `?query=${encodeURIComponent(searchTerm)}&filterByType=${mediaType.value}&page=1`,
         },
         { replace: !isSearchResultsPage },
       );
@@ -89,6 +89,7 @@ const Search = () => {
     setSearchParams({});
     removeQueryParam("query");
     removeQueryParam("filterByType");
+    updateQuery("page", "1");
     inputRef.current.focus();
   };
 
