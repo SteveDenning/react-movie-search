@@ -211,7 +211,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                     />
                   </div>
                 ) : (
-                  !resource["profile_path"] && (
+                  !resource?.profile_path && (
                     <div
                       className="details-view__poster fade-in"
                       data-test-id="details-view-poster"
@@ -223,7 +223,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
 
                 <div className="details-view__content">
                   <div className="details-view__profile">
-                    {(resource["profile_path"] || !videoKey) && !!resource.gender && (
+                    {(resource?.profile_path || !videoKey) && !!resource.gender && (
                       <div
                         className="details-view__profile-image"
                         data-testid="details-view-profile-image"
@@ -235,9 +235,9 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                     <div>
                       <div className="details-view__profile-details">
                         <div className="details-view__title-wrapper">
-                          {isMedia && (resource?.["release_date"] || resource?.["first_air_date"]) && (
+                          {isMedia && (resource?.release_date || resource?.first_air_date) && (
                             <h2 className="details-view__title details-view__label">
-                              <span>({moment(resource?.["release_date"] || resource?.["first_air_date"]).format("YYYY")})</span>
+                              <span>({moment(resource.release_date || resource.first_air_date).format("YYYY")})</span>
 
                               {resourceDetails?.imdbRating && resourceDetails?.imdbRating !== "N/A" && (
                                 <div className="details-view__imdb-rating">
@@ -277,9 +277,9 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                           </p>
                         )}
 
-                        {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
+                        {resource?.place_of_birth && <p>{resource.place_of_birth}</p>}
 
-                        {resource["known_for_department"] && <p>Known for: {resource["known_for_department"]}</p>}
+                        {resource?.known_for_department && <p>Known for: {resource.known_for_department}</p>}
                       </div>
 
                       {overview && (
@@ -295,9 +295,9 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                             {resource.genres.map((genre: any) => (
                               <li
                                 className="details-view__genre-tag"
-                                key={genre.id + genre["name"]}
+                                key={genre.id + genre.name}
                               >
-                                {genre["name"]}
+                                {genre.name}
                                 <span>|</span>
                               </li>
                             ))}
@@ -308,7 +308,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                       {resource?.next_episode_to_air && (
                         <p className="details-view__label">
                           Next episode:
-                          <span> {moment(resource.next_episode_to_air["air_date"]).format("MMMM Do YYYY")}</span>
+                          <span> {moment(resource.next_episode_to_air?.air_date).format("MMMM Do YYYY")}</span>
                         </p>
                       )}
 
@@ -320,12 +320,12 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                         </>
                       )}
 
-                      {(resource["imdb_id"] || resourceDetails?.imdbID) && (
+                      {(resource?.imdb_id || resourceDetails?.imdbID) && (
                         <>
                           <Button
                             target="_blank"
                             variant="imdb"
-                            href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource["imdb_id"] || resourceDetails.imdbID}`}
+                            href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource?.imdb_id || resourceDetails.imdbID}`}
                           >
                             IMDb
                           </Button>
@@ -338,7 +338,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                             {resource.networks.map((network: any, index: number) => (
                               <li key={network.id + index}>
                                 <img
-                                  src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${network["logo_path"]}`}
+                                  src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${network?.logo_path}`}
                                   alt={network.name + " logo"}
                                   className="details-view__network-image"
                                 />

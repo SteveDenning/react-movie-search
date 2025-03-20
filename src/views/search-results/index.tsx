@@ -35,8 +35,8 @@ const SearchResults = () => {
         .then((response: any) => {
           if (response.data) {
             setResources(response.data?.results);
-            setCount(response.data?.["total_pages"]);
-            setTotalResults(response.data?.["total_results"]);
+            setCount(response.data?.total_pages);
+            setTotalResults(response.data?.total_results);
           }
           setLoading(false);
         })

@@ -77,7 +77,7 @@ const HomePage = () => {
         <MediaCarousel
           buttonText="View all"
           label="TV Shows"
-          pathName="tv/top_rated"
+          pathName="trending/tv/week"
           media="tv"
           buttonLink={`${config.mediaListing.path}/trending/tv/week/${TV_SHOWS_TITLE}?page=1`}
         />

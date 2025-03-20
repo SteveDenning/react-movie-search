@@ -129,7 +129,7 @@ const Carousel: React.FC<Props> = ({
                       </span>
                     </Button>
                     <Image
-                      src={item["backdrop_path"] ? `${process.env.REACT_APP_TMDB_IMAGE_PATH}${item["backdrop_path"]}` : bannerPlaceholder}
+                      src={item?.backdrop_path ? `${process.env.REACT_APP_TMDB_IMAGE_PATH}${item.backdrop_path}` : bannerPlaceholder}
                       resource={item}
                     />
                     <div className="carousel__banner-content">
