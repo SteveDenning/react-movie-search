@@ -70,15 +70,15 @@ const Card: React.FC<Props> = ({ resource, onClick, variant, handleFavorite, use
             >
               {resource?.name || resource?.title}
             </h3>
-            {resource?.["first_air_date"] && (
+            {resource?.first_air_date && (
               <p
                 className="card__info"
                 data-testid="first-air-date"
               >
-                {moment(resource?.["first_air_date"]).format("YYYY")}
+                {moment(resource?.first_air_date).format("YYYY")}
               </p>
             )}
-            {resource?.["release_date"] && <p className="card__info">{moment(resource?.["release_date"]).format("YYYY")}</p>}
+            {resource?.release_date && <p className="card__info">{moment(resource?.release_date).format("YYYY")}</p>}
             {resource?.job && <p className="card__info">{resource.job}</p>}
             {resource?.character && <p className="card__info">{resource?.character}</p>}
           </div>

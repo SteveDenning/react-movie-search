@@ -43,7 +43,7 @@ const MediaListing = () => {
       getMedia(request)
         .then((response: any) => {
           setResources(response.data.results);
-          setCount(Math.ceil(response.data["total_pages"]));
+          setCount(Math.ceil(response.data.total_pages));
           setLoading(false);
         })
         .catch((error) => {

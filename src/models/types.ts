@@ -40,3 +40,12 @@ export type ResponsiveOptionsType = {
     slidesToScroll: number;
   };
 };
+
+export type SuggestionType = {
+  id: string;
+  first_air_date: string;
+  media_type: string;
+  name: string;
+  original_title: string;
+  release_date: string;
+};

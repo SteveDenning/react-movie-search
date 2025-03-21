@@ -27,7 +27,7 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
   const handleLogin = () => {
     getRequestToken()
       .then((response: any) => {
-        const requestToken = response.data["request_token"];
+        const requestToken = response.data?.request_token;
 
         if (requestToken) {
           sessionStorage.setItem("request_token", requestToken);
@@ -43,7 +43,7 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
     if (accessToken) {
       deleteAccessToken(accessToken)
         .then((response: any) => {
-          if (response.data["success"]) {
+          if (response.data?.success) {
             sessionStorage.removeItem("access_token");
             sessionStorage.removeItem("user");
             sessionStorage.removeItem("session_id");
@@ -65,8 +65,8 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
         request_token: requestToken,
       })
         .then((response: any) => {
-          const accessToken = response.data["access_token"];
-          const accountId = response.data["account_id"];
+          const accessToken = response.data?.access_token;
+          const accountId = response.data?.account_id;
 
           sessionStorage.setItem("access_token", accessToken);
           sessionStorage.setItem("account_id", accountId);
@@ -85,7 +85,7 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
         access_token: accessToken,
       })
         .then((response: any) => {
-          const sessionId = response.data["session_id"];
+          const sessionId = response.data?.session_id;
           sessionStorage.setItem("session_id", sessionId);
           handleGetAccountDetails(sessionId);
         })
@@ -96,7 +96,7 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
   const handleGetAccountDetails = (sessionId: string) => {
     getAccountDetails(sessionId)
       .then((response: any) => {
-        if (response.data["username"]) {
+        if (response.data?.username) {
           const accountId = sessionStorage.getItem("account_id");
           const accessToken = sessionStorage.getItem("access_token");
           const sessionId = sessionStorage.getItem("session_id");
