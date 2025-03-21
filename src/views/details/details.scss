@@ -69,31 +69,27 @@
   }
 
   &__title {
-    align-items: center;
+    align-items: baseline;
     display: flex;
     margin-bottom: 0;
+    margin-right: 10px;
   }
 
-  &__imdb-rating {
-    margin-left: 10px;
+  &__title-details {
+    align-items: baseline;
+    display: block;
 
-    span {
-      font-size: 18px;
-    }
-
-    > span {
-      margin-right: 5px;
+    @include breakpoint($small) {
+      display: flex;
     }
   }
 
   &__imdb-rating-score {
     font-weight: bold;
     font-size: 20px;
-  }
 
-  &__label {
-    span {
-      color: $whispering-mist;
+    & > span {
+      font-size: 18px;
     }
   }
 

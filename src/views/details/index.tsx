@@ -236,23 +236,33 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                       <div className="details-view__profile-details">
                         <div className="details-view__title-wrapper">
                           {isMedia && (resource?.release_date || resource?.first_air_date) && (
-                            <h2 className="details-view__title details-view__label">
-                              <span>({moment(resource.release_date || resource.first_air_date).format("YYYY")})</span>
-
-                              {resourceDetails?.imdbRating && resourceDetails?.imdbRating !== "N/A" && (
-                                <div className="details-view__imdb-rating">
-                                  <span
-                                    className="details-view__imdb-rating-score"
-                                    style={{ color: imdbRatingColor }}
-                                  >
-                                    {resourceDetails.imdbRating}
-                                  </span>
-                                  <span>
-                                    / 10 <span style={{ fontSize: "12px" }}> (IMDb)</span>
-                                  </span>
-                                </div>
-                              )}
-                            </h2>
+                            <div className="details-view__title-details">
+                              <h2 className="details-view__title">
+                                <span className="copy">({moment(resource.release_date || resource.first_air_date).format("YYYY")})</span>
+                              </h2>
+                              <div>
+                                {resourceDetails?.imdbRating && resourceDetails?.imdbRating !== "N/A" && (
+                                  <div>
+                                    <span
+                                      className="details-view__imdb-rating-score"
+                                      style={{ color: imdbRatingColor }}
+                                    >
+                                      {resourceDetails.imdbRating}
+                                    </span>
+                                    <span className="copy"> / 10 </span>
+                                    <span className="copy copy--small"> (IMDb)</span>
+                                    {resourceDetails?.Rated && (
+                                      <span
+                                        className="copy copy--small"
+                                        style={{ marginLeft: "10px" }}
+                                      >
+                                        {resourceDetails.Rated == "TV-MA" ? "PG-18" : resourceDetails.Rated}
+                                      </span>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
                           )}
                           <div className="details-view__actions">
                             <Share
@@ -306,9 +316,9 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                       )}
 
                       {resource?.next_episode_to_air && (
-                        <p className="details-view__label">
+                        <p>
                           Next episode:
-                          <span> {moment(resource.next_episode_to_air?.air_date).format("MMMM Do YYYY")}</span>
+                          <span className="copy"> {moment(resource.next_episode_to_air?.air_date).format("MMMM Do YYYY")}</span>
                         </p>
                       )}
 
