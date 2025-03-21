@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-// Utils
+// Services
 import { getAllMediaFromSearch } from "../../services/search";
 
 // MUI
@@ -64,11 +64,6 @@ const SearchResults = () => {
   useEffect(() => {
     handleGetResults();
   }, [type, query, page]);
-
-  useEffect(() => {
-    setPage(1);
-    updateQuery("page", 1);
-  }, [type]);
 
   return (
     <div

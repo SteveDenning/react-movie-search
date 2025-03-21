@@ -105,6 +105,7 @@ const Search = () => {
   const handleMediaTypeChange = (event: any) => {
     setMediaType(event);
     if (isSearchResultsPage) {
+      updateQuery("page", "1");
       updateQuery("filterByType", event.value);
     }
   };
