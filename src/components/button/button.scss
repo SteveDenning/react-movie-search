@@ -306,6 +306,8 @@
     }
 
     @include hover {
+      outline: none;
+
       .button__content:before {
         transform: scaleX(1);
         visibility: visible;
@@ -340,8 +342,10 @@
     background: $imdb;
     border-radius: 5px;
     border: 1px solid $imdb;
-    margin: 20px 0;
-    padding: 5px 10px 0px;
+    font-size: 15px;
+    margin: 0 10px;
+    padding: 3px 7px 0px;
+    line-height: 18px;
 
     span {
       font-weight: bold;

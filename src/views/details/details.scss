@@ -62,10 +62,13 @@
     position: relative;
   }
 
+  &__info {
+    margin-bottom: 16px;
+  }
+
   &__title-wrapper {
     align-items: center;
     display: flex;
-    margin-bottom: 20px;
   }
 
   &__title {
@@ -78,6 +81,7 @@
   &__title-details {
     align-items: baseline;
     display: block;
+    margin-bottom: 16px;
 
     @include breakpoint($small) {
       display: flex;
@@ -93,6 +97,10 @@
     }
   }
 
+  &__genres {
+    margin-bottom: 16px;
+  }
+
   &__genre-tag {
     span {
       color: $primary-color;
@@ -105,17 +113,36 @@
     }
   }
 
-  &__network-image {
-    border-radius: 0 10px;
-    padding: 5px;
-    width: 60px;
+  &__seasons {
+    margin-bottom: 20px;
   }
 
-  &__network-list li {
-    align-items: center;
-    display: flex;
+  &__network-list {
+    background: rgba($color: $white, $alpha: 0.5);
+    border-radius: 0 30px;
     justify-content: center;
-    margin-right: 10px;
+    margin: 0;
+    padding: 10px;
+
+    li {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      margin-right: 10px;
+    }
+  }
+
+  &__network-image {
+    border-radius: 0 10px;
+    cursor: pointer;
+    max-height: 60px;
+    max-width: 100px;
+    padding: 5px;
+    transition: background 0.3s ease;
+
+    @include hover {
+      background: $black;
+    }
   }
 
   &__profile {
@@ -162,7 +189,6 @@
   ul {
     display: flex;
     list-style: none;
-    margin-bottom: 16px;
   }
 
   // Variants

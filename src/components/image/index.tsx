@@ -18,9 +18,10 @@ interface Props {
   onClick?: () => void;
   src?: string;
   alt?: string;
+  className?: string;
 }
 
-const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick, src, alt }) => {
+const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick, src, alt, className }) => {
   const mediaType = useDefineMediaType(resource);
   const screenSize = useScreenSize();
 
@@ -34,7 +35,7 @@ const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick, src
   const mobileClass = isMobile ? "image--mobile" : "";
   const sizeClass = size ? `image--${size}` : "";
   const variantClass = variant ? `image--${variant}` : "";
-  const classes = [baseClass, sizeClass, mobileClass, variantClass].filter(Boolean).join(" ");
+  const classes = [baseClass, sizeClass, mobileClass, variantClass, className].filter(Boolean).join(" ");
 
   return (
     <img

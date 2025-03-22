@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
+import pluralize from "pluralize";
 
 // Components
 import Accordion from "../../components/accordion";
@@ -24,7 +25,7 @@ import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 
 // Services
 import { getFavorites } from "../../services/favorites";
-import { getMediaByID, getOmdbMedia } from "../../services/media";
+import { getMediaByID, getOmdbMedia, getMedia } from "../../services/media";
 import { updateFavorite } from "../../services/favorites";
 
 // Types
@@ -108,6 +109,22 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
         })
         .catch((error) => {
           console.error("getMediaDetails::", error);
+          setLoading(false);
+          setError(true);
+        });
+    }
+  };
+
+  const getNetworkForMedia = (id: string) => {
+    if (id) {
+      setLoading(true);
+      getMedia(`network/${id}`)
+        .then((response: any) => {
+          window.open(response.data.homepage, "_blank");
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("getNetworkForMedia::", error);
           setLoading(false);
           setError(true);
         });
@@ -240,28 +257,17 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                               <h2 className="details-view__title">
                                 <span className="copy">({moment(resource.release_date || resource.first_air_date).format("YYYY")})</span>
                               </h2>
-                              <div>
-                                {resourceDetails?.imdbRating && resourceDetails?.imdbRating !== "N/A" && (
-                                  <div>
-                                    <span
-                                      className="details-view__imdb-rating-score"
-                                      style={{ color: imdbRatingColor }}
-                                    >
-                                      {resourceDetails.imdbRating}
-                                    </span>
-                                    <span className="copy"> / 10 </span>
-                                    <span className="copy copy--small"> (IMDb)</span>
-                                    {resourceDetails?.Rated && (
-                                      <span
-                                        className="copy copy--small"
-                                        style={{ marginLeft: "10px" }}
-                                      >
-                                        {resourceDetails.Rated == "TV-MA" ? "PG-18" : resourceDetails.Rated}
-                                      </span>
-                                    )}
-                                  </div>
-                                )}
-                              </div>
+                              {resourceDetails?.Runtime && resourceDetails?.Runtime !== "N/A" && (
+                                <span className="copy">{resourceDetails.Runtime}</span>
+                              )}
+                              {resourceDetails?.Rated && (
+                                <span
+                                  className="copy copy--small  rating"
+                                  style={{ marginLeft: "10px" }}
+                                >
+                                  {resourceDetails.Rated == "TV-MA" ? "PG-18" : resourceDetails.Rated.replace("TV", "PG")}
+                                </span>
+                              )}
                             </div>
                           )}
                           <div className="details-view__actions">
@@ -301,7 +307,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
 
                       {!!resource.genres?.length && (
                         <>
-                          <ul>
+                          <ul className="details-view__genres">
                             {resource.genres.map((genre: any) => (
                               <li
                                 className="details-view__genre-tag"
@@ -315,6 +321,31 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                         </>
                       )}
 
+                      <div className="details-view__info">
+                        {resourceDetails?.imdbRating && resourceDetails?.imdbRating !== "N/A" && (
+                          <div>
+                            <span
+                              className="details-view__imdb-rating-score"
+                              style={{ color: imdbRatingColor }}
+                            >
+                              {resourceDetails.imdbRating}
+                            </span>
+                            <span className="copy"> / 10 </span>
+                            {(resource?.imdb_id || resourceDetails?.imdbID) && (
+                              <>
+                                <Button
+                                  target="_blank"
+                                  variant="imdb"
+                                  href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource?.imdb_id || resourceDetails.imdbID}`}
+                                >
+                                  IMDb
+                                </Button>
+                              </>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
                       {resource?.next_episode_to_air && (
                         <p>
                           Next episode:
@@ -325,20 +356,10 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                       {!!resource.seasons?.length && (
                         <>
                           <div className="details-view__seasons">
-                            <Button onClick={() => setIsOpenSeasonsModal(true)}>{resource.seasons.length} Seasons</Button>
+                            <Button onClick={() => setIsOpenSeasonsModal(true)}>
+                              {resource.seasons.length} {pluralize("Season", resource.seasons.length)}
+                            </Button>
                           </div>
-                        </>
-                      )}
-
-                      {(resource?.imdb_id || resourceDetails?.imdbID) && (
-                        <>
-                          <Button
-                            target="_blank"
-                            variant="imdb"
-                            href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource?.imdb_id || resourceDetails.imdbID}`}
-                          >
-                            IMDb
-                          </Button>
                         </>
                       )}
 
@@ -347,11 +368,20 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                           <ul className="details-view__network-list">
                             {resource.networks.map((network: any, index: number) => (
                               <li key={network.id + index}>
-                                <img
-                                  src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${network?.logo_path}`}
-                                  alt={network.name + " logo"}
-                                  className="details-view__network-image"
-                                />
+                                <Button
+                                  variant="plain"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    getNetworkForMedia(network.id);
+                                  }}
+                                >
+                                  <Image
+                                    resource={network}
+                                    src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${network?.logo_path}`}
+                                    alt={network.name + " logo"}
+                                    className="details-view__network-image"
+                                  />
+                                </Button>
                               </li>
                             ))}
                           </ul>
