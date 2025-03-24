@@ -120,7 +120,7 @@ const Resources: React.FC<Props> = ({ resources, handlePageChange, count, page }
             columns={20}
           >
             {items?.map((item: any, index: number) => {
-              const path = item["media_type"] ? item["media_type"] : mediaType;
+              const path = item?.media_type ? item.media_type : mediaType;
 
               return (
                 <Grid

@@ -73,6 +73,7 @@ $primary-border-color: rgba(
   $alpha: 0.4,
 );
 $secondary-color: $light-blue;
+$link-hover-state: linear-gradient(180deg, rgba($primary-color, 1) 0%, rgba($black, 0) 100%);
 $background-color: radial-gradient(ellipse at top, $lilac, transparent), radial-gradient(ellipse at bottom, $primary-color, transparent);
 $background-opacity-color: rgba(
   $color: $black,

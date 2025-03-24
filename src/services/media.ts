@@ -10,6 +10,13 @@ export const getMedia = async (path: string): Promise<any> => {
   return response;
 };
 
+export const getOmdbMedia = async (title: string): Promise<any> => {
+  const url = `https://www.omdbapi.com/?apikey=c43485b9&t=${title}`;
+  const response: AxiosResponse<any> = await axios.get(url);
+
+  return response;
+};
+
 export const getMediaByID = async (id: string, type: string): Promise<any> => {
   const url = `https://api.themoviedb.org/3/${type}/${id}?append_to_response=videos,recommendations,reviews&language=en-US`;
 

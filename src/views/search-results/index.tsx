@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-// Utils
+// Services
 import { getAllMediaFromSearch } from "../../services/search";
 
 // MUI
@@ -17,7 +17,6 @@ const SearchResults = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState(false);
   const [resources, setResources] = useState<any[]>([]);
-  const [page, setPage] = useState<number>(1);
   const [count, setCount] = useState<number>(0);
   const [totalResults, setTotalResults] = useState<number>(0);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -25,26 +24,31 @@ const SearchResults = () => {
   const params = new URLSearchParams(searchParams);
   const type = params.get("filterByType") || "multi";
   const query = params.get("query") || null;
-
+  const [page, setPage] = useState<number>(Number(params.get("page")) || 1);
   const resultsType = type === "multi" ? "results" : type === "movie" ? "Films" : type === "tv" ? "TV Shows" : "People";
 
   const handleGetResults = () => {
-    setLoading(true);
-    getAllMediaFromSearch(`${type}${window.location.search}`)
-      .then((response: any) => {
-        if (response.data) {
-          setResources(response.data?.results);
-          setCount(response.data?.["total_pages"]);
-          setTotalResults(response.data?.["total_results"]);
-        }
-        setLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-        setLoading(false);
-        setError(true);
-        setResources([]);
-      });
+    if (window.location.search) {
+      setLoading(true);
+      getAllMediaFromSearch(`${type}${window.location.search}`)
+        .then((response: any) => {
+          if (response.data) {
+            setResources(response.data?.results);
+            setCount(response.data?.total_pages);
+            setTotalResults(response.data?.total_results);
+          }
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error(error);
+          setLoading(false);
+          setError(true);
+          setResources([]);
+        });
+    } else {
+      setLoading(false);
+      setResources([]);
+    }
   };
 
   const handlePageChange = (event, value) => {
@@ -60,11 +64,6 @@ const SearchResults = () => {
   useEffect(() => {
     handleGetResults();
   }, [type, query, page]);
-
-  useEffect(() => {
-    setPage(1);
-    updateQuery("page", 1);
-  }, [type]);
 
   return (
     <div
