@@ -1,5 +1,9 @@
 // Base text element styling
 
+*:focus-visible {
+  outline: 2px solid $primary-color;
+}
+
 h1,
 h2,
 h3,
@@ -86,21 +90,11 @@ a {
   text-decoration: none;
 
   &:before {
-    background: $link-hover-state;
-    border-radius: 50%;
-    bottom: -5px;
-    content: "";
-    display: block;
-    height: 8px;
-    position: absolute;
-    right: 0;
-    transform: scaleX(0);
-    transition: all 0.3s ease-in-out;
-    visibility: hidden;
-    width: 100%;
+    @extend .hover-state;
   }
 
   @include hover {
+    outline: none;
     text-decoration: none;
 
     &:before {
@@ -126,6 +120,19 @@ a {
 
 .copy {
   color: $whispering-mist;
+
+  &--small {
+    font-size: 12px;
+  }
+}
+
+.rating {
+  background: $white;
+  border-radius: 5px;
+  color: $black;
+  font-weight: bold;
+  padding: 0 5px;
+  margin-left: 10px;
 }
 
 .page-title {
@@ -133,6 +140,39 @@ a {
   z-index: 1;
 }
 
-*:focus-visible {
-  outline: 2px solid $primary-color;
+.imdb {
+  background: $imdb;
+  border-radius: 5px;
+  border: 1px solid $imdb;
+  margin: 20px 0;
+  padding: 5px 10px 0px;
+
+  span {
+    font-weight: bold;
+    color: $black;
+  }
+
+  @include hover {
+    background: $black;
+
+    span {
+      font-weight: bold;
+      color: $imdb;
+    }
+  }
+}
+
+.hover-state {
+  background: $link-hover-state;
+  border-radius: 5px;
+  bottom: -2px;
+  content: "";
+  display: block;
+  height: 3px;
+  position: absolute;
+  right: 0;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out;
+  visibility: hidden;
+  width: 100%;
 }

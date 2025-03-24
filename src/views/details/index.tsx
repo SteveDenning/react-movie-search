@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
+import pluralize from "pluralize";
 
 // Components
 import Accordion from "../../components/accordion";
@@ -24,7 +25,7 @@ import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 
 // Services
 import { getFavorites } from "../../services/favorites";
-import { getMediaByID, getOmdbMedia } from "../../services/media";
+import { getMediaByID, getOmdbMedia, getMedia } from "../../services/media";
 import { updateFavorite } from "../../services/favorites";
 
 // Types
@@ -108,6 +109,22 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
         })
         .catch((error) => {
           console.error("getMediaDetails::", error);
+          setLoading(false);
+          setError(true);
+        });
+    }
+  };
+
+  const getNetworkForMedia = (id: string) => {
+    if (id) {
+      setLoading(true);
+      getMedia(`network/${id}`)
+        .then((response: any) => {
+          window.open(response.data.homepage, "_blank");
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("getNetworkForMedia::", error);
           setLoading(false);
           setError(true);
         });
@@ -211,7 +228,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                     />
                   </div>
                 ) : (
-                  !resource["profile_path"] && (
+                  !resource?.profile_path && (
                     <div
                       className="details-view__poster fade-in"
                       data-test-id="details-view-poster"
@@ -223,7 +240,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
 
                 <div className="details-view__content">
                   <div className="details-view__profile">
-                    {(resource["profile_path"] || !videoKey) && !!resource.gender && (
+                    {(resource?.profile_path || !videoKey) && !!resource.gender && (
                       <div
                         className="details-view__profile-image"
                         data-testid="details-view-profile-image"
@@ -235,24 +252,23 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                     <div>
                       <div className="details-view__profile-details">
                         <div className="details-view__title-wrapper">
-                          {isMedia && (resource?.["release_date"] || resource?.["first_air_date"]) && (
-                            <h2 className="details-view__title details-view__label">
-                              <span>({moment(resource?.["release_date"] || resource?.["first_air_date"]).format("YYYY")})</span>
-
-                              {resourceDetails?.imdbRating && resourceDetails?.imdbRating !== "N/A" && (
-                                <div className="details-view__imdb-rating">
-                                  <span
-                                    className="details-view__imdb-rating-score"
-                                    style={{ color: imdbRatingColor }}
-                                  >
-                                    {resourceDetails.imdbRating}
-                                  </span>
-                                  <span>
-                                    / 10 <span style={{ fontSize: "12px" }}> (IMDb)</span>
-                                  </span>
-                                </div>
+                          {isMedia && (resource?.release_date || resource?.first_air_date) && (
+                            <div className="details-view__title-details">
+                              <h2 className="details-view__title">
+                                <span className="copy">({moment(resource.release_date || resource.first_air_date).format("YYYY")})</span>
+                              </h2>
+                              {resourceDetails?.Runtime && resourceDetails?.Runtime !== "N/A" && (
+                                <span className="copy">{resourceDetails.Runtime}</span>
                               )}
-                            </h2>
+                              {resourceDetails?.Rated && resourceDetails?.Rated !== "N/A" && (
+                                <span
+                                  className="copy copy--small  rating"
+                                  style={{ marginLeft: "10px" }}
+                                >
+                                  {resourceDetails.Rated == "TV-MA" ? "PG-18" : resourceDetails.Rated.replace("TV", "PG")}
+                                </span>
+                              )}
+                            </div>
                           )}
                           <div className="details-view__actions">
                             <Share
@@ -277,9 +293,9 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                           </p>
                         )}
 
-                        {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
+                        {resource?.place_of_birth && <p>{resource.place_of_birth}</p>}
 
-                        {resource["known_for_department"] && <p>Known for: {resource["known_for_department"]}</p>}
+                        {resource?.known_for_department && <p>Known for: {resource.known_for_department}</p>}
                       </div>
 
                       {overview && (
@@ -291,13 +307,13 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
 
                       {!!resource.genres?.length && (
                         <>
-                          <ul>
+                          <ul className="details-view__genres">
                             {resource.genres.map((genre: any) => (
                               <li
                                 className="details-view__genre-tag"
-                                key={genre.id + genre["name"]}
+                                key={genre.id + genre.name}
                               >
-                                {genre["name"]}
+                                {genre.name}
                                 <span>|</span>
                               </li>
                             ))}
@@ -305,30 +321,55 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                         </>
                       )}
 
+                      <div className="details-view__info">
+                        {resourceDetails?.imdbRating && resourceDetails?.imdbRating !== "N/A" && (
+                          <div>
+                            {!isPerson && (
+                              <>
+                                <span
+                                  className="details-view__imdb-rating-score"
+                                  style={{ color: imdbRatingColor }}
+                                >
+                                  {resourceDetails.imdbRating}
+                                </span>
+                                <span
+                                  className="copy"
+                                  style={{ marginRight: "10px" }}
+                                >
+                                  {" "}
+                                  / 10{" "}
+                                </span>
+                              </>
+                            )}
+                            {(resource?.imdb_id || resourceDetails?.imdbID) && (
+                              <>
+                                <Button
+                                  target="_blank"
+                                  variant="imdb"
+                                  href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource?.imdb_id || resourceDetails.imdbID}`}
+                                >
+                                  IMDb
+                                </Button>
+                              </>
+                            )}
+                          </div>
+                        )}
+                      </div>
+
                       {resource?.next_episode_to_air && (
-                        <p className="details-view__label">
+                        <p>
                           Next episode:
-                          <span> {moment(resource.next_episode_to_air["air_date"]).format("MMMM Do YYYY")}</span>
+                          <span className="copy"> {moment(resource.next_episode_to_air?.air_date).format("MMMM Do YYYY")}</span>
                         </p>
                       )}
 
                       {!!resource.seasons?.length && (
                         <>
                           <div className="details-view__seasons">
-                            <Button onClick={() => setIsOpenSeasonsModal(true)}>{resource.seasons.length} Seasons</Button>
+                            <Button onClick={() => setIsOpenSeasonsModal(true)}>
+                              {resource.seasons.length} {pluralize("Season", resource.seasons.length)}
+                            </Button>
                           </div>
-                        </>
-                      )}
-
-                      {(resource["imdb_id"] || resourceDetails?.imdbID) && (
-                        <>
-                          <Button
-                            target="_blank"
-                            variant="imdb"
-                            href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource["imdb_id"] || resourceDetails.imdbID}`}
-                          >
-                            IMDb
-                          </Button>
                         </>
                       )}
 
@@ -337,11 +378,20 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                           <ul className="details-view__network-list">
                             {resource.networks.map((network: any, index: number) => (
                               <li key={network.id + index}>
-                                <img
-                                  src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${network["logo_path"]}`}
-                                  alt={network.name + " logo"}
-                                  className="details-view__network-image"
-                                />
+                                <Button
+                                  variant="plain"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    getNetworkForMedia(network.id);
+                                  }}
+                                >
+                                  <Image
+                                    resource={network}
+                                    src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${network?.logo_path}`}
+                                    alt={network.name + " logo"}
+                                    className="details-view__network-image"
+                                  />
+                                </Button>
                               </li>
                             ))}
                           </ul>
@@ -399,7 +449,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
         <Accordion
           key={resource.id}
           label="seasons"
-          items={resource.seasons}
+          items={resource.seasons?.filter((season) => season.air_date)}
           hasImage
         />
       </Modal>

@@ -27,12 +27,12 @@ const MediaListing = () => {
   const request = `${mediaType}/${window.location.pathname.split("/")[3]}/${window.location.pathname.split("/")[4]}${location.search}`;
   const title = decodeURI(window.location.pathname.split("/")[5] as string);
 
-  const handlePageChange = (event, value) => {
+  const handlePageChange = (event, value: number) => {
     setPage(value);
     updateQuery("page", value);
   };
 
-  const updateQuery = (key, value) => {
+  const updateQuery = (key: string, value) => {
     params.set(key, value);
     setSearchParams(params);
   };
@@ -43,7 +43,7 @@ const MediaListing = () => {
       getMedia(request)
         .then((response: any) => {
           setResources(response.data.results);
-          setCount(Math.ceil(response.data["total_pages"]));
+          setCount(Math.ceil(response.data.total_pages));
           setLoading(false);
         })
         .catch((error) => {

@@ -290,22 +290,13 @@
       position: relative;
 
       &:before {
-        background: $link-hover-state;
-        border-radius: 50%;
-        bottom: -5px;
-        content: "";
-        display: block;
-        height: 8px;
-        position: absolute;
-        right: 0;
-        transform: scaleX(0);
-        transition: all 0.3s ease-in-out;
-        visibility: hidden;
-        width: 100%;
+        @extend .hover-state;
       }
     }
 
     @include hover {
+      outline: none;
+
       .button__content:before {
         transform: scaleX(1);
         visibility: visible;
@@ -340,8 +331,9 @@
     background: $imdb;
     border-radius: 5px;
     border: 1px solid $imdb;
-    margin: 20px 0;
-    padding: 5px 10px 0px;
+    font-size: 15px;
+    padding: 3px 7px 0px;
+    line-height: 18px;
 
     span {
       font-weight: bold;
