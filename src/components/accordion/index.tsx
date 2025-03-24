@@ -67,7 +67,7 @@ const Accordion: React.FC<Props> = ({ label, items, reversed = false, hasImage }
               >
                 {item.name || item.title}
               </span>
-              {item?.episode_count && (
+              {item?.episode_count > 0 && (
                 <span
                   className="accordion__title-episodes"
                   data-testid="accordion-title-episodes"

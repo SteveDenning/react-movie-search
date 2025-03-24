@@ -1,14 +1,18 @@
 // Base text element styling
 
+*:focus-visible {
+  outline: 2px solid $primary-color;
+}
+
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  color: $white;
+  color: $primary-color;
   font-family: Gothic, Arial, sans-serif;
-  font-weight: normal;
+  font-weight: 200;
   margin: 0;
   margin-bottom: 1rem;
 }
@@ -86,24 +90,16 @@ a {
   text-decoration: none;
 
   &:before {
-    background: $primary-color;
-    border-radius: 2px;
-    bottom: -2px;
-    content: "";
-    height: 2px;
-    left: 0;
-    opacity: 0;
-    position: absolute;
-    transition: width ease 0.2s, opacity ease 0.3s;
-    width: 0;
+    @extend .hover-state;
   }
 
   @include hover {
+    outline: none;
     text-decoration: none;
 
     &:before {
-      opacity: 1;
-      width: 100%;
+      transform: scaleX(1);
+      visibility: visible;
     }
   }
 
@@ -124,8 +120,59 @@ a {
 
 .copy {
   color: $whispering-mist;
+
+  &--small {
+    font-size: 12px;
+  }
 }
 
-*:focus-visible {
-  outline: 2px solid $primary-color;
+.rating {
+  background: $white;
+  border-radius: 5px;
+  color: $black;
+  font-weight: bold;
+  padding: 0 5px;
+  margin-left: 10px;
+}
+
+.page-title {
+  position: relative;
+  z-index: 1;
+}
+
+.imdb {
+  background: $imdb;
+  border-radius: 5px;
+  border: 1px solid $imdb;
+  margin: 20px 0;
+  padding: 5px 10px 0px;
+
+  span {
+    font-weight: bold;
+    color: $black;
+  }
+
+  @include hover {
+    background: $black;
+
+    span {
+      font-weight: bold;
+      color: $imdb;
+    }
+  }
+}
+
+.hover-state {
+  background: $link-hover-state;
+  border-radius: 5px;
+  bottom: -2px;
+  content: "";
+  display: block;
+  height: 3px;
+  position: absolute;
+  right: 0;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out;
+  visibility: hidden;
+  width: 100%;
 }

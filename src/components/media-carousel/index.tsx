@@ -118,7 +118,6 @@ const MediaCarousel: React.FC<Props> = ({
 
   const updateResources = () => {
     if (user && media !== "person") {
-      console.log("getFavoritesList");
       getFavoritesList();
     } else {
       setItems(resources);

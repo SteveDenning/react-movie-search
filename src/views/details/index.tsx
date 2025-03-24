@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import moment from "moment";
+import pluralize from "pluralize";
 
 // Components
 import Accordion from "../../components/accordion";
@@ -24,7 +25,7 @@ import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
 
 // Services
 import { getFavorites } from "../../services/favorites";
-import { getMediaByID } from "../../services/media";
+import { getMediaByID, getOmdbMedia, getMedia } from "../../services/media";
 import { updateFavorite } from "../../services/favorites";
 
 // Types
@@ -42,6 +43,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [resource, setResource] = useState<any>({});
+  const [resourceDetails, setResourceDetails] = useState<any>({});
   const [recommendations, setRecommendations] = useState([]);
   const [videoKey, setVideoKey] = useState<string>("");
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
@@ -57,9 +59,17 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const MediaCarouselLabel = isPerson ? "Known for" : "Top Cast";
   const pathName = `${type}/${programmeId}/${isPerson ? "combined_credits" : "credits"}?language=en-US`;
 
+  // Class Definitions
+  const baseClass = "details-view";
+  const personClass = isPerson ? "details-view--person" : "";
+  const classes = [baseClass, personClass].filter(Boolean).join(" ");
+
   const overview = resource?.overview || resource?.biography || null;
   const title = resource.name || resource.title;
-  const personOptions: ResponsiveOptionsType[] = [
+  const rating = Number(resourceDetails?.imdbRating);
+  const imdbRatingColor = rating > 7 ? "#00b500" : "#d3d300";
+
+  const responsiveOptions: ResponsiveOptionsType[] = [
     {
       breakpoint: 5000,
       settings: {
@@ -77,8 +87,8 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
     {
       breakpoint: 464,
       settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
+        slidesToShow: 3,
+        slidesToScroll: 3,
       },
     },
   ];
@@ -95,9 +105,40 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
           setBackDrop(response.data?.backdrop_path);
           getFavoritesList();
           setLoading(false);
+          getOmdbDetails(response.data.name || response.data.title);
         })
         .catch((error) => {
           console.error("getMediaDetails::", error);
+          setLoading(false);
+          setError(true);
+        });
+    }
+  };
+
+  const getNetworkForMedia = (id: string) => {
+    if (id) {
+      setLoading(true);
+      getMedia(`network/${id}`)
+        .then((response: any) => {
+          window.open(response.data.homepage, "_blank");
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.error("getNetworkForMedia::", error);
+          setLoading(false);
+          setError(true);
+        });
+    }
+  };
+
+  const getOmdbDetails = (title: string) => {
+    if (title) {
+      getOmdbMedia(title)
+        .then((response: any) => {
+          setResourceDetails(response.data);
+        })
+        .catch((error) => {
+          console.error("getOmdbDetails::", error);
           setLoading(false);
           setError(true);
         });
@@ -163,7 +204,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
         <Fade in={!loading}>
           <div
             data-testid="details-view"
-            className="details-view"
+            className={classes}
             style={{ backgroundImage: backgroundImage }}
           >
             <Container>
@@ -187,7 +228,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                     />
                   </div>
                 ) : (
-                  !resource["profile_path"] && (
+                  !resource?.profile_path && (
                     <div
                       className="details-view__poster fade-in"
                       data-test-id="details-view-poster"
@@ -199,7 +240,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
 
                 <div className="details-view__content">
                   <div className="details-view__profile">
-                    {(resource["profile_path"] || !videoKey) && resource.gender && (
+                    {(resource?.profile_path || !videoKey) && !!resource.gender && (
                       <div
                         className="details-view__profile-image"
                         data-testid="details-view-profile-image"
@@ -211,10 +252,23 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                     <div>
                       <div className="details-view__profile-details">
                         <div className="details-view__title-wrapper">
-                          {isMedia && (resource?.["release_date"] || resource?.["first_air_date"]) && (
-                            <h2 className="details-view__title details-view__label">
-                              <span>({moment(resource?.["release_date"] || resource?.["first_air_date"]).format("YYYY")})</span>
-                            </h2>
+                          {isMedia && (resource?.release_date || resource?.first_air_date) && (
+                            <div className="details-view__title-details">
+                              <h2 className="details-view__title">
+                                <span className="copy">({moment(resource.release_date || resource.first_air_date).format("YYYY")})</span>
+                              </h2>
+                              {resourceDetails?.Runtime && resourceDetails?.Runtime !== "N/A" && (
+                                <span className="copy">{resourceDetails.Runtime}</span>
+                              )}
+                              {resourceDetails?.Rated && resourceDetails?.Rated !== "N/A" && (
+                                <span
+                                  className="copy copy--small  rating"
+                                  style={{ marginLeft: "10px" }}
+                                >
+                                  {resourceDetails.Rated == "TV-MA" ? "PG-18" : resourceDetails.Rated.replace("TV", "PG")}
+                                </span>
+                              )}
+                            </div>
                           )}
                           <div className="details-view__actions">
                             <Share
@@ -230,6 +284,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                             )}
                           </div>
                         </div>
+
                         {resource.birthday && (
                           <p>
                             {resource.deathday
@@ -237,85 +292,127 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                               : `${moment().diff(resource.birthday, "years")} years old`}
                           </p>
                         )}
-                        {resource["place_of_birth"] && <p>{resource["place_of_birth"]}</p>}
-                        {resource["known_for_department"] && <p>Known for: {resource["known_for_department"]}</p>}
+
+                        {resource?.place_of_birth && <p>{resource.place_of_birth}</p>}
+
+                        {resource?.known_for_department && <p>Known for: {resource.known_for_department}</p>}
                       </div>
+
                       {overview && (
                         <Overview
                           resource={resource}
                           text={overview}
                         />
                       )}
+
                       {!!resource.genres?.length && (
                         <>
-                          <ul>
+                          <ul className="details-view__genres">
                             {resource.genres.map((genre: any) => (
                               <li
                                 className="details-view__genre-tag"
-                                key={genre.id + genre["name"]}
+                                key={genre.id + genre.name}
                               >
-                                {genre["name"]}
+                                {genre.name}
                                 <span>|</span>
                               </li>
                             ))}
                           </ul>
                         </>
                       )}
+
+                      <div className="details-view__info">
+                        {resourceDetails?.imdbRating && resourceDetails?.imdbRating !== "N/A" && !isPerson && (
+                          <>
+                            <span
+                              className="details-view__imdb-rating-score"
+                              style={{ color: imdbRatingColor }}
+                            >
+                              {resourceDetails.imdbRating}
+                            </span>
+                            <span
+                              className="copy"
+                              style={{ marginRight: "10px" }}
+                            >
+                              {" "}
+                              / 10{" "}
+                            </span>
+                          </>
+                        )}
+                        {(resource?.imdb_id || resourceDetails?.imdbID) && (
+                          <>
+                            <Button
+                              target="_blank"
+                              variant="imdb"
+                              href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource?.imdb_id || resourceDetails.imdbID}`}
+                            >
+                              IMDb
+                            </Button>
+                          </>
+                        )}
+                      </div>
+
                       {resource?.next_episode_to_air && (
-                        <p className="details-view__label">
+                        <p>
                           Next episode:
-                          <span> {moment(resource.next_episode_to_air["air_date"]).format("MMMM Do YYYY")}</span>
+                          <span className="copy"> {moment(resource.next_episode_to_air?.air_date).format("MMMM Do YYYY")}</span>
                         </p>
                       )}
+
                       {!!resource.seasons?.length && (
                         <>
                           <div className="details-view__seasons">
-                            <Button onClick={() => setIsOpenSeasonsModal(true)}>{resource.seasons.length} Seasons</Button>
+                            <Button onClick={() => setIsOpenSeasonsModal(true)}>
+                              {resource.seasons.length} {pluralize("Season", resource.seasons.length)}
+                            </Button>
                           </div>
                         </>
                       )}
+
                       {!!resource.networks?.length && (
                         <>
                           <ul className="details-view__network-list">
                             {resource.networks.map((network: any, index: number) => (
                               <li key={network.id + index}>
-                                <img
-                                  src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${network["logo_path"]}`}
-                                  alt={network.name + " logo"}
-                                  className="details-view__network-image"
-                                />
+                                <Button
+                                  variant="plain"
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    getNetworkForMedia(network.id);
+                                  }}
+                                >
+                                  <Image
+                                    resource={network}
+                                    src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${network?.logo_path}`}
+                                    alt={network.name + " logo"}
+                                    className="details-view__network-image"
+                                  />
+                                </Button>
                               </li>
                             ))}
                           </ul>
                         </>
                       )}
-                      {resource["imdb_id"] && (
-                        <Button
-                          target="_blank"
-                          variant="imdb"
-                          href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource["imdb_id"]}`}
-                        >
-                          IMDb
-                        </Button>
-                      )}
                     </div>
                   </div>
                 </div>
               </div>
+
               <MediaCarousel
                 label={MediaCarouselLabel}
                 pathName={pathName}
                 dataResource="cast"
-                responsiveOptions={personOptions}
+                responsiveOptions={responsiveOptions}
                 media={isPerson ? "movie" : "person"}
                 buttonText={!isPerson ? "Cast and Crew" : null}
                 buttonLink={`${config.credits.path}/${type}/${programmeId}/${title}`}
               />
+
               {!isPerson && !!recommendations?.length && (
                 <MediaCarousel
                   label={`Recommended ${type === "tv" ? "TV Shows" : "Films"}`}
                   resourceItems={recommendations}
-                  responsiveOptions={personOptions}
+                  responsiveOptions={responsiveOptions}
                   media={type}
                 />
               )}
@@ -348,7 +445,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
         <Accordion
           key={resource.id}
           label="seasons"
-          items={resource.seasons}
+          items={resource.seasons?.filter((season) => season.air_date)}
           hasImage
         />
       </Modal>
