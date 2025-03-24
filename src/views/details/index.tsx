@@ -322,37 +322,33 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                       )}
 
                       <div className="details-view__info">
-                        {resourceDetails?.imdbRating && resourceDetails?.imdbRating !== "N/A" && (
-                          <div>
-                            {!isPerson && (
-                              <>
-                                <span
-                                  className="details-view__imdb-rating-score"
-                                  style={{ color: imdbRatingColor }}
-                                >
-                                  {resourceDetails.imdbRating}
-                                </span>
-                                <span
-                                  className="copy"
-                                  style={{ marginRight: "10px" }}
-                                >
-                                  {" "}
-                                  / 10{" "}
-                                </span>
-                              </>
-                            )}
-                            {(resource?.imdb_id || resourceDetails?.imdbID) && (
-                              <>
-                                <Button
-                                  target="_blank"
-                                  variant="imdb"
-                                  href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource?.imdb_id || resourceDetails.imdbID}`}
-                                >
-                                  IMDb
-                                </Button>
-                              </>
-                            )}
-                          </div>
+                        {resourceDetails?.imdbRating && resourceDetails?.imdbRating !== "N/A" && !isPerson && (
+                          <>
+                            <span
+                              className="details-view__imdb-rating-score"
+                              style={{ color: imdbRatingColor }}
+                            >
+                              {resourceDetails.imdbRating}
+                            </span>
+                            <span
+                              className="copy"
+                              style={{ marginRight: "10px" }}
+                            >
+                              {" "}
+                              / 10{" "}
+                            </span>
+                          </>
+                        )}
+                        {(resource?.imdb_id || resourceDetails?.imdbID) && (
+                          <>
+                            <Button
+                              target="_blank"
+                              variant="imdb"
+                              href={`https://www.imdb.com/${isPerson ? "name" : "title"}/${resource?.imdb_id || resourceDetails.imdbID}`}
+                            >
+                              IMDb
+                            </Button>
+                          </>
                         )}
                       </div>
 
