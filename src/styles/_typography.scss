@@ -90,18 +90,7 @@ a {
   text-decoration: none;
 
   &:before {
-    background: $link-hover-state;
-    border-radius: 50%;
-    bottom: -5px;
-    content: "";
-    display: block;
-    height: 8px;
-    position: absolute;
-    right: 0;
-    transform: scaleX(0);
-    transition: all 0.3s ease-in-out;
-    visibility: hidden;
-    width: 100%;
+    @extend .hover-state;
   }
 
   @include hover {
@@ -171,4 +160,19 @@ a {
       color: $imdb;
     }
   }
+}
+
+.hover-state {
+  background: $link-hover-state;
+  border-radius: 5px;
+  bottom: -2px;
+  content: "";
+  display: block;
+  height: 3px;
+  position: absolute;
+  right: 0;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out;
+  visibility: hidden;
+  width: 100%;
 }

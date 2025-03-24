@@ -260,7 +260,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                               {resourceDetails?.Runtime && resourceDetails?.Runtime !== "N/A" && (
                                 <span className="copy">{resourceDetails.Runtime}</span>
                               )}
-                              {resourceDetails?.Rated && (
+                              {resourceDetails?.Rated && resourceDetails?.Rated !== "N/A" && (
                                 <span
                                   className="copy copy--small  rating"
                                   style={{ marginLeft: "10px" }}

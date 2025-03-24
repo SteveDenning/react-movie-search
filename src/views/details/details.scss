@@ -83,7 +83,7 @@
     display: block;
     margin-bottom: 16px;
 
-    @include breakpoint($small) {
+    @include breakpoint($xsmall) {
       display: flex;
     }
   }
