@@ -324,13 +324,23 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                       <div className="details-view__info">
                         {resourceDetails?.imdbRating && resourceDetails?.imdbRating !== "N/A" && (
                           <div>
-                            <span
-                              className="details-view__imdb-rating-score"
-                              style={{ color: imdbRatingColor }}
-                            >
-                              {resourceDetails.imdbRating}
-                            </span>
-                            <span className="copy"> / 10 </span>
+                            {!isPerson && (
+                              <>
+                                <span
+                                  className="details-view__imdb-rating-score"
+                                  style={{ color: imdbRatingColor }}
+                                >
+                                  {resourceDetails.imdbRating}
+                                </span>
+                                <span
+                                  className="copy"
+                                  style={{ marginRight: "10px" }}
+                                >
+                                  {" "}
+                                  / 10{" "}
+                                </span>
+                              </>
+                            )}
                             {(resource?.imdb_id || resourceDetails?.imdbID) && (
                               <>
                                 <Button
@@ -439,7 +449,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
         <Accordion
           key={resource.id}
           label="seasons"
-          items={resource.seasons}
+          items={resource.seasons?.filter((season) => season.air_date)}
           hasImage
         />
       </Modal>
