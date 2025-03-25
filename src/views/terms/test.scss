@@ -4,8 +4,18 @@
 
 .terms {
   margin-bottom: 50px;
+
+  &__header {
+    margin: 20px 0;
+  }
+
+  &__title {
+    border-bottom: 2px solid $black;
+    margin-bottom: 40px;
+  }
+
   & * {
-    color: #000;
+    color: $black;
   }
 
   h3 {
@@ -23,14 +33,5 @@
 
   ul {
     margin: 0 0 30px 30px;
-  }
-
-  &__header {
-    margin: 20px 0;
-  }
-
-  &__title {
-    border-bottom: 2px solid $black;
-    margin-bottom: 40px;
   }
 }
