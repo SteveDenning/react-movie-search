@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import Slider from "react-slick";
 
 // Assets
@@ -117,7 +118,7 @@ const Carousel: React.FC<Props> = ({
                   <>
                     <Button
                       className="carousel__overlay"
-                      onClick={() => (window.location.href = `${config.details.path}/${mediaType}/${item.id}`)}
+                      onClick={() => (window.location.href = `${config.details.path}/${media || mediaType}/${item.id}`)}
                       testId="carousel-overlay"
                       variant="plain"
                     >
@@ -141,6 +142,7 @@ const Carousel: React.FC<Props> = ({
                       </div>
                       <div className="carousel__banner-details">
                         <h2>{item.title || item.name}</h2>
+                        <p className="copy">{moment(item.release_date).format("MMM Do YYYY")}</p>
                       </div>
                     </div>
                   </>
