@@ -37,7 +37,7 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
     },
   ];
 
-  const fetchLatestRelease = () => {
+  const getMediaForCarousel = () => {
     setLoading(true);
     getMedia(path)
       .then((response: any) => {
@@ -52,7 +52,7 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
   };
 
   useEffect(() => {
-    fetchLatestRelease();
+    getMediaForCarousel();
   }, []);
 
   return (
