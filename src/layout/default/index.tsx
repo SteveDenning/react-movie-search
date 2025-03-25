@@ -16,11 +16,17 @@ import { UserProvider } from "../../hocs/with-user-provider";
 
 interface Props {
   children: React.ReactNode;
-  title: string;
+  title?: string;
   pageDescription?: string;
+  variant?: string;
 }
 
-const DefaultLayout: React.FC<Props> = ({ children, title, pageDescription }) => {
+const DefaultLayout: React.FC<Props> = ({ children, title, pageDescription, variant }) => {
+  // Class Definitions
+  const baseClass = "main-wrapper fade-in";
+  const variantClass = `main-wrapper--${variant}`;
+  const classes = [baseClass, variantClass].filter(Boolean).join(" ");
+
   return (
     <UserProvider>
       <MUILayout>
@@ -28,8 +34,8 @@ const DefaultLayout: React.FC<Props> = ({ children, title, pageDescription }) =>
           title={title}
           description={pageDescription}
         />
-        <Header heading={title} />
-        <main className="main-wrapper fade-in">{children}</main>
+        {title && <Header heading={title} />}
+        <main className={classes}>{children}</main>
         <Footer />
       </MUILayout>
     </UserProvider>

@@ -37,4 +37,8 @@ export const config = {
     name: "Profile",
     path: "/profile",
   },
+  terms: {
+    name: "Terms and Conditions",
+    path: "/terms",
+  },
 };

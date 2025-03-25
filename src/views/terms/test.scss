@@ -1,0 +1,36 @@
+@import "../../styles/dependencies";
+
+// Terms styles
+
+.terms {
+  margin-bottom: 50px;
+  & * {
+    color: #000;
+  }
+
+  h3 {
+    margin: 40px 0 10px 0;
+  }
+
+  h4 {
+    margin: 10px;
+
+    & ~ p,
+    & > div {
+      margin-left: 10px;
+    }
+  }
+
+  ul {
+    margin: 0 0 30px 30px;
+  }
+
+  &__header {
+    margin: 20px 0;
+  }
+
+  &__title {
+    border-bottom: 2px solid $black;
+    margin-bottom: 40px;
+  }
+}

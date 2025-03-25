@@ -287,20 +287,7 @@
     padding: 0;
 
     .button__content {
-      position: relative;
-
-      &:before {
-        @extend .hover-state;
-      }
-    }
-
-    @include hover {
-      outline: none;
-
-      .button__content:before {
-        transform: scaleX(1);
-        visibility: visible;
-      }
+      @extend .hover-state;
     }
   }
 

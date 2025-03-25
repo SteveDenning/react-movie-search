@@ -23,4 +23,10 @@
   overflow: hidden;
   min-height: calc(100vh - 145px);
   position: relative;
+
+  // Variants
+
+  &--light {
+    background: $background-color-light;
+  }
 }
