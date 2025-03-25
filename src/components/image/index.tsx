@@ -13,7 +13,7 @@ import "./image.scss";
 
 interface Props {
   resource: any;
-  size?: "xsmall" | "small" | "medium" | "large" | "fill";
+  size?: "xsmall" | "small" | "medium" | "large";
   variant?: string;
   onClick?: () => void;
   src?: string;
@@ -21,7 +21,7 @@ interface Props {
   className?: string;
 }
 
-const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick, src, alt, className }) => {
+const Image: React.FC<Props> = ({ resource, size, variant, onClick, src, alt, className }) => {
   const mediaType = useDefineMediaType(resource);
   const screenSize = useScreenSize();
 

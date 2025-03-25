@@ -416,6 +416,41 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                   media={type}
                 />
               )}
+              {!!resource.reviews?.results.length && (
+                <>
+                  <SectionHeading heading="User Reviews" />
+                  <div className="masonry-grid">
+                    <div className="masonry-grid__column-wrapper">
+                      {resource.reviews?.results.map((review: any) => {
+                        return (
+                          <div
+                            className="masonry-grid__item details-view__review"
+                            data-testid="details-view-review"
+                            key={review.id}
+                          >
+                            <div className="details-view__review-header">
+                              {review.author_details?.avatar_path && (
+                                <Image
+                                  variant="avatar"
+                                  resource={review.id}
+                                  src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}${review.author_details?.avatar_path}`}
+                                  alt={review.author}
+                                />
+                              )}
+                              <h2>{review.author}</h2>
+                            </div>
+                            <Overview
+                              resource={review}
+                              text={review.content}
+                              limit={100}
+                            />
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                </>
+              )}
             </Container>
           </div>
         </Fade>

@@ -114,6 +114,56 @@ export const variables = {
           name: "United States of America",
         },
       ],
+      reviews: {
+        page: 1,
+        results: [
+          {
+            author: "Gimly",
+            author_details: {
+              name: "Gimly",
+              username: "Ruuz",
+              avatar_path: "/xUObnJSvHrFPsIpoDmb1jiQZLq7.jpg",
+              rating: 1,
+            },
+            content:
+              "_Starship Troopers_ is an amazing film, but one that, unfortunately, has never had a good sequel. Out of the bunch though, _Marauder_ is by far the worst.\r\n\r\n_Final rating:½ - So bad it’s offensive. I may never fully recover._",
+            created_at: "2017-08-29T11:10:13.018Z",
+            id: "59a54b959251412f16009176",
+            updated_at: "2021-06-23T15:58:00.683Z",
+            url: "https://www.themoviedb.org/review/59a54b959251412f16009176",
+          },
+          {
+            author: "misubisu",
+            author_details: {
+              name: "misubisu",
+              username: "misubisu",
+              avatar_path: "/gYANFSSdtvtcGZqi2J2xzxRmQBx.jpg",
+              rating: 7,
+            },
+            content:
+              "Starship Troopers 3 actually has some fleeting similarities with the Robert A. Heinlein novel 'Starship Troopers'.\r\n\r\nUnlike the the Paul Verhoeven movie that started the movie franchise and which I absolutely loved and have probably watched more than any other movie.\r\n\r\nBut I digress... If you have read the book, you may actually enjoy Starship Troopers 3. It's a very different offering to ST1 and is way better than the second movie.\r\n\r\n\"On the bounce\" Which is a catchphrase in the movie, is also extensively used in the book. And has the same meaning as in the book. The Johnny Rico character in 3 also more closely resembles his counterpart in the book.\r\n\r\nI certainly did not dislike this movie at all!",
+            created_at: "2022-10-01T11:05:37.111Z",
+            id: "63381f01befd91007a3b75f6",
+            updated_at: "2022-10-01T11:05:37.171Z",
+            url: "https://www.themoviedb.org/review/63381f01befd91007a3b75f6",
+          },
+          {
+            author: "GenerationofSwine",
+            author_details: {
+              name: "",
+              username: "GenerationofSwine",
+              avatar_path: "/xYhvrFNntgAowjRsf6mRg9JgITr.jpg",
+              rating: 8,
+            },
+            content:
+              "I have a love/hate relationship with the first film... because I have a deep love for the novel.\r\n\r\nThis is a little closer to the novel in some ways. We all wanted the battle armor, we finally got the battle armor. We all wanted the Q-Bomb... we got the Q-bomb...\r\n\r\n... sort of.\r\n\r\nBut then... the novel embraced religion, ALL religions, and no shocker there, there are no atheists in foxholes and the novel is one perpetual fox hole.\r\n\r\nIt has Casper back, and I like him. He should have been in more high profile roles, and he could have if he wasn't as.... blonde. When he wants to he can sell a role.\r\n\r\nAnd they play up the Nazi look, which is the satire I loved in the first one... despite hating how that same satire killed the source material. The assumptions they made about Starship Troopers were bread from NOT reading the book.\r\n\r\nSo, all in all, this was a bit better in a lot of ways, and a bit worse. But despite it's flaws and the CGI, it was still entertaining.",
+            created_at: "2023-01-10T22:39:23.553Z",
+            id: "63bde91bfc31d3008bcfbd98",
+            updated_at: "2023-01-10T22:39:23.649Z",
+            url: "https://www.themoviedb.org/review/63bde91bfc31d3008bcfbd98",
+          },
+        ],
+      },
       seasons: [
         {
           air_date: "2022-02-02",
