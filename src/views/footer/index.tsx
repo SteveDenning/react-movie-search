@@ -17,26 +17,18 @@ const Footer = () => {
             <a href={config.terms.path}>{config.terms.name}</a>
           </div>
           <div>
-            <ul className="footer__list">
-              <li className="footer__list-item">
-                Powered by
-                <a
-                  href="https://developer.themoviedb.org/docs/getting-started"
-                  className="footer__list-link"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  TMDB{" "}
-                </a>
-                <span>&nbsp; &</span>
-                <a
-                  href="https://platform.openai.com/docs/api-reference/introduction"
-                  className="footer__list-link"
-                >
-                  OpenAI
-                </a>
-              </li>
-            </ul>
+            <span>
+              Powered by
+              <a
+                href="https://developer.themoviedb.org/docs/getting-started"
+                target="_blank"
+                rel="noreferrer"
+              >
+                &nbsp;TMDB&nbsp;
+              </a>
+              <span>&</span>
+              <a href="https://platform.openai.com/docs/api-reference/introduction">&nbsp;OpenAI</a>
+            </span>
           </div>
           <div>
             <p className="copy copy--small">© 2025 my-mdb.co.uk. All rights reserved.</p>

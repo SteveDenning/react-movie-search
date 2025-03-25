@@ -7,7 +7,8 @@ import DefaultLayout from "../layout/default";
 import Terms from "../views/terms";
 
 const TermsPage = () => {
-  const pageDescription = "Explore the possibilities of AI-powered discovery for films and TV shows. Let AI find your next favorite watch!";
+  const pageDescription =
+    "Our Terms and Conditions outline the rules for using My Movie Database (my-mdb.co.uk). They cover permitted use, intellectual property rights, user responsibilities, and limitations of liability";
 
   return (
     <DefaultLayout

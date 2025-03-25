@@ -23,18 +23,4 @@
       }
     }
   }
-
-  &__list {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-  }
-
-  &__list-item {
-    margin: 0 20px;
-  }
-
-  &__list-link {
-    margin-left: 10px;
-  }
 }
