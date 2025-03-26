@@ -26,7 +26,11 @@ import VoiceInput from "../../components/voice-input";
 // Styles
 import "./search.scss";
 
-const Search = () => {
+interface Props {
+  searchState: () => void;
+}
+
+const Search: React.FC<Props> = () => {
   const [mediaType, setMediaType] = useState(null);
   const [isVoiceInput, setIsVoiceInput] = useState<boolean>(false);
   const [suggestions, setSuggestions] = useState<any[]>([]);
