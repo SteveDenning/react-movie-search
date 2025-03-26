@@ -6,6 +6,9 @@ import Login from "../../views/login";
 import Navigation from "../../components/navigation";
 import Search from "../../views/search";
 
+// Utils
+import useScreenSize from "../../utils/use-screen-size";
+
 // Config
 import { config } from "../../config/routes";
 
@@ -31,10 +34,19 @@ interface Props {
 
 const Header: React.FC<Props> = ({ heading }) => {
   const [open, setOpen] = useState<boolean>(false);
+  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [hideMessage, setHideMessage] = useState<boolean>(true);
 
   const user = useUser();
   const handleUpdateUser = useUserUpdate();
+  const screenSize = useScreenSize();
+  const isMobile = screenSize.width <= 768;
+
+  // Class Definitions
+  const baseClass = "header";
+  const openClass = isSearchOpen ? "header--search-open" : "";
+  const mobileClass = isMobile ? "header--mobile" : "";
+  const classes = [baseClass, openClass, mobileClass].filter(Boolean).join(" ");
 
   const navItems: NavItemType[] = [
     { label: config.home.name, path: config.home.path, icon: <TheatersIcon /> },
@@ -87,31 +99,34 @@ const Header: React.FC<Props> = ({ heading }) => {
       </Container>
       <Container>
         <div
-          className="header"
+          className={classes}
           data-testid="header"
         >
-          <Button
-            variant="icon"
-            className="header__logo"
-            onClick={() => {
-              window.location.href = "/";
-              sessionStorage.removeItem("query");
-            }}
-            testId="header-logo"
-          >
-            MyMDb
-            <span className="sr-only"> - My Movie Database Home page</span>
-          </Button>
-          <div className="header__inner">
-            <h1 className="sr-only">{heading}</h1>
-            <Search />
+          <div className="header__logo">
+            <Button
+              variant="icon"
+              onClick={() => {
+                window.location.href = "/";
+                sessionStorage.removeItem("query");
+              }}
+              testId="header-logo"
+            >
+              MyMDb
+              <span className="sr-only"> - My Movie Database Home page</span>
+            </Button>
           </div>
-          <Login
-            onClick={() => {
-              toggleDrawer(true);
-            }}
-            user={user}
-          />
+          <div className="header__search">
+            <h1 className="sr-only">{heading}</h1>
+            <Search handleSearchState={setIsSearchOpen} />
+          </div>
+          <div className="header__login">
+            <Login
+              onClick={() => {
+                toggleDrawer(true);
+              }}
+              user={user}
+            />
+          </div>
         </div>
         <Navigation
           navItems={navItems}

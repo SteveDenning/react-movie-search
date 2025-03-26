@@ -47,10 +47,7 @@ const AutoSuggestOptions: React.FC<Props> = ({ options, type }) => {
                 href={`/details/${mediaType}/${suggestion.id}`}
                 variant="null"
               >
-                <Image
-                  resource={suggestion}
-                  size="xsmall"
-                />
+                <Image resource={suggestion} />
                 <div className="suggestions__content">
                   <p>{suggestion?.original_title || suggestion?.name}</p>
                   <p className="suggestions__list-item-year">{handleReleaseDate(suggestion)}</p>
