@@ -28,10 +28,10 @@ import VoiceInput from "../../components/voice-input";
 import "./search.scss";
 
 interface Props {
-  searchState: (boolean) => void;
+  handleSearchState: (boolean) => void;
 }
 
-const Search: React.FC<Props> = ({ searchState }) => {
+const Search: React.FC<Props> = ({ handleSearchState }) => {
   const [mediaType, setMediaType] = useState(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isVoiceInput, setIsVoiceInput] = useState<boolean>(false);
@@ -139,7 +139,7 @@ const Search: React.FC<Props> = ({ searchState }) => {
 
   const handleShowSearch = (state: boolean) => {
     setIsOpen(state);
-    searchState(state);
+    handleSearchState(state);
   };
 
   useEffect(() => {
