@@ -49,23 +49,23 @@
 
   &__form-clear {
     position: absolute;
-    right: 30px;
+    right: 5px;
     top: 6px;
 
     svg {
       color: $primary-color;
     }
-
-    @include breakpoint($xlarge) {
-      right: 35px;
-      top: 8px;
-    }
   }
 
   .voice-input {
     position: absolute;
-    right: 5px;
+    right: 30px;
     top: 7px;
+
+    @include breakpoint($xlarge) {
+      right: 5px;
+      top: 8px;
+    }
   }
 
   &__form-input {
