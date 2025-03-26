@@ -31,6 +31,7 @@ interface Props {
 
 const Header: React.FC<Props> = ({ heading }) => {
   const [open, setOpen] = useState<boolean>(false);
+  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const [hideMessage, setHideMessage] = useState<boolean>(true);
 
   const user = useUser();
@@ -49,6 +50,10 @@ const Header: React.FC<Props> = ({ heading }) => {
   const handleCloseMessage = () => {
     setHideMessage(true);
     sessionStorage.setItem("hide_message", "true");
+  };
+
+  const handleSearchState = () => {
+    console.log("clikced");
   };
 
   useEffect(() => {
@@ -104,7 +109,7 @@ const Header: React.FC<Props> = ({ heading }) => {
           </Button>
           <div className="header__inner">
             <h1 className="sr-only">{heading}</h1>
-            <Search />
+            <Search searchState={handleSearchState} />
           </div>
           <Login
             onClick={() => {
