@@ -102,6 +102,8 @@
   }
 
   &__genre-tag {
+    display: flex;
+
     span {
       color: $primary-color;
       margin: 0 10px;

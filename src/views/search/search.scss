@@ -3,14 +3,32 @@
 // Search form styles
 
 .search {
-  display: flex;
-  justify-content: center;
-  margin: 0px 10px;
-  width: calc(100% - 20px);
+  direction: rtl;
+  width: calc(100% - 40px);
 
   @include breakpoint($xlarge) {
-    margin: 5px 20px;
-    width: 700px;
+    width: auto;
+  }
+
+  @include breakpoint($xlarge) {
+    width: auto;
+  }
+
+  &__icon {
+    display: none;
+    margin-right: 20px;
+  }
+  &__container {
+    direction: ltr;
+    display: flex;
+    justify-content: center;
+    margin: 0px 10px;
+    width: calc(100% - 20px);
+
+    @include breakpoint($xlarge) {
+      margin: 5px 20px;
+      width: 700px;
+    }
   }
 
   &__options {
@@ -110,6 +128,39 @@
     @include breakpoint($large) {
       .select__menu {
         top: 42px;
+      }
+    }
+  }
+
+  &--mobile {
+    display: flex;
+
+    .search {
+      &__icon {
+        display: flex;
+      }
+      &__container {
+        width: 0;
+        overflow: hidden;
+        transition: width 0.3s ease;
+      }
+    }
+
+    &.search {
+      &--open {
+        width: 100%;
+
+        .search {
+          &__container {
+            margin: 0;
+            width: 100%;
+            overflow: visible;
+          }
+
+          &__icon {
+            display: none;
+          }
+        }
       }
     }
   }

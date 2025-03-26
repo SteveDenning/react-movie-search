@@ -6,6 +6,9 @@ import Login from "../../views/login";
 import Navigation from "../../components/navigation";
 import Search from "../../views/search";
 
+// Utils
+import useScreenSize from "../../utils/use-screen-size";
+
 // Config
 import { config } from "../../config/routes";
 
@@ -36,6 +39,14 @@ const Header: React.FC<Props> = ({ heading }) => {
 
   const user = useUser();
   const handleUpdateUser = useUserUpdate();
+  const screenSize = useScreenSize();
+  const isMobile = screenSize.width <= 768;
+
+  // Class Definitions
+  const baseClass = "header";
+  const openClass = isSearchOpen ? "header--search-open" : "";
+  const mobileClass = isMobile ? "header--mobile" : "";
+  const classes = [baseClass, openClass, mobileClass].filter(Boolean).join(" ");
 
   const navItems: NavItemType[] = [
     { label: config.home.name, path: config.home.path, icon: <TheatersIcon /> },
@@ -50,10 +61,6 @@ const Header: React.FC<Props> = ({ heading }) => {
   const handleCloseMessage = () => {
     setHideMessage(true);
     sessionStorage.setItem("hide_message", "true");
-  };
-
-  const handleSearchState = () => {
-    console.log("clikced");
   };
 
   useEffect(() => {
@@ -92,7 +99,7 @@ const Header: React.FC<Props> = ({ heading }) => {
       </Container>
       <Container>
         <div
-          className="header"
+          className={classes}
           data-testid="header"
         >
           <Button
@@ -109,7 +116,7 @@ const Header: React.FC<Props> = ({ heading }) => {
           </Button>
           <div className="header__inner">
             <h1 className="sr-only">{heading}</h1>
-            <Search searchState={handleSearchState} />
+            <Search searchState={setIsSearchOpen} />
           </div>
           <Login
             onClick={() => {

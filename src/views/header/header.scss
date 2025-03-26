@@ -31,10 +31,14 @@
 
   &__message-inner {
     border: 1px solid $primary-color;
-    display: flex !important;
+    display: flex;
     padding: 5px 5px 5px 20px;
     position: relative;
     width: 100%;
+
+    p {
+      text-align: center;
+    }
   }
 
   &__inner {
@@ -55,19 +59,29 @@
   &__logo {
     border-radius: 0;
     font-family: Anton, Arial, sans-serif;
-    font-size: 16px;
+    font-size: 27px;
     font-weight: 600;
     letter-spacing: 1px;
     text-anchor: middle;
     transition: background 0.3s ease;
 
-    @include breakpoint($large) {
-      font-size: 27px;
-    }
-
     @include hover {
       @extend .text-glow;
       animation: glow 2s ease-in-out infinite;
+    }
+  }
+
+  &--search-open {
+    .header__logo,
+    .login {
+      width: 0;
+      overflow: hidden;
+    }
+  }
+
+  &--mobile {
+    .header__inner {
+      justify-content: flex-end;
     }
   }
 }
