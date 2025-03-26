@@ -32,21 +32,12 @@
     transition: background 0.2s ease, color 0.2s ease;
 
     .image {
-      width: 40px;
+      width: 45px;
     }
 
     &:first-child {
       border-top: 0;
     }
-
-    // .image,
-    // .suggestions__media-icon {
-    //   display: none;
-
-    //   @include breakpoint($xlarge) {
-    //     display: block;
-    //   }
-    // }
 
     p {
       color: $primary-color;
@@ -62,6 +53,7 @@
 
   &__content {
     margin-left: 20px;
+
     @include breakpoint($xlarge) {
     }
   }

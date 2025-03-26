@@ -102,28 +102,31 @@ const Header: React.FC<Props> = ({ heading }) => {
           className={classes}
           data-testid="header"
         >
-          <Button
-            variant="icon"
-            className="header__logo"
-            onClick={() => {
-              window.location.href = "/";
-              sessionStorage.removeItem("query");
-            }}
-            testId="header-logo"
-          >
-            MyMDb
-            <span className="sr-only"> - My Movie Database Home page</span>
-          </Button>
-          <div className="header__inner">
-            <h1 className="sr-only">{heading}</h1>
-            <Search searchState={setIsSearchOpen} />
+          <div className="header__logo">
+            <Button
+              variant="icon"
+              onClick={() => {
+                window.location.href = "/";
+                sessionStorage.removeItem("query");
+              }}
+              testId="header-logo"
+            >
+              MyMDb
+              <span className="sr-only"> - My Movie Database Home page</span>
+            </Button>
           </div>
-          <Login
-            onClick={() => {
-              toggleDrawer(true);
-            }}
-            user={user}
-          />
+          <div className="header__search">
+            <h1 className="sr-only">{heading}</h1>
+            <Search handleSearchState={setIsSearchOpen} />
+          </div>
+          <div className="header__login">
+            <Login
+              onClick={() => {
+                toggleDrawer(true);
+              }}
+              user={user}
+            />
+          </div>
         </div>
         <Navigation
           navItems={navItems}

@@ -41,7 +41,7 @@
     }
   }
 
-  &__inner {
+  &__search {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -57,25 +57,36 @@
   }
 
   &__logo {
-    border-radius: 0;
-    font-family: Anton, Arial, sans-serif;
-    font-size: 27px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-anchor: middle;
-    transition: background 0.3s ease;
+    .button {
+      border-radius: 0;
+      font-family: Anton, Arial, sans-serif;
+      font-size: 27px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-anchor: middle;
+      transition: background 0.3s ease;
 
-    @include hover {
-      @extend .text-glow;
-      animation: glow 2s ease-in-out infinite;
+      @include hover {
+        @extend .text-glow;
+        animation: glow 2s ease-in-out infinite;
+      }
+    }
+  }
+
+  &__login {
+    display: flex;
+    justify-content: flex-end;
+
+    @include breakpoint($large) {
+      min-width: 85px;
     }
   }
 
   &--search-open {
     .header__logo,
-    .login {
-      width: 0;
+    .header__login {
       overflow: hidden;
+      width: 0;
     }
   }
 
