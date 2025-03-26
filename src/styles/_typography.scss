@@ -12,7 +12,7 @@ h5,
 h6 {
   color: $primary-color;
   font-family: Gothic, Arial, sans-serif;
-  font-weight: 200;
+  font-weight: 400;
   margin: 0;
   margin-bottom: 1rem;
 }
@@ -140,7 +140,7 @@ a {
   &:before {
     background: $link-hover-state;
     border-radius: 5px;
-    bottom: -4px;
+    bottom: -2px;
     content: "";
     display: block;
     height: 3px;

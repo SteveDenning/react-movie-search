@@ -1,25 +1,40 @@
 // Footer Styles
-@import "../../styles/variables";
+@import "../../styles/dependencies";
 
 .footer {
   align-items: center;
   background: $black;
-  padding: 20px;
+  padding: 15px;
   width: 100%;
 
   &__inner {
     display: flex;
+    flex-direction: column;
     justify-content: center;
 
     p {
-      margin: 0;
+      margin: 5px 0;
     }
 
     & > div {
       flex: 1;
+      margin: 5px 0;
+      text-align: center;
 
       &:last-child {
-        text-align: right;
+        margin: 0;
+      }
+    }
+
+    @include breakpoint($medium) {
+      flex-direction: row;
+
+      & > div {
+        flex: 1;
+
+        &:last-child {
+          text-align: right;
+        }
       }
     }
   }
