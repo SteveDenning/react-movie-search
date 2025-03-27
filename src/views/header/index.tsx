@@ -44,7 +44,7 @@ const Header: React.FC<Props> = ({ heading }) => {
 
   // Class Definitions
   const baseClass = "header";
-  const openClass = isSearchOpen && isMobile ? "header--search-open" : "";
+  const openClass = isSearchOpen ? "header--search-open" : "";
   const mobileClass = isMobile ? "header--mobile" : "";
   const classes = [baseClass, openClass, mobileClass].filter(Boolean).join(" ");
 

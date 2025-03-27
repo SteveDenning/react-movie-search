@@ -153,6 +153,12 @@ const Search: React.FC<Props> = ({ handleSearchState }) => {
     setMediaType(handleSetMedia(type));
   }, [type]);
 
+  useEffect(() => {
+    if (screenSize.width > 768) {
+      handleShowSearch(false);
+    }
+  }, [screenSize.width]);
+
   return (
     <div
       className={classes}
