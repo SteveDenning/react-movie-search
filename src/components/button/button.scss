@@ -15,11 +15,15 @@
   font-family: Gothic, Arial, sans-serif;
   justify-content: center;
   line-height: 24px;
-  padding: 4px 14px;
+  padding: 0 10px;
   position: relative;
   text-decoration: none;
   transition: background-color ease 0.3s;
   white-space: nowrap;
+
+  @include breakpoint($medium) {
+    padding: 4px 14px;
+  }
 
   @include hover {
     transition: background-color ease 0.3s, color ease 0.3s;

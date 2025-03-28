@@ -97,6 +97,22 @@
     }
   }
 
+  &__images {
+    width: 100%;
+
+    .slick-list {
+      overflow: visible;
+
+      @include breakpoint($medium) {
+        overflow: hidden;
+      }
+    }
+  }
+
+  &__images-title {
+    border-bottom: 1px solid $primary-color;
+  }
+
   &__genres {
     margin-bottom: 16px;
   }
@@ -158,6 +174,12 @@
 
     @include breakpoint($medium) {
       display: flex;
+      min-width: 300px;
+
+      > div {
+        min-width: 300px;
+        width: 100%;
+      }
     }
   }
 

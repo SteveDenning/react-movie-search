@@ -22,13 +22,15 @@ import "./carousel.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
+// Utils
+import useScreenSize from "../../utils/use-screen-size";
+
 // Types
 import { ResponsiveOptionsType } from "../../models/types";
 
 interface Props {
   autoPlaySpeed?: number;
   autoPlay?: boolean;
-  banner?: boolean;
   infinite?: boolean;
   media?: string;
   resources: any[];
@@ -37,12 +39,14 @@ interface Props {
   user?: any;
   fade?: boolean;
   options?: any;
+  variant?: "banner" | "image" | "card";
+  onClick?: (resource) => void;
+  className?: string;
 }
 
 const Carousel: React.FC<Props> = ({
   autoPlay = false,
   autoPlaySpeed,
-  banner,
   infinite,
   media = "movie",
   resources,
@@ -50,7 +54,18 @@ const Carousel: React.FC<Props> = ({
   handleFavorite,
   fade = false,
   user,
+  variant = "card",
+  onClick,
+  className,
 }) => {
+  const screenSize = useScreenSize();
+  const isMobile = screenSize.width <= 768;
+
+  // Class Definitions
+  const baseClass = "carousel";
+  const variantClass = `carousel--${variant}`;
+  const classes = [baseClass, variantClass, className].filter(Boolean).join(" ");
+
   const defaultOptions: ResponsiveOptionsType[] = [
     {
       breakpoint: 1024,
@@ -98,9 +113,27 @@ const Carousel: React.FC<Props> = ({
     ),
   };
 
+  const renderItemOverlay = ({ func }) => {
+    return (
+      <Button
+        className="carousel__overlay"
+        onClick={() => func()}
+        testId="carousel-overlay"
+        variant="plain"
+      >
+        <span
+          className="sr-only"
+          aria-hidden={true}
+        >
+          Click to open
+        </span>
+      </Button>
+    );
+  };
+
   return (
     <div
-      className="carousel"
+      className={classes}
       data-testid="carousel"
     >
       {!!resources.length && (
@@ -114,21 +147,9 @@ const Carousel: React.FC<Props> = ({
                 className="carousel__item"
                 data-testid="carousel-item"
               >
-                {banner ? (
+                {variant === "banner" && (
                   <>
-                    <Button
-                      className="carousel__overlay"
-                      onClick={() => (window.location.href = `${config.details.path}/${media || mediaType}/${item.id}`)}
-                      testId="carousel-overlay"
-                      variant="plain"
-                    >
-                      <span
-                        className="sr-only"
-                        aria-hidden={true}
-                      >
-                        Click to open
-                      </span>
-                    </Button>
+                    {renderItemOverlay({ func: () => (window.location.href = `${config.details.path}/${media || mediaType}/${item.id}`) })}
                     <Image
                       src={item?.backdrop_path ? `${process.env.REACT_APP_TMDB_IMAGE_PATH}${item.backdrop_path}` : bannerPlaceholder}
                       resource={item}
@@ -146,7 +167,26 @@ const Carousel: React.FC<Props> = ({
                       </div>
                     </div>
                   </>
-                ) : (
+                )}
+                {variant === "image" && resources.length > 0 && (
+                  <>
+                    {renderItemOverlay({
+                      func: () => {
+                        onClick(item);
+                        if (isMobile) {
+                          window.scroll({ top: 145, left: 0, behavior: "smooth" });
+                        }
+                      },
+                    })}
+                    <div className="carousel__image-wrapper">
+                      <Image
+                        resource={item}
+                        alt={`Profile Image ${index}`}
+                      />
+                    </div>
+                  </>
+                )}
+                {variant === "card" && (
                   <Card
                     resource={item}
                     handleFavorite={handleFavorite}
