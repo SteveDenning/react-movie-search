@@ -168,8 +168,9 @@ const Carousel: React.FC<Props> = ({
                     </div>
                   </>
                 )}
-                {variant === "image" && (
+                {variant === "image" && resources.length > 1 && (
                   <>
+                    {console.log(resources.length)}
                     {renderItemOverlay({
                       func: () => {
                         onClick(item);

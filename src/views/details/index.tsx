@@ -100,7 +100,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
     {
       breakpoint: 5000,
       settings: {
-        slidesToShow: 7,
+        slidesToShow: 5,
         slidesToScroll: 3,
       },
     },
