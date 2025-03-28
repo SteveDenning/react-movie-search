@@ -264,7 +264,8 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                     />
                   </div>
                 ) : (
-                  !resource?.profile_path && (
+                  !resource?.profile_path &&
+                  !isPerson && (
                     <div
                       className="details-view__poster fade-in"
                       data-test-id="details-view-poster"
@@ -276,7 +277,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
 
                 <div className="details-view__content">
                   <div className="details-view__profile">
-                    {(resource?.profile_path || !videoKey) && !!resource.gender && (
+                    {(resource?.profile_path || !videoKey) && isPerson && (
                       <div
                         className="details-view__profile-image"
                         data-testid="details-view-profile-image"
@@ -388,7 +389,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                         )}
                       </div>
 
-                      {isPerson && resource.images?.profiles.length > 0 && (
+                      {isPerson && resource.images?.profiles.length > 1 && (
                         <div className="details-view__images">
                           <h3 className="details-view__images-title">Profile pictures</h3>
                           <Carousel
