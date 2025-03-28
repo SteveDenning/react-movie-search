@@ -14,6 +14,9 @@ import SectionHeading from "../../components/section-heading";
 import Share from "../../components/share";
 import Video from "../../components/video";
 
+// Assets
+import avatarPlaceholder from "../../assets/images/avatar-placeholder.png";
+
 // Config
 import { config } from "../../config/routes";
 
@@ -216,7 +219,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
       return (
         <Image
           resource={resource}
-          src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${profileImage}`}
+          src={profileImage ? `${process.env.REACT_APP_TMDB_IMAGE_PATH}/${profileImage}` : undefined}
           onClick={() => setIsOpenModal(true)}
         />
       );
@@ -387,6 +390,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
 
                       {isPerson && resource.images?.profiles.length > 0 && (
                         <div className="details-view__images">
+                          <h3 className="details-view__images-title">Profile pictures</h3>
                           <Carousel
                             media={type}
                             resources={resource.images?.profiles}

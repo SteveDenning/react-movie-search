@@ -43,7 +43,7 @@ const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick, src
       className={classes}
       data-testid="image"
       src={src || imagePath}
-      alt={alt || resource["profile_path"] ? `Actor - ${resource.name}` : `Media show - ${resource.name || resource.title}`}
+      alt={alt ? alt : resource["profile_path"] ? `Actor - ${resource.name}` : `Media show - ${resource.name || resource.title}`}
       onClick={onClick}
     />
   );

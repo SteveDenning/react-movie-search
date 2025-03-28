@@ -109,6 +109,10 @@
     }
   }
 
+  &__images-title {
+    border-bottom: 1px solid $primary-color;
+  }
+
   &__genres {
     margin-bottom: 16px;
   }

@@ -105,7 +105,6 @@
 
   .slick-track {
     display: flex;
-    margin-left: inherit;
   }
   .slick-list {
     overflow: visible;
@@ -171,7 +170,7 @@
     &:not(.slick-active) {
       opacity: 0.2;
       pointer-events: none;
-      .button,
+
       .card__cover,
       .carousel__banner-button,
       .carousel__overlay,
@@ -191,8 +190,8 @@
   .slick-dots li {
     button:before {
       color: $white;
-      opacity: 0.7;
       font-size: 10px;
+      opacity: 0.7;
     }
 
     &.slick-active button:before {
@@ -203,8 +202,6 @@
 
   // Variant {
   &--image {
-    margin: 30px 0 0;
-
     @include breakpoint($medium) {
       padding: 0 20px;
     }

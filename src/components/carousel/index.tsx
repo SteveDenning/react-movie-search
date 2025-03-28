@@ -170,7 +170,6 @@ const Carousel: React.FC<Props> = ({
                 )}
                 {variant === "image" && resources.length > 1 && (
                   <>
-                    {console.log(resources.length)}
                     {renderItemOverlay({
                       func: () => {
                         onClick(item);
@@ -182,7 +181,7 @@ const Carousel: React.FC<Props> = ({
                     <div className="carousel__image-wrapper">
                       <Image
                         resource={item}
-                        alt={`Poster Image for ${item.title || item.name}`}
+                        alt={`Profile Image ${index}`}
                       />
                     </div>
                   </>
