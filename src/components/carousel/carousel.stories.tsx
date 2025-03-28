@@ -17,13 +17,19 @@ const meta: Meta<typeof Template> = {
       type: { name: "string", required: true },
       description: "Array of items to display in the carousel",
     },
+    variant: {
+      control: "text",
+      options: ["card", "banner", "image"],
+      type: { name: "string", required: false },
+      description: "Applies variant to determine the element type to render",
+    },
   },
 };
 export default meta;
 
 type Story = StoryObj<typeof Template>;
 
-const Video = (args: any) => {
+const Carousel = (args: any) => {
   return (
     <StorybookLayout>
       <Template {...args} />
@@ -32,7 +38,7 @@ const Video = (args: any) => {
 };
 
 export const Default: Story = {
-  render: (args) => <Video {...args} />,
+  render: (args) => <Carousel {...args} />,
 };
 Default.args = {
   resources: [

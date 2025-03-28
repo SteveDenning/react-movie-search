@@ -15,7 +15,7 @@ interface Props {
   resource: any;
   size?: "xsmall" | "small" | "medium" | "large" | "fill";
   variant?: string;
-  onClick?: () => void;
+  onClick?: (resource) => void;
   src?: string;
   alt?: string;
   className?: string;
@@ -27,7 +27,7 @@ const Image: React.FC<Props> = ({ resource, size = "fill", variant, onClick, src
 
   const isPerson = mediaType === "person";
   const isMobile = screenSize.width <= 480;
-  const imageSrc = resource["poster_path"] || resource["profile_path"];
+  const imageSrc = resource["poster_path"] || resource["profile_path"] || resource["file_path"];
   const imagePath = imageSrc ? `${process.env.REACT_APP_TMDB_IMAGE_PATH}${imageSrc}` : isPerson ? avatarPlaceholder : mediaPlaceholder;
 
   // Class Definitions
