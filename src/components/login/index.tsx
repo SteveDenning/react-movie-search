@@ -4,7 +4,7 @@ import React from "react";
 import Person3OutlinedIcon from "@mui/icons-material/Person3Outlined";
 
 // Components
-import Button from "../../components/button";
+import Button from "../button";
 
 // Styles
 import "./login.scss";
@@ -37,6 +37,13 @@ const Login: React.FC<Props> = ({ onClick, user }) => {
           data-testid="login-user-initials"
         >
           {user.name.match(/\b(\w)/g).join("")}
+        </span>
+      ) : user ? (
+        <span
+          className="login__user-initials"
+          data-testid="login-user-initial"
+        >
+          {user.username?.slice(0, 1).toUpperCase()}
         </span>
       ) : (
         <Person3OutlinedIcon />

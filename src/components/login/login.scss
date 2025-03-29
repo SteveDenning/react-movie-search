@@ -13,10 +13,23 @@
   }
 
   &__user-initials {
+    align-items: center;
     background-color: $primary-color;
     border-radius: 50%;
     color: $black;
-    padding: 6px 5px 4px 5px;
+    display: flex;
+    font-weight: bold;
+    font-size: 20px;
+    justify-content: center;
+    height: 35px;
+    width: 35px;
+    padding-top: 4px;
+
+    @include breakpoint($medium) {
+      font-size: 22px;
+      height: 40px;
+      width: 40px;
+    }
   }
 
   &__avatar {

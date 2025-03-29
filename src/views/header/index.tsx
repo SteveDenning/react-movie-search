@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 
 // Components
 import Button from "../../components/button";
-import Login from "../../views/login";
+import Login from "../../components/login";
 import Navigation from "../../components/navigation";
 import Search from "../../views/search";
 
