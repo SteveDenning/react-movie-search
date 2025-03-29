@@ -12,7 +12,7 @@ const StorybookLayout: React.FC<Props> = ({ children }) => {
   return (
     <BrowserRouter>
       <MUILayout>
-        <div style={{ width: "100%", padding: "0 200px", overflow: "hidden" }}>{children}</div>
+        <div style={{ width: "100%", padding: "0 200px" }}>{children}</div>
       </MUILayout>
     </BrowserRouter>
   );

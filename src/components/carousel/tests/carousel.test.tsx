@@ -31,7 +31,7 @@ describe("Carousel component", () => {
         <Carousel
           resources={variables.resources}
           media="movie"
-          banner
+          variant="banner"
         />,
       );
     });

@@ -168,7 +168,7 @@
     }
 
     &:not(.slick-active) {
-      opacity: 0.4;
+      opacity: 0.2;
       pointer-events: none;
 
       .card__cover,
@@ -184,6 +184,57 @@
 
       img {
         cursor: auto;
+      }
+    }
+  }
+  .slick-dots li {
+    button:before {
+      color: $white;
+      font-size: 10px;
+      opacity: 0.7;
+    }
+
+    &.slick-active button:before {
+      color: $primary-color;
+      opacity: 1;
+    }
+  }
+
+  // Variant {
+  &--image {
+    @include breakpoint($medium) {
+      padding: 0 20px;
+    }
+
+    .slick-arrow {
+      padding: 5px;
+
+      svg {
+        height: 30px;
+        width: 30px;
+      }
+    }
+
+    .slick-prev {
+      left: -25px;
+    }
+
+    .slick-next {
+      right: -25px;
+    }
+
+    .carousel__image-wrapper {
+      border-radius: 0 20px;
+      overflow: hidden;
+    }
+
+    .carousel__overlay {
+      @include hover {
+        border: 0;
+
+        & ~ .carousel__image-wrapper .image {
+          scale: 1.2;
+        }
       }
     }
   }

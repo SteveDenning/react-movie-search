@@ -14,6 +14,9 @@ import SectionHeading from "../../components/section-heading";
 import Share from "../../components/share";
 import Video from "../../components/video";
 
+// Assets
+import avatarPlaceholder from "../../assets/images/avatar-placeholder.png";
+
 // Config
 import { config } from "../../config/routes";
 
@@ -33,6 +36,7 @@ import { ResponsiveOptionsType } from "../../models/types";
 
 // Styles
 import "./details.scss";
+import Carousel from "../../components/carousel";
 
 interface Props {
   handleMediaTitle: (title: string) => void;
@@ -49,6 +53,8 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [isOpenSeasonsModal, setIsOpenSeasonsModal] = useState<boolean>(false);
+
+  const [profileImage, setProfileImage] = useState<string>("");
 
   const user = useUser();
   const programmeId = window.location.pathname.split("/")[3] as string;
@@ -93,6 +99,30 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
     },
   ];
 
+  const imageResponsiveOptions: ResponsiveOptionsType[] = [
+    {
+      breakpoint: 5000,
+      settings: {
+        slidesToShow: 5,
+        slidesToScroll: 3,
+      },
+    },
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 4,
+      },
+    },
+    {
+      breakpoint: 464,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+      },
+    },
+  ];
+
   const getMediaDetails = () => {
     if (programmeId && type) {
       setLoading(true);
@@ -103,6 +133,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
           handleMediaTitle(response.data.name || response.data.title);
           handleVideos(response.data.videos?.results || []);
           setBackDrop(response.data?.backdrop_path);
+          setProfileImage(response.data?.profile_path);
           getFavoritesList();
           setLoading(false);
           getOmdbDetails(response.data.name || response.data.title);
@@ -188,10 +219,15 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
       return (
         <Image
           resource={resource}
+          src={profileImage ? `${process.env.REACT_APP_TMDB_IMAGE_PATH}/${profileImage}` : undefined}
           onClick={() => setIsOpenModal(true)}
         />
       );
     }
+  };
+
+  const handleImageClick = (resources: any) => {
+    setProfileImage(resources.file_path);
   };
 
   useEffect(() => {
@@ -228,7 +264,8 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                     />
                   </div>
                 ) : (
-                  !resource?.profile_path && (
+                  !resource?.profile_path &&
+                  !isPerson && (
                     <div
                       className="details-view__poster fade-in"
                       data-test-id="details-view-poster"
@@ -240,7 +277,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
 
                 <div className="details-view__content">
                   <div className="details-view__profile">
-                    {(resource?.profile_path || !videoKey) && !!resource.gender && (
+                    {(resource?.profile_path || !videoKey) && isPerson && (
                       <div
                         className="details-view__profile-image"
                         data-testid="details-view-profile-image"
@@ -351,6 +388,19 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                           </>
                         )}
                       </div>
+
+                      {isPerson && resource.images?.profiles.length > 1 && (
+                        <div className="details-view__images">
+                          <h3 className="details-view__images-title">Profile pictures</h3>
+                          <Carousel
+                            media={type}
+                            resources={resource.images?.profiles}
+                            responsiveOptions={imageResponsiveOptions}
+                            variant="image"
+                            onClick={handleImageClick}
+                          />
+                        </div>
+                      )}
 
                       {resource?.next_episode_to_air && (
                         <p>

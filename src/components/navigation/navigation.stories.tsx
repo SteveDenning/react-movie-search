@@ -54,9 +54,9 @@ const Navigation = (args: any) => {
 };
 
 export const Default: Story = {
-  render: () => (
+  render: (args) => (
     <StorybookLayout>
-      <Navigation />
+      <Navigation {...args} />
     </StorybookLayout>
   ),
 };
