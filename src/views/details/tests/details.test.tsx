@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { screen, render, waitFor } from "@testing-library/react";
+import { screen, render, waitFor, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 // Components
@@ -71,6 +71,34 @@ describe("Details Page component", () => {
     });
   });
 
+  describe("Component rendering networks link", () => {
+    it("Should render details page", async () => {
+      delete window.location;
+      // @ts-ignore
+      window.location = { pathname: "/details/tv/108978" };
+
+      const consoleSpy = jest.spyOn(window, "open").mockImplementation();
+      // const consoleSpy = jest.spyOn(console, "error").mockImplementation();
+
+      (getMediaByID as jest.Mock).mockResolvedValue(variables.tv);
+
+      render(
+        <MemoryRouter>
+          <DetailsView handleMediaTitle={handleMediaTitle} />
+        </MemoryRouter>,
+      );
+
+      await waitFor(() => {
+        expect(getMedia).toHaveBeenCalled();
+      });
+
+      expect(screen.getByTestId("details-view-network-image")).toBeInTheDocument();
+      fireEvent.click(screen.getByTestId("details-view-network-image"));
+      (getMedia as jest.Mock).mockResolvedValue(variables.network);
+      await waitFor(() => expect(consoleSpy).toHaveBeenCalled());
+    });
+  });
+
   describe("Component rendering (Person)", () => {
     it("Should render details page", async () => {
       delete window.location;
@@ -118,6 +146,8 @@ describe("Details Page component", () => {
       window.location = { pathname: "/details/tv/108978" };
 
       const consoleSpy = jest.spyOn(console, "error").mockImplementation();
+
+      (getMedia as jest.Mock).mockRejectedValue(variables.error);
 
       render(
         <MemoryRouter>

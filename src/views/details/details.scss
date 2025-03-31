@@ -210,6 +210,29 @@
     }
   }
 
+  &__review {
+    background: $black;
+    border-radius: 0 20px;
+    border: 1px solid rgba($color: $primary-color, $alpha: 0.5);
+  }
+
+  &__review-header {
+    align-items: center;
+    display: flex;
+    margin-bottom: 10px;
+
+    h2 {
+      align-items: center;
+      display: flex;
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .image {
+      margin-right: 10px;
+    }
+  }
+
   ul {
     display: flex;
     list-style: none;

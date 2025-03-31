@@ -57,7 +57,7 @@ const MediaCarousel: React.FC<Props> = ({
       setLoading(true);
       getMedia(pathName)
         .then((response: any) => {
-          setResources(response.data[dataResource]);
+          setResources(response.data?.[dataResource]);
           setLoading(false);
         })
         .catch((error) => {

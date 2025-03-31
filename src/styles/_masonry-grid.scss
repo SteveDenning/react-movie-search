@@ -1,0 +1,28 @@
+.masonry-grid {
+  width: 100%;
+
+  &__column-wrapper {
+    break-inside: avoid;
+    columns: 1;
+    display: column;
+    gap: 20;
+
+    & > div {
+      break-inside: avoid;
+      margin: 15px 0px;
+      padding: 10px;
+
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
+
+    @include breakpoint($medium) {
+      columns: 4;
+    }
+
+    @include breakpoint($xxlarge) {
+      columns: 6;
+    }
+  }
+}
