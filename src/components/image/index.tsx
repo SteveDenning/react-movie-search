@@ -19,9 +19,10 @@ interface Props {
   src?: string;
   alt?: string;
   className?: string;
+  testId?: string;
 }
 
-const Image: React.FC<Props> = ({ resource, size, variant, onClick, src, alt, className }) => {
+const Image: React.FC<Props> = ({ resource, size, variant, onClick, src, alt, className, testId = "image" }) => {
   const mediaType = useDefineMediaType(resource);
   const screenSize = useScreenSize();
 
@@ -41,7 +42,7 @@ const Image: React.FC<Props> = ({ resource, size, variant, onClick, src, alt, cl
     <img
       id={resource.id}
       className={classes}
-      data-testid="image"
+      data-testid={testId}
       src={src || imagePath}
       alt={alt ? alt : resource["profile_path"] ? `Actor - ${resource.name}` : `Media show - ${resource.name || resource.title}`}
       onClick={onClick}

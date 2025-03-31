@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { screen, render, waitFor } from "@testing-library/react";
+import { screen, render, waitFor, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 // Components
@@ -68,6 +68,30 @@ describe("Details Page component", () => {
         expect(screen.getByTestId("details-view")).toBeInTheDocument();
         expect(screen.getByText("Reacher")).toBeInTheDocument();
       });
+    });
+  });
+
+  describe("Component rendering networks link", () => {
+    it("Should render details page", async () => {
+      delete window.location;
+      // @ts-ignore
+      window.location = { pathname: "/details/tv/108978" };
+
+      (getMediaByID as jest.Mock).mockResolvedValue(variables.tv);
+      (getMedia as jest.Mock).mockResolvedValue(variables.network);
+
+      render(
+        <MemoryRouter>
+          <DetailsView handleMediaTitle={handleMediaTitle} />
+        </MemoryRouter>,
+      );
+
+      await waitFor(() => {
+        expect(getMedia).toHaveBeenCalled();
+      });
+
+      expect(screen.getByTestId("details-view-network-image")).toBeInTheDocument();
+      fireEvent.click(screen.getByTestId("details-view-network-image"));
     });
   });
 

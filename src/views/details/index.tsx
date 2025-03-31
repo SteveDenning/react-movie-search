@@ -426,6 +426,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                                     e.preventDefault();
                                     getNetworkForMedia(network.id);
                                   }}
+                                  testId="details-view-network-image"
                                 >
                                   <Image
                                     resource={network}

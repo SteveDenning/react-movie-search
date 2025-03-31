@@ -52,6 +52,10 @@ describe("Credits component", () => {
       expect(screen.queryAllByTestId("tab-button")).toHaveLength(2);
     });
 
+    it("Should render three Cast members", async () => {
+      expect(screen.queryAllByTestId("card")).toHaveLength(3);
+    });
+
     it("Should allow the user to select the Crew tab", async () => {
       expect(screen.queryAllByTestId("tab-button")).toHaveLength(2);
 
