@@ -70,6 +70,36 @@ describe("Login In component", () => {
     });
   });
 
+  describe("Component rendering (logged in no name)", () => {
+    const onClick = jest.fn();
+    const user = {
+      avatar: {
+        tmdb: {
+          avatar_path: null,
+        },
+      },
+      name: null,
+      username: "SteveDenning",
+    };
+
+    beforeEach(() =>
+      render(
+        <LoginIn
+          onClick={onClick}
+          user={user}
+        />,
+      ),
+    );
+
+    it("Should display the users initials if no avatar is present", () => {
+      expect(screen.getByTestId("login-user-initial")).toBeInTheDocument();
+    });
+
+    it("Should display SD as the initials", () => {
+      expect(screen.getByTestId("login-user-initial")).toHaveTextContent("S");
+    });
+  });
+
   describe("Component rendering (logged out)", () => {
     const onClick = jest.fn();
     const user = null;

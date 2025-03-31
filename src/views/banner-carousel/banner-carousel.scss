@@ -44,6 +44,9 @@
 
   .slick-track {
     background: $black;
-    padding-bottom: 40px;
+
+    @include breakpoint($medium) {
+      padding-bottom: 40px;
+    }
   }
 }

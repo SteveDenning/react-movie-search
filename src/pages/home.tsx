@@ -50,8 +50,8 @@ const HomePage = () => {
     {
       breakpoint: 464,
       settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
+        slidesToShow: 2,
+        slidesToScroll: 2,
       },
     },
   ];
@@ -63,7 +63,7 @@ const HomePage = () => {
     >
       <BannerCarousel
         media="movie"
-        path="trending/all/week"
+        path="movie/now_playing"
       />
       <Container>
         <h1 className="page-title">Trending this week</h1>

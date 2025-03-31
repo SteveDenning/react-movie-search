@@ -3,14 +3,28 @@
 // Search form styles
 
 .search {
-  display: flex;
-  justify-content: center;
-  margin: 0px 10px;
-  width: calc(100% - 20px);
+  direction: rtl;
+  width: calc(100% - 40px);
 
   @include breakpoint($xlarge) {
-    margin: 5px 20px;
-    width: 700px;
+    width: auto;
+  }
+
+  &__icon {
+    display: none;
+    margin-right: 20px;
+  }
+  &__container {
+    direction: ltr;
+    display: flex;
+    justify-content: center;
+    margin: 0px 10px;
+    width: calc(100% - 20px);
+
+    @include breakpoint($xlarge) {
+      margin: 5px 20px;
+      width: 700px;
+    }
   }
 
   &__options {
@@ -31,23 +45,23 @@
 
   &__form-clear {
     position: absolute;
-    right: 30px;
+    right: 5px;
     top: 6px;
 
     svg {
       color: $primary-color;
     }
-
-    @include breakpoint($xlarge) {
-      right: 35px;
-      top: 8px;
-    }
   }
 
   .voice-input {
     position: absolute;
-    right: 5px;
+    right: 30px;
     top: 7px;
+
+    @include breakpoint($xlarge) {
+      right: 5px;
+      top: 8px;
+    }
   }
 
   &__form-input {
@@ -110,6 +124,44 @@
     @include breakpoint($large) {
       .select__menu {
         top: 42px;
+      }
+    }
+  }
+
+  &--mobile {
+    display: flex;
+
+    .search {
+      &__icon {
+        display: flex;
+        margin-right: 0;
+
+        svg {
+          font-size: 30px;
+        }
+      }
+      &__container {
+        overflow: hidden;
+        transition: width 0.3s ease;
+        width: 0;
+      }
+    }
+
+    &.search {
+      &--open {
+        width: 100%;
+
+        .search {
+          &__container {
+            margin: 0;
+            overflow: visible;
+            width: 100%;
+          }
+
+          &__icon {
+            display: none;
+          }
+        }
       }
     }
   }

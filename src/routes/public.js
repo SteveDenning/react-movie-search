@@ -10,9 +10,10 @@ import CreditsPage from "../pages/credits";
 import FavoritesPage from "../pages/favorites";
 import HomePage from "../pages/home";
 import MediaListingPage from "../pages/media-listing";
-import PageNotFound from "../pages/page-not-found";
+// import PageNotFound from "../pages/page-not-found";
 import ProfilePage from "../pages/profile";
 import SearchResultsPage from "../pages/search-results";
+import TermsPage from "../pages/terms";
 
 const routes = {
   createRoutes: () => {
@@ -51,6 +52,10 @@ const routes = {
       {
         path: `${config.searchResults.path}`,
         element: <SearchResultsPage />,
+      },
+      {
+        path: `${config.terms.path}`,
+        element: <TermsPage />,
       },
     );
 
