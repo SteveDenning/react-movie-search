@@ -77,8 +77,10 @@ describe("Details Page component", () => {
       // @ts-ignore
       window.location = { pathname: "/details/tv/108978" };
 
+      const consoleSpy = jest.spyOn(window, "open").mockImplementation();
+      // const consoleSpy = jest.spyOn(console, "error").mockImplementation();
+
       (getMediaByID as jest.Mock).mockResolvedValue(variables.tv);
-      (getMedia as jest.Mock).mockResolvedValue(variables.network);
 
       render(
         <MemoryRouter>
@@ -92,6 +94,8 @@ describe("Details Page component", () => {
 
       expect(screen.getByTestId("details-view-network-image")).toBeInTheDocument();
       fireEvent.click(screen.getByTestId("details-view-network-image"));
+      (getMedia as jest.Mock).mockResolvedValue(variables.network);
+      await waitFor(() => expect(consoleSpy).toHaveBeenCalled());
     });
   });
 
@@ -142,6 +146,8 @@ describe("Details Page component", () => {
       window.location = { pathname: "/details/tv/108978" };
 
       const consoleSpy = jest.spyOn(console, "error").mockImplementation();
+
+      (getMedia as jest.Mock).mockRejectedValue(variables.error);
 
       render(
         <MemoryRouter>

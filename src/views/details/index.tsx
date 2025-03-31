@@ -428,6 +428,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                                   }}
                                   testId="details-view-network-image"
                                 >
+                                  TEST
                                   <Image
                                     resource={network}
                                     src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${network?.logo_path}`}

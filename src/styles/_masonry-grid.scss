@@ -1,15 +1,11 @@
 .masonry-grid {
   width: 100%;
-  max-width: 1366px;
-  margin: 0 auto;
-  box-sizing: border-box;
-  box-shadow: 0 0 30px 10px #00000017;
 
   &__column-wrapper {
-    display: column;
-    columns: 1;
-    gap: 20;
     break-inside: avoid;
+    columns: 1;
+    display: column;
+    gap: 20;
 
     & > div {
       break-inside: avoid;
