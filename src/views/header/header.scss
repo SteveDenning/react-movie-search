@@ -31,13 +31,17 @@
 
   &__message-inner {
     border: 1px solid $primary-color;
-    display: flex !important;
+    display: flex;
     padding: 5px 5px 5px 20px;
     position: relative;
     width: 100%;
+
+    p {
+      text-align: center;
+    }
   }
 
-  &__inner {
+  &__search {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -53,21 +57,42 @@
   }
 
   &__logo {
-    border-radius: 0;
-    font-family: Anton, Arial, sans-serif;
-    font-size: 16px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-anchor: middle;
-    transition: background 0.3s ease;
+    .button {
+      border-radius: 0;
+      font-family: Anton, Arial, sans-serif;
+      font-size: 27px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-anchor: middle;
+      transition: background 0.3s ease;
+
+      @include hover {
+        @extend .text-glow;
+        animation: glow 2s ease-in-out infinite;
+      }
+    }
+  }
+
+  &__login {
+    display: flex;
+    justify-content: flex-end;
 
     @include breakpoint($large) {
-      font-size: 27px;
+      min-width: 85px;
     }
+  }
 
-    @include hover {
-      @extend .text-glow;
-      animation: glow 2s ease-in-out infinite;
+  &--search-open {
+    .header__logo,
+    .header__login {
+      overflow: hidden;
+      width: 0;
+    }
+  }
+
+  &--mobile {
+    .header__inner {
+      justify-content: flex-end;
     }
   }
 }

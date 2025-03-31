@@ -11,7 +11,9 @@ interface Props {
 const StorybookLayout: React.FC<Props> = ({ children }) => {
   return (
     <BrowserRouter>
-      <MUILayout>{children}</MUILayout>
+      <MUILayout>
+        <div style={{ width: "100%", padding: "0 200px" }}>{children}</div>
+      </MUILayout>
     </BrowserRouter>
   );
 };

@@ -15,10 +15,12 @@ jest.mock("react-router-dom", () => ({
 
 describe("Search component", () => {
   describe("Component rendering", () => {
+    const handleSearchState = jest.fn();
+
     beforeEach(() => {
       render(
         <MemoryRouter>
-          <Search />
+          <Search handleSearchState={handleSearchState} />
         </MemoryRouter>,
       );
     });

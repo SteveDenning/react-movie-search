@@ -60,7 +60,7 @@ describe("Media service (getMediaByID)", () => {
     const response = await getMediaByID(id, type);
 
     expect(axios.get).toHaveBeenCalledWith(
-      `https://api.themoviedb.org/3/${type}/${id}?append_to_response=videos,recommendations,reviews&language=en-US`,
+      `https://api.themoviedb.org/3/${type}/${id}?append_to_response=videos,recommendations,images&language=en-US`,
       headers,
     );
     expect(response).toEqual(mockResponse);

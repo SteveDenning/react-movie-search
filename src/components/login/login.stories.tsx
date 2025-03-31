@@ -8,7 +8,7 @@ import Template from "./index";
 import { Container } from "@mui/material";
 
 const meta: Meta<typeof Template> = {
-  title: "Views/Login",
+  title: "Components/Login",
   component: Template,
   tags: ["autodocs"],
   argTypes: {
@@ -38,6 +38,18 @@ export const Default: Story = {
   ),
 };
 Default.args = {
+  user: null,
+  onClick: () => {},
+};
+
+export const LoggedInAvatar: Story = {
+  render: (args) => (
+    <Container>
+      <Login {...args} />
+    </Container>
+  ),
+};
+LoggedInAvatar.args = {
   user: {
     avatar: {
       tmdb: {
@@ -46,5 +58,24 @@ Default.args = {
     },
     name: "Steve Denning",
   },
-  onClick: () => alert("Login"),
+  onClick: () => {},
+};
+
+export const LoggedInInitials: Story = {
+  render: (args) => (
+    <Container>
+      <Login {...args} />
+    </Container>
+  ),
+};
+LoggedInInitials.args = {
+  user: {
+    avatar: {
+      tmdb: {
+        avatar_path: "",
+      },
+    },
+    name: "Steve Denning",
+  },
+  onClick: () => {},
 };

@@ -12,13 +12,14 @@ h5,
 h6 {
   color: $primary-color;
   font-family: Gothic, Arial, sans-serif;
-  font-weight: 200;
+  font-weight: 400;
   margin: 0;
   margin-bottom: 1rem;
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 24px;
+  line-height: 36px;
 }
 
 h2 {
@@ -77,38 +78,7 @@ li {
 }
 
 a {
-  cursor: pointer;
-  color: $primary-color;
-  position: relative;
-  text-decoration: none;
-
-  &:before {
-    @extend .hover-state;
-  }
-
-  @include hover {
-    outline: none;
-    text-decoration: none;
-
-    &:before {
-      transform: scaleX(1);
-      visibility: visible;
-    }
-  }
-
-  &.underlined {
-    &:before {
-      opacity: 1;
-      width: 100%;
-    }
-
-    @include hover {
-      &:before {
-        opacity: 0;
-        width: 0;
-      }
-    }
-  }
+  @extend .hover-state;
 }
 
 .copy {
@@ -156,16 +126,33 @@ a {
 }
 
 .hover-state {
-  background: $link-hover-state;
-  border-radius: 5px;
-  bottom: -2px;
-  content: "";
-  display: block;
-  height: 3px;
-  position: absolute;
-  right: 0;
-  transform: scaleX(0);
-  transition: all 0.3s ease-in-out;
-  visibility: hidden;
-  width: 100%;
+  cursor: pointer;
+  color: $primary-color;
+  position: relative;
+  text-decoration: none;
+
+  &:before {
+    background: $link-hover-state;
+    border-radius: 5px;
+    bottom: -2px;
+    content: "";
+    display: block;
+    height: 3px;
+    position: absolute;
+    right: 0;
+    transform: scaleX(1);
+    transition: all 0.3s ease-in-out;
+    visibility: visible;
+    width: 100%;
+  }
+
+  @include hover {
+    outline: none;
+    text-decoration: none;
+
+    &:before {
+      transform: scaleX(0);
+      visibility: hidden;
+    }
+  }
 }
