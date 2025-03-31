@@ -463,7 +463,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                   media={type}
                 />
               )}
-              {resource.reviews?.results.length && (
+              {!!resource.reviews?.results.length && (
                 <div className="details-view__content">
                   <SectionHeading
                     heading="User Reviews"
