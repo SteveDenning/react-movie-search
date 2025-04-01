@@ -66,6 +66,12 @@
     margin-bottom: 16px;
   }
 
+  &__profile-details {
+    align-items: center;
+    display: flex;
+    margin-bottom: 16px;
+  }
+
   &__title-wrapper {
     align-items: center;
     display: flex;
@@ -81,7 +87,7 @@
   &__title-details {
     align-items: baseline;
     display: block;
-    margin-bottom: 16px;
+    margin-bottom: 0;
 
     @include breakpoint($xsmall) {
       display: flex;
@@ -98,12 +104,16 @@
   }
 
   &__images {
+    margin-top: 20px;
     width: 100%;
 
     .slick-list {
       overflow: visible;
+    }
+    @include breakpoint($medium) {
+      margin-top: 50px;
 
-      @include breakpoint($medium) {
+      .slick-list {
         overflow: hidden;
       }
     }
@@ -206,7 +216,7 @@
     margin-left: auto;
 
     .add-to-favorites {
-      margin-left: 10px;
+      margin-left: 16px;
     }
   }
 

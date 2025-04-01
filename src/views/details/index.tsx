@@ -284,8 +284,8 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                     )}
 
                     <div>
-                      <div className="details-view__profile-details">
-                        <div className="details-view__title-wrapper">
+                      <div>
+                        <div className="details-view__profile-details">
                           {isMedia && (resource?.release_date || resource?.first_air_date) && (
                             <div className="details-view__title-details">
                               <h2 className="details-view__title">
@@ -304,19 +304,19 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                               )}
                             </div>
                           )}
-                          <div className="details-view__actions">
-                            <Share
-                              title={title}
-                              id={title}
-                            />
-                            {type !== "person" && (
+                          {!isPerson && (
+                            <div className="details-view__actions">
+                              <Share
+                                title={title}
+                                id={title}
+                              />
                               <AddToFavorites
                                 handleFavorite={handleFavorite}
                                 isFavorite={isFavorite}
                                 user={user}
                               />
-                            )}
-                          </div>
+                            </div>
+                          )}
                         </div>
 
                         {resource.birthday && (
@@ -485,7 +485,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                                   alt={review.author}
                                 />
                               )}
-                              <h2>{review.author}</h2>
+                              <h3>{review.author}</h3>
                             </div>
                             <Overview
                               resource={review}

@@ -3,6 +3,8 @@
 // test styles
 
 .share {
+  display: flex;
+
   &__button {
     svg {
       fill: $primary-color;
