@@ -15,22 +15,22 @@ const meta: Meta<typeof Template> = {
     heading: {
       control: "text",
       type: { name: "string", required: true },
-      description: "Text passed in for the title of the header",
+      description: "The main heading text displayed in the section.",
     },
     buttonLink: {
       control: "text",
       type: { name: "string", required: false },
-      description: "URL text for the link to a page",
+      description: "The URL that the button should navigate to when clicked.",
     },
     buttonText: {
       control: "text",
       type: { name: "string", required: false },
-      description: "Text for the button link in the header",
+      description: "The text displayed on the button.",
     },
     backButton: {
       control: "boolean",
       type: { name: "boolean", required: false },
-      description: "Option to give the text a light grey color",
+      description: "Determines whether a back button should be displayed.",
     },
   },
 };
@@ -48,7 +48,7 @@ export const Default: Story = {
   ),
 };
 Default.args = {
-  heading: "Lorem ipsum dolor sit amet",
+  heading: "Heading Text",
 };
 
 export const withLink: Story = {
@@ -60,7 +60,7 @@ export const withLink: Story = {
 };
 
 withLink.args = {
-  heading: "Lorem ipsum dolor sit amet",
+  heading: "Heading Text",
   buttonLink: "#",
   buttonText: "View More",
 };
@@ -74,6 +74,6 @@ export const backButton: Story = {
 };
 
 backButton.args = {
-  heading: "Lorem ipsum dolor sit amet",
+  heading: "Heading Text",
   backButton: true,
 };

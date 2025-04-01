@@ -14,7 +14,29 @@ const meta: Meta<typeof Template> = {
   title: "Components/Overview",
   component: Template,
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    resource: {
+      control: "object",
+      type: { name: "string", required: false },
+      description: "The resource object containing metadata such as id, title, name, or author.",
+    },
+    text: {
+      control: "text",
+      type: { name: "string", required: true },
+      description: "The full text content for the overview.",
+    },
+    limit: {
+      control: "number",
+      type: { name: "string", required: false },
+      description: "The character limit before truncating the text and showing the 'More' button.",
+      defaultValue: 400,
+    },
+    copyText: {
+      control: "boolean",
+      description: "If true, applies a 'copy' style class to the text.",
+      defaultValue: false,
+    },
+  },
 };
 export default meta;
 

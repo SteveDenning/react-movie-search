@@ -6,13 +6,14 @@ export const variables = {
     id: 893978,
     original_language: "zh",
     original_title: "Town of the Dragon",
-    overview: "",
+    overview:
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim, ducimus! Ab, temporibus? Molestias quaerat pariatur enim nisi labore accusantium magnam rem mollitia blanditiis aut iure, debitis laudantium non quas. Optio!",
     popularity: 0.498,
     poster_path: "/ou9pnOnNijccUzo1DFhTIZb4ZLM.jpg",
     release_date: "2014-10-17",
     title: "Town of the Dragon",
     video: false,
-    vote_average: 0,
-    vote_count: 0,
+    vote_average: 7.7,
+    vote_count: 10,
   },
 };
