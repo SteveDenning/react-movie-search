@@ -39,7 +39,7 @@ const Share: React.FC<Props> = ({ title, id }) => {
       <Button
         onClick={handleClick}
         className="share__button"
-        data-testid="share-button"
+        testId="share-button"
         variant="icon"
       >
         <span className="sr-only">Share button</span>

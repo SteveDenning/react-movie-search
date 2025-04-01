@@ -8,9 +8,10 @@ interface Props {
   resource?: any;
   text: string;
   limit?: number;
+  copyText?: boolean;
 }
 
-const Overview: React.FC<Props> = ({ resource, text, limit = 400 }) => {
+const Overview: React.FC<Props> = ({ resource, text, limit = 400, copyText }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const ellipsisText = text.slice(0, limit);
 
@@ -18,8 +19,8 @@ const Overview: React.FC<Props> = ({ resource, text, limit = 400 }) => {
     <div data-testid="overview">
       {text.length > limit ? (
         <>
-          <p>
-            {ellipsisText}.....
+          <p className={copyText ? "copy" : ""}>
+            {ellipsisText}..... &nbsp;
             <Button
               onClick={() => setIsModalOpen(true)}
               variant="link"
@@ -41,7 +42,7 @@ const Overview: React.FC<Props> = ({ resource, text, limit = 400 }) => {
         </>
       ) : (
         <>
-          <p>{text}</p>
+          <p className={copyText ? "copy" : ""}>{text}</p>
         </>
       )}
     </div>

@@ -227,11 +227,10 @@
   }
 
   &__review-header {
-    align-items: center;
     display: flex;
     margin-bottom: 10px;
 
-    h2 {
+    h3 {
       align-items: center;
       display: flex;
       font-size: 18px;
@@ -240,6 +239,59 @@
 
     .image {
       margin-right: 10px;
+    }
+  }
+
+  &__reviews-inner {
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+
+  &__reviews {
+    background: $black;
+    border-radius: 0 20px;
+    padding: 20px;
+    position: relative;
+
+    &--open {
+      .details-view {
+        &__reviews-inner {
+          max-height: 5000px;
+
+          @include breakpoint($medium) {
+            max-height: 3000px;
+          }
+
+          @include breakpoint($large) {
+            max-height: 2000px;
+          }
+        }
+        &__reviews-button:before {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &__reviews-button {
+    background: $black;
+    border-radius: 0 0 20px 20px;
+    text-align: center;
+    padding: 20px;
+    margin: 0 -20px;
+    position: relative;
+
+    &::before {
+      content: "";
+      display: block;
+      height: 100px;
+      width: 100%;
+      left: -20px;
+      right: -20px;
+      background: linear-gradient(0deg, $black 0%, rgba($black, 0) 100%);
+      position: absolute;
+      top: -100px;
     }
   }
 

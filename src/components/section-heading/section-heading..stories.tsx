@@ -11,7 +11,28 @@ const meta: Meta<typeof Template> = {
   title: "Components/Section Header",
   component: Template,
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    heading: {
+      control: "text",
+      type: { name: "string", required: true },
+      description: "Text passed in for the title of the header",
+    },
+    buttonLink: {
+      control: "text",
+      type: { name: "string", required: false },
+      description: "URL text for the link to a page",
+    },
+    buttonText: {
+      control: "text",
+      type: { name: "string", required: false },
+      description: "Text for the button link in the header",
+    },
+    backButton: {
+      control: "boolean",
+      type: { name: "boolean", required: false },
+      description: "Option to give the text a light grey color",
+    },
+  },
 };
 export default meta;
 

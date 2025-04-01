@@ -47,6 +47,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const [resourceDetails, setResourceDetails] = useState<any>({});
   const [recommendations, setRecommendations] = useState([]);
   const [videoKey, setVideoKey] = useState<string>("");
+  const [showMoreReviews, setShowMoreReviews] = useState<boolean>(false);
   const [isFavorite, setIsFavorite] = useState<boolean>(false);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const [isOpenSeasonsModal, setIsOpenSeasonsModal] = useState<boolean>(false);
@@ -467,35 +468,45 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
               {!!resource.reviews?.results.length && (
                 <>
                   <SectionHeading heading={`User Reviews (${resource.reviews?.results.length})`} />
-                  <div className="masonry-grid">
-                    <div className="masonry-grid__column-wrapper">
-                      {resource.reviews?.results.map((review: any) => {
-                        return (
-                          <div
-                            className="masonry-grid__item details-view__review"
-                            data-testid="details-view-review"
-                            key={review.id}
-                          >
-                            <div className="details-view__review-header">
-                              {review.author_details?.avatar_path && (
-                                <Image
-                                  variant="avatar"
-                                  resource={review.id}
-                                  src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}${review.author_details?.avatar_path}`}
-                                  alt={review.author}
+                  <div className={`details-view__reviews  ${showMoreReviews ? "details-view__reviews--open" : ""}`}>
+                    <div className="details-view__reviews-inner">
+                      <div className="masonry-grid">
+                        <div className="masonry-grid__column-wrapper">
+                          {resource.reviews?.results.map((review: any) => {
+                            return (
+                              <div
+                                className="masonry-grid__item details-view__review"
+                                data-testid="details-view-review"
+                                key={review.id}
+                              >
+                                <div className="details-view__review-header">
+                                  {review.author_details?.avatar_path && (
+                                    <Image
+                                      variant="avatar"
+                                      resource={review.id}
+                                      src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}${review.author_details?.avatar_path}`}
+                                      alt={review.author}
+                                    />
+                                  )}
+                                  <h3>{review.author}</h3>
+                                </div>
+                                <Overview
+                                  resource={review}
+                                  text={review.content}
+                                  limit={150}
+                                  copyText
                                 />
-                              )}
-                              <h3>{review.author}</h3>
-                            </div>
-                            <Overview
-                              resource={review}
-                              text={review.content}
-                              limit={100}
-                            />
-                          </div>
-                        );
-                      })}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      </div>
                     </div>
+                    {resource.reviews?.results.length > 15 && (
+                      <div className="details-view__reviews-button">
+                        <Button onClick={() => setShowMoreReviews(!showMoreReviews)}>View {showMoreReviews ? "Less" : "More"}</Button>
+                      </div>
+                    )}
                   </div>
                 </>
               )}
