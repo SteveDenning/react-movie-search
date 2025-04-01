@@ -17,10 +17,12 @@ interface Props {
   target?: string;
   ariaHidden?: boolean;
   role?: string;
-  onClick?: (event: MouseEvent) => void;
+  onClick?: (event: any) => void;
   tabIndex?: number;
   startIcon?: any;
   endIcon?: any;
+  onMouseEnter?: (event: any) => void;
+  onMouseLeave?: (event: any) => void;
 }
 
 const Button: React.FC<Props> = ({
@@ -41,6 +43,8 @@ const Button: React.FC<Props> = ({
   tabIndex,
   startIcon,
   endIcon,
+  onMouseEnter,
+  onMouseLeave,
 }) => {
   // Class Definitions
   const baseClass = "button";
@@ -74,6 +78,8 @@ const Button: React.FC<Props> = ({
       aria-hidden={ariaHidden}
       role={role}
       tabIndex={tabIndex}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
     >
       {startIcon && (
         <span

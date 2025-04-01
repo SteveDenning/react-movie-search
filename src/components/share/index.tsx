@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import Button from "../button";
 
 // MUI Components
-import { IconButton } from "@mui/material";
 import Popover from "@mui/material/Popover";
 
 // Icons
@@ -37,14 +36,15 @@ const Share: React.FC<Props> = ({ title, id }) => {
       className="share"
       data-testid="share"
     >
-      <IconButton
+      <Button
         onClick={handleClick}
         className="share__button"
-        data-testid="share-button"
+        testId="share-button"
+        variant="icon"
       >
         <span className="sr-only">Share button</span>
         <ShareIcon />
-      </IconButton>
+      </Button>
       <Popover
         className="share__popover"
         data-testid="share-popover"

@@ -4,8 +4,6 @@
   &__column-wrapper {
     break-inside: avoid;
     columns: 1;
-    display: column;
-    gap: 20;
 
     & > div {
       break-inside: avoid;
@@ -18,11 +16,11 @@
     }
 
     @include breakpoint($medium) {
-      columns: 4;
+      columns: 3;
     }
 
     @include breakpoint($xxlarge) {
-      columns: 6;
+      columns: 5;
     }
   }
 }

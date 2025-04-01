@@ -11,7 +11,28 @@ const meta: Meta<typeof Template> = {
   title: "Components/Section Header",
   component: Template,
   tags: ["autodocs"],
-  argTypes: {},
+  argTypes: {
+    heading: {
+      control: "text",
+      type: { name: "string", required: true },
+      description: "The main heading text displayed in the section.",
+    },
+    buttonLink: {
+      control: "text",
+      type: { name: "string", required: false },
+      description: "The URL that the button should navigate to when clicked.",
+    },
+    buttonText: {
+      control: "text",
+      type: { name: "string", required: false },
+      description: "The text displayed on the button.",
+    },
+    backButton: {
+      control: "boolean",
+      type: { name: "boolean", required: false },
+      description: "Determines whether a back button should be displayed.",
+    },
+  },
 };
 export default meta;
 
@@ -27,7 +48,7 @@ export const Default: Story = {
   ),
 };
 Default.args = {
-  heading: "Lorem ipsum dolor sit amet",
+  heading: "Heading Text",
 };
 
 export const withLink: Story = {
@@ -39,7 +60,7 @@ export const withLink: Story = {
 };
 
 withLink.args = {
-  heading: "Lorem ipsum dolor sit amet",
+  heading: "Heading Text",
   buttonLink: "#",
   buttonText: "View More",
 };
@@ -53,6 +74,6 @@ export const backButton: Story = {
 };
 
 backButton.args = {
-  heading: "Lorem ipsum dolor sit amet",
+  heading: "Heading Text",
   backButton: true,
 };
