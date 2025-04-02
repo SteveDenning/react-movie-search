@@ -4,10 +4,11 @@
 .button {
   align-items: center;
   background-position: center;
+  background-color: $primary-color;
   border: 0;
   border-radius: 0 10px 0 10px;
   box-shadow: none;
-  color: $primary-color;
+  color: $black;
   cursor: pointer;
   display: inline-flex;
   font-size: 18px;
@@ -18,7 +19,7 @@
   padding: 0 10px;
   position: relative;
   text-decoration: none;
-  transition: background-color ease 0.3s;
+  transition: background-color ease 0.3s, color ease 0.3s;
   white-space: nowrap;
 
   @include breakpoint($medium) {
@@ -26,7 +27,8 @@
   }
 
   @include hover {
-    transition: background-color ease 0.3s, color ease 0.3s;
+    background-color: $purple;
+    color: $white;
   }
 
   &:before {
@@ -90,10 +92,8 @@
       }
     }
 
-    &.button--default {
-      @include filledColorVariant($white, $primary-color, $purple, 5%);
-      color: $black;
-    }
+    @include filledColorVariant($white, $primary-color, $purple, 5%);
+    color: $black;
 
     &.button--blue {
       @include filledColorVariant($white, $blue, $purple, 5%);
@@ -150,6 +150,7 @@
     background: none;
     border-style: solid;
     border-width: 2px;
+    color: $white;
 
     // Size variants
     &.button--small {
@@ -217,6 +218,9 @@
     &.button--lavender {
       @include outlinedColorVariant($white, $lavender, $anakiwa, 5%);
     }
+    &.button--lilac {
+      @include outlinedColorVariant($white, $lilac, $anakiwa, 5%);
+    }
 
     &:disabled {
       background: lighten($black, 95%);
@@ -246,17 +250,16 @@
       display: flex;
     }
 
-    &.button--default {
-      svg {
-        fill: $primary-color;
-      }
+    svg {
+      fill: $primary-color;
+    }
 
-      @include hover {
-        svg {
-          fill: $lilac;
-        }
+    @include hover {
+      svg {
+        fill: $lilac;
       }
     }
+
     &.button--red {
       svg {
         fill: $red;
@@ -291,9 +294,7 @@
     font-size: inherit;
     padding: 0;
 
-    .button__content {
-      @extend .hover-state;
-    }
+    @extend .hover-state;
   }
 
   &--icon-start {
@@ -316,7 +317,13 @@
 
   &--plain {
     background: none;
+    color: $primary-color;
     padding: 0;
+
+    @include hover {
+      color: $primary-color;
+      background: none;
+    }
   }
 
   &--imdb {
@@ -327,7 +334,11 @@
     padding: 3px 7px 0px;
     line-height: 18px;
 
-    span {
+    &.button:before {
+      display: none;
+    }
+
+    .button__content {
       font-weight: bold;
       color: $black;
     }
@@ -335,10 +346,12 @@
     @include hover {
       background: $black;
 
-      span {
+      .button__content {
         font-weight: bold;
         color: $imdb;
       }
     }
   }
 }
+
+@import "../../styles/typography";

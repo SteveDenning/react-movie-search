@@ -159,6 +159,12 @@ const Search: React.FC<Props> = ({ handleSearchState }) => {
     }
   }, [screenSize.width]);
 
+  useEffect(() => {
+    if (isOpen) {
+      inputRef.current.focus();
+    }
+  }, [isOpen]);
+
   return (
     <div
       className={classes}

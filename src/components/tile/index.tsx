@@ -17,44 +17,70 @@ import "./tile.scss";
 
 interface Props {
   resource: any;
-  handleDelete: (id: string) => void;
+  handleDelete?: (id: string) => void;
+  hasImage?: boolean;
+  onClick?: () => void;
 }
 
-const Tile: React.FC<Props> = ({ resource, handleDelete }) => {
+const Tile: React.FC<Props> = ({ resource, handleDelete, hasImage = true, onClick }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const text = resource?.overview;
+  const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
+  const text = resource?.overview || resource?.description;
   const mediaType = useDefineMediaType(resource);
+
+  const handleOnClick = (e) => {
+    if (onClick) {
+      e.preventDefault();
+      onClick();
+    } else {
+      window.location.href = `/details/${mediaType}/${resource.id}`;
+    }
+  };
+
+  const renderImage = () => {
+    if (resource) {
+      return (
+        <Image
+          resource={resource}
+          onClick={() => setIsOpenModal(true)}
+        />
+      );
+    }
+  };
 
   return (
     <div
       className="tile"
       data-testid="tile"
     >
-      <Button
-        className="tile__image"
-        onClick={() => (window.location.href = `/details/${mediaType}/${resource.id}`)}
-        variant="plain"
-      >
-        <Image resource={resource} />
-      </Button>
+      {hasImage && <div className="tile__image">{renderImage()}</div>}
       <div className="tile__content">
-        <h2>{resource.title || resource.name}</h2>
+        <div className="tile__header">
+          <Button
+            href="#"
+            onClick={handleOnClick}
+          >
+            <h3 className="tile__title">{resource.title || resource.name}</h3>
+          </Button>
+        </div>
         {text && (
           <Overview
             resource={resource}
             text={text}
           />
         )}
-        <p>Popularity vote: {resource?.vote_average?.toFixed(1)}</p>
+        {resource?.vote_average && <p className="copy">Popularity vote: {resource.vote_average.toFixed(1)}</p>}
       </div>
-      <div className="tile__actions">
-        <Button
-          variant="icon"
-          onClick={() => setIsOpen(true)}
-        >
-          <DeleteIcon />
-        </Button>
-      </div>
+      {handleDelete && (
+        <div className="tile__actions">
+          <Button
+            variant="icon"
+            onClick={() => setIsOpen(true)}
+          >
+            <DeleteIcon />
+          </Button>
+        </div>
+      )}
 
       <Modal
         id={resource.id}
@@ -89,6 +115,14 @@ const Tile: React.FC<Props> = ({ resource, handleDelete }) => {
             Remove
           </Button>
         </div>
+      </Modal>
+      <Modal
+        id={resource.id}
+        open={isOpenModal}
+        handleClose={() => setIsOpenModal(false)}
+        variant={["image"]}
+      >
+        {renderImage()}
       </Modal>
     </div>
   );

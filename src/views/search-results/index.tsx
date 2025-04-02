@@ -79,7 +79,7 @@ const SearchResults = () => {
         {resources?.length ? (
           <Resources
             resources={resources}
-            page={page}
+            page={Number(params.get("page")) || page}
             handlePageChange={handlePageChange}
             count={count}
             loading={loading}

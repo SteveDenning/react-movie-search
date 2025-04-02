@@ -44,7 +44,7 @@ describe("Details Page component", () => {
         expect(getOmdbMedia).toHaveBeenCalled();
         expect(getMedia).toHaveBeenCalled();
         expect(screen.getByTestId("details-view")).toBeInTheDocument();
-        expect(screen.getByText("The Gorge")).toBeInTheDocument();
+        expect(screen.getByText("The Gorge (2025)")).toBeInTheDocument();
       });
     });
   });

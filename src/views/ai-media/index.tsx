@@ -8,6 +8,7 @@ import Modal from "../../components/modal";
 import SectionHeading from "../../components/section-heading";
 import Select from "../../components/select";
 import Tabs from "../../components/tabs";
+import Tile from "../../components/tile";
 
 // Config
 import { config } from "../../config/routes";
@@ -233,7 +234,7 @@ const AIMedia = () => {
         {!generating && (
           <Button
             onClick={getOpenAI}
-            className="glow button--icon-button fade-in"
+            className="button--icon-button fade-in"
             disabled={disabled}
           >
             <AutoAwesomeIcon /> Generate
@@ -350,12 +351,11 @@ const AIMedia = () => {
                           key={index}
                           className="ai-media__list-item"
                         >
-                          <Button
-                            color="lilac"
+                          <Tile
+                            resource={item}
+                            hasImage={false}
                             onClick={() => getMediaBySearchTerm(item.name)}
-                          >
-                            {item.name}
-                          </Button>
+                          />
                         </li>
                       );
                     })}

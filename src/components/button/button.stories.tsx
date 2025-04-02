@@ -77,6 +77,7 @@ export const Default: Story = {
 Default.args = {
   children: "Lorem ipsum",
   color: "blue",
+  variant: "filled",
 };
 
 export const Outlined: Story = {

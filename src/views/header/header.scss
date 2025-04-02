@@ -59,14 +59,17 @@
   &__logo {
     .button {
       border-radius: 0;
+      color: $primary-color;
       font-family: Anton, Arial, sans-serif;
       font-size: 27px;
       font-weight: 600;
       letter-spacing: 1px;
+      line-height: 40px;
       text-anchor: middle;
       transition: background 0.3s ease;
 
       @include hover {
+        transition: all 0.3s ease;
         @extend .text-glow;
         animation: glow 2s ease-in-out infinite;
       }
