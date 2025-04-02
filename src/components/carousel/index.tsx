@@ -68,17 +68,24 @@ const Carousel: React.FC<Props> = ({
 
   const defaultOptions: ResponsiveOptionsType[] = [
     {
-      breakpoint: 1024,
+      breakpoint: 5000,
+      settings: {
+        slidesToShow: 7,
+        slidesToScroll: 7,
+      },
+    },
+    {
+      breakpoint: 1300,
       settings: {
         slidesToShow: 5,
         slidesToScroll: 5,
       },
     },
     {
-      breakpoint: 768,
+      breakpoint: 1024,
       settings: {
-        slidesToShow: 4,
-        slidesToScroll: 4,
+        slidesToShow: 3,
+        slidesToScroll: 3,
       },
     },
     {

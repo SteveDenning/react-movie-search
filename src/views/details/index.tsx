@@ -82,17 +82,24 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
       },
     },
     {
+      breakpoint: 1300,
+      settings: {
+        slidesToShow: 5,
+        slidesToScroll: 5,
+      },
+    },
+    {
       breakpoint: 1024,
       settings: {
-        slidesToShow: 4,
-        slidesToScroll: 4,
+        slidesToShow: 3,
+        slidesToScroll: 3,
       },
     },
     {
       breakpoint: 464,
       settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
+        slidesToShow: 2,
+        slidesToScroll: 2,
       },
     },
   ];
@@ -502,7 +509,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                         </div>
                       </div>
                     </div>
-                    {resource.reviews?.results.length > 15 && (
+                    {resource.reviews?.results.length > 5 && (
                       <div className="details-view__reviews-button">
                         <Button onClick={() => setShowMoreReviews(!showMoreReviews)}>View {showMoreReviews ? "Less" : "More"}</Button>
                       </div>

@@ -243,9 +243,17 @@
   }
 
   &__reviews-inner {
-    max-height: 500px;
+    max-height: 1000px;
     overflow: hidden;
     transition: max-height 0.5s ease;
+
+    @include breakpoint($medium) {
+      max-height: 800px;
+    }
+
+    @include breakpoint($large) {
+      max-height: 600px;
+    }
   }
 
   &__reviews {
@@ -278,20 +286,19 @@
     background: $black;
     border-radius: 0 0 20px 20px;
     text-align: center;
-    padding: 20px;
     margin: 0 -20px;
+    padding: 20px;
     position: relative;
 
     &::before {
+      background: linear-gradient(0deg, $black 0%, rgba($black, 0) 100%);
       content: "";
       display: block;
       height: 100px;
-      width: 100%;
-      left: -20px;
-      right: -20px;
-      background: linear-gradient(0deg, $black 0%, rgba($black, 0) 100%);
+      left: 0;
       position: absolute;
       top: -100px;
+      width: 100%;
     }
   }
 
