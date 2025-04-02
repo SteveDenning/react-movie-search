@@ -255,6 +255,8 @@
     }
 
     @include hover {
+      background: none;
+
       svg {
         fill: $lilac;
       }
