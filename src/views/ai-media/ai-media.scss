@@ -95,20 +95,21 @@
   }
 
   &__list-item {
-    border-radius: 0 15px;
-    display: flex;
-    justify-content: center;
-    margin: 10px;
+    width: 100%;
+    // border-radius: 0 15px;
+    // display: flex;
+    // justify-content: center;
+    // margin: 10px;
 
-    .button {
-      border: 2px solid $primary-color;
-      width: 100%;
-      white-space: normal;
-    }
+    // .button {
+    //   border: 2px solid $primary-color;
+    //   width: 100%;
+    //   white-space: normal;
+    // }
 
-    @include breakpoint($medium) {
-      margin: 20px;
-    }
+    // @include breakpoint($medium) {
+    //   margin: 20px;
+    // }
   }
 
   &__error {

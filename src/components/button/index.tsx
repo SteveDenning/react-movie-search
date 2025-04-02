@@ -29,8 +29,8 @@ const Button: React.FC<Props> = ({
   id,
   children,
   className,
-  variant = "filled",
-  color = "default",
+  variant,
+  color,
   disabled,
   href,
   type,
@@ -48,9 +48,10 @@ const Button: React.FC<Props> = ({
 }) => {
   // Class Definitions
   const baseClass = "button";
-  const colorClass = `button--${color}`;
+  const colorClass = color ? `button--${color}` : "";
+  const linkClass = href ? "button--link" : "";
   const variantClass = `button--${variant}`;
-  const classes = [baseClass, colorClass, variantClass, className].filter(Boolean).join(" ");
+  const classes = [baseClass, colorClass, variantClass, linkClass, className].filter(Boolean).join(" ");
 
   const Element = href ? "a" : "button";
 

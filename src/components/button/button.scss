@@ -90,10 +90,8 @@
       }
     }
 
-    &.button--default {
-      @include filledColorVariant($white, $primary-color, $purple, 5%);
-      color: $black;
-    }
+    @include filledColorVariant($white, $primary-color, $purple, 5%);
+    color: $black;
 
     &.button--blue {
       @include filledColorVariant($white, $blue, $purple, 5%);
@@ -246,17 +244,16 @@
       display: flex;
     }
 
-    &.button--default {
-      svg {
-        fill: $primary-color;
-      }
+    svg {
+      fill: $primary-color;
+    }
 
-      @include hover {
-        svg {
-          fill: $lilac;
-        }
+    @include hover {
+      svg {
+        fill: $lilac;
       }
     }
+
     &.button--red {
       svg {
         fill: $red;
@@ -291,9 +288,7 @@
     font-size: inherit;
     padding: 0;
 
-    .button__content {
-      @extend .hover-state;
-    }
+    @extend .hover-state;
   }
 
   &--icon-start {
@@ -327,18 +322,24 @@
     padding: 3px 7px 0px;
     line-height: 18px;
 
-    span {
+    .button__content {
       font-weight: bold;
       color: $black;
+
+      &:before {
+        display: none;
+      }
     }
 
     @include hover {
       background: $black;
 
-      span {
+      .button__content {
         font-weight: bold;
         color: $imdb;
       }
     }
   }
 }
+
+@import "../../styles/typography";

@@ -32,7 +32,14 @@ const SectionHeading: React.FC<Props> = ({ heading, buttonLink, buttonText, back
           <span className="text-glow">{buttonText}</span>
         </Button>
       )}
-      {backButton && <Button onClick={() => window.history.back()}>Back</Button>}
+      {backButton && (
+        <Button
+          onClick={() => window.history.back()}
+          variant="filled"
+        >
+          Back
+        </Button>
+      )}
     </div>
   );
 };
