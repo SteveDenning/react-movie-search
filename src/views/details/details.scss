@@ -77,13 +77,6 @@
     display: flex;
   }
 
-  &__title {
-    align-items: baseline;
-    display: flex;
-    margin-bottom: 0;
-    margin-right: 10px;
-  }
-
   &__title-details {
     align-items: baseline;
     display: block;
@@ -258,9 +251,9 @@
   }
 
   &__reviews {
-    background: $black;
+    background: $background-opacity-color;
     border-radius: 0 20px;
-    padding: 20px;
+    padding: 20px 20px 0;
     position: relative;
 
     &--open {

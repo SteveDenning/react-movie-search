@@ -70,7 +70,6 @@ const Navigation: React.FC<Props> = ({ toggleDrawer, open, navItems }) => {
             // @ts-ignore
             onClick={handleUpdateUser}
             testId="navigation-action-login"
-            variant="filled"
           >
             {user ? "Log Out" : "Login"}
           </Button>

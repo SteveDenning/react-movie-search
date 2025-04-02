@@ -69,7 +69,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const classes = [baseClass, personClass].filter(Boolean).join(" ");
 
   const overview = resource?.overview || resource?.biography || null;
-  const title = resource.name || resource.title;
+  const title = resource.name || resource.title + ` (${moment(resource.release_date || resource.first_air_date).format("YYYY")})`;
   const rating = Number(resourceDetails?.imdbRating);
   const imdbRatingColor = rating > 7 ? "#00b500" : "#d3d300";
 
@@ -265,9 +265,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                         <div className="details-view__profile-details">
                           {isMedia && (resource?.release_date || resource?.first_air_date) && (
                             <div className="details-view__title-details">
-                              <h2 className="details-view__title">
-                                <span className="copy">({moment(resource.release_date || resource.first_air_date).format("YYYY")})</span>
-                              </h2>
                               {resourceDetails?.Runtime && resourceDetails?.Runtime !== "N/A" && (
                                 <span className="copy">{resourceDetails.Runtime}</span>
                               )}
@@ -321,7 +318,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                           <ul className="details-view__genres">
                             {resource.genres.map((genre: any) => (
                               <li
-                                className="details-view__genre-tag"
+                                className="details-view__genre-tag copy"
                                 key={genre.id + genre.name}
                               >
                                 {genre.name}
@@ -335,7 +332,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                       <div className="details-view__info">
                         {resourceDetails?.imdbRating && resourceDetails?.imdbRating !== "N/A" && !isPerson && (
                           <Tooltip
-                            title="This rating is from IMDb but may be out of date due to the time it takes to update."
+                            title="This rating is based off IMDb but may be out of date due to the time it takes to update."
                             placement="top-start"
                             arrow
                           >
@@ -405,7 +402,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                                   }}
                                   testId="details-view-network-image"
                                 >
-                                  TEST
                                   <Image
                                     resource={network}
                                     src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${network?.logo_path}`}

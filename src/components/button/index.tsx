@@ -8,7 +8,7 @@ interface Props {
   children: React.ReactNode;
   className?: string;
   variant?: "filled" | "outlined" | "link" | "heading" | "plain" | "icon-start" | string | undefined;
-  color?: "blue" | "orange" | "pink" | "red" | "purple" | "lavender" | "lilac" | undefined;
+  color?: "blue" | "orange" | "pink" | "red" | "purple" | "lavender" | "lilac" | "yellow" | undefined;
   disabled?: boolean;
   href?: string;
   type?: "button" | "submit" | "reset" | undefined;
@@ -50,7 +50,7 @@ const Button: React.FC<Props> = ({
   const baseClass = "button";
   const colorClass = color ? `button--${color}` : "";
   const linkClass = href ? "button--link" : "";
-  const variantClass = `button--${variant}`;
+  const variantClass = variant ? `button--${variant}` : "";
   const classes = [baseClass, colorClass, variantClass, linkClass, className].filter(Boolean).join(" ");
 
   const Element = href ? "a" : "button";

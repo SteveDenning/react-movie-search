@@ -236,7 +236,6 @@ const AIMedia = () => {
             onClick={getOpenAI}
             className="button--icon-button fade-in"
             disabled={disabled}
-            variant="filled"
           >
             <AutoAwesomeIcon /> Generate
           </Button>

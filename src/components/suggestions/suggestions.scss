@@ -31,12 +31,16 @@
     padding: 10px 0;
     transition: background 0.2s ease, color 0.2s ease;
 
+    &:first-child {
+      border-top: 0;
+    }
+
     .image {
       width: 45px;
     }
 
-    &:first-child {
-      border-top: 0;
+    .button:before {
+      display: none;
     }
 
     p {

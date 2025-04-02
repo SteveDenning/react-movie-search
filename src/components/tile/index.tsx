@@ -101,7 +101,6 @@ const Tile: React.FC<Props> = ({ resource, handleDelete, hasImage = true, onClic
             onClick={() => {
               setIsOpen(false);
             }}
-            variant="filled"
           >
             Cancel
           </Button>
@@ -112,7 +111,6 @@ const Tile: React.FC<Props> = ({ resource, handleDelete, hasImage = true, onClic
             }}
             color="red"
             testId="delete-button"
-            variant="filled"
           >
             Remove
           </Button>
