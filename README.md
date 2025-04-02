@@ -30,9 +30,8 @@ To add new environment variable create a variable in `.env.example` then copy ov
 
 `npm run storybook` - runs Storybook locally and can be viewed here `http://localhost:6006/`
 
-`npm run chromatic` - builds and deploys Storybook and gives feedback if any new changes have been detected for review, these will need to be approved before final deployment to hosting.
-
 # react-movie-search resources and links
 
 [TMDB documentation](https://developer.themoviedb.org/docs/getting-started).
+[OMDB documentation](https://www.omdbapi.com/).
 [OpenAI documentation](https://platform.openai.com/docs/overview).
