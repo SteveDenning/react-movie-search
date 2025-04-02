@@ -135,11 +135,6 @@
       }
     }
 
-    &.button--yellow {
-      @include filledColorVariant($black, $imdb, transparent, 5%);
-      color: $imdb;
-    }
-
     &.button--transparent {
       @include filledColorVariant($white, transparent, $pink, 5%);
     }
@@ -155,6 +150,7 @@
     background: none;
     border-style: solid;
     border-width: 2px;
+    color: $white;
 
     // Size variants
     &.button--small {
@@ -221,6 +217,9 @@
 
     &.button--lavender {
       @include outlinedColorVariant($white, $lavender, $anakiwa, 5%);
+    }
+    &.button--lilac {
+      @include outlinedColorVariant($white, $lilac, $anakiwa, 5%);
     }
 
     &:disabled {
