@@ -14,7 +14,12 @@ const Footer = () => {
       <Container>
         <div className="footer__inner">
           <div>
-            <a href={config.terms.path}>{config.terms.name}</a>
+            <a
+              title="Terms and Conditions page"
+              href={config.terms.path}
+            >
+              {config.terms.name}
+            </a>
           </div>
           <div>
             <span>
@@ -23,11 +28,17 @@ const Footer = () => {
                 href="https://developer.themoviedb.org/docs/getting-started"
                 target="_blank"
                 rel="noreferrer"
+                title="The Movie Database (TMDB)"
               >
                 &nbsp;TMDB&nbsp;
               </a>
               <span>&</span>
-              <a href="https://platform.openai.com/docs/api-reference/introduction">&nbsp;OpenAI</a>
+              <a
+                title="OpenAI Platform"
+                href="https://platform.openai.com/docs/api-reference/introduction"
+              >
+                &nbsp;OpenAI
+              </a>
             </span>
           </div>
           <div>

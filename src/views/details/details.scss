@@ -97,10 +97,10 @@
   &__imdb-rating-score {
     font-weight: bold;
     font-size: 20px;
+  }
 
-    & > span {
-      font-size: 18px;
-    }
+  &__imdb-rating-limit {
+    font-size: 18px;
   }
 
   &__images {
