@@ -153,7 +153,6 @@ a {
   }
 
   @include hover {
-    outline: none;
     text-decoration: none;
 
     &:before {

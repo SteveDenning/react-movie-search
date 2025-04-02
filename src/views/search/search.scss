@@ -4,6 +4,7 @@
 
 .search {
   direction: rtl;
+  position: relative;
   width: calc(100% - 40px);
 
   @include breakpoint($xlarge) {

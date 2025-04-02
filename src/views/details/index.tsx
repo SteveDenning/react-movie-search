@@ -21,7 +21,7 @@ import { config } from "../../config/routes";
 import { useUser } from "../../hocs/with-user-provider";
 
 // MUI
-import { Backdrop, CircularProgress, Container, Fade } from "@mui/material";
+import { Backdrop, CircularProgress, Container, Fade, IconButton, Tooltip } from "@mui/material";
 
 // Services
 import { getFavorites } from "../../services/favorites";
@@ -72,30 +72,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const title = resource.name || resource.title;
   const rating = Number(resourceDetails?.imdbRating);
   const imdbRatingColor = rating > 7 ? "#00b500" : "#d3d300";
-
-  const responsiveOptions: ResponsiveOptionsType[] = [
-    {
-      breakpoint: 5000,
-      settings: {
-        slidesToShow: 7,
-        slidesToScroll: 7,
-      },
-    },
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 4,
-        slidesToScroll: 4,
-      },
-    },
-    {
-      breakpoint: 464,
-      settings: {
-        slidesToShow: 3,
-        slidesToScroll: 3,
-      },
-    },
-  ];
 
   const imageResponsiveOptions: ResponsiveOptionsType[] = [
     {
@@ -358,21 +334,21 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
 
                       <div className="details-view__info">
                         {resourceDetails?.imdbRating && resourceDetails?.imdbRating !== "N/A" && !isPerson && (
-                          <>
-                            <span
-                              className="details-view__imdb-rating-score"
-                              style={{ color: imdbRatingColor }}
-                            >
-                              {resourceDetails.imdbRating}
-                            </span>
-                            <span
-                              className="copy"
-                              style={{ marginRight: "10px" }}
-                            >
-                              {" "}
-                              / 10{" "}
-                            </span>
-                          </>
+                          <Tooltip
+                            title="This rating is from IMDb but may be out of date due to the time it takes to update."
+                            placement="top-start"
+                            arrow
+                          >
+                            <IconButton>
+                              <span
+                                className="details-view__imdb-rating-score"
+                                style={{ color: imdbRatingColor }}
+                              >
+                                {resourceDetails.imdbRating}
+                              </span>
+                              <span className="details-view__imdb-rating-limit copy">&nbsp;/ 10</span>
+                            </IconButton>
+                          </Tooltip>
                         )}
                         {(resource?.imdb_id || resourceDetails?.imdbID) && (
                           <>
@@ -451,7 +427,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 label={MediaCarouselLabel}
                 pathName={pathName}
                 dataResource="cast"
-                responsiveOptions={responsiveOptions}
                 media={isPerson ? "movie" : "person"}
                 buttonText={!isPerson ? "Cast and Crew" : null}
                 buttonLink={`${config.credits.path}/${type}/${programmeId}/${title}`}
@@ -461,7 +436,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 <MediaCarousel
                   label={`Recommended ${type === "tv" ? "TV Shows" : "Films"}`}
                   resourceItems={recommendations}
-                  responsiveOptions={responsiveOptions}
                   media={type}
                 />
               )}
@@ -502,7 +476,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                         </div>
                       </div>
                     </div>
-                    {resource.reviews?.results.length > 15 && (
+                    {resource.reviews?.results.length > 5 && (
                       <div className="details-view__reviews-button">
                         <Button onClick={() => setShowMoreReviews(!showMoreReviews)}>View {showMoreReviews ? "Less" : "More"}</Button>
                       </div>
