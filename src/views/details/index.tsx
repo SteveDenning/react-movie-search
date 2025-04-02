@@ -346,12 +346,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                               >
                                 {resourceDetails.imdbRating}
                               </span>
-                              <span
-                                className="details-view__imdb-rating-limit copy"
-                                style={{ marginRight: "10px" }}
-                              >
-                                &nbsp;/ 10
-                              </span>
+                              <span className="details-view__imdb-rating-limit copy">&nbsp;/ 10</span>
                             </IconButton>
                           </Tooltip>
                         )}
