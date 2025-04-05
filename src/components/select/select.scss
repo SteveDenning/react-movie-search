@@ -4,6 +4,7 @@
 .select {
   border: 1px solid $mid-grey;
   border-radius: 5px;
+  z-index: 2;
 
   .select {
     &__control {
