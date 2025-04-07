@@ -9,6 +9,14 @@
     margin-bottom: 20px;
   }
 
+  &__inner {
+    margin: 20px 0 40px;
+
+    @include breakpoint($medium) {
+      margin-top: 40px;
+    }
+  }
+
   &__no-results {
     display: flex;
     justify-content: center;

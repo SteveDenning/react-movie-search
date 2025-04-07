@@ -424,8 +424,8 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 pathName={pathName}
                 dataResource="cast"
                 media={isPerson ? "movie" : "person"}
-                buttonText={!isPerson ? "Cast and Crew" : null}
-                buttonLink={`${config.credits.path}/${type}/${programmeId}/${title}`}
+                buttonText={!isPerson ? "Cast and Crew" : "View All"}
+                buttonLink={`${config.credits.path}/${type}/${programmeId}/${title}/${isPerson ? "filmography" : ""}`}
               />
 
               {!isPerson && !!recommendations?.length && (
@@ -472,7 +472,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                         </div>
                       </div>
                     </div>
-                    {resource.reviews?.results.length > 5 && (
+                    {resource.reviews?.results.length > 10 && (
                       <div className="details-view__reviews-button">
                         <Button onClick={() => setShowMoreReviews(!showMoreReviews)}>View {showMoreReviews ? "Less" : "More"}</Button>
                       </div>
