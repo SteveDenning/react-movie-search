@@ -4,6 +4,9 @@ import React, { useState } from "react";
 import Button from "../button";
 import Modal from "../modal";
 
+// Styles
+import "./overview.scss";
+
 interface Props {
   resource?: any;
   text: string;
@@ -13,22 +16,25 @@ interface Props {
 
 const Overview: React.FC<Props> = ({ resource, text, limit = 400, copyText }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const ellipsisText = text.slice(0, limit);
+  const ellipsisText = text.slice(0, limit) + "&nbsp&nbsp";
 
   return (
-    <div data-testid="overview">
+    <div
+      data-testid="overview"
+      className="overview"
+    >
       {text.length > limit ? (
         <>
-          <p className={copyText ? "copy" : ""}>
-            {ellipsisText}..... &nbsp;
-            <Button
-              onClick={() => setIsModalOpen(true)}
-              variant="link"
-            >
-              More
-            </Button>
-          </p>
-
+          <p
+            className={copyText ? "copy" : ""}
+            dangerouslySetInnerHTML={{ __html: ellipsisText }} // TODO - find a safer way to avoid XSS attacks
+          />
+          <Button
+            onClick={() => setIsModalOpen(true)}
+            variant="link"
+          >
+            More
+          </Button>
           <Modal
             id={resource.id}
             open={isModalOpen}
@@ -37,13 +43,14 @@ const Overview: React.FC<Props> = ({ resource, text, limit = 400, copyText }) =>
             }}
             title={resource.title || resource.name || resource.author}
           >
-            <p>{text}</p>
+            <p dangerouslySetInnerHTML={{ __html: text }} /> {/* TODO - find a safer way to avoid XSS attacks */}
           </Modal>
         </>
       ) : (
-        <>
-          <p className={copyText ? "copy" : ""}>{text}</p>
-        </>
+        <p
+          className={copyText ? "copy" : ""}
+          dangerouslySetInnerHTML={{ __html: text }} // TODO - find a safer way to avoid XSS attacks
+        />
       )}
     </div>
   );
