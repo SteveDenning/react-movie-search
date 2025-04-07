@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+import DOMPurify from "dompurify";
 
 // Components
 import Button from "../button";
 import Modal from "../modal";
+
+// Styles
+import "./overview.scss";
 
 interface Props {
   resource?: any;
@@ -13,22 +17,31 @@ interface Props {
 
 const Overview: React.FC<Props> = ({ resource, text, limit = 400, copyText }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const ellipsisText = text.slice(0, limit);
+  const sanitizedText = DOMPurify.sanitize(text, { USE_PROFILES: { html: true } });
+  const ellipsisText = sanitizedText.slice(0, limit) + "....";
+
+  // Class definitions
+  const baseClass = "overview";
+  const copyClass = copyText ? "copy" : "";
+  const classes = [baseClass, copyClass].filter(Boolean).join(" ");
 
   return (
-    <div data-testid="overview">
+    <div
+      data-testid="overview"
+      className="overview"
+    >
       {text.length > limit ? (
         <>
-          <p className={copyText ? "copy" : ""}>
-            {ellipsisText}..... &nbsp;
-            <Button
-              onClick={() => setIsModalOpen(true)}
-              variant="link"
-            >
-              More
-            </Button>
-          </p>
-
+          <p
+            className={classes}
+            dangerouslySetInnerHTML={{ __html: ellipsisText }}
+          />
+          <Button
+            onClick={() => setIsModalOpen(true)}
+            variant="link"
+          >
+            More
+          </Button>
           <Modal
             id={resource.id}
             open={isModalOpen}
@@ -37,13 +50,14 @@ const Overview: React.FC<Props> = ({ resource, text, limit = 400, copyText }) =>
             }}
             title={resource.title || resource.name || resource.author}
           >
-            <p>{text}</p>
+            <p dangerouslySetInnerHTML={{ __html: sanitizedText }} />
           </Modal>
         </>
       ) : (
-        <>
-          <p className={copyText ? "copy" : ""}>{text}</p>
-        </>
+        <p
+          className={classes}
+          dangerouslySetInnerHTML={{ __html: sanitizedText }}
+        />
       )}
     </div>
   );

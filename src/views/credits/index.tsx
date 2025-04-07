@@ -3,6 +3,9 @@ import React, { useEffect, useState } from "react";
 // Services
 import { getMedia } from "../../services/media";
 
+// Utils
+import useDefineMediaType from "../../utils/use-define-media-type";
+
 // Component
 import Card from "../../components/card";
 import SectionHeading from "../../components/section-heading";
@@ -26,8 +29,9 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
 
   const type = window.location.pathname.split("/")[2];
   const programmeId = window.location.pathname.split("/")[3];
-  const pathName = `${type}/${programmeId}/credits?language=en-US`;
+  const pathName = `${type}/${programmeId}/${type == "person" ? "combined_credits" : "credits"}`;
   const title = window.location.pathname.split("/")[4] as string;
+  const filmography = window.location.pathname.split("/")[5] as string;
 
   const getCastAndCrew = () => {
     if (pathName) {
@@ -50,7 +54,7 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
   };
 
   const handlePageHeading = () => {
-    const decodedTitle = decodeURI(title);
+    const decodedTitle = `${decodeURI(title)}${filmography ? " - Filmography" : ""}`;
 
     if (decodedTitle) {
       handleMediaTitle(decodedTitle);
@@ -78,6 +82,8 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
               data-testid="credits-results"
             >
               {resource.map((item: any, index: number) => {
+                const mediaType = useDefineMediaType(item);
+
                 return (
                   <Grid
                     component="li"
@@ -90,7 +96,7 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
                     <Card
                       key={item.id + index}
                       resource={item}
-                      onClick={() => (window.location.href = `/details/person/${item.id}`)}
+                      onClick={() => (window.location.href = `/details/${mediaType}/${item.id}`)}
                       variant="details"
                     />
                   </Grid>
@@ -121,19 +127,24 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
             heading={heading}
             backButton
           />
-
-          <Tabs
-            tabs={[
-              { label: "Cast", value: "cast" },
-              { label: "Crew", value: "crew" },
-            ]}
-            onClick={handleTabChange}
-            initialSelection="cast"
-          />
-          <div className="favorites__inner">
-            {selectedTab === "cast" && renderTab(cast, "cast")}
-            {selectedTab === "crew" && renderTab(crew, "crew")}
-          </div>
+          {filmography ? (
+            <div className="credits__inner">{renderTab(cast, "cast")}</div>
+          ) : (
+            <>
+              <Tabs
+                tabs={[
+                  { label: "Cast", value: "cast" },
+                  { label: "Crew", value: "crew" },
+                ]}
+                onClick={handleTabChange}
+                initialSelection="cast"
+              />
+              <div className="credits__inner">
+                {selectedTab === "cast" && renderTab(cast, "cast")}
+                {selectedTab === "crew" && renderTab(crew, "crew")}
+              </div>
+            </>
+          )}
           {error && (
             <p
               className="error"

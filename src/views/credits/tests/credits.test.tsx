@@ -38,7 +38,7 @@ describe("Credits component", () => {
     it("Should render the Credits", async () => {
       await waitFor(() => expect(getMedia).toHaveBeenCalled());
       await waitFor(() => expect(getMedia).toHaveBeenCalledTimes(1));
-      await waitFor(() => expect(getMedia).toHaveBeenCalledWith("movie/1241982/credits?language=en-US"));
+      await waitFor(() => expect(getMedia).toHaveBeenCalledWith("movie/1241982/credits"));
       await waitFor(() => expect(screen.getByTestId("credits-results")).toBeInTheDocument());
     });
 

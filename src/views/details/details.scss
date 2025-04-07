@@ -66,6 +66,10 @@
     margin-bottom: 16px;
   }
 
+  &__description {
+    margin-bottom: 16px;
+  }
+
   &__profile-details {
     align-items: center;
     display: flex;
@@ -253,7 +257,8 @@
   &__reviews {
     background: $background-opacity-color;
     border-radius: 0 20px;
-    padding: 20px 20px 0;
+    margin-bottom: 40px;
+    padding: 20px;
     position: relative;
 
     &--open {
@@ -280,7 +285,7 @@
     background: $black;
     border-radius: 0 0 20px 20px;
     text-align: center;
-    margin: 0 -20px;
+    margin: 0 -20px -40px;
     padding: 20px;
     position: relative;
 

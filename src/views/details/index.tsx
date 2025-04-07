@@ -307,10 +307,12 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                       </div>
 
                       {overview && (
-                        <Overview
-                          resource={resource}
-                          text={overview}
-                        />
+                        <div className="details-view__description">
+                          <Overview
+                            resource={resource}
+                            text={overview}
+                          />
+                        </div>
                       )}
 
                       {!!resource.genres?.length && (
@@ -424,8 +426,8 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                 pathName={pathName}
                 dataResource="cast"
                 media={isPerson ? "movie" : "person"}
-                buttonText={!isPerson ? "Cast and Crew" : null}
-                buttonLink={`${config.credits.path}/${type}/${programmeId}/${title}`}
+                buttonText={!isPerson ? "Cast and Crew" : "View All"}
+                buttonLink={`${config.credits.path}/${type}/${programmeId}/${title}/${isPerson ? "filmography" : ""}`}
               />
 
               {!isPerson && !!recommendations?.length && (
@@ -463,7 +465,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                                 <Overview
                                   resource={review}
                                   text={review.content}
-                                  limit={150}
+                                  limit={80}
                                   copyText
                                 />
                               </div>
@@ -472,7 +474,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                         </div>
                       </div>
                     </div>
-                    {resource.reviews?.results.length > 5 && (
+                    {resource.reviews?.results.length > 6 && (
                       <div className="details-view__reviews-button">
                         <Button onClick={() => setShowMoreReviews(!showMoreReviews)}>View {showMoreReviews ? "Less" : "More"}</Button>
                       </div>
