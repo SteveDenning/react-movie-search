@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DOMPurify from "dompurify";
 
 // Components
 import Button from "../button";
@@ -16,7 +17,8 @@ interface Props {
 
 const Overview: React.FC<Props> = ({ resource, text, limit = 400, copyText }) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const ellipsisText = text.slice(0, limit) + "&nbsp&nbsp";
+  const sanitizedText = DOMPurify.sanitize(text, { USE_PROFILES: { html: true } });
+  const ellipsisText = sanitizedText.slice(0, limit) + "....";
 
   return (
     <div
@@ -27,7 +29,7 @@ const Overview: React.FC<Props> = ({ resource, text, limit = 400, copyText }) =>
         <>
           <p
             className={copyText ? "copy" : ""}
-            dangerouslySetInnerHTML={{ __html: ellipsisText }} // TODO - find a safer way to avoid XSS attacks
+            dangerouslySetInnerHTML={{ __html: ellipsisText }}
           />
           <Button
             onClick={() => setIsModalOpen(true)}
@@ -43,13 +45,13 @@ const Overview: React.FC<Props> = ({ resource, text, limit = 400, copyText }) =>
             }}
             title={resource.title || resource.name || resource.author}
           >
-            <p dangerouslySetInnerHTML={{ __html: text }} /> {/* TODO - find a safer way to avoid XSS attacks */}
+            <p dangerouslySetInnerHTML={{ __html: sanitizedText }} />
           </Modal>
         </>
       ) : (
         <p
           className={copyText ? "copy" : ""}
-          dangerouslySetInnerHTML={{ __html: text }} // TODO - find a safer way to avoid XSS attacks
+          dangerouslySetInnerHTML={{ __html: sanitizedText }}
         />
       )}
     </div>

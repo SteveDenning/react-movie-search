@@ -463,7 +463,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                                 <Overview
                                   resource={review}
                                   text={review.content}
-                                  limit={150}
+                                  limit={80}
                                   copyText
                                 />
                               </div>
@@ -472,7 +472,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                         </div>
                       </div>
                     </div>
-                    {resource.reviews?.results.length > 10 && (
+                    {resource.reviews?.results.length > 6 && (
                       <div className="details-view__reviews-button">
                         <Button onClick={() => setShowMoreReviews(!showMoreReviews)}>View {showMoreReviews ? "Less" : "More"}</Button>
                       </div>
