@@ -20,6 +20,11 @@ const Overview: React.FC<Props> = ({ resource, text, limit = 400, copyText }) =>
   const sanitizedText = DOMPurify.sanitize(text, { USE_PROFILES: { html: true } });
   const ellipsisText = sanitizedText.slice(0, limit) + "....";
 
+  // Class definitions
+  const baseClass = "overview";
+  const copyClass = copyText ? "copy" : "";
+  const classes = [baseClass, copyClass].filter(Boolean).join(" ");
+
   return (
     <div
       data-testid="overview"
@@ -28,7 +33,7 @@ const Overview: React.FC<Props> = ({ resource, text, limit = 400, copyText }) =>
       {text.length > limit ? (
         <>
           <p
-            className={copyText ? "copy" : ""}
+            className={classes}
             dangerouslySetInnerHTML={{ __html: ellipsisText }}
           />
           <Button
@@ -50,7 +55,7 @@ const Overview: React.FC<Props> = ({ resource, text, limit = 400, copyText }) =>
         </>
       ) : (
         <p
-          className={copyText ? "copy" : ""}
+          className={classes}
           dangerouslySetInnerHTML={{ __html: sanitizedText }}
         />
       )}

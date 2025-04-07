@@ -307,10 +307,12 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                       </div>
 
                       {overview && (
-                        <Overview
-                          resource={resource}
-                          text={overview}
-                        />
+                        <div className="details-view__description">
+                          <Overview
+                            resource={resource}
+                            text={overview}
+                          />
+                        </div>
                       )}
 
                       {!!resource.genres?.length && (
