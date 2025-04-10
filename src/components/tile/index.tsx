@@ -75,13 +75,16 @@ const Tile: React.FC<Props> = ({ resource, handleDelete, hasImage = true, onClic
 
       {handleDelete && (
         <div className="tile__actions">
-          <Button
-            variant="icon"
-            onClick={() => setIsOpen(true)}
-          >
-            <DeleteIcon />
-          </Button>
-          {children}
+          {children ? (
+            children
+          ) : (
+            <Button
+              variant="icon"
+              onClick={() => setIsOpen(true)}
+            >
+              <DeleteIcon />
+            </Button>
+          )}
         </div>
       )}
 
