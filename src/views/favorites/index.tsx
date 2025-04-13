@@ -3,6 +3,7 @@ import pluralize from "pluralize";
 
 // Components
 import Button from "../../components/button";
+import Checkbox from "../../components/checkbox";
 import SectionHeading from "../../components/section-heading";
 import Tabs from "../../components/tabs";
 import Tile from "../../components/tile";
@@ -45,6 +46,7 @@ const Favorites: React.FC<Props> = () => {
         .then((response) => {
           if (type === "movies") {
             setFavoriteMovies(response.data.results);
+            setMediaType(response.data.results);
           } else {
             setFavoriteTv(response.data.results);
           }
@@ -178,6 +180,25 @@ const Favorites: React.FC<Props> = () => {
         <div className="favorites__action">
           {mediaType.length > 0 && (
             <>
+              {selectedItems.length > 0 && (
+                <Button
+                  color="red"
+                  variant="filled"
+                  className="button--icon-button"
+                  onClick={handleDeleteSelected}
+                >
+                  Delete Selected
+                </Button>
+              )}
+              {isBulkDelete && (
+                <Button
+                  variant="link"
+                  className="button--icon-button"
+                  onClick={handleToggleAllItems}
+                >
+                  Select All
+                </Button>
+              )}
               <Button
                 variant="link"
                 className="button--icon-button"
@@ -189,25 +210,6 @@ const Favorites: React.FC<Props> = () => {
               >
                 {isBulkDelete ? "Cancel" : "Multi Select"}
               </Button>
-              {isBulkDelete && (
-                <Button
-                  variant="link"
-                  className="button--icon-button"
-                  onClick={handleToggleAllItems}
-                >
-                  Select All
-                </Button>
-              )}
-              {selectedItems.length > 0 && (
-                <Button
-                  color="red"
-                  variant="filled"
-                  className="button--icon-button"
-                  onClick={handleDeleteSelected}
-                >
-                  Delete Selected
-                </Button>
-              )}
             </>
           )}
         </div>

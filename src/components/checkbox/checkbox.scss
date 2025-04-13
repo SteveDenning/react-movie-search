@@ -1,0 +1,105 @@
+@import "../../styles/dependencies";
+
+// Checkbox styles
+.checkbox {
+  display: flex;
+  flex-direction: column;
+  transition: background-color ease 0.3s;
+  width: 100%;
+
+  &__label {
+    align-self: flex-start;
+    color: $purple;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 24px;
+    padding-left: 34px;
+    position: relative;
+    transition: color ease 0.3s;
+
+    &:before {
+      content: "";
+      background-color: $white;
+      border: 1px solid $purple;
+      border-radius: 50%;
+      height: 24px;
+      left: 0;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: background-color ease 0.3s, background-image ease 0.3s;
+      width: 24px;
+    }
+
+    // a {
+    //   color: $purple;
+    //   font-weight: bold;
+    //   text-decoration: none;
+
+    //   &:before {
+    //     background: $pink;
+    //     opacity: 1;
+    //     width: 100%;
+    //   }
+
+    //   @include hover {
+    //     &:before {
+    //       background: $pink;
+    //       opacity: 0;
+    //       width: 0;
+    //     }
+    //   }
+    // }
+  }
+
+  &__input {
+    left: -9999em;
+    position: absolute;
+
+    @include hover {
+      ~ .checkbox__label {
+        color: $pink;
+      }
+    }
+
+    &:disabled {
+      ~ .checkbox__label {
+        cursor: default;
+      }
+
+      @include hover {
+        ~ .checkbox__label {
+          color: $purple;
+        }
+      }
+    }
+  }
+
+  // &__required {
+  //   color: $pink;
+  // }
+
+  // &__error {
+  //   color: $red;
+  //   font-size: 16px;
+  //   line-height: 24px;
+  //   margin: 10px 0 0;
+  // }
+
+  // // Variants
+  // &--checked .checkbox__label:before {
+  //   background: {
+  //     color: $purple;
+  //     // image: url("../../assets/images/icons/checked.svg");
+  //     position: center;
+  //     repeat: no-repeat;
+  //     size: 10px 8px;
+  //   }
+  // }
+
+  // &--error {
+  //   .checkbox__label:before {
+  //     border-color: $red;
+  //   }
+  // }
+}
