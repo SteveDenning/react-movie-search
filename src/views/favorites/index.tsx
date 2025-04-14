@@ -4,6 +4,7 @@ import pluralize from "pluralize";
 // Components
 import Button from "../../components/button";
 import Checkbox from "../../components/checkbox";
+import Modal from "../../components/modal";
 import SectionHeading from "../../components/section-heading";
 import Tabs from "../../components/tabs";
 import Tile from "../../components/tile";
@@ -32,6 +33,8 @@ const Favorites: React.FC<Props> = () => {
   const [isBulkDelete, setIsBulkDelete] = useState<boolean>(false);
   const [selectedItems, setSelectedItems] = useState([]);
   const [mediaType, setMediaType] = useState([]);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
+
   const isAllSelected = selectedItems.length === mediaType.length;
 
   const user = useUser();
@@ -135,8 +138,11 @@ const Favorites: React.FC<Props> = () => {
                       handleDelete={() => handleDeleteOne(item.id, type)}
                     >
                       {isBulkDelete && (
-                        <input
-                          type="checkbox"
+                        <Checkbox
+                          label={item.title || item.name}
+                          name={item.title || item.name}
+                          noLabel
+                          id={`checkbox-${item.id}`}
                           checked={selectedItems.includes(item.id)}
                           onChange={() => handleToggleOneItem(item.id)}
                         />
@@ -178,21 +184,20 @@ const Favorites: React.FC<Props> = () => {
           initialSelection="movies"
         />
         <div className="favorites__action">
-          {mediaType.length > 0 && (
+          {mediaType.length > 1 && (
             <>
               {selectedItems.length > 0 && (
                 <Button
                   color="red"
                   variant="filled"
                   className="button--icon-button"
-                  onClick={handleDeleteSelected}
+                  onClick={() => setIsDeleteModalOpen(true)}
                 >
                   Delete Selected
                 </Button>
               )}
               {isBulkDelete && (
                 <Button
-                  variant="link"
                   className="button--icon-button"
                   onClick={handleToggleAllItems}
                 >
@@ -200,7 +205,6 @@ const Favorites: React.FC<Props> = () => {
                 </Button>
               )}
               <Button
-                variant="link"
                 className="button--icon-button"
                 onClick={() => {
                   setIsBulkDelete(!isBulkDelete);
@@ -218,6 +222,41 @@ const Favorites: React.FC<Props> = () => {
           {selectedTab === "tv" && renderTab(favoriteTv, "tv")}
         </div>
       </div>
+      <Modal
+        id="delete-favorite-modal"
+        open={isDeleteModalOpen}
+        handleClose={() => {
+          setIsDeleteModalOpen(false);
+        }}
+        variant={["small"]}
+      >
+        <h3 style={{ textAlign: "center", marginTop: "30px" }}>
+          Are you sure you want to remove {selectedItems.length} {pluralize("favourites", selectedItems.length)}?
+          <br />
+        </h3>
+
+        <div className="modal__action-buttons">
+          <Button
+            testId="cancel-button"
+            onClick={() => {
+              setIsDeleteModalOpen(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={() => {
+              handleDeleteSelected();
+              setIsDeleteModalOpen(false);
+            }}
+            color="red"
+            variant="filled"
+            testId="delete-button"
+          >
+            Remove
+          </Button>
+        </div>
+      </Modal>
     </Container>
   );
 };

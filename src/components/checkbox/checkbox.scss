@@ -9,7 +9,7 @@
 
   &__label {
     align-self: flex-start;
-    color: $purple;
+    color: $primary-color;
     cursor: pointer;
     font-size: 16px;
     line-height: 24px;
@@ -19,9 +19,8 @@
 
     &:before {
       content: "";
-      background-color: $white;
-      border: 1px solid $purple;
-      border-radius: 50%;
+      border: 1px solid $primary-color;
+      border-radius: 5px;
       height: 24px;
       left: 0;
       position: absolute;
@@ -31,25 +30,25 @@
       width: 24px;
     }
 
-    // a {
-    //   color: $purple;
-    //   font-weight: bold;
-    //   text-decoration: none;
+    a {
+      color: $primary-color;
+      font-weight: bold;
+      text-decoration: none;
 
-    //   &:before {
-    //     background: $pink;
-    //     opacity: 1;
-    //     width: 100%;
-    //   }
+      &:before {
+        background: $pink;
+        opacity: 1;
+        width: 100%;
+      }
 
-    //   @include hover {
-    //     &:before {
-    //       background: $pink;
-    //       opacity: 0;
-    //       width: 0;
-    //     }
-    //   }
-    // }
+      @include hover {
+        &:before {
+          background: $pink;
+          opacity: 0;
+          width: 0;
+        }
+      }
+    }
   }
 
   &__input {
@@ -69,37 +68,37 @@
 
       @include hover {
         ~ .checkbox__label {
-          color: $purple;
+          color: $primary-color;
         }
       }
     }
   }
 
-  // &__required {
-  //   color: $pink;
-  // }
+  &__required {
+    color: $pink;
+  }
 
-  // &__error {
-  //   color: $red;
-  //   font-size: 16px;
-  //   line-height: 24px;
-  //   margin: 10px 0 0;
-  // }
+  &__error {
+    color: $red;
+    font-size: 16px;
+    line-height: 24px;
+    margin: 10px 0 0;
+  }
 
-  // // Variants
-  // &--checked .checkbox__label:before {
-  //   background: {
-  //     color: $purple;
-  //     // image: url("../../assets/images/icons/checked.svg");
-  //     position: center;
-  //     repeat: no-repeat;
-  //     size: 10px 8px;
-  //   }
-  // }
+  // Variants
+  &--checked .checkbox__label:before {
+    background: {
+      color: $primary-color;
+      image: url("../../assets/images/checked.svg");
+      position: center;
+      repeat: no-repeat;
+      size: contain;
+    }
+  }
 
-  // &--error {
-  //   .checkbox__label:before {
-  //     border-color: $red;
-  //   }
-  // }
+  &--error {
+    .checkbox__label:before {
+      border-color: $red;
+    }
+  }
 }
