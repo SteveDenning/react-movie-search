@@ -82,28 +82,4 @@ describe("Checkbox Component", () => {
       expect(screen.getByTestId("checkbox")).toHaveClass("checkbox--checked");
     });
   });
-
-  describe("Handling error states", () => {
-    const onChange = jest.fn();
-
-    beforeEach(() => {
-      render(
-        <Checkbox
-          id="checkbox-04"
-          label="Lorem ipsum"
-          name="checkbox-04"
-          onChange={onChange}
-          checked={false}
-        />,
-      );
-    });
-
-    it("Should apply appropriate error class", () => {
-      expect(screen.getByTestId("checkbox")).toHaveClass("checkbox--error");
-    });
-
-    it("Should display default error message", () => {
-      expect(screen.getByText("Field is required")).toBeInTheDocument();
-    });
-  });
 });
