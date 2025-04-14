@@ -68,9 +68,12 @@ const Navigation: React.FC<Props> = ({ toggleDrawer, open, navItems }) => {
               >
                 <Button
                   variant="link"
-                  onClick={() => toggleDrawer(false)}
+                  onClick={() => {
+                    window.location.href = item.path;
+                    toggleDrawer(false);
+                  }}
+                  startIcon={item.icon}
                 >
-                  {item.icon}
                   {item.label}
                 </Button>
               </li>

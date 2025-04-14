@@ -25,6 +25,10 @@
 
   &__list-item {
     margin-bottom: 20px;
+
+    .button__start-icon {
+      margin-right: 10px;
+    }
   }
 
   .MuiPaper-elevation {
