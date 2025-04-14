@@ -9,7 +9,7 @@ export const getRequestToken = async (): Promise<any> => {
   const response: AxiosResponse<any> = await axios.post(
     url,
     {
-      redirect_to: window.location.origin,
+      redirect_to: window.location.href,
     },
     { ...headers, method: "POST" },
   );

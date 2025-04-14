@@ -212,7 +212,7 @@ const Favorites: React.FC<Props> = () => {
                   isBulkDelete && setSelectedItems([]);
                 }}
               >
-                {isBulkDelete ? "Cancel" : "Multi Select"}
+                {isBulkDelete ? "Cancel" : "Bulk Select"}
               </Button>
             </>
           )}

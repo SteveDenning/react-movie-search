@@ -54,8 +54,6 @@ const Header: React.FC<Props> = ({ heading }) => {
     { label: config.favorites.name, path: config.favorites.path, icon: <FavoriteIcon /> },
   ];
 
-  console.log(window.location.href);
-
   const toggleDrawer = (state: boolean) => {
     setOpen(state);
   };
