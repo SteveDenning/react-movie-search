@@ -64,6 +64,7 @@ const Navigation: React.FC<Props> = ({ toggleDrawer, open, navItems }) => {
               <li
                 key={item.label}
                 className="navigation__list-item"
+                data-testid="navigation-list-item"
               >
                 <Button
                   variant="link"
