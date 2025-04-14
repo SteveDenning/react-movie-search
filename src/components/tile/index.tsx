@@ -20,9 +20,10 @@ interface Props {
   handleDelete?: (id: string) => void;
   hasImage?: boolean;
   onClick?: () => void;
+  children?: React.ReactNode;
 }
 
-const Tile: React.FC<Props> = ({ resource, handleDelete, hasImage = true, onClick }) => {
+const Tile: React.FC<Props> = ({ resource, handleDelete, hasImage = true, onClick, children }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isOpenModal, setIsOpenModal] = useState<boolean>(false);
   const text = resource?.overview || resource?.description;
@@ -71,14 +72,19 @@ const Tile: React.FC<Props> = ({ resource, handleDelete, hasImage = true, onClic
         )}
         {resource?.vote_average && <p className="copy">Popularity vote: {resource.vote_average.toFixed(1)}</p>}
       </div>
+
       {handleDelete && (
         <div className="tile__actions">
-          <Button
-            variant="icon"
-            onClick={() => setIsOpen(true)}
-          >
-            <DeleteIcon />
-          </Button>
+          {children ? (
+            children
+          ) : (
+            <Button
+              variant="icon"
+              onClick={() => setIsOpen(true)}
+            >
+              <DeleteIcon />
+            </Button>
+          )}
         </div>
       )}
 

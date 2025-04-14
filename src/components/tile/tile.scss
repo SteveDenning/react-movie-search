@@ -27,10 +27,17 @@
     margin: 0;
   }
 
+  &__content {
+    .overview {
+      margin-bottom: 16px;
+    }
+  }
+
   &__actions {
+    align-items: center;
     display: flex;
     justify-content: center;
-    padding: 0 20px;
+    min-height: 70px;
 
     svg {
       font-size: 50px;
@@ -53,6 +60,7 @@
     &__actions {
       display: flex;
       margin-left: auto;
+      min-width: 100px;
 
       svg {
         font-size: 50px;

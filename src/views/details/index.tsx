@@ -63,15 +63,18 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const MediaCarouselLabel = isPerson ? "Known for" : "Top Cast";
   const pathName = `${type}/${programmeId}/${isPerson ? "combined_credits" : "credits"}?language=en-US`;
 
-  // Class Definitions
-  const baseClass = "details-view";
-  const personClass = isPerson ? "details-view--person" : "";
-  const classes = [baseClass, personClass].filter(Boolean).join(" ");
-
   const overview = resource?.overview || resource?.biography || null;
   const title = resource.name || resource.title + ` (${moment(resource.release_date || resource.first_air_date).format("YYYY")})`;
   const rating = Number(resourceDetails?.imdbRating);
   const imdbRatingColor = rating > 7 ? "#00b500" : "#d3d300";
+
+  const comingSoon =
+    resource?.release_date || resource?.first_air_date ? moment(resource?.release_date || resource?.first_air_date).isAfter() : false;
+
+  // Class Definitions
+  const baseClass = "details-view";
+  const personClass = isPerson ? "details-view--person" : "";
+  const classes = [baseClass, personClass].filter(Boolean).join(" ");
 
   const imageResponsiveOptions: ResponsiveOptionsType[] = [
     {
@@ -263,7 +266,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                     <div>
                       <div>
                         <div className="details-view__profile-details">
-                          {isMedia && (resource?.release_date || resource?.first_air_date) && (
+                          {isMedia && (
                             <div className="details-view__title-details">
                               {resourceDetails?.Runtime && resourceDetails?.Runtime !== "N/A" && (
                                 <span className="copy">{resourceDetails.Runtime}</span>
@@ -274,6 +277,12 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                                   style={{ marginLeft: "10px" }}
                                 >
                                   {resourceDetails.Rated == "TV-MA" ? "PG-18" : resourceDetails.Rated.replace("TV", "PG")}
+                                </span>
+                              )}
+                              {(resource?.release_date || resource?.first_air_date) && comingSoon && (
+                                <span className="copy">
+                                  Coming soon:&nbsp;&nbsp;
+                                  {moment(resource?.release_date || resource?.first_air_date).format("MMMM Do YYYY")}
                                 </span>
                               )}
                             </div>

@@ -8,6 +8,10 @@
     padding: 20px 0;
   }
 
+  &__list {
+    list-style: none;
+  }
+
   &__empty-message {
     color: $primary-color;
     display: flex;
@@ -15,9 +19,20 @@
     padding: 20px;
   }
 
+  &__action {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    min-height: 35px;
+
+    button {
+      margin-left: 20px;
+    }
+  }
+
   @include breakpoint($medium) {
     &__inner {
-      padding: 50px 0;
+      padding: 20px 0 50px;
     }
   }
 }

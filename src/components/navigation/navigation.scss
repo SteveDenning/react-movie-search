@@ -18,6 +18,19 @@
     margin-top: 50px;
   }
 
+  &__list {
+    list-style: none;
+    padding: 40px 0;
+  }
+
+  &__list-item {
+    margin-bottom: 20px;
+
+    .button__start-icon {
+      margin-right: 10px;
+    }
+  }
+
   .MuiPaper-elevation {
     border-left: 1px solid rgba($color: $primary-color, $alpha: 0.5);
   }

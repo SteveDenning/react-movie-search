@@ -2,7 +2,6 @@ import React from "react";
 
 // Components
 import Button from "../../components/button";
-import List from "../../components/list";
 
 // Hocs
 import { useUser, useUserUpdate } from "../../hocs/with-user-provider";
@@ -60,10 +59,26 @@ const Navigation: React.FC<Props> = ({ toggleDrawer, open, navItems }) => {
           </Button>
         </div>
         {user && (
-          <List
-            resources={navItems}
-            variant="link"
-          />
+          <ul className="navigation__list">
+            {navItems.map((item) => (
+              <li
+                key={item.label}
+                className="navigation__list-item"
+                data-testid="navigation-list-item"
+              >
+                <Button
+                  variant="link"
+                  onClick={() => {
+                    window.location.href = item.path;
+                    toggleDrawer(false);
+                  }}
+                  startIcon={item.icon}
+                >
+                  {item.label}
+                </Button>
+              </li>
+            ))}
+          </ul>
         )}
         <div className="navigation__action-login">
           <Button

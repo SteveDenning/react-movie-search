@@ -53,7 +53,7 @@ describe("Navigation component", () => {
     });
 
     it("Should render navigation item", () => {
-      expect(screen.queryAllByTestId("list-item")).toHaveLength(3);
+      expect(screen.queryAllByTestId("navigation-list-item")).toHaveLength(3);
     });
 
     it("Should let the user close the navigation", async () => {
