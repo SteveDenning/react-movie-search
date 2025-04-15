@@ -4,6 +4,7 @@ import pluralize from "pluralize";
 // Components
 import Button from "../../components/button";
 import Checkbox from "../../components/checkbox";
+import Error from "../../components/error";
 import Modal from "../../components/modal";
 import SectionHeading from "../../components/section-heading";
 import Tabs from "../../components/tabs";
@@ -269,12 +270,10 @@ const Favorites: React.FC<Props> = () => {
           </div>
         </Modal>
         {error && (
-          <p
-            className="error"
-            data-testid="details-view-error"
-          >
-            There was a problem performing this action - please try again later.
-          </p>
+          <Error
+            testId="details-view-error"
+            content=" There was a problem performing this action - please try again later."
+          />
         )}
       </Container>
       <Backdrop open={loading}>

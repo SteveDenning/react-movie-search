@@ -5,6 +5,7 @@ import { getMedia } from "../../services/media";
 
 // Components
 import Carousel from "../../components/carousel";
+import Error from "../../components/error";
 
 // MUI
 import Backdrop from "@mui/material/Backdrop";
@@ -57,7 +58,7 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
 
   return (
     <>
-      {resources?.length && (
+      {!!resources?.length && (
         <div className="banner-carousel">
           <Fade in={!loading}>
             <div
@@ -78,12 +79,10 @@ const BannerCarousel: React.FC<Props> = ({ media, path }) => {
         </div>
       )}
       {error && (
-        <p
-          className="error"
-          data-testid="banner-carousel-error"
-        >
-          There was a problem with the banner - please try again later
-        </p>
+        <Error
+          testId="banner-carousel-error"
+          content="There was a problem with the banner - please try again later"
+        />
       )}
       <Backdrop open={loading}>
         <CircularProgress color="primary" />

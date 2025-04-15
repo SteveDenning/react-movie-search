@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import { getMedia } from "../../services/media";
 
 // Components
+import Error from "../../components/error";
 import Resources from "../../components/resources";
 import SectionHeading from "../../components/section-heading";
 
@@ -82,12 +83,10 @@ const MediaListing = () => {
         />
       </Container>
       {error && (
-        <p
-          className="error"
-          data-testid="media-listing-error"
-        >
-          There was a problem with the banner - please try again later
-        </p>
+        <Error
+          testId="media-listing-error"
+          content="There was a problem with the banner - please try again later"
+        />
       )}
     </div>
   );

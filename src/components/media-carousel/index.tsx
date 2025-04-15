@@ -7,6 +7,7 @@ import { getMedia } from "../../services/media";
 
 // Components
 import Carousel from "../../components/carousel";
+import Error from "../../components/error";
 import SectionHeading from "../../components/section-heading";
 
 // Hocs
@@ -156,12 +157,10 @@ const MediaCarousel: React.FC<Props> = ({
         </Fade>
       )}
       {error && (
-        <p
-          className="error"
-          data-testid="media-carousel-error"
-        >
-          {`There was a problem getting the ${media} - please try again later`}
-        </p>
+        <Error
+          testId="media-carousel-error"
+          content={`There was a problem getting the ${media} items - please try again later`}
+        />
       )}
       <Backdrop open={loading}>
         <CircularProgress color="primary" />

@@ -8,6 +8,7 @@ import useDefineMediaType from "../../utils/use-define-media-type";
 
 // Component
 import Card from "../../components/card";
+import Error from "../../components/error";
 import SectionHeading from "../../components/section-heading";
 import Tabs from "../../components/tabs";
 
@@ -146,12 +147,10 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
             </>
           )}
           {error && (
-            <p
-              className="error"
-              data-testid="credits-error"
-            >
-              There was a problem getting the detail page - please try again later
-            </p>
+            <Error
+              testId="credits-error"
+              content="There was a problem getting the credits - please try again later"
+            />
           )}
         </Container>
         <Backdrop open={loading}>
