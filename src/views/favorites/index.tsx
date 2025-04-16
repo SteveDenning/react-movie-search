@@ -4,13 +4,14 @@ import pluralize from "pluralize";
 // Components
 import Button from "../../components/button";
 import Checkbox from "../../components/checkbox";
+import Error from "../../components/error";
 import Modal from "../../components/modal";
 import SectionHeading from "../../components/section-heading";
 import Tabs from "../../components/tabs";
 import Tile from "../../components/tile";
 
 // MUI Components
-import { Container, Fade } from "@mui/material";
+import { Container, Fade, Backdrop, CircularProgress } from "@mui/material";
 
 // Hocs
 import { useUser } from "../../hocs/with-user-provider";
@@ -29,6 +30,8 @@ interface Props {
 const Favorites: React.FC<Props> = () => {
   const [favoriteMovies, setFavoriteMovies] = useState<any>([]);
   const [favoriteTv, setFavoriteTv] = useState<any>([]);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [selectedTab, setSelectedTab] = useState("movies");
   const [isBulkDelete, setIsBulkDelete] = useState<boolean>(false);
   const [selectedItems, setSelectedItems] = useState([]);
@@ -55,14 +58,18 @@ const Favorites: React.FC<Props> = () => {
           }
           setIsBulkDelete(false);
           setSelectedItems([]);
+          setLoading(false);
         })
         .catch((error) => {
+          setError(true);
+          setLoading(false);
           console.error(error);
         });
     }
   };
 
   const handleDeleteOne = (type: string, id: string) => {
+    setLoading(true);
     const body = {
       media_type: pluralize.singular(type),
       media_id: id,
@@ -74,11 +81,14 @@ const Favorites: React.FC<Props> = () => {
         getFavoritesList(type);
       })
       .catch((error) => {
+        setError(true);
+        setLoading(false);
         console.error(error);
       });
   };
 
   const handleDeleteSelected = async () => {
+    setLoading(true);
     try {
       await Promise.all(
         selectedItems.map((id) => {
@@ -93,7 +103,8 @@ const Favorites: React.FC<Props> = () => {
 
       getFavoritesList(selectedTab);
     } catch (error) {
-      console.error("Failed to delete some items:", error);
+      setError(true);
+      setLoading(false);
     }
   };
 
@@ -166,98 +177,109 @@ const Favorites: React.FC<Props> = () => {
   };
 
   return (
-    <Container>
-      <div
-        className="favorites"
-        data-testid="favorites"
-      >
-        <SectionHeading
-          heading="Favourites"
-          backButton
-        />
-        <Tabs
-          tabs={[
-            { label: "Movies", value: "movies" },
-            { label: "TV", value: "tv" },
-          ]}
-          onClick={handleTabChange}
-          initialSelection="movies"
-        />
-        <div className="favorites__action">
-          {mediaType.length > 1 && (
-            <>
-              {selectedItems.length > 0 && (
+    <>
+      <Container>
+        <div
+          className="favorites"
+          data-testid="favorites"
+        >
+          <SectionHeading
+            heading="Favourites"
+            backButton
+          />
+          <Tabs
+            tabs={[
+              { label: "Movies", value: "movies" },
+              { label: "TV", value: "tv" },
+            ]}
+            onClick={handleTabChange}
+            initialSelection="movies"
+          />
+          <div className="favorites__action">
+            {mediaType.length > 1 && (
+              <>
+                {selectedItems.length > 0 && (
+                  <Button
+                    color="red"
+                    variant="filled"
+                    className="button--icon-button"
+                    onClick={() => setIsDeleteModalOpen(true)}
+                  >
+                    Delete Selected
+                  </Button>
+                )}
+                {isBulkDelete && (
+                  <Button
+                    className="button--icon-button"
+                    onClick={handleToggleAllItems}
+                  >
+                    Select All
+                  </Button>
+                )}
                 <Button
-                  color="red"
-                  variant="filled"
                   className="button--icon-button"
-                  onClick={() => setIsDeleteModalOpen(true)}
+                  onClick={() => {
+                    setIsBulkDelete(!isBulkDelete);
+                    setMediaType(selectedTab === "movies" ? favoriteMovies : favoriteTv);
+                    isBulkDelete && setSelectedItems([]);
+                  }}
                 >
-                  Delete Selected
+                  {isBulkDelete ? "Cancel" : "Bulk Select"}
                 </Button>
-              )}
-              {isBulkDelete && (
-                <Button
-                  className="button--icon-button"
-                  onClick={handleToggleAllItems}
-                >
-                  Select All
-                </Button>
-              )}
-              <Button
-                className="button--icon-button"
-                onClick={() => {
-                  setIsBulkDelete(!isBulkDelete);
-                  setMediaType(selectedTab === "movies" ? favoriteMovies : favoriteTv);
-                  isBulkDelete && setSelectedItems([]);
-                }}
-              >
-                {isBulkDelete ? "Cancel" : "Bulk Select"}
-              </Button>
-            </>
-          )}
+              </>
+            )}
+          </div>
+          <div className="favorites__inner">
+            {selectedTab === "movies" && renderTab(favoriteMovies, "movies")}
+            {selectedTab === "tv" && renderTab(favoriteTv, "tv")}
+          </div>
         </div>
-        <div className="favorites__inner">
-          {selectedTab === "movies" && renderTab(favoriteMovies, "movies")}
-          {selectedTab === "tv" && renderTab(favoriteTv, "tv")}
-        </div>
-      </div>
-      <Modal
-        id="delete-favorite-modal"
-        open={isDeleteModalOpen}
-        handleClose={() => {
-          setIsDeleteModalOpen(false);
-        }}
-        variant={["small"]}
-      >
-        <h3 style={{ textAlign: "center", marginTop: "30px" }}>
-          Are you sure you want to remove {selectedItems.length} {pluralize("favourites", selectedItems.length)}?
-          <br />
-        </h3>
+        <Modal
+          id="delete-favorite-modal"
+          open={isDeleteModalOpen}
+          handleClose={() => {
+            setIsDeleteModalOpen(false);
+          }}
+          variant={["small"]}
+        >
+          <h3 style={{ textAlign: "center", marginTop: "30px" }}>
+            Are you sure you want to remove {selectedItems.length} {pluralize("favourites", selectedItems.length)}?
+            <br />
+          </h3>
 
-        <div className="modal__action-buttons">
-          <Button
-            testId="cancel-button"
-            onClick={() => {
-              setIsDeleteModalOpen(false);
-            }}
-          >
-            Cancel
-          </Button>
-          <Button
-            onClick={() => {
-              handleDeleteSelected();
-              setIsDeleteModalOpen(false);
-            }}
-            color="red"
-            variant="filled"
-            testId="delete-button"
-          >
-            Remove
-          </Button>
-        </div>
-      </Modal>
-    </Container>
+          <div className="modal__action-buttons">
+            <Button
+              testId="cancel-button"
+              onClick={() => {
+                setIsDeleteModalOpen(false);
+              }}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={() => {
+                handleDeleteSelected();
+                setIsDeleteModalOpen(false);
+              }}
+              color="red"
+              variant="filled"
+              testId="delete-button"
+            >
+              Remove
+            </Button>
+          </div>
+        </Modal>
+        {error && (
+          <Error
+            testId="details-view-error"
+            content=" There was a problem performing this action - please try again later."
+          />
+        )}
+      </Container>
+      <Backdrop open={loading}>
+        <CircularProgress color="primary" />
+      </Backdrop>
+    </>
   );
 };
 

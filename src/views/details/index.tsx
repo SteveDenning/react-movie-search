@@ -6,6 +6,7 @@ import pluralize from "pluralize";
 import Accordion from "../../components/accordion";
 import AddToFavorites from "../../components/add-to-favorites";
 import Button from "../../components/button";
+import Error from "../../components/error";
 import Image from "../../components/image";
 import MediaCarousel from "../../components/media-carousel";
 import Modal from "../../components/modal";
@@ -496,12 +497,10 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
         </Fade>
       )}
       {error && (
-        <p
-          className="error"
-          data-testid="details-view-error"
-        >
-          There was a problem getting the detail page - please try again later.
-        </p>
+        <Error
+          testId="details-view-error"
+          content="There was a problem getting the detail page - please try again later."
+        />
       )}
       <Modal
         id={resource.id}

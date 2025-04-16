@@ -8,6 +8,7 @@ import { getAllMediaFromSearch } from "../../services/search";
 import { Container, Backdrop, CircularProgress } from "@mui/material";
 
 // Components
+import Error from "../../components/error";
 import Resources from "../../components/resources";
 
 // Styles
@@ -90,12 +91,10 @@ const SearchResults = () => {
           </div>
         )}
         {error && (
-          <p
-            className="error"
-            data-testid="search-results-error"
-          >
-            There was a problem getting the results - please try again later
-          </p>
+          <Error
+            testId="search-results-error"
+            content="There was a problem getting the results - please try again later"
+          />
         )}
       </Container>
 

@@ -4,6 +4,7 @@ import pluralize from "pluralize";
 // Components
 import AILoader from "../../components/ai-loader";
 import Button from "../../components/button";
+import Error from "../../components/error";
 import Modal from "../../components/modal";
 import SectionHeading from "../../components/section-heading";
 import Select from "../../components/select";
@@ -365,12 +366,10 @@ const AIMedia = () => {
             )
           )}
           {error && (
-            <p
-              className="error"
-              data-testid="search-results-error"
-            >
-              There was a problem getting the results - please try again later
-            </p>
+            <Error
+              testId="search-results-error"
+              content="There was a problem getting the results - please try again later"
+            />
           )}
         </div>
       </Container>
