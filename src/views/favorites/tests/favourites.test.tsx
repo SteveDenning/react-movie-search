@@ -1,6 +1,6 @@
 import React from "react";
 import "@testing-library/jest-dom";
-import { screen, render, waitFor, act, fireEvent } from "@testing-library/react";
+import { screen, render, waitFor, fireEvent } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
 
 // Services
@@ -40,7 +40,7 @@ describe("Favorites component", () => {
 
       (getFavorites as jest.Mock).mockResolvedValue(variables.favouriteMovies);
 
-      await act(async () => {
+      await waitFor(async () => {
         render(
           <MemoryRouter>
             <Favorites />
@@ -81,7 +81,7 @@ describe("Favorites component", () => {
 
       (getFavorites as jest.Mock).mockResolvedValue(variables.noResults);
 
-      await act(async () => {
+      await waitFor(async () => {
         render(
           <MemoryRouter>
             <Favorites />
@@ -103,7 +103,7 @@ describe("Favorites component", () => {
 
       (getFavorites as jest.Mock).mockResolvedValue(variables.noResults);
 
-      await act(async () => {
+      await waitFor(async () => {
         render(
           <MemoryRouter>
             <Favorites />

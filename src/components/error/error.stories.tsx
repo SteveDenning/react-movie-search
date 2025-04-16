@@ -33,5 +33,5 @@ export const Default: Story = {
   ),
 };
 Default.args = {
-  content: "Error message",
+  content: "This is an error message",
 };
