@@ -146,7 +146,7 @@ const Favorites: React.FC<Props> = () => {
                   <li key={item.id}>
                     <Tile
                       resource={item}
-                      handleDelete={() => handleDeleteOne(item.id, type)}
+                      handleDelete={() => handleDeleteOne(type, item.id)}
                     >
                       {isBulkDelete && (
                         <Checkbox
