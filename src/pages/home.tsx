@@ -66,30 +66,32 @@ const HomePage = () => {
         path="movie/now_playing"
       />
       <Container>
-        <h1 className="page-title">Trending this week</h1>
-        <MediaCarousel
-          buttonText="View all"
-          label="Movies"
-          pathName="trending/movie/week"
-          media="movie"
-          buttonLink={`${config.mediaListing.path}/trending/movie/week/${MOVIES_TITLE}?page=1`}
-        />
-        <MediaCarousel
-          buttonText="View all"
-          label="TV Shows"
-          pathName="trending/tv/week"
-          media="tv"
-          buttonLink={`${config.mediaListing.path}/trending/tv/week/${TV_SHOWS_TITLE}?page=1`}
-        />
+        <section>
+          <h1 className="section-title">Trending this week</h1>
+          <MediaCarousel
+            buttonText="View all"
+            label="Movies"
+            pathName="trending/movie/week"
+            media="movie"
+            buttonLink={`${config.mediaListing.path}/trending/movie/week/${MOVIES_TITLE}?page=1`}
+          />
+          <MediaCarousel
+            buttonText="View all"
+            label="TV Shows"
+            pathName="trending/tv/week"
+            media="tv"
+            buttonLink={`${config.mediaListing.path}/trending/tv/week/${TV_SHOWS_TITLE}?page=1`}
+          />
 
-        <MediaCarousel
-          buttonText="View all"
-          label="People"
-          pathName="trending/person/week"
-          media="person"
-          buttonLink={`${config.mediaListing.path}/trending/person/week/${PERSON_TITLE}?page=1`}
-          responsiveOptions={responsiveOptions}
-        />
+          <MediaCarousel
+            buttonText="View all"
+            label="People"
+            pathName="trending/person/week"
+            media="person"
+            buttonLink={`${config.mediaListing.path}/trending/person/week/${PERSON_TITLE}?page=1`}
+            responsiveOptions={responsiveOptions}
+          />
+        </section>
       </Container>
     </DefaultLayout>
   );
