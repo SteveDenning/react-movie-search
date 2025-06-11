@@ -22,6 +22,20 @@ test.describe("Home Page (Logged out)", () => {
     await page.getByTestId("modal-close-button").click();
     await expect(page.getByTestId("modal")).not.toBeVisible();
   });
+
+  test("User can search for a TV programme then clear the search field", async ({ page }) => {
+    await page.goto("https://my-mdb.co.uk/");
+    await page.getByTestId("search-form-input").fill("Breaking Bad");
+    await page.getByTestId("search-form-input").press("Enter");
+
+    await expect(page).toHaveTitle("Search Results");
+    await expect(page).toHaveURL("https://my-mdb.co.uk/search-results?query=Breaking%20Bad&filterByType=multi&page=1");
+    await expect(page.getByTestId("resources")).toBeVisible();
+
+    await page.locator(".button.button--icon.search__form-clear").first().click();
+
+    await expect(page.locator(".search-results__no-results-title")).toBeVisible();
+  });
 });
 
 test.describe("Home Page (Logged in)", () => {
