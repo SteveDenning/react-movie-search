@@ -26,21 +26,21 @@ const Login: React.FC<Props> = ({ onClick, user }) => {
       <span className="sr-only">User Profile</span>
       {user?.avatar?.tmdb?.avatar_path ? (
         <img
-          className="login__avatar"
+          className="login__avatar login__user--logged-in"
           src={`${process.env.REACT_APP_TMDB_IMAGE_PATH}/${user.avatar.tmdb.avatar_path}`}
           alt={user.name}
           data-testid="login-avatar"
         />
       ) : user?.name ? (
         <span
-          className="login__user-initials"
+          className="login__user-initials login__user--logged-in"
           data-testid="login-user-initials"
         >
           {user.name.match(/\b(\w)/g).join("")}
         </span>
       ) : user ? (
         <span
-          className="login__user-initials"
+          className="login__user-initials login__user--logged-in"
           data-testid="login-user-initial"
         >
           {user.username?.slice(0, 1).toUpperCase()}

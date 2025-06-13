@@ -6,11 +6,13 @@ import pluralize from "pluralize";
 import Accordion from "../../components/accordion";
 import AddToFavorites from "../../components/add-to-favorites";
 import Button from "../../components/button";
+import Carousel from "../../components/carousel";
 import Error from "../../components/error";
 import Image from "../../components/image";
 import MediaCarousel from "../../components/media-carousel";
 import Modal from "../../components/modal";
 import Overview from "../../components/overview";
+import Rating from "../../components/rating";
 import SectionHeading from "../../components/section-heading";
 import Share from "../../components/share";
 import Video from "../../components/video";
@@ -34,7 +36,6 @@ import { ResponsiveOptionsType } from "../../models/types";
 
 // Styles
 import "./details.scss";
-import Carousel from "../../components/carousel";
 
 interface Props {
   handleMediaTitle: (title: string) => void;
@@ -66,8 +67,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
 
   const overview = resource?.overview || resource?.biography || null;
   const title = resource.name || resource.title + ` (${moment(resource.release_date || resource.first_air_date).format("YYYY")})`;
-  const rating = Number(resourceDetails?.imdbRating);
-  const imdbRatingColor = rating > 7 ? "#00b500" : "#d3d300";
 
   const comingSoon =
     resource?.release_date || resource?.first_air_date ? moment(resource?.release_date || resource?.first_air_date).isAfter() : false;
@@ -274,7 +273,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                               )}
                               {resourceDetails?.Rated && resourceDetails?.Rated !== "N/A" && (
                                 <span
-                                  className="copy copy--small  rating"
+                                  className="copy--small  details-view__media-rating"
                                   style={{ marginLeft: "10px" }}
                                 >
                                   {resourceDetails.Rated == "TV-MA" ? "PG-18" : resourceDetails.Rated.replace("TV", "PG")}
@@ -349,13 +348,10 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                             arrow
                           >
                             <IconButton>
-                              <span
-                                className="details-view__imdb-rating-score"
-                                style={{ color: imdbRatingColor }}
-                              >
-                                {resourceDetails.imdbRating}
-                              </span>
-                              <span className="details-view__imdb-rating-limit copy">&nbsp;/ 10</span>
+                              <Rating
+                                resource={resourceDetails?.imdbRating}
+                                percentage
+                              />
                             </IconButton>
                           </Tooltip>
                         )}

@@ -7,5 +7,6 @@
   "testEnvironment": "jest-environment-jsdom",
   "coveragePathIgnorePatterns": ["node_modules", "<rootDir>/src/utils", "<rootDir>/src/hocs", "src/routes/config.ts", "tests/config.tsx"],
   "transformIgnorePatterns": ["node_modules/(?!(decode-uri-component|filter-obj|split-on-first|query-string)/)"],
-  "setupFilesAfterEnv": ["<rootDir>/jest.setup.js"]
+  "setupFilesAfterEnv": ["<rootDir>/jest.setup.js"],
+  "modulePathIgnorePatterns": ["<rootDir>/e2e/*.*.spec.ts", "<rootDir>/e2e/*.*.spec.tsx", "<rootDir>/_stories/*.*.spec.ts"]
 }
