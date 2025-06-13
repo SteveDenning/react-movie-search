@@ -9,6 +9,7 @@ test.describe("Media Listing Page", () => {
       .getByTestId("button")
       .click();
     await expect(page).toHaveTitle("Media Listing");
+    await expect(page).toHaveURL(/media-listing/);
     await expect(page.locator(".section-heading__header")).toHaveText("Movies trending this week");
 
     // Return to Home page via Back Button

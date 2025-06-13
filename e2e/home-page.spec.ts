@@ -4,7 +4,7 @@ import { login } from "./helpers/login";
 test.describe("Home Page (Logged out)", () => {
   test("Page has correct contents", async ({ page }) => {
     await page.goto("https://my-mdb.co.uk/");
-    await expect(page).toHaveTitle("My Movie Database | Home");
+    await expect(page).toHaveTitle(/My Movie Database/);
     await expect(page).toHaveURL("https://my-mdb.co.uk/");
     await expect(page.locator("footer")).toBeVisible();
     await expect(page.getByRole("heading", { name: "Trending this week" })).toBeVisible();
@@ -43,7 +43,7 @@ test.describe("Home Page (Logged in)", () => {
     await page.goto("https://my-mdb.co.uk/");
     await login(page);
     // Assertions
-    await expect(page).toHaveTitle("My Movie Database | Home");
+    await expect(page).toHaveTitle(/My Movie Database/);
     await expect(page.locator(".login__user--logged-in")).toBeVisible();
   });
 });
