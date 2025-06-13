@@ -91,14 +91,13 @@
     }
   }
 
-  &__imdb-rating-score {
+  &__media-rating {
+    background: $white;
+    border-radius: 5px;
+    color: $black;
     font-weight: bold;
-    font-size: 20px;
-  }
-
-  &__imdb-rating-limit {
-    font-size: 18px;
-    margin-right: 10px;
+    padding: 2px 5px 0 5px;
+    margin-left: 10px;
   }
 
   &__images {

@@ -7,6 +7,7 @@ import useDefineMediaType from "../../utils/use-define-media-type";
 import Button from "../button";
 import Image from "../image";
 import Modal from "../modal";
+import Rating from "../rating";
 import Overview from "../overview";
 
 // MUI Icons
@@ -70,7 +71,11 @@ const Tile: React.FC<Props> = ({ resource, handleDelete, hasImage = true, onClic
             text={text}
           />
         )}
-        {resource?.vote_average && <p className="copy">Popularity vote: {resource.vote_average.toFixed(1)}</p>}
+        {resource?.vote_average && (
+          <p className="copy tile__popularity">
+            Popularity vote: <Rating resource={resource?.vote_average} />
+          </p>
+        )}
       </div>
 
       {handleDelete && (
