@@ -275,7 +275,7 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                               {resourceDetails?.Rated && resourceDetails?.Rated !== "N/A" && (
                                 <span
                                   className="copy copy--small  rating"
-                                  style={{ marginLeft: "10px" }}
+                                  style={{ margin: "0 10px" }}
                                 >
                                   {resourceDetails.Rated == "TV-MA" ? "PG-18" : resourceDetails.Rated.replace("TV", "PG")}
                                 </span>
