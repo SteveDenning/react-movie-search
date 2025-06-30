@@ -8,7 +8,6 @@ import Search from "../../views/search";
 
 // Utils
 import useScreenSize from "../../utils/use-screen-size";
-import { getUserDoc } from "../../firebase";
 
 // Config
 import { config } from "../../config/routes";
@@ -20,6 +19,7 @@ import { useUser, useUserUpdate } from "../../hocs/with-user-provider";
 import { Container } from "@mui/material";
 
 // MUI Icons
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import AutoAwesomeIcon from "@mui/icons-material/AutoAwesome";
 import ClearIcon from "@mui/icons-material/Clear";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -55,6 +55,14 @@ const Header: React.FC<Props> = ({ heading }) => {
     { label: config.aiMedia.name, path: config.aiMedia.path, icon: <AutoAwesomeIcon /> },
     { label: config.favorites.name, path: config.favorites.path, icon: <FavoriteIcon /> },
   ];
+
+  if (user?.["isAdmin"]) {
+    navItems.push({
+      label: "Admin",
+      path: "/",
+      icon: <AdminPanelSettingsIcon />,
+    });
+  }
 
   const toggleDrawer = (state: boolean) => {
     setOpen(state);

@@ -3,6 +3,11 @@ import axios, { AxiosResponse } from "axios";
 // Headers
 import { headers } from "./headers";
 
+import { doc, getDoc } from "firebase/firestore";
+
+// Firebase
+import { db } from "../firebase";
+
 export const getRequestToken = async (): Promise<any> => {
   const url = "https://api.themoviedb.org/4/auth/request_token";
 
@@ -53,4 +58,10 @@ export const createSessionWithAccessToken = async (body: any): Promise<any> => {
   const response: AxiosResponse<any> = await axios.post(url, body, { ...headers, method: "POST" });
 
   return response;
+};
+
+export const getUserDoc = async (id: string) => {
+  const docRef = doc(db, "users", id);
+  const docSnap = await getDoc(docRef);
+  return docSnap.exists() ? docSnap.data() : null;
 };

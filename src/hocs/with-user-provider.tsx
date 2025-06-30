@@ -3,8 +3,8 @@ import React, { useState, createContext, useContext, useEffect } from "react";
 // Utils
 import { createSessionWithAccessToken, deleteAccessToken, getRequestToken, getAccountDetails, getAccessToken } from "../services/user";
 
-// HOCs
-import { getUserDoc } from "../firebase";
+// Services
+import { getUserDoc } from "../services/user";
 
 // Types
 import { UserType } from "models/types";
@@ -96,11 +96,13 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
     }
   };
 
-  const getUserAdmin = (userId: string, user: any) => {
+  const getUserAdmin = (userId: number, user: any) => {
     if (userId) {
       getUserDoc(userId.toString()).then((userData) => {
         const isAdmin = userData?.admin || false;
         const update = { ...user, isAdmin };
+
+        setUser(update);
         sessionStorage.setItem("user", JSON.stringify(update));
       });
     }
@@ -113,14 +115,12 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
           const accountId = sessionStorage.getItem("account_id");
           const accessToken = sessionStorage.getItem("access_token");
           const sessionId = sessionStorage.getItem("session_id");
-
           const update = { ...response.data, account_id: accountId, access_token: accessToken, session_id: sessionId };
-          setUser(update);
 
+          getUserAdmin(update.id, update);
           sessionStorage.removeItem("account_id");
           sessionStorage.removeItem("request_token");
           sessionStorage.removeItem("session_id");
-          getUserAdmin(update.id, update);
         }
       })
       .catch((error) => console.error(error));

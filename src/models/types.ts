@@ -15,18 +15,6 @@ export type GenreOptionsType = {
   value: string;
 };
 
-export type UserType = {
-  access_token: string;
-  avatar: {
-    tmdb: {
-      avatar_path: string;
-    };
-  };
-  id: string;
-  name: string;
-  username: string;
-};
-
 export type NavItemType = {
   label: string;
   path: string;
@@ -50,4 +38,25 @@ export type SuggestionType = {
   name: string;
   original_title: string;
   release_date: string;
+};
+
+export type UserType = {
+  access_token: string;
+  account_id: string;
+  avatar: {
+    gravatar: {
+      hash: string;
+    };
+    tmdb?: {
+      avatar_path?: string;
+    };
+  };
+  id: number;
+  include_adult: boolean;
+  isAdmin: boolean;
+  iso_639_1: string;
+  iso_3166_1: string;
+  name: string;
+  session_id: string;
+  username: string;
 };
