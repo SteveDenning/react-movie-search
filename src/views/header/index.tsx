@@ -8,6 +8,7 @@ import Search from "../../views/search";
 
 // Utils
 import useScreenSize from "../../utils/use-screen-size";
+import { getUserDoc } from "../../firebase";
 
 // Config
 import { config } from "../../config/routes";
@@ -26,8 +27,9 @@ import TheatersIcon from "@mui/icons-material/Theaters";
 
 // Styles
 import "./header.scss";
-import { NavItemType } from "../../models/types";
 
+// Types
+import { NavItemType } from "../../models/types";
 interface Props {
   heading: string;
 }

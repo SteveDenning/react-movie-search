@@ -3,6 +3,9 @@ import React, { useState, createContext, useContext, useEffect } from "react";
 // Utils
 import { createSessionWithAccessToken, deleteAccessToken, getRequestToken, getAccountDetails, getAccessToken } from "../services/user";
 
+// HOCs
+import { getUserDoc } from "../firebase";
+
 // Types
 import { UserType } from "models/types";
 
@@ -93,6 +96,16 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
     }
   };
 
+  const getUserAdmin = (userId: string, user: any) => {
+    if (userId) {
+      getUserDoc(userId.toString()).then((userData) => {
+        const isAdmin = userData?.admin || false;
+        const update = { ...user, isAdmin };
+        sessionStorage.setItem("user", JSON.stringify(update));
+      });
+    }
+  };
+
   const handleGetAccountDetails = (sessionId: string) => {
     getAccountDetails(sessionId)
       .then((response: any) => {
@@ -104,10 +117,10 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
           const update = { ...response.data, account_id: accountId, access_token: accessToken, session_id: sessionId };
           setUser(update);
 
-          sessionStorage.setItem("user", JSON.stringify(update));
           sessionStorage.removeItem("account_id");
           sessionStorage.removeItem("request_token");
           sessionStorage.removeItem("session_id");
+          getUserAdmin(update.id, update);
         }
       })
       .catch((error) => console.error(error));
