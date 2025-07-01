@@ -4,7 +4,7 @@ import React, { useState, createContext, useContext, useEffect } from "react";
 import { createSessionWithAccessToken, deleteAccessToken, getRequestToken, getAccountDetails, getAccessToken } from "../services/user";
 
 // Services
-import { getUserDoc } from "../services/user";
+import { getUserDoc, getAllUsers, addUser } from "../services/user";
 
 // Types
 import { UserType } from "models/types";
@@ -96,6 +96,17 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
     }
   };
 
+  const addUserToDatabase = (user: UserType) => {
+    getAllUsers().then((users: any[]) => {
+      const userId = user?.id.toString();
+      const existingUser = users.find((u) => u.id == userId);
+
+      if (!existingUser) {
+        addUser(user);
+      }
+    });
+  };
+
   const getUserAdmin = (userId: number, user: any) => {
     if (userId) {
       getUserDoc(userId.toString()).then((userData) => {
@@ -104,6 +115,7 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
 
         setUser(update);
         sessionStorage.setItem("user", JSON.stringify(update));
+        addUserToDatabase(update);
       });
     }
   };
