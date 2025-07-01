@@ -68,9 +68,6 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
   const overview = resource?.overview || resource?.biography || null;
   const title = resource.name || resource.title + ` (${moment(resource.release_date || resource.first_air_date).format("YYYY")})`;
 
-  const comingSoon =
-    resource?.release_date || resource?.first_air_date ? moment(resource?.release_date || resource?.first_air_date).isAfter() : false;
-
   // Class Definitions
   const baseClass = "details-view";
   const personClass = isPerson ? "details-view--person" : "";

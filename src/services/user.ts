@@ -3,7 +3,7 @@ import axios, { AxiosResponse } from "axios";
 // Headers
 import { headers } from "./headers";
 
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, getDocs, collection, addDoc } from "firebase/firestore";
 
 // Firebase
 import { db } from "../firebase";
@@ -64,4 +64,17 @@ export const getUserDoc = async (id: string) => {
   const docRef = doc(db, "users", id);
   const docSnap = await getDoc(docRef);
   return docSnap.exists() ? docSnap.data() : null;
+};
+
+export const getUsersDoc = async (): Promise<any> => {
+  const usersCollection = collection(db, "users");
+  const usersSnapshot = await getDocs(usersCollection);
+  return usersSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+};
+
+// write a new function similar to the one above that add a user to the users collection
+export const addUserDoc = async (userData: any): Promise<any> => {
+  const usersCollection = collection(db, "users");
+  const docRef = await addDoc(usersCollection, userData);
+  return docRef.id;
 };

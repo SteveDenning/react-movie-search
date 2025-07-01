@@ -6,9 +6,9 @@ import DefaultLayout from "../layout/default";
 // Views
 import Admin from "../views/admin";
 
-const ProfilePage = () => {
-  const title = "Profile Page";
-  const pageDescription = "";
+const AIMediaPage = () => {
+  const title = "Admin Area";
+  const pageDescription = "Admin section for displaying users";
 
   return (
     <DefaultLayout
@@ -20,4 +20,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default AIMediaPage;

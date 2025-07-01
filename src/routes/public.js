@@ -5,6 +5,7 @@ import { config } from "../config/routes";
 
 // Views
 import APMediaPage from "../pages/ai-media";
+import Admin from "../pages/admin";
 import DetailsPage from "../pages/details";
 import CreditsPage from "../pages/credits";
 import FavoritesPage from "../pages/favorites";
@@ -24,6 +25,10 @@ const routes = {
         path: "/",
         element: <HomePage />,
         // errorElement: <PageNotFound />,
+      },
+      {
+        path: `${config.admin.path}`,
+        element: <Admin />,
       },
       {
         path: `${config.aiMedia.path}`,

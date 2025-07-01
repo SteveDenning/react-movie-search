@@ -58,8 +58,8 @@ const Header: React.FC<Props> = ({ heading }) => {
 
   if (user?.["isAdmin"]) {
     navItems.push({
-      label: "Admin",
-      path: "/",
+      label: config.admin.name,
+      path: config.admin.path,
       icon: <AdminPanelSettingsIcon />,
     });
   }

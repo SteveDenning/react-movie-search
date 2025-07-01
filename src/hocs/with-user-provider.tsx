@@ -1,10 +1,16 @@
 import React, { useState, createContext, useContext, useEffect } from "react";
 
-// Utils
-import { createSessionWithAccessToken, deleteAccessToken, getRequestToken, getAccountDetails, getAccessToken } from "../services/user";
-
 // Services
-import { getUserDoc } from "../services/user";
+import {
+  addUserDoc,
+  createSessionWithAccessToken,
+  deleteAccessToken,
+  getRequestToken,
+  getAccountDetails,
+  getAccessToken,
+  getUsersDoc,
+  getUserDoc,
+} from "../services/user";
 
 // Types
 import { UserType } from "models/types";
@@ -97,14 +103,28 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
   };
 
   const getUserAdmin = (userId: number, user: any) => {
+    getUsers();
+    // Get a list of users
+    // Find out if the user ID exists
+    // If the user ID exists, get the user data
+    // Else add the user to the users collection
+    // addUserDoc(update);
     if (userId) {
       getUserDoc(userId.toString()).then((userData) => {
         const isAdmin = userData?.admin || false;
         const update = { ...user, isAdmin };
-
         setUser(update);
         sessionStorage.setItem("user", JSON.stringify(update));
       });
+    }
+  };
+
+  const getUsers = async () => {
+    try {
+      const users = await getUsersDoc();
+      console.log(users);
+    } catch (error) {
+      console.error("Error fetching users:", error);
     }
   };
 
