@@ -1,4 +1,4 @@
-import React from "react";
+import React, {memo} from "react";
 
 // Icons
 import Person3OutlinedIcon from "@mui/icons-material/Person3Outlined";
@@ -15,7 +15,8 @@ interface Props {
   user: any;
 }
 
-const Login: React.FC<Props> = ({ onClick, user }) => {
+const Login = memo(({onClick, user}: Props) => {
+  
   return (
     <Button
       className="login"
@@ -50,6 +51,6 @@ const Login: React.FC<Props> = ({ onClick, user }) => {
       )}
     </Button>
   );
-};
+});
 
 export default Login;

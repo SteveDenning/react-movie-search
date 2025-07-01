@@ -92,7 +92,7 @@ const Credits: React.FC<Props> = ({ handleMediaTitle }) => {
                     xs={10}
                     md={5}
                     lg={4}
-                    key={index}
+                    key={item.id}
                   >
                     <Card
                       key={item.id + index}

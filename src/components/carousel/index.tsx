@@ -150,7 +150,7 @@ const Carousel: React.FC<Props> = ({
 
             return (
               <div
-                key={index}
+                key={item.id}
                 className="carousel__item"
                 data-testid="carousel-item"
               >

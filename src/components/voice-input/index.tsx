@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 
 // Components
 import Button from "../button";
@@ -15,7 +15,8 @@ interface Props {
   setValue?: (text: any) => void;
 }
 
-const VoiceInput: React.FC<Props> = ({ setValue }) => {
+const VoiceInput = memo(({setValue}: Props) => {
+
   const [finalText, setFinalText] = useState<string>("");
   const [liveText, setLiveText] = useState<string>("");
   const [isListening, setIsListening] = useState<boolean>(false);
@@ -95,6 +96,6 @@ const VoiceInput: React.FC<Props> = ({ setValue }) => {
       </Modal>
     </>
   );
-};
+});
 
 export default VoiceInput;

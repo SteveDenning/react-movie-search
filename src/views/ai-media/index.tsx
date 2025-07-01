@@ -346,10 +346,10 @@ const AIMedia = () => {
                     {resources?.popular && <p>{resources.popular.join(", ")}</p>}
                   </div>
                   <ul className="ai-media__list">
-                    {resources?.media.map((item: any, index: number) => {
+                    {resources?.media.map((item: any) => {
                       return (
                         <li
-                          key={index}
+                          key={item.id}
                           className="ai-media__list-item"
                         >
                           <Tile
