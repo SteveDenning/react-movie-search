@@ -26,7 +26,7 @@
 
   &__slider {
     border-radius: 30px;
-    background-color: #ccc;
+    background-color: $secondary-color;
     height: 30px;
     margin-right: 10px;
     position: relative;
@@ -34,7 +34,7 @@
     width: 60px;
 
     &::before {
-      background-color: $white;
+      background-color: $primary-color;
       border-radius: 50%;
       content: "";
       height: 24px;
@@ -55,7 +55,7 @@
 
   // Variants
   &--disabled {
-    opacity: 0.6;
+    opacity: 0.4;
     pointer-events: none;
   }
 }

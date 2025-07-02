@@ -56,7 +56,7 @@ const Header: React.FC<Props> = ({ heading }) => {
     { label: config.favorites.name, path: config.favorites.path, icon: <FavoriteIcon /> },
   ];
 
-  if (user?.["isAdmin"]) {
+  if (user?.["admin"]) {
     navItems.push({
       label: config.admin.name,
       path: config.admin.path,

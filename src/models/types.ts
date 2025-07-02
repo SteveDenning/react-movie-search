@@ -53,7 +53,7 @@ export type UserType = {
   };
   id: number;
   include_adult: boolean;
-  isAdmin: boolean;
+  admin: boolean;
   iso_639_1: string;
   iso_3166_1: string;
   name: string;

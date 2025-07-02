@@ -31,10 +31,10 @@ const Admin: React.FC<Props> = () => {
       console.error("Error fetching users:", error);
     }
   };
-  const handleToggleAdmin = async (userId: any, isAdmin) => {
+  const handleToggleAdmin = async (userId: any, admin) => {
     try {
-      const updatedUsers = users.map((user) => (user.id === userId.id ? { ...user, isAdmin: !user.isAdmin } : user));
-      const update = { ...userId, isAdmin: isAdmin };
+      const updatedUsers = users.map((user) => (user.id === userId.id ? { ...user, admin: !user.admin } : user));
+      const update = { ...userId, admin: admin };
       setUsers(updatedUsers);
       addUser(update);
     } catch (error) {
@@ -74,8 +74,8 @@ const Admin: React.FC<Props> = () => {
                   <td>{user.id || "N/A"}</td>
                   <td>
                     <ToggleSwitch
-                      checked={user.isAdmin}
-                      onChange={() => handleToggleAdmin(user, !user.isAdmin)}
+                      checked={user.admin}
+                      onChange={() => handleToggleAdmin(user, !user.admin)}
                       disabled={user.id === currentUser?.["id"]}
                     />
                   </td>

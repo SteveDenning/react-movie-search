@@ -116,8 +116,8 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
   const handleIsUserAdmin = (userId: number, user: any) => {
     if (userId) {
       getUserDoc(userId.toString()).then((userData) => {
-        const isAdmin = userData?.isAdmin || false;
-        const update = { ...user, isAdmin };
+        const admin = userData?.admin || false;
+        const update = { ...user, admin };
 
         setUser(update);
         sessionStorage.setItem("user", JSON.stringify(update));
