@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 Object.defineProperty(window, "scroll", {
   writable: true,
   value: jest.fn(),
