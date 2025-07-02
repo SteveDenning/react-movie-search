@@ -6,7 +6,7 @@ import DefaultLayout from "../layout/default";
 // Views
 import Admin from "../views/admin";
 
-const AIMediaPage = () => {
+const AdminPage = () => {
   const title = "Admin Area";
   const pageDescription = "Admin section for displaying users";
 
@@ -20,4 +20,4 @@ const AIMediaPage = () => {
   );
 };
 
-export default AIMediaPage;
+export default AdminPage;

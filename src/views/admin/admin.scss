@@ -4,19 +4,38 @@
 
 .admin {
   margin-top: 40px;
-}
-// create some nice styles for the admin page and table
-.admin__content {
-  padding: 20px;
-}
 
-.admin__table {
-  width: 100%;
-  border-collapse: collapse;
+  &__content {
+    padding: 20px 0;
+  }
 
-  th,
-  td {
-    padding: 12px 15px;
-    border: 1px solid #eee;
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+
+    td {
+      border: 1px solid rgba($color: #000000, $alpha: 0.6);
+      padding: 12px 15px;
+
+      &:last-of-type {
+        text-align: center;
+      }
+    }
+
+    th {
+      background: rgba($color: #000000, $alpha: 0.6);
+      padding: 12px 15px;
+    }
+
+    tr {
+      &:nth-child(even) {
+        background: rgba($color: #000000, $alpha: 0.1);
+      }
+    }
+  }
+}
+.admin__role {
+  &--active {
+    background: red;
   }
 }
