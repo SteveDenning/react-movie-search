@@ -276,11 +276,8 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                                   {resourceDetails.Rated == "TV-MA" ? "PG-18" : resourceDetails.Rated.replace("TV", "PG")}
                                 </span>
                               )}
-                              {(resource?.release_date || resource?.first_air_date) && comingSoon && (
-                                <span className="copy">
-                                  Coming soon:&nbsp;&nbsp;
-                                  {moment(resource?.release_date || resource?.first_air_date).format("MMMM Do YYYY")}
-                                </span>
+                              {(resource?.release_date || resource?.first_air_date) && (
+                                <span className="copy">({moment(resource?.release_date || resource?.first_air_date).format("MMMM Do YYYY")})</span>
                               )}
                             </div>
                           )}

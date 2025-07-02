@@ -4,9 +4,11 @@ import React, { useEffect, useState } from "react";
 import { Container } from "@mui/material";
 import SectionHeading from "../../components/section-heading";
 
+// Services
+import { getAllUsers } from "../../services/user";
+
 // Styles
 import "./admin.scss";
-import { getUsersDoc } from "../../services/user";
 
 interface Props {
   children?: React.ReactNode;
@@ -17,8 +19,7 @@ const Admin: React.FC<Props> = () => {
 
   const getUsers = async () => {
     try {
-      const users = await getUsersDoc();
-      console.log(users);
+      const users = await getAllUsers();
       setUsers(users);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -26,7 +27,6 @@ const Admin: React.FC<Props> = () => {
   };
 
   useEffect(() => {
-    // Fetch users when the component mounts
     getUsers();
   }, []);
 
@@ -56,7 +56,7 @@ const Admin: React.FC<Props> = () => {
                   <td>{user.username}</td>
                   <td>{user.name || "N/A"}</td>
                   <td>{user.id || "N/A"}</td>
-                  <td>{user.admin ? "Yes" : "No"}</td>
+                  <td>{user.isAdmin ? "Yes" : "No"}</td>
                 </tr>
               ))}
             </tbody>

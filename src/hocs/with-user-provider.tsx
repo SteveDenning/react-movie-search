@@ -1,7 +1,16 @@
 import React, { useState, createContext, useContext, useEffect } from "react";
 
-// Services
-import { getUserDoc, getAllUsers, addUser } from "../services/user";
+// Utils
+import {
+  getUserDoc,
+  getAllUsers,
+  addUser,
+  createSessionWithAccessToken,
+  deleteAccessToken,
+  getRequestToken,
+  getAccountDetails,
+  getAccessToken,
+} from "../services/user";
 
 // Types
 import { UserType } from "models/types";
@@ -99,35 +108,21 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
       const existingUser = users.find((u) => u.id == userId);
 
       if (!existingUser) {
-        addUser(user);
+        addUser({ ...user, admin: false });
       }
     });
   };
 
-  const getUserAdmin = (userId: number, user: any) => {
-    getUsers();
-    // Get a list of users
-    // Find out if the user ID exists
-    // If the user ID exists, get the user data
-    // Else add the user to the users collection
-    // addUserDoc(update);
+  const handleIsUserAdmin = (userId: number, user: any) => {
     if (userId) {
       getUserDoc(userId.toString()).then((userData) => {
-        const isAdmin = userData?.admin || false;
+        const isAdmin = userData?.isAdmin || false;
         const update = { ...user, isAdmin };
+
         setUser(update);
         sessionStorage.setItem("user", JSON.stringify(update));
         addUserToDatabase(update);
       });
-    }
-  };
-
-  const getUsers = async () => {
-    try {
-      const users = await getUsersDoc();
-      console.log(users);
-    } catch (error) {
-      console.error("Error fetching users:", error);
     }
   };
 
@@ -140,7 +135,7 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
           const sessionId = sessionStorage.getItem("session_id");
           const update = { ...response.data, account_id: accountId, access_token: accessToken, session_id: sessionId };
 
-          getUserAdmin(update.id, update);
+          handleIsUserAdmin(update.id, update);
           sessionStorage.removeItem("account_id");
           sessionStorage.removeItem("request_token");
           sessionStorage.removeItem("session_id");
