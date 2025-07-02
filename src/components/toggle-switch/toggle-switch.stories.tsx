@@ -28,7 +28,18 @@ export default meta;
 
 type Story = StoryObj<typeof Template>;
 
-const ToggleSwitch = (args: any) => <Template {...args} />;
+const ToggleSwitch = (args: any) => {
+  const { checked } = args;
+
+  const [checkedState, setCheckedState] = React.useState(checked);
+
+  return (
+    <Template
+      checked={checkedState}
+      onChange={() => setCheckedState(!checkedState)}
+    />
+  );
+};
 
 export const Default: Story = {
   render: (args) => (
@@ -37,4 +48,20 @@ export const Default: Story = {
     </StorybookLayout>
   ),
 };
-Default.args = {};
+Default.args = {
+  checked: false,
+  onChange: (checked: boolean) => console.log("Toggle Switch changed:", checked),
+};
+
+export const Disabled: Story = {
+  render: (args) => (
+    <StorybookLayout>
+      <ToggleSwitch {...args} />
+    </StorybookLayout>
+  ),
+};
+Disabled.args = {
+  checked: false,
+  onChange: () => {},
+  disabled: true,
+};
