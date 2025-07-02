@@ -9,7 +9,7 @@ import ToggleSwitch from "../../components/toggle-switch";
 import { useUser } from "../../hocs/with-user-provider";
 
 // Services
-import { getAllUsers } from "../../services/user";
+import { addUser, getAllUsers } from "../../services/user";
 
 // Styles
 import "./admin.scss";
@@ -31,12 +31,12 @@ const Admin: React.FC<Props> = () => {
       console.error("Error fetching users:", error);
     }
   };
-  const handleToggleAdmin = async (userId: string) => {
+  const handleToggleAdmin = async (userId: any, isAdmin) => {
     try {
-      const updatedUsers = users.map((user) => (user.id === userId ? { ...user, isAdmin: !user.isAdmin } : user));
+      const updatedUsers = users.map((user) => (user.id === userId.id ? { ...user, isAdmin: !user.isAdmin } : user));
+      const update = { ...userId, isAdmin: isAdmin };
       setUsers(updatedUsers);
-      // Here you would typically call an API to update the user's admin status
-      // await updateUserAdminStatus(userId, !user.isAdmin);
+      addUser(update);
     } catch (error) {
       console.error("Error updating admin status:", error);
     }
@@ -75,8 +75,8 @@ const Admin: React.FC<Props> = () => {
                   <td>
                     <ToggleSwitch
                       checked={user.isAdmin}
-                      onChange={() => handleToggleAdmin(user.id)}
-                      disabled={user.id === currentUser?.["id"]} // Assuming 'default' is a non-editable user
+                      onChange={() => handleToggleAdmin(user, !user.isAdmin)}
+                      disabled={user.id === currentUser?.["id"]}
                     />
                   </td>
                 </tr>
