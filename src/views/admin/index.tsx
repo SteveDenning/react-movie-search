@@ -31,14 +31,14 @@ const Admin: React.FC<Props> = () => {
       console.error("Error fetching users:", error);
     }
   };
-  const handleToggleAdmin = async (userId: any, admin) => {
+  const handleToggleAdmin = async (userId: any, member) => {
     try {
-      const updatedUsers = users.map((user) => (user.id === userId.id ? { ...user, admin: !user.admin } : user));
-      const update = { ...userId, admin: admin };
+      const updatedUsers = users.map((user) => (user.id === userId.id ? { ...user, member: !user.member } : user));
+      const update = { ...userId, member: member };
       setUsers(updatedUsers);
       addUser(update);
     } catch (error) {
-      console.error("Error updating admin status:", error);
+      console.error("Error updating member status:", error);
     }
   };
 
@@ -60,22 +60,22 @@ const Admin: React.FC<Props> = () => {
           <table className="admin__table">
             <thead>
               <tr>
-                <th>Name (Optional)</th>
                 <th>User Name</th>
+                <th>Name (Optional)</th>
                 <th>User ID</th>
-                <th>Admin</th>
+                <th>Member</th>
               </tr>
             </thead>
             <tbody>
               {users.map((user) => (
                 <tr key={user.id}>
-                  <td>{user.name || "N/A"}</td>
                   <td>{user.username}</td>
+                  <td>{user.name || "- - -"}</td>
                   <td>{user.id || "N/A"}</td>
                   <td>
                     <ToggleSwitch
-                      checked={user.admin}
-                      onChange={() => handleToggleAdmin(user, !user.admin)}
+                      checked={user.member}
+                      onChange={() => handleToggleAdmin(user, !user.member)}
                       disabled={user.id === currentUser?.["id"]}
                     />
                   </td>

@@ -113,11 +113,12 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
     });
   };
 
-  const handleIsUserAdmin = (userId: number, user: any) => {
+  const handleIsUserCredentials = (userId: number, user: any) => {
     if (userId) {
       getUserDoc(userId.toString()).then((userData) => {
         const admin = userData?.admin || false;
-        const update = { ...user, admin };
+        const member = userData?.member || false;
+        const update = { ...user, admin, member };
 
         setUser(update);
         sessionStorage.setItem("user", JSON.stringify(update));
@@ -135,7 +136,7 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
           const sessionId = sessionStorage.getItem("session_id");
           const update = { ...response.data, account_id: accountId, access_token: accessToken, session_id: sessionId };
 
-          handleIsUserAdmin(update.id, update);
+          handleIsUserCredentials(update.id, update);
           sessionStorage.removeItem("account_id");
           sessionStorage.removeItem("request_token");
           sessionStorage.removeItem("session_id");

@@ -71,10 +71,10 @@ const Tile: React.FC<Props> = ({ resource, handleDelete, hasImage = true, onClic
             text={text}
           />
         )}
-        {resource?.vote_average && (
-          <p className="copy tile__popularity">
+        {!!resource?.vote_average && (
+          <span className="copy tile__popularity">
             Popularity vote: <Rating resource={resource?.vote_average} />
-          </p>
+          </span>
         )}
       </div>
 

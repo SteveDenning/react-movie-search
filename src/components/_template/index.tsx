@@ -1,7 +1,7 @@
 import React from "react";
 
 // Styles
-import "./test.scss";
+import "./template.scss";
 
 interface Props {
   children?: React.ReactNode;
@@ -9,11 +9,11 @@ interface Props {
   resource?: any;
 }
 
-const Test: React.FC<Props> = ({ children, onClick }) => {
+const Template: React.FC<Props> = ({ children, onClick }) => {
   return (
     <div
-      className="test"
-      data-testid="test"
+      className="template"
+      data-testid="template"
       onClick={onClick}
     >
       {children}
@@ -21,4 +21,4 @@ const Test: React.FC<Props> = ({ children, onClick }) => {
   );
 };
 
-export default Test;
+export default Template;
