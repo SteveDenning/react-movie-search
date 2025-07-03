@@ -9,6 +9,10 @@ export const config = {
     name: "AI Media",
     path: "/ai-media",
   },
+  admin: {
+    name: "Admin",
+    path: "/admin",
+  },
   credits: {
     name: "Credits",
     path: "/credits",

@@ -1,7 +1,16 @@
 import React, { useState, createContext, useContext, useEffect } from "react";
 
 // Utils
-import { createSessionWithAccessToken, deleteAccessToken, getRequestToken, getAccountDetails, getAccessToken } from "../services/user";
+import {
+  getUserDoc,
+  getAllUsers,
+  addUser,
+  createSessionWithAccessToken,
+  deleteAccessToken,
+  getRequestToken,
+  getAccountDetails,
+  getAccessToken,
+} from "../services/user";
 
 // Types
 import { UserType } from "models/types";
@@ -93,6 +102,31 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
     }
   };
 
+  const addUserToDatabase = (user: UserType) => {
+    getAllUsers().then((users: any[]) => {
+      const userId = user?.id.toString();
+      const existingUser = users.find((u) => u.id == userId);
+
+      if (!existingUser) {
+        addUser({ ...user, admin: false });
+      }
+    });
+  };
+
+  const handleIsUserCredentials = (userId: number, user: any) => {
+    if (userId) {
+      getUserDoc(userId.toString()).then((userData) => {
+        const admin = userData?.admin || false;
+        const member = userData?.member || false;
+        const update = { ...user, admin, member };
+
+        setUser(update);
+        sessionStorage.setItem("user", JSON.stringify(update));
+        addUserToDatabase(update);
+      });
+    }
+  };
+
   const handleGetAccountDetails = (sessionId: string) => {
     getAccountDetails(sessionId)
       .then((response: any) => {
@@ -100,11 +134,9 @@ export const UserProvider: React.FC<Props> = ({ children }) => {
           const accountId = sessionStorage.getItem("account_id");
           const accessToken = sessionStorage.getItem("access_token");
           const sessionId = sessionStorage.getItem("session_id");
-
           const update = { ...response.data, account_id: accountId, access_token: accessToken, session_id: sessionId };
-          setUser(update);
 
-          sessionStorage.setItem("user", JSON.stringify(update));
+          handleIsUserCredentials(update.id, update);
           sessionStorage.removeItem("account_id");
           sessionStorage.removeItem("request_token");
           sessionStorage.removeItem("session_id");

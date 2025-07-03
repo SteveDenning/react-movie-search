@@ -5,13 +5,13 @@ import { config } from "../config/routes";
 
 // Views
 import APMediaPage from "../pages/ai-media";
+import Admin from "../pages/admin";
 import DetailsPage from "../pages/details";
 import CreditsPage from "../pages/credits";
 import FavoritesPage from "../pages/favorites";
 import HomePage from "../pages/home";
 import MediaListingPage from "../pages/media-listing";
 // import PageNotFound from "../pages/page-not-found";
-import ProfilePage from "../pages/profile";
 import SearchResultsPage from "../pages/search-results";
 import TermsPage from "../pages/terms";
 
@@ -24,6 +24,10 @@ const routes = {
         path: "/",
         element: <HomePage />,
         // errorElement: <PageNotFound />,
+      },
+      {
+        path: `${config.admin.path}`,
+        element: <Admin />,
       },
       {
         path: `${config.aiMedia.path}`,
@@ -44,10 +48,6 @@ const routes = {
       {
         path: `${config.mediaListing.path}/:type/:media/:period/:title`,
         element: <MediaListingPage />,
-      },
-      {
-        path: `${config.profile.path}`,
-        element: <ProfilePage />,
       },
       {
         path: `${config.searchResults.path}`,

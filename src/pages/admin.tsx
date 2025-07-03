@@ -4,20 +4,20 @@ import React from "react";
 import DefaultLayout from "../layout/default";
 
 // Views
-import Profile from "../views/profile";
+import Admin from "../views/admin";
 
-const ProfilePage = () => {
-  const title = "Profile Page";
-  const pageDescription = "";
+const AdminPage = () => {
+  const title = "Admin Area";
+  const pageDescription = "Admin section for displaying users";
 
   return (
     <DefaultLayout
       title={title}
       pageDescription={pageDescription}
     >
-      <Profile />
+      <Admin />
     </DefaultLayout>
   );
 };
 
-export default ProfilePage;
+export default AdminPage;

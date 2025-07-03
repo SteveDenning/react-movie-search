@@ -1,8 +1,21 @@
 import axios from "axios";
 
-import { getRequestToken, getAccessToken, deleteAccessToken, getAccountDetails, createSessionWithAccessToken } from "../user";
+import {
+  getRequestToken,
+  getAccessToken,
+  deleteAccessToken,
+  getAccountDetails,
+  createSessionWithAccessToken,
+  getUserDoc,
+  getAllUsers,
+  addUser,
+} from "../user";
+import { doc, getDoc, collection, getDocs } from "firebase/firestore";
+// Firebase
+import { db } from "../../firebase";
 
 jest.mock("axios");
+jest.mock("firebase/firestore");
 
 describe("User service (API calls)", () => {
   it("Should fetch request token successfully", async () => {
@@ -48,5 +61,60 @@ describe("User service (API calls)", () => {
   it("Should handle API errors", async () => {
     (axios.post as jest.MockedFunction<typeof axios.post>).mockRejectedValue(new Error("Network Error"));
     await expect(getRequestToken()).rejects.toThrow("Network Error");
+  });
+
+  it("Should return user data if doc exists", async () => {
+    const mockData = { name: "Test User" };
+    (doc as jest.Mock).mockReturnValue("docRef");
+    (getDoc as jest.Mock).mockResolvedValue({
+      exists: () => true,
+      data: () => mockData,
+    });
+
+    const result = await getUserDoc("123");
+    expect(doc).toHaveBeenCalledWith(db, "users", "123");
+    expect(result).toEqual(mockData);
+  });
+
+  it("returns null if doc does not exist", async () => {
+    (doc as jest.Mock).mockReturnValue("docRef");
+    (getDoc as jest.Mock).mockResolvedValue({
+      exists: () => false,
+    });
+
+    const result = await getUserDoc("123");
+    expect(result).toBeNull();
+  });
+
+  it("Should return all users", async () => {
+    const mockDocs = [
+      { id: "1", data: () => ({ name: "A" }) },
+      { id: "2", data: () => ({ name: "B" }) },
+    ];
+    const mockSnapshot = { docs: mockDocs };
+    (collection as jest.Mock).mockReturnValue("usersCol");
+    (getDocs as jest.Mock).mockResolvedValue(mockSnapshot);
+
+    const result = await getAllUsers();
+    expect(collection).toHaveBeenCalledWith(db, "users");
+    expect(result).toEqual([
+      { id: "1", name: "A" },
+      { id: "2", name: "B" },
+    ]);
+  });
+
+  it("Should add a user with correct params", async () => {
+    const user = { id: "123", name: "Test User" };
+    (doc as jest.Mock).mockReturnValue("userRef");
+    const setDoc = require("firebase/firestore").setDoc;
+    setDoc.mockResolvedValue(undefined);
+
+    await addUser(user);
+    expect(doc).toHaveBeenCalledWith(db, "users", "123");
+    expect(setDoc).toHaveBeenCalledWith("userRef", user, { merge: true });
+  });
+
+  it("Should throw if user has no id", async () => {
+    await expect(addUser({})).rejects.toThrow("User must have an id");
   });
 });
