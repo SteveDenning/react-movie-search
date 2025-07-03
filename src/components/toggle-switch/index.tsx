@@ -11,9 +11,9 @@ interface Props {
 
 const ToggleSwitch: React.FC<Props> = ({ checked, onChange, disabled }) => {
   // class definitions
-  const toggleClass = disabled ? "toggle-switch--disabled" : "";
   const baseClass = "toggle-switch";
-  const classes = [baseClass, toggleClass].filter(Boolean).join(" ");
+  const disabledClass = disabled ? "toggle-switch--disabled" : "";
+  const classes = [baseClass, disabledClass].filter(Boolean).join(" ");
 
   return (
     <label

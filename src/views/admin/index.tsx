@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 
-// Components
+// MUI COmponents
 import { Container } from "@mui/material";
+
+// Components
+import Error from "../../components/error";
 import SectionHeading from "../../components/section-heading";
 import ToggleSwitch from "../../components/toggle-switch";
 
@@ -20,26 +23,31 @@ interface Props {
 
 const Admin: React.FC<Props> = () => {
   const [users, setUsers] = useState<any[]>([]);
+  const [error, setError] = useState<boolean>(false);
 
   const currentUser = useUser();
 
   const getUsers = async () => {
-    try {
-      const users = await getAllUsers();
-      setUsers(users);
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
+    getAllUsers()
+      .then((users) => {
+        setUsers(users);
+      })
+      .catch((error) => {
+        setError(true);
+        console.error("Error fetching users:", error);
+      });
   };
+
   const handleToggleAdmin = async (userId: any, member) => {
-    try {
-      const updatedUsers = users.map((user) => (user.id === userId.id ? { ...user, member: !user.member } : user));
-      const update = { ...userId, member: member };
-      setUsers(updatedUsers);
-      addUser(update);
-    } catch (error) {
-      console.error("Error updating member status:", error);
-    }
+    const updatedUsers = users.map((user) => (user.id === userId.id ? { ...user, member: !user.member } : user));
+    const update = { ...userId, member: member };
+    setUsers(updatedUsers);
+    addUser(update)
+      .then()
+      .catch((error) => {
+        setError(true);
+        console.error("Error updating member status:", error);
+      });
   };
 
   useEffect(() => {
@@ -84,6 +92,12 @@ const Admin: React.FC<Props> = () => {
             </tbody>
           </table>
         </div>
+        {error && (
+          <Error
+            testId="admin-error"
+            content="There was a problem with the admin page - please try again later."
+          />
+        )}
       </Container>
     </div>
   );

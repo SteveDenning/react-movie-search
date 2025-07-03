@@ -37,6 +37,7 @@ const ToggleSwitch = (args: any) => {
     <Template
       checked={checkedState}
       onChange={() => setCheckedState(!checkedState)}
+      disabled={args.disabled}
     />
   );
 };

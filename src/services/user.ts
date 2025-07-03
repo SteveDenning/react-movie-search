@@ -3,9 +3,8 @@ import axios, { AxiosResponse } from "axios";
 // Headers
 import { headers } from "./headers";
 
-import { doc, getDoc, getDocs, collection, setDoc } from "firebase/firestore";
-
 // Firebase
+import { doc, getDoc, getDocs, collection, setDoc } from "firebase/firestore";
 import { db } from "../firebase";
 
 export const getRequestToken = async (): Promise<any> => {

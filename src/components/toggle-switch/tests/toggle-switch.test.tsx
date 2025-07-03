@@ -18,8 +18,27 @@ describe("Toggle Switch component", () => {
       ),
     );
 
-    it("Should render a template", () => {
+    it("Should render a toggle switch component", () => {
       expect(screen.getByTestId("toggle-switch")).toBeInTheDocument();
+    });
+  });
+
+  describe("Component rendering (unchecked)", () => {
+    const onClick = jest.fn();
+
+    beforeEach(() =>
+      render(
+        <ToggleSwitch
+          onChange={onClick}
+          checked={false}
+        />,
+      ),
+    );
+
+    it("Should call onChange when clicked", () => {
+      const toggle = screen.getByTestId("toggle-switch");
+      toggle.click();
+      expect(onClick).toHaveBeenCalled();
     });
   });
 });
