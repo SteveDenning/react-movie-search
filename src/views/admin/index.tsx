@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
 // MUI COmponents
 import { Container } from "@mui/material";
@@ -7,9 +7,6 @@ import { Container } from "@mui/material";
 import Error from "../../components/error";
 import SectionHeading from "../../components/section-heading";
 import ToggleSwitch from "../../components/toggle-switch";
-
-// Hocs
-import { useUser } from "../../hocs/with-user-provider";
 
 // Services
 import { addUser, getAllUsers } from "../../services/user";
@@ -25,7 +22,9 @@ const Admin: React.FC<Props> = () => {
   const [users, setUsers] = useState<any[]>([]);
   const [error, setError] = useState<boolean>(false);
 
-  const currentUser = useUser();
+  const sortedUsers = useMemo(() => {
+    return [...users].sort((a, b) => a["username"].localeCompare(b["username"]));
+  }, [users]);
 
   const getUsers = async () => {
     getAllUsers()
@@ -75,7 +74,7 @@ const Admin: React.FC<Props> = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => (
+              {sortedUsers.map((user) => (
                 <tr key={user.id}>
                   <td>{user.username}</td>
                   <td>{user.name || "- - -"}</td>
@@ -84,7 +83,6 @@ const Admin: React.FC<Props> = () => {
                     <ToggleSwitch
                       checked={user.member}
                       onChange={() => handleToggleAdmin(user, !user.member)}
-                      disabled={user.id === currentUser?.["id"]}
                     />
                   </td>
                 </tr>

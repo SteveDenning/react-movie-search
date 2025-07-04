@@ -36,3 +36,6 @@ yarn-error.log*
 /playwright/.cache/
 
 playwright/.auth
+
+# Playwright
+node_modules/
