@@ -8,9 +8,6 @@ import Error from "../../components/error";
 import SectionHeading from "../../components/section-heading";
 import ToggleSwitch from "../../components/toggle-switch";
 
-// Hocs
-import { useUser } from "../../hocs/with-user-provider";
-
 // Services
 import { addUser, getAllUsers } from "../../services/user";
 
@@ -25,12 +22,11 @@ const Admin: React.FC<Props> = () => {
   const [users, setUsers] = useState<any[]>([]);
   const [error, setError] = useState<boolean>(false);
 
-  const currentUser = useUser();
-
   const getUsers = async () => {
     getAllUsers()
       .then((users) => {
-        setUsers(users);
+        const sortUsers = users.sort((a, b) => a["username"].localeCompare(b["username"]));
+        setUsers(sortUsers);
       })
       .catch((error) => {
         setError(true);
