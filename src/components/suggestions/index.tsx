@@ -35,13 +35,13 @@ const AutoSuggestOptions: React.FC<Props> = ({ options, type }) => {
       data-testid="suggestions"
     >
       <ul className="suggestions__list">
-        {options.map((suggestion: SuggestionType, index: number) => {
+        {options.map((suggestion: SuggestionType) => {
           const mediaType = type === "multi" ? suggestion?.media_type : type;
 
           return (
             <li
               className="suggestions__list-item"
-              key={index}
+              key={suggestion.id}
             >
               <Button
                 href={`/details/${mediaType}/${suggestion.id}`}

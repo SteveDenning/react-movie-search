@@ -1,30 +1,28 @@
-import { v4 as uuidv4 } from "uuid";
-
 const useCustomGenres = () => {
   return [
     {
       label: "Kids",
-      value: uuidv4(),
+      value: crypto.randomUUID(),
     },
     {
       label: "Soap",
-      value: uuidv4(),
+      value: crypto.randomUUID(),
     },
     {
       label: "News",
-      value: uuidv4(),
+      value: crypto.randomUUID(),
     },
     {
       label: "Reality",
-      value: uuidv4(),
+      value: crypto.randomUUID(),
     },
     {
       label: "Talk",
-      value: uuidv4(),
+      value: crypto.randomUUID(),
     },
     {
       label: "Politics",
-      value: uuidv4(),
+      value: crypto.randomUUID(),
     },
   ];
 };

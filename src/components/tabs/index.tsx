@@ -42,14 +42,14 @@ const Tabs: React.FC<Props> = ({ variant, className, tabs, onClick, initialSelec
       className={classes}
       data-testid="tabs"
     >
-      {tabs.map((tab: { label: string; value: string; payload: any }, index: number) => {
+      {tabs.map((tab: { label: string; value: string; payload: any }) => {
         const isSelected = selected === tab.value;
 
         return (
           <Button
             className={`tabs__button${isSelected ? " tabs__button--selected" : ""}`}
             onClick={(event) => handleClick(event, tab)}
-            key={index}
+            key={tab.label}
             variant="plain"
             testId="tab-button"
           >
