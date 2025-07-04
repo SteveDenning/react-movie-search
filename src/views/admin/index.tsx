@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 
 // MUI COmponents
 import { Container } from "@mui/material";
@@ -22,11 +22,14 @@ const Admin: React.FC<Props> = () => {
   const [users, setUsers] = useState<any[]>([]);
   const [error, setError] = useState<boolean>(false);
 
+  const sortedUsers = useMemo(() => {
+    return [...users].sort((a, b) => a["username"].localeCompare(b["username"]));
+  }, [users]);
+
   const getUsers = async () => {
     getAllUsers()
       .then((users) => {
-        const sortUsers = users.sort((a, b) => a["username"].localeCompare(b["username"]));
-        setUsers(sortUsers);
+        setUsers(users);
       })
       .catch((error) => {
         setError(true);
@@ -71,7 +74,7 @@ const Admin: React.FC<Props> = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((user) => (
+              {sortedUsers.map((user) => (
                 <tr key={user.id}>
                   <td>{user.username}</td>
                   <td>{user.name || "- - -"}</td>
