@@ -26,6 +26,9 @@ import { useUser } from "../../hocs/with-user-provider";
 // MUI
 import { Backdrop, CircularProgress, Container, Fade, IconButton, Tooltip } from "@mui/material";
 
+// MUI Icons
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
+
 // Services
 import { getFavorites } from "../../services/favorites";
 import { getMediaByID, getOmdbMedia, getMedia } from "../../services/media";
@@ -283,6 +286,19 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                           )}
                           {!isPerson && (
                             <div className="details-view__actions">
+                              {user?.["member"] && resource.title && (
+                                <Button
+                                  style={{ marginRight: "10px" }}
+                                  target="_blank"
+                                  className="share__button"
+                                  testId="share-button"
+                                  variant="icon"
+                                  href={`https://yts.torrentbay.st/browse-movies/${resource.title}/all/all/0/latest/0/all`}
+                                >
+                                  <span className="sr-only">Download button</span>
+                                  <FileDownloadIcon />
+                                </Button>
+                              )}
                               <Share
                                 title={title}
                                 id={title}
