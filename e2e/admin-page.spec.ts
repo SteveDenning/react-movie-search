@@ -16,5 +16,5 @@ test("Should be able to log in and access Admin area and toggle a users membersh
   await expect(page).toHaveTitle(/Admin Area/);
   await expect(page).toHaveURL("https://my-mdb.co.uk/admin");
 
-  await page.getByRole("row", { name: "SteveD1972 Steve Denning" }).locator("span").click();
+  await page.getByRole("row", { name: "admin-mmdb" }).locator("span").click();
 });
