@@ -80,7 +80,6 @@ const Admin: React.FC<Props> = () => {
                     <ToggleSwitch
                       checked={user.member}
                       onChange={() => handleToggleAdmin(user, !user.member)}
-                      // disabled={user.id === currentUser?.["id"]}
                     />
                   </td>
                 </tr>

@@ -25,6 +25,11 @@
     th {
       background: rgba($color: #000000, $alpha: 0.6);
       padding: 12px 15px;
+      text-align: left;
+
+      &:last-of-type {
+        text-align: center;
+      }
     }
 
     tr {
