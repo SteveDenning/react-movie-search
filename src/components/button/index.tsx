@@ -23,7 +23,6 @@ interface Props {
   endIcon?: any;
   onMouseEnter?: (event: any) => void;
   onMouseLeave?: (event: any) => void;
-  style?: React.CSSProperties;
 }
 
 const Button: React.FC<Props> = ({
@@ -46,7 +45,6 @@ const Button: React.FC<Props> = ({
   endIcon,
   onMouseEnter,
   onMouseLeave,
-  style,
 }) => {
   // Class Definitions
   const baseClass = "button";
@@ -83,7 +81,6 @@ const Button: React.FC<Props> = ({
       tabIndex={tabIndex}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      style={style}
     >
       {startIcon && (
         <span

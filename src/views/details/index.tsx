@@ -287,17 +287,18 @@ const DetailsView: React.FC<Props> = ({ handleMediaTitle }) => {
                           {!isPerson && (
                             <div className="details-view__actions">
                               {user?.["member"] && resource.title && (
-                                <Button
-                                  style={{ marginRight: "10px" }}
-                                  target="_blank"
-                                  className="share__button"
-                                  testId="share-button"
-                                  variant="icon"
-                                  href={`https://yts.torrentbay.st/browse-movies/${resource.title}/all/all/0/latest/0/all`}
-                                >
-                                  <span className="sr-only">Download button</span>
-                                  <FileDownloadIcon />
-                                </Button>
+                                <span style={{ marginRight: "10px" }}>
+                                  <Button
+                                    target="_blank"
+                                    className="share__button"
+                                    testId="share-button"
+                                    variant="icon"
+                                    href={`https://yts.torrentbay.st/browse-movies/${resource.title}/all/all/0/latest/0/all`}
+                                  >
+                                    <span className="sr-only">Download button</span>
+                                    <FileDownloadIcon />
+                                  </Button>
+                                </span>
                               )}
                               <Share
                                 title={title}
