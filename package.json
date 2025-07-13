@@ -89,7 +89,8 @@
     "ts-jest": "^29.2.6",
     "typescript": "^4.9.5",
     "uuid": "^11.0.5",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "ws": "^8.18.3"
   },
   "eslintConfig": {
     "extends": [

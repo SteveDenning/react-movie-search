@@ -20,6 +20,7 @@ import { Container } from "@mui/material";
 
 // Types
 import { ResponsiveOptionsType } from "../models/types";
+import Notifications from "./../components/notifications";
 
 const HomePage = () => {
   const title = "My Movie Database | Home";
@@ -66,6 +67,7 @@ const HomePage = () => {
         path="movie/now_playing"
       />
       <Container>
+        <Notifications />
         <section>
           <h1 className="section-title">Trending this week</h1>
           <MediaCarousel
