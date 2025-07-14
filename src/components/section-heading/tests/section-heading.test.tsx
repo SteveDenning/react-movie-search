@@ -89,7 +89,7 @@ describe("Section Title component", () => {
     });
 
     it("Should navigate back a page when the user clicks the Back button", async () => {
-      jest.spyOn(window.history, "back").mockImplementation(() => {});
+      jest.spyOn(window.history, "back").mockImplementation(() => console.log("Back button clicked"));
 
       expect(screen.queryAllByTestId("button")).toHaveLength(1);
 

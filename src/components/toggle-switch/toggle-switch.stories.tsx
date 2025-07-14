@@ -63,6 +63,6 @@ export const Disabled: Story = {
 };
 Disabled.args = {
   checked: false,
-  onChange: () => {},
+  onChange: () => null,
   disabled: true,
 };

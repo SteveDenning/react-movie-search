@@ -46,5 +46,5 @@ export const Default: Story = {
 Default.args = {
   resource: "Lorem ipsum",
   size: "small",
-  onClick: () => {},
+  onClick: () => null,
 };

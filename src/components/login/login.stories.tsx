@@ -39,7 +39,7 @@ export const Default: Story = {
 };
 Default.args = {
   user: null,
-  onClick: () => {},
+  onClick: () => null,
 };
 
 export const LoggedInAvatar: Story = {
@@ -58,7 +58,7 @@ LoggedInAvatar.args = {
     },
     name: "Steve Denning",
   },
-  onClick: () => {},
+  onClick: () => null,
 };
 
 export const LoggedInInitials: Story = {
@@ -77,5 +77,5 @@ LoggedInInitials.args = {
     },
     name: "Steve Denning",
   },
-  onClick: () => {},
+  onClick: () => null,
 };
